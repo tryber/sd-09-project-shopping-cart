@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -40,8 +38,6 @@ function fetchMercadoLivre(search) {
     }));
 }
 
-fetchMercadoLivre('computador');
-
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
@@ -53,3 +49,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() {
+  fetchMercadoLivre('computador');
+};
