@@ -1,5 +1,3 @@
-const localStorageKeysArray = []
-
 function idToSkuTranslator(objectWithId) {
   const { id, title, thumbnail } = objectWithId;
   const objectWithSku = { sku: id, name: title, image: thumbnail };
@@ -91,7 +89,7 @@ function localStorageCart() {
     productKeys.forEach((productKey) => {
       const productObject = JSON.parse(localStorage[productKey]);
       const { id, title, price } = productObject;
-      const cartDetails = { sku: id, name: title, salePrice: price};
+      const cartDetails = { sku: id, name: title, salePrice: price };
       const cartItem = createCartItemElement(cartDetails);
       cart.appendChild(cartItem);
       cartItem.addEventListener('click', cartItemClickListener);
