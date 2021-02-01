@@ -1,4 +1,6 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  fetchMLB('computador');
+ };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -42,27 +44,46 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchMLB = async (ProductType) => {
-  const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${ProductType}`;
+const fetchProductToCart = async (id) => {
+  const endPoint = `https://api.mercadolibre.com/items/${id}`;
 
   try {
-    const response = await fetch(endPoint);
-    const object = await response.json();
-    object.results.forEach((element) => {
-      const sectionElement = document.querySelector('.items');
-      const id = element.id;
-      const name = element.title;
-      const image = element.thumbnail;
-      const newObject = {
-        id,
-        name,
-        image,
-      };
-      sectionElement.appendChild(createProductItemElement(newObject));
-    });
+    const cartOl = document.querySelector('.cart__items');
+    const selectedItem = await fetch(endPoint);
+    const object = await selectedItem.json();
+    const sku = object.id;
+    const name = object.title;
+    const salePrice = object.base_price;
+    cartOl.appendChild(createCartItemElement({ sku, name, salePrice }));
   } catch (error) {
     window.alert(error);
   }
 };
 
-fetchMLB('computador');
+const addProductToCart = () => {
+  const addProductButton = document.querySelectorAll('.item__add');
+  addProductButton.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      fetchProductToCart(event.target.parentNode.children[0].innerText);
+    });
+  });
+};
+
+
+const fetchMLB = async (ProductType) => {
+  const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${ProductType}`;
+  try {
+    const response = await fetch(endPoint);
+    const object = await response.json();
+    object.results.forEach((element) => {
+      const sectionElement = document.querySelector('.items');
+      const sku = element.id;
+      const name = element.title;
+      const image = element.thumbnail;
+      sectionElement.appendChild(createProductItemElement({ sku, name, image }));
+    });
+  } catch (error) {
+    window.alert(error);
+  }
+  addProductToCart();
+};
