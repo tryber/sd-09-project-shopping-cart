@@ -19,7 +19,9 @@ function createProductItemElement({ id, title, thumbnail }) {
   section.appendChild(createCustomElement('span', 'item__sku', id));
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  const buttonAdd = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
+  buttonAdd.addEventListener('click', getProductFromAPIIds);
+  section.appendChild(buttonAdd);
 
   return section;
 }
@@ -32,22 +34,38 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({ id, title, price }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
-window.onload = function onload() {
-  const sectionItems = document.querySelector('.items');
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+const appendChildElement = (father, elementChild) => {
+  const elementFather = document.querySelector(`${father}`);
+  elementFather.appendChild(elementChild);
+}
+
+const getProductsFromAPI = () => {
+  return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then((object) => {
       object.results.forEach((product) => {
-        sectionItems.appendChild(createProductItemElement(product));
+        appendChildElement('.items', createProductItemElement(product));
       });
     })
     .catch(error => window.alert(error));
+}
+
+const getProductFromAPIIds = (event) => {
+  const idProduct = event.path[1].firstChild.innerText;
+  fetch(`https://api.mercadolibre.com/items/${idProduct}`)
+    .then(response => response.json())
+    .then(object => appendChildElement('.cart__items', createCartItemElement(object)))
+    .catch(error => window.alert(error));
+}
+
+window.onload = function onload() {
+  getProductsFromAPI();
 };
