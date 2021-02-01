@@ -1,9 +1,16 @@
 async function fetchAPI(endpoint) {
+  const body = document.querySelector('body');
+  const loading = document.createElement('p');
+  loading.innerText = 'loading...';
+  loading.className = 'loading';
+  body.appendChild(loading);
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
+    body.removeChild(body.lastChild);
     return object;
   } catch (error) {
+    body.removeChild(body.lastChild);
     return window.alert('Error');
   }
 }
