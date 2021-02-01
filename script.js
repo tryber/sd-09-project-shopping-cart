@@ -48,7 +48,6 @@ function getProduct() {
     .then(reponse => reponse.json())
     .then((object) => {
       const product = object.results;
-      console.log(product)
       product.forEach((element) => {
         const { id: sku, title: name, thumbnail: image } = element;
         createProductItemElement({ sku, name, image });
