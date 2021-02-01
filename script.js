@@ -35,8 +35,8 @@ function cartItemClickListener() {
     .then((data) => {
       data.results.forEach((item) => {
         const itemSection = document.querySelector('.items');
-        const el = createProductItemElement({sku: item.id, name: item.title, image: item.thumbnail});
-        itemSection.appendChild(el);
+        const object = { sku: item.id, name: item.title, image: item.thumbnail };
+        itemSection.appendChild(createProductItemElement(object));
       });
     });
 }
@@ -50,5 +50,5 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 window.onload = () => {
-  cartItemClickListener()
+  cartItemClickListener();
 }
