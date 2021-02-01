@@ -93,6 +93,7 @@ async function addToCart(event) {
 async function createItemList() {
   const itemsSection = document.querySelector('section.items');
   const productList = await fetchProductList();
+  document.querySelector('span.loading').remove();
   productList.results.forEach((product) => {
     const productItem = createProductItemElement({
       sku: product.id,
