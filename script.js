@@ -5,30 +5,16 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-const cartItemClickListener = async(itemID) => {
-  try {
-    const productDetails = `https://api.mercadolibre.com/items/${itemID}`;
-    await fetch(productDetails)
-      .then((response) => response.json())
-      .then((object) => {
-        const newProduct = createCartItemElement(object);
-        document.querySelector('.cart__items').appendChild(newProduct);
-      });
-  } catch (error) {
-    console.log(`Ocorreu um erro: ${error}`);
-  }
-}
-
 function createCustomElement(element, className, innerText, sku) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
   if (element === 'button') {
     e.id = sku;
-    e.addEventListener('click', element => {
+    e.addEventListener('click', () => {
       cartItemClickListener(e.id);
     });
-}
+  }
   return e;
 }
 
@@ -54,6 +40,20 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   return li;
 }
 
+const cartItemClickListener = async (itemID) => {
+  try {
+    const productDetails = `https://api.mercadolibre.com/items/${itemID}`;
+    await fetch(productDetails)
+      .then(response => response.json())
+      .then((object) => {
+        const newProduct = createCartItemElement(object);
+        document.querySelector('.cart__items').appendChild(newProduct);
+      });
+  } catch (error) {
+    console.log(`Ocorreu um erro: ${error}`);
+  }
+};
+
 const fetchItems = async (product) => {
   try {
     const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
@@ -69,8 +69,8 @@ const fetchItems = async (product) => {
 };
 
 const setupEvents = () => {
-  fetchItems('computador');   
-}
+  fetchItems('computador');
+};
 
 window.onload = function onload() {
   setupEvents();
