@@ -1,3 +1,5 @@
+// Brenno Calado Project
+
 window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
