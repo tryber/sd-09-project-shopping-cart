@@ -81,15 +81,15 @@ function getProducts() {
 }
 
 function getCartProducts() {
-  for (const key in localStorage) {
-    if (key.startsWith('MLB')) {
-      const item = JSON.parse(localStorage.getItem(key));
-      createCartItemElement({
-        sku: item.sku,
-        name: item.name,
-        salePrice: item.salePrice,
-      });
-    }
+  const elementsLocal = Object.keys(localStorage);
+
+  for (let index = 0; index < elementsLocal.length; index += 1) {
+    let item = localStorage.getItem(elementsLocal[index]);
+    createCartItemElement({
+      sku: item.sku,
+      name: item.name,
+      salePrice: item.salePrice,
+    });
   }
 }
 
