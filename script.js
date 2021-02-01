@@ -26,7 +26,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 const criaLista = () => {
-  const itens = document.querySelector('.items')
+  const itens = document.querySelector('.items');
   const link = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   fetch(link)
   .then(resposta => resposta.json())
@@ -34,7 +34,7 @@ const criaLista = () => {
   .then((array) => {
     array.forEach((obj) => {
       const { sku, name, image } = obj;
-     const section = createProductImageElement({ sku, name, image });
+      const section = createProductImageElement({ sku, name, image });
       itens.appendChild(section);
     });
   })
