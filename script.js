@@ -57,13 +57,13 @@ function getSkuFromProductItem(item) {
 
 const getProductsFromAPI = () =>
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then((response) => response.json())
+    .then(response => response.json())
     .then((object) => {
       object.results.forEach((product) => {
         appendChildElement('.items', createProductItemElement(product));
       });
     })
-    .catch((error) => window.alert(error));
+    .catch(error => window.alert(error));
 
 window.onload = function onload() {
   getProductsFromAPI();
