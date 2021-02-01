@@ -25,6 +25,11 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
+//trazer as coisas da api para cá ok
+//eu preciso id = sku, name= title, image = thumbnail
+// como eu acesso essas informações? através de buscas de objetos
+
+//console.log(createProductItemElement({ sku, name, image }));
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
@@ -41,3 +46,25 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function apiAdd () {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$computador`
+
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then((response) => response.json())
+  .then((object) => {
+    for(let index =0; index < object.results.length; index += 1) {
+      const sku = object.results[index].id;
+    }
+    for(let index =0; index < object.results.length; index += 1) {
+      const name = object.results[index].title;
+    }
+    for(let index =0; index < object.results.length; index += 1) {
+    const image = object.results[index].thumbnail;
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+}
+apiAdd()
