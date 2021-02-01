@@ -1,17 +1,21 @@
 window.onload = function onload() {
-
-  fetchAPI();
-
-
+  siteInitialize();
 };
 
-const fetchAPI = async () => {
-  const endpoint = "https://api.mercadolibre.com/sites/MLB/search?q=$computador"
-
+const siteInitialize = async () => {
+  const searchEndpoint = "https://api.mercadolibre.com/sites/MLB/search?q=$computador"
+  const object = await fetchAPI(searchEndpoint);
+  createListOfItems(object);
+  const addItemsButtons = document.querySelectorAll('.item__add');
+  addItemsButtons.forEach((button) => {
+    button.addEventListener('click', cartItemClickListener);
+  });
+}
+const fetchAPI = async (endpoint) => {
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
-    createListOfItems(object);
+    return object;
   } catch {
     window.alert("Error");
   }
@@ -20,11 +24,8 @@ const fetchAPI = async () => {
 function createListOfItems(object) {
   object.results.forEach((item) => {
     const itemsContainer = document.querySelector(".items");
-    const newItem = {};
-    newItem['sku'] = item.id;
-    newItem['name'] = item.title;
-    newItem['image'] = item.thumbnail;
-    const newItemElement = createProductItemElement(newItem);
+    const {id:sku, title:name, thumbnail:image} = item;
+    const newItemElement = createProductItemElement({sku, name, image});
     itemsContainer.appendChild(newItemElement);
   });
 }
@@ -62,12 +63,18 @@ function createProductItemElement({
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
+const addCartItem = async (itemId) => {
+  const cartContainer = document.querySelector('.cart__items');
+  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
+  const item = await fetchAPI(endpoint);
+  const {id:sku, title:name, price:salePrice} = item;
+  cartContainer.appendChild(createCartItemElement({sku, name, salePrice}));
 
+  
+}
 function cartItemClickListener(event) {
-  // coloque seu código aqui
-  console.log(event.target);
-  // const cartItems = document.querySelector('cart__items');
-  // const endpoint = `https://api.mercadolibre.com/items/$${event.target.}`
+  const itemId = getSkuFromProductItem(event.target.parentNode);
+  addCartItem(itemId);
 }
 
 function createCartItemElement({
