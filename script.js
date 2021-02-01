@@ -93,7 +93,7 @@ function loadCurrentCart() {
   if (cart) {
     cartElement.innerHTML = cart;
     const cartItems = document.querySelectorAll('.cart__item');
-    cartItems.forEach((element) => element.addEventListener('click', cartItemClickListener));
+    cartItems.forEach(element => element.addEventListener('click', cartItemClickListener));
   }
 }
 
