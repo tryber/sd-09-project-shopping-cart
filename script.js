@@ -66,5 +66,3 @@ function mercadoLivreFetch(requiredProduct) {
 window.onload = function onload() {
   mercadoLivreFetch('computador');
 };
-
-
