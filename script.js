@@ -55,7 +55,6 @@ function restoreCart() {
 
 function cartItemClickListener(event) {
   document.querySelector('.cart__items').removeChild(event.target);
-  
 }
 
 
@@ -80,7 +79,6 @@ function addItemToCart(event) {
       saveCart();
     });
 }
-
 
 
 function clearCart() {
