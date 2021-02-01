@@ -1,0 +1,33 @@
+{
+    "requirements": [
+      {
+        "description":"Listagem de produtos",
+        "bonus": false
+      },
+      {
+        "description":"Adicione o produto ao carrinho de compras",
+        "bonus": false
+      },
+      {
+        "description":"Remova o item do carrinho de compras ao clicar nele",
+        "bonus": false
+      },
+      {
+        "description":"Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página",
+        "bonus": false
+      },
+      {
+        "description":"Some o valor total dos itens do carrinho de compras de forma assíncrona" ,
+        "bonus": false
+      },
+      {
+        "description":"Botão para limpar carrinho de compras" ,
+        "bonus": false
+      },
+      {
+        "description":"Adicionar um texto de \"loading\" durante uma requisição à API" ,
+        "bonus": false
+      }
+    ]
+  }
+  
