@@ -11,7 +11,7 @@ function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
-  return e;
+  return e; 
 }
 
 function createProductItemElement({ sku, name, image }) {
