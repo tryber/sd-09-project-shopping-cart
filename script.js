@@ -1,4 +1,4 @@
-window.onload = function onload() { };
+// window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -45,6 +45,30 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 // Adicione o produto ao carrinho de compras
 
+// const addProductOnCart = () => {};
+
+const fetchProduct = (sku) => {
+  fetch(`https://api.mercadolibre.com/items/${sku}`)
+    .then(response => response.json())
+    .then((data) => {
+      const itemCart = {
+        sku,
+        name: data.title,
+        salePrice: data.price,
+      };
+      document.querySelector('.cart__items').appendChild(createCartItemElement(itemCart));
+    });
+};
+
+const getSkuFromProduct = () => {
+  const getSectionItem = document.querySelector('.items');
+  getSectionItem.addEventListener('click', (event) => {
+    const item = event.target.parentNode;
+    const sku = item.querySelector('span.item__sku').innerText;
+    fetchProduct(sku);
+  });
+}
+
 // fazer a requisicao e implementacao dos produtos
 // as variáveis sku, se referem aos campos id retornados pela API.
 
@@ -66,4 +90,7 @@ const fetchMLB = () => {
     .then(data => implementResults(data.results));
 };
 
-fetchMLB();
+window.onload = () => {
+  fetchMLB();
+  getSkuFromProduct();
+};
