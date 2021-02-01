@@ -75,6 +75,7 @@ function searchID(id) {
     const { id: sku, title: name, price: salePrice } = object;
     const itemList = createCartItemElement({ sku, name, salePrice });
     createCartListItem(itemList);
+    savedStorage();
   })
   .catch(error => window.alert(error));
 }
@@ -101,6 +102,7 @@ function clearList() {
   buttonClear.addEventListener('click', function () {
     const listCarts = document.querySelector('.cart__items');
     listCarts.innerHTML = '';
+    savedStorage();
   });
 }
 
