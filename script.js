@@ -22,8 +22,9 @@ function addToList(data, objectComplement, sectionToAdd, callback) {
   sectionToAdd.appendChild(callback(finalObject));
 }
 
-function cartItemClickListener() {
-  // escrever função
+function cartItemClickListener(event) {
+  const parentNode = (event.target.parentNode);
+  parentNode.removeChild(event.target);
 }
 
 function createProductItemElement({ sku, name, image }) {
