@@ -17,9 +17,7 @@ const appendChildElement = (father, elementChild) => {
   elementFather.appendChild(elementChild);
 };
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
+const cartItemClickListener = (event) => event.target.remove();
 
 function createCartItemElement({ id, title, price }) {
   const li = document.createElement('li');
