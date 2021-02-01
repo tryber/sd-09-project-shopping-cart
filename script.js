@@ -49,7 +49,7 @@ const fetchProductToCart = async (id) => {
     const object = await selectedItem.json();
     const sku = object.id;
     const name = object.title;
-    const salePrice = object.base_price;
+    const salePrice = object.price;
     cartOl.appendChild(createCartItemElement({ sku, name, salePrice }));
   } catch (error) {
     window.alert(error);
