@@ -67,7 +67,7 @@ const getSkuFromProduct = () => {
     const sku = item.querySelector('span.item__sku').innerText;
     fetchProduct(sku);
   });
-}
+};
 
 // fazer a requisicao e implementacao dos produtos
 // as variáveis sku, se referem aos campos id retornados pela API.
