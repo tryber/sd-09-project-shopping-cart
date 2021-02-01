@@ -106,7 +106,7 @@ async function listProducts() {
 }
 
 function createPricesElement(callback) {
-  const paragraphPrice = document.createElement('span')
+  const paragraphPrice = document.createElement('span');
   paragraphPrice.className = 'total-price';
   document.querySelector('.amount').appendChild(paragraphPrice);
   callback();
