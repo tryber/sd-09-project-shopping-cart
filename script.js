@@ -1,9 +1,3 @@
-window.onload = function onload() {
-  document.querySelector('.empty-cart').addEventListener('click', () => {
-    document.querySelector('.cart__items').innerHTML = '';
-  });
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -89,4 +83,9 @@ const fetchSearch = async (query) => {
   addSendToCart();
 };
 
-fetchSearch('Computador');
+window.onload = function onload() {
+  fetchSearch('Computador');
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+  });
+};
