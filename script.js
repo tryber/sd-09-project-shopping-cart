@@ -61,10 +61,12 @@ async function fetchItemMercadoLivre(item) {
 }
 function addItemInCartListener() {
   const addButtons = document.querySelectorAll('.item__add');
-  addButtons.forEach((addButton) => addButton.addEventListener('click', function(event) {
-    const itemID = event.path[1].childNodes[0].innerText;
-    fetchItemMercadoLivre(itemID);
-  }));
+  addButtons.forEach((addButton) => (addButton
+    .addEventListener('click', (event) => {
+      const itemID = event.path[1].childNodes[0].innerText;
+      fetchItemMercadoLivre(itemID);
+    }
+  )));
 }
 
 function appendChildItemsList(item) {
