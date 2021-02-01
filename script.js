@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchMLB('computador');
- };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -86,4 +82,8 @@ const fetchMLB = async (ProductType) => {
     window.alert(error);
   }
   addProductToCart();
+};
+
+window.onload = function onload() {
+  fetchMLB('computador');
 };
