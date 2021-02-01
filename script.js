@@ -28,24 +28,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-async function fecthIDs(id) {
-  const endPoint = `https://api.mercadolibre.com/items/${id}`;
-  try {
-    const response = await fetch(endPoint);
-    const responseJson = await response.json();
-    const obj = {
-      ...responseJson,
-      sku: responseJson.id,
-      name: responseJson.title,
-      salePrice: responseJson.price,
-    }
-    const cartItem = createCartItemElement(obj);
-    document.querySelector('.cart__items').appendChild(cartItem);
-  } catch (error) {
-    alert(error);
-  }
-}
-
 function buttonCartListener() {
   const buttonAddCart = document.querySelectorAll('.item__add');
   // console.log(buttonAddCart);
@@ -53,8 +35,8 @@ function buttonCartListener() {
     element.addEventListener('click', (event) => {
       const idSku = event.path[1].firstElementChild.innerText;
       fecthIDs(idSku);
-    })
-  })
+    });
+  });
 }
 
 function fetchProducts(search) {
@@ -65,10 +47,8 @@ function fetchProducts(search) {
       const product = createProductItemElement({ sku: id, name: title, image: thumbnail });
       document.querySelector('.items').appendChild(product);
     }))
-    .then(buttonCartListener)
+    .then(buttonCartListener);
 }
-
-
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
@@ -80,6 +60,24 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+async function fecthIDs(id) {
+  const endPoint = `https://api.mercadolibre.com/items/${id}`;
+  try {
+    const response = await fetch(endPoint);
+    const responseJson = await response.json();
+    const obj = {
+      ...responseJson,
+      sku: responseJson.id,
+      name: responseJson.title,
+      salePrice: responseJson.price,
+    };
+    const cartItem = createCartItemElement(obj);
+    document.querySelector('.cart__items').appendChild(cartItem);
+  } catch (error) {
+    alert(error);
+  }
 }
 
 window.onload = function onload() {
