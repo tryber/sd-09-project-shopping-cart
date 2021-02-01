@@ -1,5 +1,8 @@
 window.onload = function onload() { };
 
+const alo = 'Hello World!!!!';
+console.log(alo);
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
