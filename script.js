@@ -1,6 +1,4 @@
-window.onload = function onload() {
-  criaLista();
- };
+window.onload = function onload() {};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -35,13 +33,14 @@ const criaLista = () => {
   .then(obj => obj.results)
   .then((array) => {
     array.forEach((obj) => {
-      const { id: sku , title: name, thumbnail: image } = obj;
-      const section = createProductItemElement({ sku, name, image });
+      const { id: sku, title: name, thumbnail: image } = obj;
+      const section = createProductItem  console.log(obj);Element({ sku, name, image });
       itens.appendChild(section);
     });
   })
   .catch(error => window.alert(error));
 };
+criaLista();
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
