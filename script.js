@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  //seu codigo aqui
+  // seu codigo aqui
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -41,7 +41,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function fetchMercadoLivre(term) {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
   const response = await fetch(endpoint);
   const object = await response.json();
@@ -49,11 +49,11 @@ async function fetchMercadoLivre(term) {
   console.log(results);
   const itemsElement = document.querySelector('.items');
 
- results.forEach((result) => {
-     const { id: sku, title: name, thumbnail: image } = result
-     const element = createProductItemElement({ sku, name, image });
-     itemsElement.appendChild(element)
- })
+  results.forEach((result) => {
+   const { id: sku, title: name, thumbnail: image } = result
+   const element = createProductItemElement({ sku, name, image });
+   itemsElement.appendChild(element);
+  })
 }
 
 window.onload = function onload() {
