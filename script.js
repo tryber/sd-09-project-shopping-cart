@@ -42,8 +42,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function addProductToTarget(parentClass, productObject, callback) {
   const targetParent = document.querySelector(parentClass);
-  const newProductObject = productObject;
-  const productResult = callback(newProductObject);
+  const productResult = callback(productObject);
   targetParent.appendChild(productResult);
 }
 
