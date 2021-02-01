@@ -88,7 +88,7 @@ function fetchAPI() {
         };
 
         itemsSection.appendChild(createProductItemElement(obj));
-        document.querySelector('.load').style.display = 'none'
+        document.querySelector('.load').style.display = 'none';
       });
     })
     .catch((error) => {
