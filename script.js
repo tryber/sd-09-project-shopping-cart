@@ -1,4 +1,4 @@
-window.onload = function onload() { 
+window.onload = function onload() {
   listProduct();
 };
 
@@ -52,7 +52,7 @@ async function listProduct() {
   const results = object.results;
   const items = document.querySelector('.items');
 
-  results.forEach(result => {
+  results.forEach((result) => {
     const { id: sku, title: name, thumbnail: image } = result;
     const element = createProductItemElement({ sku, name, image });
     items.appendChild(element);
