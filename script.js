@@ -1,7 +1,3 @@
-window.onload = function onload() { 
-  getPosts();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -16,7 +12,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ id: sku, title: name, thumbnail:image }) {
+function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -46,18 +42,21 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 const getPosts = () => {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
-  .then((response) => response.json())
-  .then((returnResults) => returnResults.results.forEach((item) => {
+  .then(response => response.json())
+  .then(returnResults => returnResults.results.forEach((item) => {
     const elementItems = createProductItemElement(item);
     document.querySelector('.items').appendChild(elementItems);
   }));
-}
+};
 
-//Linha 47 variavel que recebeuma função
-//linha 48 endpont da api com o parametro computador para pesquisa
-//linha 49 acessando o resolve e retornando arquivo no formato json
-//linha 50 acessando o objeto desejado e percorrendo cada item do array
-//Linha 51 criando uma variavel que, recebe uma função enviando como parametro
-//cada item percorrido do array
-//linha 52 acessando o documento e selecionando a classe itens que vai receber
-//como elemento filho a variavel que criou a estrutura html
+window.onload = function onload() {
+  getPosts();
+};
+// Linha 43 variavel que recebeuma função
+// linha 44 endpont da api com o parametro computador para pesquisa
+// linha 45 acessando o resolve e retornando arquivo no formato json
+// linha 46 acessando o objeto desejado e percorrendo cada item do array
+// Linha 47 criando uma variavel que, recebe uma função enviando como parametro
+// cada item percorrido do array
+// linha 48 acessando o documento e selecionando a classe itens que vai receber
+// como elemento filho a variavel que criou a estrutura html
