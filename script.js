@@ -67,7 +67,7 @@ const addToCart = async (itemId) => {
     const { id: sku, title: name, price: salePrice } = itemJson;
     document.querySelector('.cart__items').appendChild(createCartItemElement({ sku, name, salePrice }));
   }
-  catch {
+  catch (error) {
     console.log('Erro ao adicionar item ao carrinho.');
   }
 };
