@@ -34,15 +34,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// function cartItemClickListener(event) {
-//   // coloque seu código aqui
-// }
+function cartItemClickListener() {
+  // coloque seu código aqui
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  // li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -77,17 +77,17 @@ const fetchSearch = async (query) => {
   .then(response => response.json())
   .then(object => object.results);
 
-  for (let index = 0; index < 20; index += 1) {
+  resultArray.forEach((item) => {
     const myObject = {
-      name: resultArray[index].title,
-      sku: resultArray[index].id,
-      image: resultArray[index].thumbnail,
+      name: item.title,
+      sku: item.id,
+      image: item.thumbnail
     };
     const myItem = createProductItemElement(myObject);
     document.querySelector('.items').appendChild(myItem);
-  }
-
+  })
   addSendToCart();
 };
 
 fetchSearch('Computador');
+
