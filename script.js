@@ -11,7 +11,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener);
 
   ol.appendChild(li);
   return li;
@@ -34,7 +34,7 @@ function createCustomElement(element, className, innerText) {
             createCartItemElement({
               sku: clickedElement.id,
               name: clickedElement.title,
-              salePrice: clickedElement.price
+              salePrice: clickedElement.price,
             });
           }));
     });
