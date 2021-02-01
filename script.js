@@ -1,4 +1,6 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  fetchMercadoLivreAPI('computador');
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -26,13 +28,36 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function appendChildItemsList(item) {
+  const items = document.querySelector('.items');
+  items.appendChild(item);
+}
+
+async function fetchMercadoLivreAPI(search) {
+  const link = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
+
+  try {
+    const response = await fetch(link);
+    const responseJSON = await response.json();
+    if (responseJSON.paging.total === 0) throw new Error;
+    responseJSON.results.forEach((result) => {
+      result.sku = result.id;
+      result.name = result.title;
+      result.image = result.thumbnail;
+      appendChildItemsList(createProductItemElement(result));
+    });
+  } catch(error) {
+    alert('Nenhum item encontrado.');
+  }
+}
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  
+
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
