@@ -33,11 +33,6 @@ function cartItemClickListener(event) {
   console.log(event);
 }
 
-const addListenersToPageItems = () => {
-  const pageItems = document.querySelectorAll('.item__add');
-  pageItems.forEach(item => item.addEventListener('click', addItemToCart))
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -46,6 +41,26 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const fetchAddItemToCart = async (event) => {
+  const clickedCard = event.target.parentNode;
+  const itemId = getSkuFromProductItem(clickedCard);
+  const endpointURL = `https://api.mercadolibre.com/items/${itemId}`;
+  try {
+    const queryItem = await fetch(endpointURL);
+    const itemObject = await queryItem.json();
+    const { id: sku, title: name, price: salePrice } = itemObject;
+    const myCart = document.querySelector('.cart__items');
+    myCart.appendChild(createCartItemElement({ sku, name, salePrice }));
+  } catch (error) {
+    alert(error);
+  }
+};
+
+const addListenersToPageItems = () => {
+  const pageItems = document.querySelectorAll('.item__add');
+  pageItems.forEach(item => item.addEventListener('click', fetchAddItemToCart));
+};
+
 const fetchApiResultsAddToPage = async () => {
   const query = 'computador';
   const endpointURL = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
@@ -53,7 +68,6 @@ const fetchApiResultsAddToPage = async () => {
   try {
     const queryResult = await fetch(endpointURL);
     const objectResult = await queryResult.json();
-
     objectResult.results.forEach((element) => {
       const { id: sku, title: name, thumbnail: image } = element;
       const itemsDePesquisa = document.querySelector('.items');
@@ -65,33 +79,6 @@ const fetchApiResultsAddToPage = async () => {
   }
 };
 
-const fetchItem = async (sku) => {
-  const endpointURL = `https://api.mercadolibre.com/items/${sku}`
-
-  try {
-    const queryItem = await fetch(endpointURL);
-    const itemObject = await queryItem.json();
-    const { id: sku, title: name, price: salePrice } = itemObject;
-    const myCart = document.querySelector('.cart__items');
-
-    myCart.appendChild(createCartItemElement({ sku, name, salePrice }));
-
-  } catch (error) {
-    alert(error);
-  }
-
-
-}
-
-const addItemToCart = (event) => {
-  const clickedCard = event.target.parentNode;
-  const itemId = clickedCard.firstChild.innerText;
-
-  fetchItem(itemId);
-
-}
-
 window.onload = function onload() {
   fetchApiResultsAddToPage();
-
 };
