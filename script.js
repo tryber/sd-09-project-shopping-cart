@@ -81,11 +81,19 @@ function captureID(e) {
   }
 }
 
+function empytCart() {
+  console.log('esvaziar carrinho')
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = ' ';
+}
+
 function setupEventListener() {
   const items = document.querySelector('.items');
   items.addEventListener('click', captureID);
   const cartList = document.querySelector('.cart__items');
   cartList.addEventListener('click', cartItemClickListener);
+  const buttonEmpytCart = document.querySelector('.empty-cart')
+  buttonEmpytCart.addEventListener('click', empytCart)
 }
 
 window.onload = function onload() {
