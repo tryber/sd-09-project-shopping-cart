@@ -3,9 +3,8 @@ window.onload = function onload() { };
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
-  img.src = imageSource
-  console.log("teste")
-  return img
+  img.src = imageSource;
+  return img;
 }
 
 function createCustomElement(element, className, innerText) {
