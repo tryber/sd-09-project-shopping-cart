@@ -56,10 +56,9 @@ const fetchMercadorLivre = () => {
 
       object.results.forEach(element => createProductItemElement(element));
     })
-    .catch((erro) => console.log(erro));
-
+    .catch(erro => console.log(erro));
 };
 
 window.onload = () => {
   fetchMercadorLivre();
-}
+};
