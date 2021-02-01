@@ -28,7 +28,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function loading() {
+function loadingText() {
   const loading = document.createElement('p');
   loading.className = 'loading';
   loading.innerText = 'loading...';
@@ -82,7 +82,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 async function addItemCart(event) {
   const sku = getSkuFromProductItem(event.target.parentElement);
-  loading();
+  loadingText();
   await fetch(`https://api.mercadolibre.com/items/${sku}`)
     .then(response => response.json())
     .then((itemsID) => {
@@ -104,7 +104,7 @@ function btnAddItemCart() {
 }
 
 async function listProducts() {
-  loading();
+  loadingText();
   await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then((items) => {
