@@ -41,7 +41,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const fetchSelectedItem = async (event) => {
-  const id = getSkuFromProductItem(event.target.parentNode)
+  const id = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
 
   try {
@@ -51,7 +51,6 @@ const fetchSelectedItem = async (event) => {
     if (object.error) {
       throw new Error(object.error);
     }
-    
       const salePrice = object.price;
       const name = object.title;
       const sku = object.id;
