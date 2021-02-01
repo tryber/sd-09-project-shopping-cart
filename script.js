@@ -20,7 +20,7 @@ const fetchElement = () => {
     .then(response => response.json())
     .then(object => object);
   return promise;
-}
+};
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -38,10 +38,10 @@ const putElementsOnScreen = () => {
   const responsePromise = fetchElement();
 
   responsePromise
-    .then(response => {
+    .then((response) => {
       const elementsArray = response.results;
 
-      elementsArray.forEach(element => {
+      elementsArray.forEach((element) => {
         const sectionItems = document.querySelector('.items');
         const { id, title, thumbnail } = element;
         const obj = {
@@ -52,7 +52,7 @@ const putElementsOnScreen = () => {
         sectionItems.appendChild(createProductItemElement(obj));
       });
     });
-}
+};
 
 putElementsOnScreen();
 
