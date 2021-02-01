@@ -27,8 +27,8 @@ const fetchList = () => {
   loading.innerText = 'loading...';
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(content => content.json())
-  .then(object => {
-    object.results.forEach(item => {
+  .then((object) => {
+    object.results.forEach((item) => {
       const itemContent = {
         sku: item.id,
         name: item.title,
@@ -39,7 +39,7 @@ const fetchList = () => {
       document.querySelector('.items').appendChild(createProductItemElement(itemContent));
     });
   });
-}
+};
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
