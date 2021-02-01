@@ -67,7 +67,6 @@ window.onload = function onload() {
       const containerItems = document.querySelector('.items');
       containerItems.appendChild(section);
     })));
-  
   const btnClear = document.querySelector('.empty-cart');
-  btnClear.addEventListener('click', emptyCart); 
+  btnClear.addEventListener('click', emptyCart);
 };
