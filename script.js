@@ -58,7 +58,7 @@ async function addItemToCart(clickedItem) {
   const output = {
     sku: clickedItemInfo.id,
     name: clickedItemInfo.title,
-    image: clickedItemInfo.thumbnail,
+    salePrice: clickedItemInfo.price,
   };
 
   cartList.appendChild(createCartItemElement(output));
