@@ -32,6 +32,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  //"https://api.mercadolibre.com/sites/MLB/search?q=$QUERY"
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
