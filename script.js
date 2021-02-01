@@ -62,12 +62,11 @@ function cartItemClickListener(event) {
   const ol = document.querySelector('ol');
   const li = document.querySelectorAll('.cart__item');
   li.forEach((liItem) => {
-    const textOfClickedLi = event.path[0].innerText
-    if(liItem.innerText === textOfClickedLi) {
+    const textOfClickedLi = event.path[0].innerText;
+    if (liItem.innerText === textOfClickedLi) {
       ol.removeChild(liItem);
     }
   });
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
