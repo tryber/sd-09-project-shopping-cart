@@ -42,3 +42,28 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+// Adicione o produto ao carrinho de compras
+
+// fazer a requisicao e implementacao dos produtos
+// as variáveis sku, se referem aos campos id retornados pela API.
+
+const implementResults = (data) => {
+  const getSectionItem = document.querySelector('.items');
+  const object = {};
+  data.forEach((item) => {
+    object['sku'] = item.id;
+    object['name'] = item.title;
+    object['image'] = item.thumbnail;
+    getSectionItem.appendChild(createProductItemElement(object));
+  });
+}
+
+const fetchMLB = () => {
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(data => implementResults(data.results))
+}
+fetchMLB();
+// 
