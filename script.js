@@ -8,6 +8,7 @@ async function fetchAds(request) {
     return ads.results;
   } catch (error) {
     window.alert(error);
+    return undefined;
   }
 }
 
