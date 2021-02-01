@@ -84,7 +84,7 @@ function getCartProducts() {
   const elementsLocal = Object.keys(localStorage);
 
   for (let index = 0; index < elementsLocal.length; index += 1) {
-    const item = localStorage.getItem(elementsLocal[index]);
+    const item = JSON.parse(localStorage.getItem(elementsLocal[index]));
     createCartItemElement({
       sku: item.sku,
       name: item.name,
