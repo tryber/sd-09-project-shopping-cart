@@ -16,7 +16,7 @@ async function calculateTotalPrice() {
     const priceIndex = item.innerText.lastIndexOf('PRICE');
     return (total + Number(item.innerText.substr(priceIndex + 8)));
   }, 0);
-  const priceSpan = document.querySelector('span.cart-price');
+  const priceSpan = document.querySelector('span.total-price');
   // priceSpan.innerText = Math.round(totalPrice * 100) / 100;
   priceSpan.innerText = totalPrice;
 }
