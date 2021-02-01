@@ -41,14 +41,12 @@ const newObject = (element) => {
   return object;
 };
 
-const loopItem = () => {
-  const buttonAddItem = document.querySelectorAll('.cart__item');
-  buttonAddItem.forEach(button => button.addEventListener('click', cartItemClickListener));
-};
-
-const codeClimate = (object) => {
-  const listCartMain = document.querySelector('.cart__items');
-  listCartMain.appendChild(createCartItemElement(newObject(object)));
+const loopButtons = (className, functionName) => {
+  const buttons = document.querySelectorAll(className);
+  if (buttons.length === 0) {
+    return;
+  }
+  buttons.forEach(button => button.addEventListener('click', functionName));
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -61,6 +59,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const fetchListCart = (id) => {
+  const listCartMain = document.querySelector('.cart__items');
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
 
   fetch(endpoint)
@@ -69,20 +68,17 @@ const fetchListCart = (id) => {
       if (object.error) {
         throw new Error(object.error);
       }
-      codeClimate(object);
+      listCartMain.appendChild(createCartItemElement(newObject(object)));
     })
     .catch(erro => console.log(erro));
 };
 
 function cartItemClickListener(event) {
   // coloque seu código aqui.
-  fetchListCart(getSkuFromProductItem(event.path[1]));
+  event.target.remove();
 }
 
-const loopButton = () => {
-  const buttonAddItem = document.querySelectorAll('.item__add');
-  buttonAddItem.forEach(button => button.addEventListener('click', cartItemClickListener));
-};
+const createItemList = event => fetchListCart(getSkuFromProductItem(event.path[1]));
 
 const fetchMercadorLivre = (id) => {
   const sectionMain = document.querySelector('.items');
@@ -96,7 +92,7 @@ const fetchMercadorLivre = (id) => {
       }
       object.results.forEach((element) => {
         sectionMain.appendChild(createProductItemElement(newObject(element)));
-        loopButton();
+        loopButtons('.item__add', createItemList);
       });
     })
     .catch(() => console.log('ERRO'));
