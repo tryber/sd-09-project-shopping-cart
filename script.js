@@ -17,7 +17,6 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -25,6 +24,20 @@ function createProductItemElement({ sku, name, image }) {
 
   return section;
 }
+
+const criaLista = (obj) => {
+  const link = 'https://api.mercadolibre.com/sites/MLB/search?q=computador'
+  fetch(link)
+  .then((resposta) => resposta.json())
+  .then((obj) => obj.results)
+  .then((array) => {
+    array.forEach((obj) => {
+      const { sku, name, image } = obj;
+      createProductImageElement({ sku, name, image} )
+      });
+  })
+  .catch(error => window.alert(error))
+};
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
