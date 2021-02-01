@@ -25,6 +25,9 @@ function addToList(data, objectComplement, sectionToAdd, callback) {
 function cartItemClickListener(event) {
   const parentNode = (event.target.parentNode);
   parentNode.removeChild(event.target);
+  let objectId = event.target.innerText.split('').splice(5,13).join('');
+  let key = Object.entries(localStorage).find(object => object[1] === objectId);
+  localStorage.removeItem(key[0]);
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -49,11 +52,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function searchItemById(id) {
   const URL = `https://api.mercadolibre.com/items/${id}`;
-  fetch(URL)
+  return fetch(URL)
     .then(response => response.json())
     .then((data) => {
       const obj = { salePrice: data.price };
-      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement);
+      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement)
     });
 }
 
@@ -62,7 +65,7 @@ function productItemList() {
   fetch(URL)
     .then(response => response.json())
     .then((data) => {
-      data.results.forEach((item) => {
+      data.results.map((item) => {
         const obj = { image: item.thumbnail };
         addToList(item, obj, document.querySelector('.items'), createProductItemElement);
       });
@@ -73,15 +76,30 @@ function itemListListener() {
   setTimeout(() => {
     const buttonAddToList = document.querySelectorAll('.item__add');
     buttonAddToList.forEach((button) => {
-      button.addEventListener('click', function () {
+      button.addEventListener('click', function (event) {
         const itemID = getSkuFromProductItem(button.parentNode);
         searchItemById(itemID);
+        objectId = Math.random(itemID)
+        localStorage.setItem(objectId, itemID);
       });
     });
   }, 500);
 }
 
+async function loadCartItems() {
+  //await Object.entries(localStorage).map(async obj => {
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const obj = Object.entries(localStorage);
+    try {
+      await searchItemById(obj[index][1]);
+    } catch (error) {
+      alert(error);
+    }
+  }
+}
+
 window.onload = () => {
   productItemList();
   itemListListener();
+  loadCartItems()
 };
