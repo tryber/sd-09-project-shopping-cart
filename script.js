@@ -45,13 +45,12 @@ const fetchItems = async (product) => {
       .then(response => response.json())
       .then(object => object.results.forEach((productItem) => {
         const itemElement = createProductItemElement(productItem);
-        document.querySelector(".items").appendChild(itemElement);
-      }))
-  }
-  catch (error) {
+        document.querySelector('.items').appendChild(itemElement);
+      }));
+  } catch (error) {
     console.log(`Deu um erro aqui: ${error}`);
   }
-}
+};
 
 window.onload = function onload() {
   fetchItems('computador');
