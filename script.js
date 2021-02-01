@@ -25,7 +25,7 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-const criaLista = (obj) => {
+const criaLista = () => {
   const link = 'https://api.mercadolibre.com/sites/MLB/search?q=computador'
   fetch(link)
   .then((resposta) => resposta.json())
