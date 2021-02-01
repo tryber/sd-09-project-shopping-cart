@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchAllProducts('computador');
-};
-
 async function fetchAllProducts(productType) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${productType}`;
   const response = await fetch(endPoint);
@@ -56,3 +52,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() {
+  fetchAllProducts('computador');
+};
