@@ -12,6 +12,27 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+const appendChildElement = (father, elementChild) => {
+  const elementFather = document.querySelector(`${father}`);
+  elementFather.appendChild(elementChild);
+};
+
+function createCartItemElement({ id, title, price }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+const getProductFromAPIIds = (event) => {
+  const idProduct = event.path[1].firstChild.innerText;
+  return fetch(`https://api.mercadolibre.com/items/${idProduct}`)
+    .then(response => response.json())
+    .then(object => appendChildElement('.cart__items', createCartItemElement(object)))
+    .catch(error => window.alert(error));
+};
+
 function createProductItemElement({ id, title, thumbnail }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -34,19 +55,6 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
-function createCartItemElement({ id, title, price }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
-
-const appendChildElement = (father, elementChild) => {
-  const elementFather = document.querySelector(`${father}`);
-  elementFather.appendChild(elementChild);
-}
-
 const getProductsFromAPI = () => {
   return fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
@@ -56,15 +64,7 @@ const getProductsFromAPI = () => {
       });
     })
     .catch(error => window.alert(error));
-}
-
-const getProductFromAPIIds = (event) => {
-  const idProduct = event.path[1].firstChild.innerText;
-  fetch(`https://api.mercadolibre.com/items/${idProduct}`)
-    .then(response => response.json())
-    .then(object => appendChildElement('.cart__items', createCartItemElement(object)))
-    .catch(error => window.alert(error));
-}
+};
 
 window.onload = function onload() {
   getProductsFromAPI();
