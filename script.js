@@ -63,4 +63,4 @@ async function createItemList() {
 
 window.onload = function () {
   createItemList();
-}
+};
