@@ -1,12 +1,13 @@
-const fetchAPI = async (endpoint) => {
+async function fetchAPI(endpoint) {
   try {
     const response = await fetch(endpoint);
+    console.log(response);
     const object = await response.json();
     return object;
   } catch (error) {
-    window.alert('Error');
+    return window.alert('Error');
   }
-};
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -60,7 +61,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // Seu codigo aqui
+  event.target.parentNode.removeChild(event.target);
 }
 
 function createCartItemElement({
