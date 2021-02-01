@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 }
 
 function createProductItemElement({ id, title, thumbnail }) {
-  const sectionMain = document.querySelector('.items')
+  const sectionMain = document.querySelector('.items');
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -45,11 +45,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 
 const fetchMercadorLivre = () => {
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador'
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
 
   fetch(endpoint)
-    .then((response) => response.json())
-    .then((object) => { 
+    .then(response => response.json())
+    .then((object) => {
       if (object.error) {
         throw new Error(object.error);
       }
@@ -58,6 +58,8 @@ const fetchMercadorLivre = () => {
     })
     .catch((erro) => console.log(erro));
 
-}
+};
 
-fetchMercadorLivre()
+window.onload = () => {
+  fetchMercadorLivre();
+}
