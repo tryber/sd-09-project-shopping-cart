@@ -87,14 +87,7 @@ function itemListListener() {
 }
 
 async function loadCartItems() {
-  const objetos = Object.entries(localStorage);
-  for (obj of objetos) {
-    try {
-      await searchItemById(obj[1]);
-    } catch (error) {
-      alert(error);
-    }
-  }
+  Object.entries(localStorage).forEach(obj => searchItemById(obj[1]));
 }
 
 window.onload = () => {
