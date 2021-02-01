@@ -65,8 +65,7 @@ function searchID(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(response => response.json())
   .then((object) => {
-    const cartElement = object.results;
-    const { id: sku, title: name, price: salePrice } = cartElement;
+    const { id: sku, title: name, price: salePrice } = object;
     const itemList = createCartItemElement({ sku, name, salePrice });
     createCartListItem(itemList);
   })
