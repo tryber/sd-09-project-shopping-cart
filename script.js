@@ -46,7 +46,10 @@ const getPosts = () => {
   .then(returnResults => returnResults.results.forEach((item) => {
     const elementItems = createProductItemElement(item);
     document.querySelector('.items').appendChild(elementItems);
-  }));
+  }))
+  .catch((error) => {
+    alert('Erro inesperado: Tempo para acessoa ao servidor esgotado');
+  });
 };
 
 window.onload = function onload() {
