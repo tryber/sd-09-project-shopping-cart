@@ -47,7 +47,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function getProduct() {
+function getProduct(id) {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then((object) => {
@@ -57,22 +57,22 @@ function getProduct() {
         createProductItemElement({ sku, name, image });
       });
     }).catch(error => window.alert(error));
-}
 
-function searchID(id) {
-  fetch(`https://api.mercadolibre.com/items/${id}`)
-  .then(response => response.json())
-  .then((object) => {
-    const { id: sku, title: name, price: salePrice } = object;
-    createCartItemElement({ sku, name, salePrice });
-  })
-  .catch(error => window.alert(error));
+  if (id) {
+    fetch(`https://api.mercadolibre.com/items/${id}`)
+      .then(response => response.json())
+      .then((object) => {
+        const { id: sku, title: name, price: salePrice } = object;
+        createCartItemElement({ sku, name, salePrice });
+      })
+      .catch(error => window.alert(error));
+  }
 }
 
 function getId(button) {
   if (button.target.className === 'item__add') {
     const id = button.target.parentNode.firstChild.innerText;
-    searchID(id);
+    getProduct(id);
   }
 }
 
