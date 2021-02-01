@@ -40,17 +40,24 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-async function fetchItemById(event) {
-  const productId = event.target.parentElement.firstChild.innerText;
-  const response = await (await fetch(`https://api.mercadolibre.com/items/${productId}`)).json();
-  addProductToShoppingCart(response);
+function addProductToTarget(parentClass, productObject, callback) {
+  const targetParent = document.querySelector(parentClass);
+  const newProductObject = productObject;
+  const productResult = callback(newProductObject);
+  targetParent.appendChild(productResult);
 }
 
-function addProductToShoppingCart({id:sku, title:name, price:salePrice}) {
-  const shoppingCart = document.querySelector('.cart__items');
-  const productDetails = {sku, name, salePrice};
-  const cartProduct = createCartItemElement(productDetails);
-  shoppingCart.appendChild(cartProduct);
+function addProductToShoppingCart({ id: sku, title: name, price: salePrice }) {
+  const productDetails = { sku, name, salePrice };
+  addProductToTarget('.cart__items', productDetails, createCartItemElement);
+}
+
+async function fetchItemById(event) {
+  const productId = event.target.parentElement.firstChild.innerText;
+  const response = await (
+    await fetch(`https://api.mercadolibre.com/items/${productId}`)
+  ).json();
+  addProductToShoppingCart(response);
 }
 
 function addClickEventToAddButton() {
@@ -60,16 +67,13 @@ function addClickEventToAddButton() {
   });
 }
 
-async function createProductList(product) {
-  const endpoint =
-    `https://api.mercadolibre.com/sites/MLB/search?q=$${product}`;
+async function createProductList(productName) {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${productName}`;
   try {
     const results = (await (await fetch(endpoint)).json()).results;
     results.forEach(({ id, title, thumbnail }) => {
-      const items = document.querySelector('.items');
       const productObject = { sku: id, name: title, image: thumbnail };
-      const product = createProductItemElement(productObject);
-      items.appendChild(product);
+      addProductToTarget('.items', productObject, createProductItemElement);
     });
     addClickEventToAddButton();
   } catch (error) {
