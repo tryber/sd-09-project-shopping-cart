@@ -36,11 +36,10 @@ const mapProducts = (product) => {
     image: thumbnail,
     salePrice: price,
   };
-}
+};
 
 function getfetchProductsResult({ results }) {
   const filterData = results.map(mapProducts);
-  
   filterData.forEach((product) => {
     const sectionItems = document.querySelector('.items');
     const item = createProductItemElement(product);
