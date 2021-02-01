@@ -30,6 +30,37 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const newObject = (element) => {
+  const { id, title, thumbnail, price } = element;
+  const object = {
+    sku: id,
+    name: title,
+    image: thumbnail,
+    salePrice: price,
+  };
+  return object;
+};
+
+const fetchListCart = (id) => {
+  const listCartMain = document.querySelector('.cart__items');
+  const endpoint = `https://api.mercadolibre.com/items/${id}`;
+
+  fetch(endpoint)
+    .then(response => response.json())
+    .then((object) => {
+      if (object.error) {
+        throw new Error(object.error);
+      }
+      listCartMain.appendChild(createCartItemElement(newObject(object)));
+    })
+    .catch(erro => console.log(erro));
+}
+
+function cartItemClickListener(event) {
+  // coloque seu código aqui.
+  fetchListCart(getSkuFromProductItem(event.path[1]));
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -38,17 +69,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 
   return li;
 }
-
-const newObject = (element) => {
-  const { id, title, thumbnail, price } = element;
-  const newObject = {
-    sku: id,
-    name: title,
-    image: thumbnail,
-    salePrice: price,
-  };
-  return newObject;
-};
 
 const loopButton = () => {
   const buttonAddItem = document.querySelectorAll('.item__add');
@@ -68,30 +88,10 @@ const fetchMercadorLivre = (id) => {
       object.results.forEach((element) => {
         sectionMain.appendChild(createProductItemElement(newObject(element)));
         loopButton();
-      },
-    )})
+      });
+    })
     .catch(() => console.log('ERRO'));
 };
-
-const fetchListCart = (id) => {
-  const listCartMain = document.querySelector('.cart__items');
-  const endpoint = `https://api.mercadolibre.com/items/${id}`;
-
-  fetch(endpoint)
-    .then(response => response.json())
-    .then((object) => {
-      if (object.error) {
-        throw new Error(object.error);
-      }
-      listCartMain.appendChild(createCartItemElement(newObject(object)));
-    })
-    .catch((erro) => console.log(erro));
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui.
-  fetchListCart(getSkuFromProductItem(event.path[1]));
-}
 
 window.onload = () => {
   fetchMercadorLivre('computador');
