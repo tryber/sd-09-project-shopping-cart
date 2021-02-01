@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchProducts('computador');
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -45,19 +41,37 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const fetchProducts = async (search) => {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
-
   try {
-    const response = await fetch(endpoint);
+    const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${search}`);
     const resultsJson = await response.json();
     const result = await resultsJson.results;
 
-    result.forEach(currentResult => {
-    const { id: sku, title: name, thumbnail: image } = currentResult;
-    document.querySelector('.items').appendChild(createProductItemElement({ sku, name, image }));
-    })
+    result.forEach(({ id: sku, title: name, thumbnail: image }) => {
+      document.querySelector('.items').appendChild(createProductItemElement({ sku, name, image }))
+        .lastChild.addEventListener('click', (event) => {
+          const id = event.target.parentNode.firstChild.innerText;
+          addToCart(id);
+        });
+    });
   }
-    catch (error) {
-      console.log('Nem funcionou!');
+  catch (error) {
+    console.log('Erro ao criar lista de produtos');
   }
-}
+};
+
+const addToCart = async (itemId) => {
+  try {
+    const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
+    const itemJson = await response.json();
+
+    const { id: sku, title: name, price: salePrice } = itemJson;
+    document.querySelector('.cart__items').appendChild(createCartItemElement({ sku, name, salePrice }));
+  }
+  catch {
+    console.log('Erro ao adicionar item ao carrinho.');
+  }
+};
+
+window.onload = function onload() {
+  fetchProducts('computador');
+};
