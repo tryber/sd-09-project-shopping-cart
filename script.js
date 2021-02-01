@@ -45,8 +45,8 @@ async function listProducts() {
           image: item.thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(object));
-      })
-    })
+      });
+    });
 }
 
 listProducts();
