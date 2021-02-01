@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchMercadoLivreAPI('computador');
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -39,14 +35,16 @@ async function fetchMercadoLivreAPI(search) {
   try {
     const response = await fetch(link);
     const responseJSON = await response.json();
-    if (responseJSON.paging.total === 0) throw new Error;
+    if (responseJSON.paging.total === 0) throw new Error();
     responseJSON.results.forEach((result) => {
-      result.sku = result.id;
-      result.name = result.title;
-      result.image = result.thumbnail;
-      appendChildItemsList(createProductItemElement(result));
+      const item = {
+        sku: result.id,
+        name: result.title,
+        image: result.thumbnail,
+      }
+      appendChildItemsList(createProductItemElement(item));
     });
-  } catch(error) {
+  } catch (error) {
     alert('Nenhum item encontrado.');
   }
 }
@@ -57,7 +55,6 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -67,3 +64,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() {
+  fetchMercadoLivreAPI('computador');
+};
