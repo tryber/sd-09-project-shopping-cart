@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -40,8 +38,10 @@ const fetchProduct = () => {
     }))
     .catch(error => window.alert(error));
 };
+window.onload = function onload() {
+  fetchProduct();
+};
 
-fetchProduct();
 
 // function getSkuFromProductItem(item) {
 //   return item.querySelector('span.item__sku').innerText;
