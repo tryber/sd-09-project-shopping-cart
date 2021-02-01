@@ -77,7 +77,7 @@ const handleWithSearchId = (object) => {
   infosItem.name = object.title;
   infosItem.salePrice = object.price;
   ol.appendChild(createCartItemElement(infosItem));
-}
+};
 
 const fetchItemById = (id) => {
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
@@ -92,7 +92,7 @@ const fetchItemById = (id) => {
   .catch((error) => {
     window.alert(error);
   });
-}
+};
 window.onload = function onload() {
   // Chamada de funções e recuperação de variáveis
   createStoreItens();
