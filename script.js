@@ -42,7 +42,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
 
   const cartItem = document.querySelector('.cart__items');
-  cartItem.appendChild(li)
+  cartItem.appendChild(li);
 
   return li;
 }
@@ -64,7 +64,7 @@ function searchID(id) {
   .then(response => response.json())
   .then((object) => {
     const { id: sku, title: name, price: salePrice } = object;
-    const listItem = createCartItemElement({ sku, name, salePrice });
+    createCartItemElement({ sku, name, salePrice });
   })
   .catch(error => window.alert(error));
 }
