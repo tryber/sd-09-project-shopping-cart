@@ -64,8 +64,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 // Add the product to the 'cart items' HTML ol
 function addProductToCart(product) {
   const shoppingCart = document.querySelector('.cart__items');
-  const {id: sku, title: name, price: salePrice} = product;
-  const cartItem = createCartItemElement({sku, name, salePrice});
+  const { id: sku, title: name, price: salePrice } = product;
+  const cartItem = createCartItemElement({ sku, name, salePrice });
   shoppingCart.appendChild(cartItem);
 }
 
@@ -74,7 +74,7 @@ function fetchProduct(event) {
   if (event.target.className === 'item__add') {
     const productId = event.target.parentNode.firstChild.innerText;
     fetch(`https://api.mercadolibre.com/items/${productId}`)
-      .then(response => {
+      .then((response) => {
         if (response.error) throw new Error(response.error);
         return response.json();
       })
