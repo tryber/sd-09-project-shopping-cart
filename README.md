@@ -65,7 +65,7 @@ Seu projeto deve ter o comportamento parecido com o do gif abaixo quando finaliz
 
   - Serão dois dias de projeto;
 
-  - O projeto tem até a seguinte data: `DD/MM/YYYY - 14:00h` para ter entregue a avaliação final.
+  - O projeto tem até a seguinte data: `09/02/2021 - 14:00h` para ter entregue a avaliação final.
 
 ---
 
