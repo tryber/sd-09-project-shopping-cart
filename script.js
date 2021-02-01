@@ -82,7 +82,6 @@ const loadPage = async (endpoint) => {
 }
 
 
-
 window.onload = function onload() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   loadPage(endpoint);
