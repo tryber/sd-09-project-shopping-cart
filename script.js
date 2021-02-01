@@ -5,7 +5,7 @@ function createProductImageElement(imageSource) {
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
+} 
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
