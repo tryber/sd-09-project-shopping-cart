@@ -49,10 +49,20 @@ const loopButtons = (className, functionName) => {
   buttons.forEach(button => button.addEventListener('click', functionName));
 };
 
+const salveItem = () => {
+  const listItem = document.querySelectorAll('li');
+  const arrayItem = [];
+  listItem.forEach((element) => {
+    arrayItem.push(element.className);
+    arrayItem.push(element.innerText);
+  });
+  localStorage.setItem('listItemCart', JSON.stringify(arrayItem));
+};
+
 function cartItemClickListener(event) {
   // coloque seu código aqui.
   event.target.remove();
-  salveItem()
+  salveItem();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -62,16 +72,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
 
   return li;
-}
-
-const salveItem = () => {
-  const listItem = document.querySelectorAll('li');
-  const arrayItem = [];
-  listItem.forEach(element => {
-    arrayItem.push(element.className)
-    arrayItem.push(element.innerText)
-  });
-  localStorage.setItem('listItemCart', JSON.stringify(arrayItem));
 }
 
 const fetchListCart = (id) => {
@@ -111,29 +111,29 @@ const fetchMercadorLivre = (id) => {
 };
 
 const addListItem = (text, className) => {
-  const listCartMain = document.querySelector('.cart__items'); 
+  const listCartMain = document.querySelector('.cart__items');
   const li = document.createElement('li');
   li.className = className;
   li.innerText = text;
   li.addEventListener('click', cartItemClickListener);
 
   listCartMain.appendChild(li);
-}
+};
 
 const returnLocalStorage = () => {
-    const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
-    if (arrayItem === null) {
-      return;
-    }
+  const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
+  if (arrayItem === null) {
+    return;
+  }
 
-    for (let index = 0; index < arrayItem.length; index += 2) {
-      const className = arrayItem[index];
-      const text = arrayItem[index + 1];
-      addListItem(text, className);
-    }
-}
+  for (let index = 0; index < arrayItem.length; index += 2) {
+    const className = arrayItem[index];
+    const text = arrayItem[index + 1];
+    addListItem(text, className);
+  }
+};
 
 window.onload = () => {
   fetchMercadorLivre('computador');
-  returnLocalStorage()
+  returnLocalStorage();
 };
