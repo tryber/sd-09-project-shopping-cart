@@ -34,7 +34,7 @@ const criaLista = () => {
   .then((array) => {
     array.forEach((obj) => {
       const { id: sku, title: name, thumbnail: image } = obj;
-      const section = createProductItem  console.log(obj);Element({ sku, name, image });
+      const section = createProductItemElement({ sku, name, image });
       itens.appendChild(section);
     });
   })
