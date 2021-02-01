@@ -51,4 +51,4 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 window.onload = () => {
   cartItemClickListener();
-}
+};
