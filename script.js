@@ -105,7 +105,15 @@ async function createItemList() {
   addCartButtonList.forEach(button => button.addEventListener('click', addToCart));
 }
 
+function emptyCart() {
+  const cartList = document.querySelector('ol.cart__items');
+  cartList.innerHTML = '';
+  saveCart();
+}
+
 window.onload = function () {
   createItemList();
   loadCart();
+  const emptyCartButton = document.querySelector('button.empty-cart');
+  emptyCartButton.addEventListener('click', emptyCart);
 };
