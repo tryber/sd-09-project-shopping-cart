@@ -25,8 +25,8 @@ function addToList(data, objectComplement, sectionToAdd, callback) {
 function cartItemClickListener(event) {
   const parentNode = (event.target.parentNode);
   parentNode.removeChild(event.target);
-  let objectId = event.target.innerText.split('').splice(5,13).join('');
-  let key = Object.entries(localStorage).find(object => object[1] === objectId);
+  const objectId = event.target.innerText.split('').splice(5, 13).join('');
+  const key = Object.entries(localStorage).find(object => object[1] === objectId);
   localStorage.removeItem(key[0]);
 }
 
@@ -56,7 +56,7 @@ function searchItemById(id) {
     .then(response => response.json())
     .then((data) => {
       const obj = { salePrice: data.price };
-      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement)
+      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement);
     });
 }
 
@@ -65,7 +65,7 @@ function productItemList() {
   fetch(URL)
     .then(response => response.json())
     .then((data) => {
-      data.results.map((item) => {
+      data.results.forEach((item) => {
         const obj = { image: item.thumbnail };
         addToList(item, obj, document.querySelector('.items'), createProductItemElement);
       });
@@ -79,7 +79,7 @@ function itemListListener() {
       button.addEventListener('click', function (event) {
         const itemID = getSkuFromProductItem(button.parentNode);
         searchItemById(itemID);
-        objectId = Math.random(itemID)
+        objectId = Math.random(itemID);
         localStorage.setItem(objectId, itemID);
       });
     });
@@ -87,11 +87,10 @@ function itemListListener() {
 }
 
 async function loadCartItems() {
-  //await Object.entries(localStorage).map(async obj => {
-  for (let index = 0; index < localStorage.length; index += 1) {
-    const obj = Object.entries(localStorage);
+  const objetos = Object.entries(localStorage);
+  for (obj of objetos) {
     try {
-      await searchItemById(obj[index][1]);
+      await searchItemById(obj[1]);
     } catch (error) {
       alert(error);
     }
@@ -101,5 +100,5 @@ async function loadCartItems() {
 window.onload = () => {
   productItemList();
   itemListListener();
-  loadCartItems()
+  loadCartItems();
 };
