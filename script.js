@@ -34,7 +34,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -48,7 +48,7 @@ function cartItemClickListener() {
 
       fetch(endpoint)
         .then(response => response.json())
-        .then(data => {
+        .then((data) => {
           const productInfo = {
             sku: data.id,
             name: data.title,
@@ -70,7 +70,7 @@ function fetchAPI() {
 
   fetch(endpoint)
     .then(response => response.json())
-    .then(data => {
+    .then((data) => {
       data.results.forEach((result) => {
         const obj = {
           sku: result.id,
