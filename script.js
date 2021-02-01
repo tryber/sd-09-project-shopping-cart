@@ -61,6 +61,5 @@ window.onload = function onload() {
       });
       const containerItems = document.querySelector('.items');
       containerItems.appendChild(section);
-  })));
-
+    })));
 };
