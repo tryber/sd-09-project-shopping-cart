@@ -1,6 +1,16 @@
 // Brenno Calado Project
 
-window.onload = function onload() { };
+const product = 'computador';
+let resultList = [];
+
+async function getProductList(productName) {
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${productName}`)
+    .then((response) => response.json().then((data) => {
+      resultList = data.results;
+      destructuringfunction(resultList);
+    }))
+    .catch(reason => console.log(reason))
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -16,7 +26,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement( sku, name, image ) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -43,3 +53,15 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function destructuringfunction(marketList) {
+  marketList.forEach(({ id, title, thumbnail}) => {
+    console.log(title);
+    document.querySelector('section .items')
+      .appendChild(createProductItemElement( id, title, thumbnail ));
+  })
+}
+
+window.onload = function onload() {
+  getProductList(product);
+};
