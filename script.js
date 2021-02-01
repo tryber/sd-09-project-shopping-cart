@@ -47,7 +47,7 @@ window.onload = function onload() {
 
   fetch(API_URL)
     .then(response => response.json())
-      .then(response => {
+      .then((response) => {
         response.results.forEach((item) => {
           const objectItem = {};
           objectItem.sku = item.id;
