@@ -1,7 +1,6 @@
 async function fetchAPI(endpoint) {
   try {
     const response = await fetch(endpoint);
-    console.log(response);
     const object = await response.json();
     return object;
   } catch (error) {
