@@ -112,8 +112,18 @@ function createPricesElement(callback) {
   callback();
 }
 
+function clearCart() {
+  const btnClear = document.querySelector('.empty-cart');
+  btnClear.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    price();
+    saveCartChanges();
+  });
+}
+
 window.onload = function onload() {
   listProducts();
   loadCartChanges();
   createPricesElement(price);
+  clearCart();
 };
