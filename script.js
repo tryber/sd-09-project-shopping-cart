@@ -28,15 +28,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function populateItemList() {
+function addToList(data, objectComplement, sectionToAdd, callback) {
+  const object = { sku: data.id, name: data.title };
+  const finalObject = Object.assign(object, objectComplement);
+  sectionToAdd.appendChild(callback(finalObject));
+}
+
+function productItemList() {
   const URL = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   fetch(URL)
     .then(response => response.json())
     .then((data) => {
       data.results.forEach((item) => {
-        const itemSection = document.querySelector('.items');
-        const object = { sku: item.id, name: item.title, image: item.thumbnail };
-        itemSection.appendChild(createProductItemElement(object));
+        const obj = { image: item.thumbnail }
+        addToList(item, obj, document.querySelector('.items'), createProductItemElement);
       });
     });
 }
@@ -46,21 +51,19 @@ function searchItemById(id) {
   fetch(URL)
     .then((response) => response.json())
     .then((data) => {
-      const cartItems = document.querySelector('.cart__items');
-      const object = { sku: data.id, name: data.title, salePrice: data.price }
-      cartItems.appendChild(createCartItemElement(object));
+      const obj = { salePrice: data.price };
+      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement);
     });
 }
-
 
 function cartItemClickListener() {
   setTimeout(() => {
     const buttonAddToList = document.querySelectorAll('.item__add');
-    buttonAddToList.forEach(button => {
+    buttonAddToList.forEach((button) => {
       button.addEventListener('click', function () {
         const itemID = getSkuFromProductItem(button.parentNode);
         searchItemById(itemID);
-      })
+      });
     });
   }, 500);
 }
@@ -74,6 +77,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 window.onload = () => {
-populateItemList()  
-cartItemClickListener();
+  productItemList();
+  cartItemClickListener();
 };
