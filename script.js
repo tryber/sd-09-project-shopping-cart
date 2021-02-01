@@ -6,8 +6,8 @@ function createProductImageElement(imageSource) {
 }
 
 function cartItemClickListener(event) {
-  localStorage.removeItem(`${event.target.innerText.substring(5, 18)}`)
-  event.target.remove()
+  localStorage.removeItem(`${event.target.innerText.substring(5, 18)}`);
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -38,7 +38,7 @@ function addElementCartEventListener(event) {
           sku: clickedElement.id,
           name: clickedElement.title,
           salePrice: clickedElement.price,
-        }))
+        }));
       }));
 }
 
@@ -75,15 +75,15 @@ function getProducts() {
     .then(response => response.json()
       .then((elements) => {
         elements.results.forEach((e) => {
-          createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail, });
+          createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
         });
       }));
 }
 
 function getCartProducts() {
-  for (let key in localStorage) {
+  for (const key in localStorage) {
     if (key.startsWith('MLB')) {
-      let item = JSON.parse(localStorage.getItem(key));
+      const item = JSON.parse(localStorage.getItem(key));
       createCartItemElement({
         sku: item.sku,
         name: item.name,
