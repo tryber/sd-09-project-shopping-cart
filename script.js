@@ -45,7 +45,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const cartList = document.querySelector('.cart__items');
+  cartList.removeChild(event.target);
 }
 
 function addCartItem(listItem) {
@@ -83,6 +84,8 @@ function captureID(e) {
 function setupEventListener() {
   const items = document.querySelector('.items');
   items.addEventListener('click', captureID);
+  const cartList = document.querySelector('.cart__items');
+  cartList.addEventListener('click', cartItemClickListener);
 }
 
 window.onload = function onload() {
