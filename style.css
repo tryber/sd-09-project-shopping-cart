@@ -74,3 +74,7 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.cart__item--info {
+  display: none;
+}

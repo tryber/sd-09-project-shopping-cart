@@ -1,4 +1,5 @@
 const search = (url, query) => url.replace('$QUERY', query);
+
 async function fetchAds(query) {
   const url = 'https://api.mercadolibre.com/sites/MLB/search?q=$QUERY';
 
@@ -42,8 +43,17 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function updateSumOfPrices() {
+  const sumSpan = document.querySelector('.total-price');
+  const items = Array.from(document.querySelectorAll('.cart__item--info'));
+  const sum = !items ? 0 : items.map(item => JSON.parse(item.innerText))
+    .reduce((acc, { salePrice }) => acc + salePrice, 0);
+  sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `$${Math.round(sum * 100) / 100}`;
+}
+
 function cartItemClickListener(event) {
-  console.log('xablau');
+  event.target.remove();
+  updateSumOfPrices();
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -59,16 +69,24 @@ async function addItemToCart(event) {
   const url = 'https://api.mercadolibre.com/items/$QUERY';
 
   try {
-    const info = await fetch(search(url, sku))
+    const productInfo = await fetch(search(url, sku))
       .then(response => response.json());
-    const newCartItem = createCartItemElement(info);
+    const newCartItem = createCartItemElement(productInfo);
+
+    const { id, title, price } = productInfo;
+    const resumedProdInfo = JSON.stringify({ sku: id, name: title, salePrice: price });
+
+    newCartItem.appendChild(createCustomElement('span', 'cart__item--info', resumedProdInfo));
     document.querySelector('.cart__items').appendChild(newCartItem);
+
+    updateSumOfPrices();
   } catch (error) {
     window.alert(error);
   }
 }
 
 window.onload = async function onload() {
+  updateSumOfPrices();
   const ads = await fetchAds('computador');
   ads.forEach((ad) => {
     const newSection = createProductItemElement(ad);
