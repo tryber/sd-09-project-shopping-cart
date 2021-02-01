@@ -1,13 +1,3 @@
-window.onload = function onload() {
-  // Chamada de funções e recuperação de variáveis
-  createStoreItens();
-  const sectionOfItensStore = document.querySelector('.items');
-  sectionOfItensStore.addEventListener('click', (event) => {
-    const itemId = event.path[1].childNodes[0].innerText;
-    fetchItemById(itemId);
-  });
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -92,15 +82,23 @@ const handleWithSearchId = (object) => {
 const fetchItemById = (id) => {
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
   fetch(endpoint)
-    .then((response) => response.json())
+    .then(response => response.json())
     .then((object) => {
       if (object.error) {
         throw new Error(object.error);
       }
-      console.log(object);
       handleWithSearchId(object);
-    })
+    });
     .catch((error) => {
       window.alert(error);
     });
 }
+window.onload = function onload() {
+  // Chamada de funções e recuperação de variáveis
+  createStoreItens();
+  const sectionOfItensStore = document.querySelector('.items');
+  sectionOfItensStore.addEventListener('click', (event) => {
+    const itemId = event.path[1].childNodes[0].innerText;
+    fetchItemById(itemId);
+  });
+};
