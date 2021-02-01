@@ -41,7 +41,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código
+  // coloque seu código aqui
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -75,7 +75,7 @@ async function createItemList() {
     itemsSection.appendChild(productItem);
   });
   const addCartButtonList = document.querySelectorAll('button.item__add');
-  addCartButtonList.forEach(button => button.addEventListener('click', addToCart))
+  addCartButtonList.forEach(button => button.addEventListener('click', addToCart));
 }
 
 window.onload = function () {
