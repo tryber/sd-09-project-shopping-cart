@@ -10,9 +10,7 @@ function cartItemClickListener(event) {
   event.target.remove();
   let value = +(document.querySelector('#value').innerText);
   const price = +(event.target.innerText.split('$')[1]);
-  console.log(price);
-  value -= price;
-  value = value.toFixed(2);
+  value -= parseFloat(price);
   document.querySelector('#value').innerText = value;
   saveStorage();
 }
@@ -56,8 +54,7 @@ function cleanCart() {
 
 async function sumProducts(price) {
   let value = +(document.querySelector('#value').innerText);
-  value += price;
-  value = value.toFixed(2);
+  value += parseFloat(price);
   document.querySelector('#value').innerText = value;
 }
 
