@@ -1,3 +1,5 @@
+const localStorageKeysArray = []
+
 function idToSkuTranslator(objectWithId) {
   const { id, title, thumbnail } = objectWithId;
   const objectWithSku = { sku: id, name: title, image: thumbnail };
@@ -36,6 +38,8 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   const item = event.target;
+  // console.log(localStorage.getItem(item.innerText));
+  localStorage.removeItem(item.innerText);
   item.remove();
 }
 
@@ -58,6 +62,7 @@ function addToCart(event) {
       const cartItem = createCartItemElement(cartDetails);
       cart.appendChild(cartItem);
       cartItem.addEventListener('click', cartItemClickListener);
+      localStorage.setItem(cartItem.innerText, JSON.stringify(details));
     })
     .catch(err => err);
 }
@@ -79,6 +84,22 @@ function mercadoLivreFetch(requiredProduct) {
     .catch(err => err);
 }
 
+function localStorageCart() {
+  const productKeys = Object.keys(localStorage);
+  const cart = document.querySelector('.cart__items');
+  if (productKeys.length > 0) {
+    productKeys.forEach((productKey) => {
+      const productObject = JSON.parse(localStorage[productKey]);
+      const { id, title, price } = productObject;
+      const cartDetails = { sku: id, name: title, salePrice: price};
+      const cartItem = createCartItemElement(cartDetails);
+      cart.appendChild(cartItem);
+      cartItem.addEventListener('click', cartItemClickListener);
+    });
+  }
+}
+
 window.onload = function onload() {
   mercadoLivreFetch('computador');
+  localStorageCart();
 };
