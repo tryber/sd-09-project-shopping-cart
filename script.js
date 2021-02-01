@@ -30,18 +30,16 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-// Remova o item do carrinho de compras ao clicar nele
-
-function cartItemClickListener(event) {
-  event.target.remove();
 }
 
 // Adicione o produto ao carrinho de compras
