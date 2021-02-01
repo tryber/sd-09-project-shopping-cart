@@ -102,7 +102,7 @@ function fetchAPI() {
     .then(response => response.json())
     .then((data) => {
       data.results.forEach((result) => {
-        const { id: sku, title: name, thumbnail: image } = result
+        const { id: sku, title: name, thumbnail: image } = result;
         // const obj = {
         //   sku: result.id,
         //   name: result.title,
@@ -122,8 +122,8 @@ function clearList() {
   const cartItemsList = document.querySelector('.cart__items');
   const totalPrice = document.querySelector('#total-price');
 
-  cartItemsList.innerHTML = ''
-  totalPrice.innerText = 0
+  cartItemsList.innerHTML = '';
+  totalPrice.innerText = 0;
 }
 
 function listenToEmptyCartButton() {
