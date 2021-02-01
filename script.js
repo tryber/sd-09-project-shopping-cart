@@ -5,7 +5,7 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function cartItemClickListener(event){
+function cartItemClickListener(event) {
 
 }
 
