@@ -16,17 +16,9 @@ function createCustomElement(element, className, innerText) {
 
 const fetchElement = () => {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
-  let element;
-
   const promise = fetch(endpoint)
-    .then((response) => response.json())
-    .then((object) => {
-      return object;
-    })
-    .catch((err) => {
-      return err;
-    });
-  
+    .then(response => response.json())
+    .then(object => object);
   return promise;
 }
 
@@ -56,7 +48,7 @@ const putElementsOnScreen = () => {
           sku: id,
           name: title,
           image: thumbnail,
-        }
+        };
         sectionItems.appendChild(createProductItemElement(obj));
       });
     });
