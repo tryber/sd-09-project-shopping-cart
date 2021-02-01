@@ -1,5 +1,5 @@
-function idToSkuTranslator (objectWithId) {
-  const {id, title, thumbnail} = objectWithId;
+function idToSkuTranslator(objectWithId) {
+  const { id, title, thumbnail } = objectWithId;
   const objectWithSku = { sku: id, name: title, image: thumbnail };
   return objectWithSku;
 }
@@ -34,21 +34,8 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function addToCart (event) {
-  const id = event.target.parentNode.firstChild.innerText;
-  const cart = document.querySelector('.cart__items');
-  return fetch(`https://api.mercadolibre.com/items/${id}`)
-    .then(result => result.json())
-    .then((details) => {
-    const { id, title, price} = details;
-    const cartDetails = { sku: id, name: title, salePrice: price};
-    cart.appendChild(createCartItemElement(cartDetails));
-    })
-    .catch(err => err);
-}
-
 function cartItemClickListener(event) {
-  // coloque seu código aqui 
+  // coloque seu código aqui
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -73,6 +60,19 @@ function mercadoLivreFetch(requiredProduct) {
   return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${requiredProduct}`)
     .then(result => result.json())
     .then(jsonList => addProductToSection(jsonList))
+    .catch(err => err);
+}
+
+function addToCart(event) {
+  const id = event.target.parentNode.firstChild.innerText;
+  const cart = document.querySelector('.cart__items');
+  return fetch(`https://api.mercadolibre.com/items/${id}`)
+    .then(result => result.json())
+    .then((details) => {
+      const { id, title, price } = details;
+      const cartDetails = { sku: id, name: title, salePrice: price };
+      cart.appendChild(createCartItemElement(cartDetails));
+    })
     .catch(err => err);
 }
 
