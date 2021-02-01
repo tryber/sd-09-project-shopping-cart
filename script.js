@@ -56,9 +56,9 @@ function cleanCart() {
 
 async function sumProducts(price) {
   let value = +(document.querySelector('#value').innerText);
-  value += price
+  value += price;
   value = value.toFixed(2);
-  document.querySelector('#value').innerText = value
+  document.querySelector('#value').innerText = value;
 }
 
 const setCartItems = async (event) => {
