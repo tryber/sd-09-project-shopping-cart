@@ -44,7 +44,7 @@ window.onload = function onload() {
   const sectionItems = document.querySelector('.items');
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
-    .then(object => {
+    .then((object) => {
       object.results.forEach((product) => {
         sectionItems.appendChild(createProductItemElement(product));
       });
