@@ -79,7 +79,7 @@ const loadPage = async (endpoint) => {
   } catch (error) {
     window.alert(error);
   }
-}
+};
 
 
 window.onload = function onload() {
