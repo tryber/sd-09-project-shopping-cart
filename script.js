@@ -117,4 +117,5 @@ window.onload = function onload() {
     document.querySelector('.cart__items').innerHTML = '';
     document.querySelector('.total-price').innerText = 0;
   });
+  document.querySelector('.loading').remove();
 };
