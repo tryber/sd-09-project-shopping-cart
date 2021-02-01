@@ -68,7 +68,7 @@ function searchID(id) {
     const cartElement = object.results;
     const { id: sku, title: name, price: salePrice } = cartElement;
     const itemList = createCartItemElement({ sku, name, salePrice });
-    createCartListItem(itemList)
+    createCartListItem(itemList);
   })
   .catch(error => window.alert(error));
 }
