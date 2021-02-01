@@ -52,6 +52,7 @@ const loopButtons = (className, functionName) => {
 function cartItemClickListener(event) {
   // coloque seu código aqui.
   event.target.remove();
+  salveItem()
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -61,6 +62,16 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
 
   return li;
+}
+
+const salveItem = () => {
+  const listItem = document.querySelectorAll('li');
+  const arrayItem = [];
+  listItem.forEach(element => {
+    arrayItem.push(element.className)
+    arrayItem.push(element.innerText)
+  });
+  localStorage.setItem('listItemCart', JSON.stringify(arrayItem));
 }
 
 const fetchListCart = (id) => {
@@ -74,6 +85,7 @@ const fetchListCart = (id) => {
         throw new Error(object.error);
       }
       listCartMain.appendChild(createCartItemElement(newObject(object)));
+      salveItem();
     })
     .catch(erro => console.log(erro));
 };
@@ -98,6 +110,30 @@ const fetchMercadorLivre = (id) => {
     .catch(() => console.log('ERRO'));
 };
 
+const addListItem = (text, className) => {
+  const listCartMain = document.querySelector('.cart__items'); 
+  const li = document.createElement('li');
+  li.className = className;
+  li.innerText = text;
+  li.addEventListener('click', cartItemClickListener);
+
+  listCartMain.appendChild(li);
+}
+
+const returnLocalStorage = () => {
+    const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
+    if (arrayItem === null) {
+      return;
+    }
+
+    for (let index = 0; index < arrayItem.length; index += 2) {
+      const className = arrayItem[index];
+      const text = arrayItem[index + 1];
+      addListItem(text, className);
+    }
+}
+
 window.onload = () => {
   fetchMercadorLivre('computador');
+  returnLocalStorage()
 };
