@@ -1,6 +1,6 @@
 const itemsSection = document.querySelector('.items');
 const cartItemsOl = document.querySelector('.cart__items');
-let shoppingCart = [];
+const shoppingCart = [];
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -33,14 +33,13 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  cartItemsOl.addEventListener('click', (event) => {
+  cartItemsOl.addEventListener('click', () => {
     const element = event.target;
     if (element.classList.contains('cart__item')) {
       element.remove();
     }
   });
 }
-
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -56,7 +55,7 @@ const urls = {
   },
   search: 'https://api.mercadolibre.com/sites/MLB/search?q=',
   itemInfo: 'https://api.mercadolibre.com/items/',
-}
+};
 
 const retrieveJsonFor = async (...args) => {
   const url = urls.getFor(args);
@@ -79,7 +78,7 @@ const showResultsFor = async (searchTerm) => {
 const searchFor = (searchTerm) => { showResultsFor(searchTerm); };
 
 const addElementProductToCart = async (element) => {
-  const itemSku = element.parentNode.firstChild.innerText;
+  const itemSku = getSkuFromProductItem(element.parentNode);
   const { id, title, price } = await retrieveJsonFor('itemInfo', itemSku);
   const itemObject = { sku: id, name: title, salePrice: price };
   shoppingCart.push(itemObject);
