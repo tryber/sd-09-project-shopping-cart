@@ -1,3 +1,5 @@
+// Comentario para commit inicial;
+
 window.onload = function onload() { };
 
 function createProductImageElement(imageSource) {
