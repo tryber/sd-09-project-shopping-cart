@@ -101,10 +101,11 @@ const fetchSearch = async (query) => {
 
   const resultArray = await fetch(queryEndpoint)
   .then(response => response.json())
-  .then(object => {
+  .then((object) => {
     removeLoading();
-    return object.results});
-  
+    return object.results;
+  });
+
   resultArray.forEach((item) => {
     const myObject = {
       name: item.title,
