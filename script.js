@@ -49,6 +49,11 @@ const loopButtons = (className, functionName) => {
   buttons.forEach(button => button.addEventListener('click', functionName));
 };
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui.
+  event.target.remove();
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -72,11 +77,6 @@ const fetchListCart = (id) => {
     })
     .catch(erro => console.log(erro));
 };
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui.
-  event.target.remove();
-}
 
 const createItemList = event => fetchListCart(getSkuFromProductItem(event.path[1]));
 
