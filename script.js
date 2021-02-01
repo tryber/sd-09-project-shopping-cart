@@ -57,12 +57,11 @@ const fetchItensComputers = async () => {
       const eachResult = createProductItemElement({ sku, name, image });
       const itens = document.querySelector('.items');
       itens.appendChild(eachResult);
-    })
+    });
   } catch (error) {
     window.alert(error);
   }
-
-}
+};
 
 window.onload = function onload() {
   fetchItensComputers();
