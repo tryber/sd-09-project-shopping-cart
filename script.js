@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
- // escreva aqui
+  // escreva aqui
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
