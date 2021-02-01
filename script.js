@@ -55,5 +55,5 @@ window.onload = function onload() {
           objectItem.image = item.thumbnail;
           classItems.appendChild(createProductItemElement(objectItem));
         });
-      })
+      });
 };
