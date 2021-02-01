@@ -97,7 +97,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function empryCartaddEvent() {
+  const empryButton = document.querySelector('.empty-cart');
+  const ol = document.querySelector('ol');
+
+  empryButton.addEventListener('click', function () {
+    ol.innerText = '';
+    localStorage.clear();
+  });
+}
+
 window.onload = function onload() {
+  empryCartaddEvent();
   getCartProducts();
   getProducts();
 };
