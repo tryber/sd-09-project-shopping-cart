@@ -21,6 +21,9 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
+  const sectionItems = document.querySelector('.items');
+  sectionItems.appendChild(section);
+
   return section;
 }
 
@@ -45,6 +48,7 @@ function getProduct() {
     .then(reponse => reponse.json())
     .then((object) => {
       const product = object.results;
+      console.log(product)
       product.forEach((element) => {
         const { id: sku, title: name, thumbnail: image } = element;
         createProductItemElement({ sku, name, image });
