@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  loadShoppingItems();
- };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -49,7 +45,11 @@ function loadShoppingItems() {
   const shelf = document.querySelector('section.items');
   fetch(api)
     .then(response => response.json())
-    .then(({ results }) => 
+    .then(({ results }) =>
       results.forEach(({ id: sku, title: name, thumbnail: image }) =>
         shelf.appendChild(createProductItemElement({ sku, name, image }))));
 }
+
+window.onload = function onload() {
+  loadShoppingItems();
+};
