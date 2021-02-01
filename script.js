@@ -10,7 +10,7 @@ async function fetchItemById(itemID) {
   return item;
 }
 
-async function calculateTotalPrice()  {
+async function calculateTotalPrice() {
   const cartItems = document.querySelectorAll('li.cart__item');
   const totalPrice = Array.from(cartItems).reduce((total, item) => {
     const priceIndex = item.innerText.lastIndexOf('PRICE');
