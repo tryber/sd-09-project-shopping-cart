@@ -33,6 +33,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -84,7 +85,13 @@ function addList() {
   sectionItems.addEventListener('click', getId);
 }
 
+function removeItemList() {
+  const listCarts = document.querySelector('.cart__items');
+  listCarts.addEventListener('click', cartItemClickListener);
+}
+
 window.onload = function onload() {
   getProduct();
   addList();
+  removeItemList();
 };
