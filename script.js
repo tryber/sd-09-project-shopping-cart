@@ -16,16 +16,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function addToList(data, objectComplement, sectionToAdd, callback) {
+  const object = { sku: data.id, name: data.title };
+  const finalObject = Object.assign(object, objectComplement);
+  sectionToAdd.appendChild(callback(finalObject));
+}
+
 function cartItemClickListener() {
-  setTimeout(() => {
-    const buttonAddToList = document.querySelectorAll('.item__add');
-    buttonAddToList.forEach((button) => {
-      button.addEventListener('click', function () {
-        const itemID = getSkuFromProductItem(button.parentNode);
-        searchItemById(itemID);
-      });
-    });
-  }, 500);
+  //escrever função
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -48,10 +46,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addToList(data, objectComplement, sectionToAdd, callback) {
-  const object = { sku: data.id, name: data.title };
-  const finalObject = Object.assign(object, objectComplement);
-  sectionToAdd.appendChild(callback(finalObject));
+function searchItemById(id) {
+  const URL = `https://api.mercadolibre.com/items/${id}`;
+  fetch(URL)
+    .then(response => response.json())
+    .then((data) => {
+      const obj = { salePrice: data.price };
+      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement);
+    });
 }
 
 function productItemList() {
@@ -66,17 +68,19 @@ function productItemList() {
     });
 }
 
-function searchItemById(id) {
-  const URL = `https://api.mercadolibre.com/items/${id}`;
-  fetch(URL)
-    .then(response => response.json())
-    .then((data) => {
-      const obj = { salePrice: data.price };
-      addToList(data, obj, document.querySelector('.cart__items'), createCartItemElement);
+function itemListListener() {
+  setTimeout(() => {
+    const buttonAddToList = document.querySelectorAll('.item__add');
+    buttonAddToList.forEach((button) => {
+      button.addEventListener('click', function () {
+        const itemID = getSkuFromProductItem(button.parentNode);
+        searchItemById(itemID);
+      });
     });
+  }, 500);
 }
 
 window.onload = () => {
   productItemList();
-  cartItemClickListener();
+  itemListListener();
 };
