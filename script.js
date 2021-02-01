@@ -102,13 +102,14 @@ function fetchAPI() {
     .then(response => response.json())
     .then((data) => {
       data.results.forEach((result) => {
-        const obj = {
-          sku: result.id,
-          name: result.title,
-          image: result.thumbnail,
-        };
+        const { id: sku, title: name, thumbnail: image } = result
+        // const obj = {
+        //   sku: result.id,
+        //   name: result.title,
+        //   image: result.thumbnail,
+        // };
 
-        itemsSection.appendChild(createProductItemElement(obj));
+        itemsSection.appendChild(createProductItemElement({ sku, name, image }));
         document.querySelector('.load').style.display = 'none';
       });
     })
