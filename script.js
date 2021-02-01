@@ -48,14 +48,15 @@ window.onload = function onload() {
       const section = createProductItemElement(obj);
       section.lastChild.addEventListener('click', () => {
         fetch(`https://api.mercadolibre.com/items/${value.id}`)
-          .then((response) => response.json()
-          .then((item) => {
-            const li = createCartItemElement({ sku: item.id, name: item.title, salePrice: item.price});
+          .then(resp => resp.json()
+          .then((item_2) => {
+            const obj_2 = { sku: item_2.id, name: item_2.title, salePrice: item_2.price };
+            const li = createCartItemElement(obj_2);
             const listItems = document.querySelector('.cart__items');
             listItems.appendChild(li);
           }));
       });
-      const containerItems = document.querySelector('.items');
-      containerItems.appendChild(section);
+        const containerItems = document.querySelector('.items');
+        containerItems.appendChild(section);
   })));
 };
