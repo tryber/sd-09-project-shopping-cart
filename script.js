@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchList(APIurl);
-  console.log(fetchList(APIurl));
-};
 const APIurl = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador'
 
 function createProductImageElement(imageSource) {
@@ -18,24 +14,32 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-const fetchList = url => {
-  const object = url => fetch(url)
-  .then(content => content.json())
-  .then(results => results.results)
-  .catch((error) => window.alert('something went wrong!'));
-
-  return object(url);
+const fetchList = () => {
+  const loading = document.querySelector('.loading');
+  loading.innerText = 'loading...';
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then((content) => content.json())
+  .then((object) => {
+    object.results.forEach((item) => {
+      const itemContent = {
+        sku: item.id,
+        name: item.title,
+        image: item.thumbnail,
+      };
+      loading.remove();
+      console.log(itemContent);
+      document.querySelector('.items').appendChild(createProductItemElement(itemContent));
+    });
+  });
 }
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
@@ -55,3 +59,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+window.onload = function onload() {
+  fetchList();
+};
