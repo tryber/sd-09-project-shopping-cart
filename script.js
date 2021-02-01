@@ -59,7 +59,14 @@ function createStoreItens() {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-
+  const ol = document.querySelector('ol');
+  const li = document.querySelectorAll('.cart__item');
+  li.forEach((liItem) => {
+    const textOfClickedLi = event.path[0].innerText
+    if(liItem.innerText === textOfClickedLi) {
+      ol.removeChild(liItem);
+    }
+  });
 
 }
 
