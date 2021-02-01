@@ -28,11 +28,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function addEventInItems() {
-  const btnAdd = document.querySelectorAll('button');
-  console.log(btnAdd);
-}
-
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
@@ -51,9 +46,16 @@ window.onload = function onload() {
     .then(item => item.results.forEach((value) => {
       const obj = { sku: value.id, name: value.title, image: value.thumbnail };
       const section = createProductItemElement(obj);
+      section.lastChild.addEventListener('click', () => {
+        fetch(`https://api.mercadolibre.com/items/${value.id}`)
+          .then((response) => response.json()
+          .then((item) => {
+            const li = createCartItemElement({ sku: item.id, name: item.title, salePrice: item.price});
+            const listItems = document.querySelector('.cart__items');
+            listItems.appendChild(li);
+          }));
+      });
       const containerItems = document.querySelector('.items');
       containerItems.appendChild(section);
   })));
-  
-  addEventInItems();
 };
