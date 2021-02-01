@@ -117,8 +117,23 @@ function fetchAPI() {
     });
 }
 
+function clearList() {
+  const cartItemsList = document.querySelector('.cart__items');
+  const totalPrice = document.querySelector('#total-price');
+
+  cartItemsList.innerHTML = ''
+  totalPrice.innerText = 0
+}
+
+function listenToEmptyCartButton() {
+  const emptyCartButton = document.querySelector('.empty-cart');
+
+  emptyCartButton.addEventListener('click', clearList);
+}
+
 window.onload = function onload() {
   fetchAPI();
   addItemsClickListener();
   cartItemClickListener();
+  listenToEmptyCartButton();
 };
