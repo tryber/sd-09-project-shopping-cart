@@ -28,17 +28,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function buttonCartListener() {
-  const buttonAddCart = document.querySelectorAll('.item__add');
-  // console.log(buttonAddCart);
-  buttonAddCart.forEach((element) => {
-    element.addEventListener('click', (event) => {
-      const idSku = event.path[1].firstElementChild.innerText;
-      fecthIDs(idSku);
-    });
-  });
-}
-
 function fetchProducts(search) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
   fetch(endPoint)
@@ -78,6 +67,17 @@ async function fecthIDs(id) {
   } catch (error) {
     alert(error);
   }
+}
+
+function buttonCartListener() {
+  const buttonAddCart = document.querySelectorAll('.item__add');
+  // console.log(buttonAddCart);
+  buttonAddCart.forEach((element) => {
+    element.addEventListener('click', (event) => {
+      const idSku = event.path[1].firstElementChild.innerText;
+      fecthIDs(idSku);
+    });
+  });
 }
 
 window.onload = function onload() {
