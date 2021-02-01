@@ -90,8 +90,17 @@ function removeItemList() {
   listCarts.addEventListener('click', cartItemClickListener);
 }
 
+function clearList() {
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', function() {
+    const listCarts = document.querySelector('.cart__items');
+    listCarts.innerHTML = '';
+  })
+}
+
 window.onload = function onload() {
   getProduct();
   addList();
   removeItemList();
+  clearList();
 };
