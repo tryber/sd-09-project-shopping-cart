@@ -51,17 +51,17 @@ const fetchSelectedItem = async (event) => {
     if (object.error) {
       throw new Error(object.error);
     }
-      const salePrice = object.price;
-      const name = object.title;
-      const sku = object.id;
-      const result = createCartItemElement({ sku, name, salePrice });
-      const cartItens = document.querySelector('.cart__items');
-      console.log(cartItens);
-      cartItens.appendChild(result);
+    const salePrice = object.price;
+    const name = object.title;
+    const sku = object.id;
+    const result = createCartItemElement({ sku, name, salePrice });
+    const cartItens = document.querySelector('.cart__items');
+    console.log(cartItens);
+    cartItens.appendChild(result);
   } catch (error) {
     window.alert(error);
   }
-}
+};
 
 const fetchItensComputers = async () => {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
