@@ -88,10 +88,10 @@ const fetchItemById = (id) => {
         throw new Error(object.error);
       }
       handleWithSearchId(object);
-    });
-    .catch((error) => {
-      window.alert(error);
-    });
+    })
+  .catch((error) => {
+    window.alert(error);
+  });
 }
 window.onload = function onload() {
   // Chamada de funções e recuperação de variáveis
