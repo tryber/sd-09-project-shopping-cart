@@ -1,3 +1,6 @@
+const itemsSection = document.querySelector('.items');
+const cartItemsOl = document.querySelector('.cart__items');
+let shoppingCart = [];
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -32,6 +35,7 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -40,18 +44,25 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const retrieveResultsFor = async (searchTerm) => {
-  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchTerm}`);
-  const { results } = await response.json();
-  return results;
+const urls = {
+  getFor([type, searchTerm]) {
+    return [this[type], searchTerm].join('');
+  },
+  search: 'https://api.mercadolibre.com/sites/MLB/search?q=',
+  itemInfo: 'https://api.mercadolibre.com/items/',
+}
+
+const retrieveJsonFor = async (...args) => {
+  const url = urls.getFor(args);
+  const jsonResponse = await fetch(url).then(resp => resp.json());
+  return jsonResponse;
 };
 
 const getCustomObjectFor = ({ id, title, thumbnail }) =>
   ({ sku: id, name: title, image: thumbnail });
 
 const showResultsFor = async (searchTerm) => {
-  const results = await retrieveResultsFor(searchTerm);
-  const itemsSection = document.querySelector('.items');
+  const { results } = await retrieveJsonFor('search', searchTerm);
   results.forEach((item) => {
     const itemObject = getCustomObjectFor(item);
     const itemElement = createProductItemElement(itemObject);
@@ -61,6 +72,26 @@ const showResultsFor = async (searchTerm) => {
 
 const searchFor = (searchTerm) => { showResultsFor(searchTerm); };
 
+const addElementProductToCart = async (element) => {
+  const itemSku = element.parentNode.firstChild.innerText;
+  const { id, title, price } = await retrieveJsonFor('itemInfo', itemSku);
+  const itemObject = { sku: id, name: title, salePrice: price };
+  shoppingCart.push(itemObject);
+  const itemCartElement = createCartItemElement(itemObject);
+  cartItemsOl.appendChild(itemCartElement);
+};
+
+function setItemsEvents() {
+  itemsSection.addEventListener('click', (event) => {
+    const element = event.target;
+    if (element.classList.contains('item__add')) {
+      addElementProductToCart(element);
+    }
+  });
+}
+
+
 window.onload = function onload() {
   searchFor('computador');
+  setItemsEvents();
 };
