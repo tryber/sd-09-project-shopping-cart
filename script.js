@@ -1,20 +1,31 @@
-window.onload = function onload() {
-  //createProductItemElement({sku: 'teste', name: 'item', image:'http://mlb-s1-p.mlstatic.com/720924-MLB44237609926_122020-I.jpg'});
-};
+window.onload = function onload() { };
+
+function createProductItemElement({ sku, name, image }) {
+  const items = document.querySelector('.items');
+  const section = document.createElement('section');
+  section.className = 'item';
+
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  section.appendChild(createCustomElement('span', 'item__title', name));
+  section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+
+  items.appendChild(section);
+}
 
 const objectFilter = (productsDatas) => {
   const entries = Object.entries(productsDatas.results);
-  return entries.map((info) => {
-    let infos = {
+  entries.forEach((info) => {
+    const infos = {
       sku: info[1].thumbnail,
       name: info[1].title,
-      image: info[1].thumbnail
-    }
+      image: info[1].thumbnail,
+    };
     createProductItemElement(infos);
   });
-}
+};
 const selectProduct = async () => {
-  const productChoise = `https://api.mercadolibre.com/sites/MLB/search?q=computador`;
+  const productChoise = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   try {
     const response = await fetch(productChoise);
     const object = await response.json();
@@ -25,7 +36,7 @@ const selectProduct = async () => {
   } catch (error) {
     alert(error);
   }
-}
+};
 selectProduct();
 
 function createProductImageElement(imageSource) {
@@ -40,19 +51,6 @@ function createCustomElement(element, className, innerText) {
   e.className = className;
   e.innerText = innerText;
   return e;
-}
-
-function createProductItemElement({ sku, name, image }) {
-  const items = document.querySelector('.items');
-  const section = document.createElement('section');
-  section.className = 'item';
-
-  section.appendChild(createCustomElement('span', 'item__sku', sku));
-  section.appendChild(createCustomElement('span', 'item__title', name));
-  section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
-  items.appendChild(section);
 }
 
 function getSkuFromProductItem(item) {
