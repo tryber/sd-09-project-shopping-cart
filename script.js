@@ -23,7 +23,7 @@ function addToList(data, objectComplement, sectionToAdd, callback) {
 }
 
 function cartItemClickListener() {
-  //escrever função
+  // escrever função
 }
 
 function createProductItemElement({ sku, name, image }) {
