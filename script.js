@@ -81,13 +81,12 @@ const fetchSearch = async (query) => {
     const myObject = {
       name: item.title,
       sku: item.id,
-      image: item.thumbnail
+      image: item.thumbnail,
     };
     const myItem = createProductItemElement(myObject);
     document.querySelector('.items').appendChild(myItem);
-  })
+  });
   addSendToCart();
 };
 
 fetchSearch('Computador');
-
