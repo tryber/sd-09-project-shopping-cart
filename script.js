@@ -16,7 +16,6 @@ function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
-  console.log(`id ${sku}, nome ${name}, imagem ${image}`)
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -41,7 +40,7 @@ function fetchProducts(query) {
         const { id, title, thumbnail } = result;
         const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
         document.querySelector('.items').appendChild(item);
-      })
+      });
     });
 }
 
