@@ -29,23 +29,59 @@ function appendChildItemsList(item) {
   items.appendChild(item);
 }
 
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+function appendChildCartItemList(item) {
+  const cart = document.querySelector('.cart__items');
+  cart.appendChild(item);
+}
+
+async function fetchItemMercadoLivre(item) {
+  const linkItem = `https://api.mercadolibre.com/items/${item}`;
+  console.log(linkItem);
+
+  const responseItem = await fetch(linkItem);
+  const responseItemJSON = await responseItem.json();
+  const newItem = {
+    ...item,
+    sku: responseItemJSON.id,
+    name: responseItemJSON.title,
+    salePrice: responseItemJSON.price
+  };
+  appendChildCartItemList(createCartItemElement(newItem));  
+}
+
+function addItemInCartListener() {
+  const addButtons = document.querySelectorAll('.item__add');
+  addButtons.forEach((addButton) => addButton.addEventListener('click', function(event) {
+    const itemID = event.path[1].childNodes[0].innerText;
+    fetchItemMercadoLivre(itemID);
+  }))
+}
+
 async function fetchMercadoLivreAPI(search) {
   const link = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
 
   try {
     const response = await fetch(link);
     const responseJSON = await response.json();
-    if (responseJSON.paging.total === 0) throw new Error();
     responseJSON.results.forEach((result) => {
       const item = {
+        ...result,
         sku: result.id,
         name: result.title,
         image: result.thumbnail,
       };
       appendChildItemsList(createProductItemElement(item));
     });
+    addItemInCartListener();
   } catch (error) {
-    alert('Nenhum item encontrado.');
   }
 }
 
@@ -55,14 +91,6 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 window.onload = function onload() {
