@@ -91,8 +91,6 @@ const fetchItensComputers = async () => {
   });
 };
 
-
-
 window.onload = function onload() {
   fetchItensComputers();
 };
