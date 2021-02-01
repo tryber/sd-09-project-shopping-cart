@@ -30,30 +30,30 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 const handleWithSearchResults = (object) => {
-    object.results.forEach((result) => {
-      const infosComput = {};
-      infosComput.sku = result.id;
-      infosComput.name = result.title;
-      infosComput.image = result.thumbnail;
-      const section = document.querySelector('.items');
-      section.appendChild(createProductItemElement(infosComput));
-    });
-  }
+  object.results.forEach((result) => {
+    const infosComput = {};
+    infosComput.sku = result.id;
+    infosComput.name = result.title;
+    infosComput.image = result.thumbnail;
+    const section = document.querySelector('.items');
+    section.appendChild(createProductItemElement(infosComput));
+  });
+};
 
 const fetchComputers = (endpoint) => {
-    fetch(endpoint)
-      .then(response => response.json())
-      .then((object) => {
-        if (object.results.length === 0) {
-          error = 'Produto não existe';
-          throw new Error(error);
-        }
-        handleWithSearchResults(object);
-      })
+  fetch(endpoint)
+    .then(response => response.json())
+    .then((object) => {
+      if (object.results.length === 0) {
+        error = 'Produto não existe';
+        throw new Error(error);
+      }
+      handleWithSearchResults(object);
+    })
     .catch((error) => {
       window.alert(error);
     });
-  }
+};
 function createStoreItens() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   fetchComputers(endpoint);
