@@ -52,9 +52,14 @@ const fetchMLB = async (ProductType) => {
       const sectionElement = document.querySelector('.items');
       const id = element.id;
       const name = element.title;
-      const img = element.thumbnail;
-      sectionElement.appendChild(createProductItemElement({ sku: id, name: name, image: img }));
-    })
+      const image = element.thumbnail;
+      const newObject = {
+        id,
+        name,
+        image,
+      };
+      sectionElement.appendChild(createProductItemElement(newObject));
+    });
   } catch (error) {
     window.alert(error);
   }
