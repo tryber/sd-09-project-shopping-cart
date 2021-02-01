@@ -40,16 +40,11 @@ const putElementsOnScreen = () => {
   responsePromise
     .then((response) => {
       const elementsArray = response.results;
+      const sectionItems = document.querySelector('.items');
 
       elementsArray.forEach((element) => {
-        const sectionItems = document.querySelector('.items');
-        const { id, title, thumbnail } = element;
-        const obj = {
-          sku: id,
-          name: title,
-          image: thumbnail,
-        };
-        sectionItems.appendChild(createProductItemElement(obj));
+        const { id: sku, title: name, thumbnail: image } = element;
+        sectionItems.appendChild(createProductItemElement({sku, name, image}));
       });
     });
 };
