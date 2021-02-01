@@ -53,10 +53,10 @@ async function createProductList() {
       items.appendChild(product);
     });
   } catch (error) {
-    new Error(error);
+    window.alert(error);
   }
 }
 
 window.onload = function onload() {
   createProductList();
- };
+};
