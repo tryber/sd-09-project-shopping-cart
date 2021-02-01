@@ -41,7 +41,7 @@ async function fetchMercadoLivreAPI(search) {
         sku: result.id,
         name: result.title,
         image: result.thumbnail,
-      }
+      };
       appendChildItemsList(createProductItemElement(item));
     });
   } catch (error) {
