@@ -1,10 +1,10 @@
-async function fetchAds (query) {
-  const url = 'https://api.mercadolibre.com/sites/MLB/search?q=$QUERY';
+async function fetchAds(request) {
+  const MLurl = 'https://api.mercadolibre.com/sites/MLB/search?q=$QUERY';
   const search = (url, query) => url.replace('$QUERY', query);
 
   try {
-    const ads = await fetch(search(url, query)).then(response => response.json());
-    if (ads.error) throw new Error(`${ads.status}: ${ads.message}`)
+    const ads = await fetch(search(MLurl, request)).then(response => response.json());
+    if (ads.error) throw new Error(`${ads.status}: ${ads.message}`);
     return ads.results;
   } catch (error) {
     window.alert(error);
@@ -39,7 +39,7 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
 
 window.onload = async function onload() {
   const ads = await fetchAds('computador');
-  ads.forEach(ad => {
+  ads.forEach((ad) => {
     const newSection = createProductItemElement(ad);
     document.querySelector('.items').appendChild(newSection);
   });
