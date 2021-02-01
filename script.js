@@ -28,15 +28,43 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener() {
+const substractFromCart = (price) => {
+  let totalPrice = document.querySelector('.total-price').innerText;
+  totalPrice = Math.round((totalPrice - price) * 100) / 100;
+  document.querySelector('.total-price').innerText = totalPrice;
+};
+
+async function cartItemClickListener(event) {
   // coloque seu código aqui
+  const item = event.target;
+  const itemID = item.id;
+  document.querySelector('.cart__items').removeChild(item);
+  const endpoint = `https://api.mercadolibre.com/items/${itemID}`;
+
+  // const toSubstract = await fetch(endpoint)
+  //   .then(response => response.json())
+  //   .then(myitem => myitem.price);
+  // substractFromCart(toSubstract);
+
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(myitem => substractFromCart(myitem.price));
 }
+
+const addToPrice = async (price) => {
+  let total = document.querySelector('.total-price').innerText;
+  total = await parseFloat(total);
+  total = Math.round((total + price) * 100) / 100;
+  document.querySelector('.total-price').innerText = total;
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
+  li.id = sku;
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  addToPrice(salePrice);
   return li;
 }
 
@@ -65,9 +93,9 @@ const addSendToCart = () => {
 };
 
 const fetchSearch = async (query) => {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${query}`;
+  const queryEndpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${query}`;
 
-  const resultArray = await fetch(endpoint)
+  const resultArray = await fetch(queryEndpoint)
   .then(response => response.json())
   .then(object => object.results);
 
@@ -87,5 +115,6 @@ window.onload = function onload() {
   fetchSearch('Computador');
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    document.querySelector('.total-price').innerText = 0;
   });
 };
