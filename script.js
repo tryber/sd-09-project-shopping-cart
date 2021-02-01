@@ -58,6 +58,6 @@ const fetchProducts = async (search) => {
     })
   }
     catch (error) {
-      console.log('computador');
+      console.log('Nem funcionou!');
   }
 }
