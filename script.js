@@ -24,6 +24,10 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+const removeLoading = () => {
+  document.querySelector('.loading').remove();
+};
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -97,8 +101,10 @@ const fetchSearch = async (query) => {
 
   const resultArray = await fetch(queryEndpoint)
   .then(response => response.json())
-  .then(object => object.results);
-
+  .then(object => {
+    removeLoading();
+    return object.results});
+  
   resultArray.forEach((item) => {
     const myObject = {
       name: item.title,
@@ -117,5 +123,4 @@ window.onload = function onload() {
     document.querySelector('.cart__items').innerHTML = '';
     document.querySelector('.total-price').innerText = 0;
   });
-  document.querySelector('.loading').remove();
 };
