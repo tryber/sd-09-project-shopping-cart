@@ -32,25 +32,16 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
 }
 
-// Loads product listing products to HTML section 'items'
-function loadProductList(productList) {
-  const itemsList = document.querySelector('.items');
-  productList.forEach((product) => {
-    itemsList.appendChild(createProductItemElement(product));
-  });
-}
-
-// Retrieves the list of products from Mercado livre API
+// Retrieves the list of products from Mercado livre API and loads in 'items' section on HTML
 async function fetchProductList(item) {
-  const productList = [];
+  const itemsList = document.querySelector('.items');
   await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${item}`)
     .then(response => response.json())
     .then(data => data.results
       .forEach(({ id: sku, title: name, thumbnail: image }) => {
-        productList.push({ sku, name, image });
+        itemsList.appendChild(createProductItemElement({ sku, name, image }));
       }))
     .catch(error => alert(error));
-  loadProductList(productList);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -84,7 +75,7 @@ function fetchProduct(event) {
 }
 
 // Event Listeners
-async function setupEvents() {
+function setupEvents() {
   const items = document.querySelector('.items');
   items.addEventListener('click', fetchProduct);
 }
