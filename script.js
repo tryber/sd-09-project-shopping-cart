@@ -1,21 +1,33 @@
 window.onload = function onload() {
+
+  fetchAPI();
+
+
+};
+
+const fetchAPI = async () => {
   const endpoint = "https://api.mercadolibre.com/sites/MLB/search?q=$computador"
 
-  fetch(endpoint)
-  .then((response) => response.json())
-  .then((object) => {
-    const itemsContainer = document.querySelector(".items");
-    object.results.forEach((item) => {
-      const newItem = {};
-      newItem['sku'] = item.id;
-      newItem['name'] = item.title;
-      newItem['image'] = item.thumbnail;
-      const newItemElement = createProductItemElement(newItem);
-      itemsContainer.appendChild(newItemElement);
-    })
-  })
+  try {
+    const response = await fetch(endpoint);
+    const object = await response.json();
+    createListOfItems(object);
+  } catch {
+    window.alert("Error");
+  }
+}
 
- };
+function createListOfItems(object) {
+  object.results.forEach((item) => {
+    const itemsContainer = document.querySelector(".items");
+    const newItem = {};
+    newItem['sku'] = item.id;
+    newItem['name'] = item.title;
+    newItem['image'] = item.thumbnail;
+    const newItemElement = createProductItemElement(newItem);
+    itemsContainer.appendChild(newItemElement);
+  });
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -31,7 +43,11 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({
+  sku,
+  name,
+  image
+}) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -49,9 +65,16 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  console.log(event.target);
+  // const cartItems = document.querySelector('cart__items');
+  // const endpoint = `https://api.mercadolibre.com/items/$${event.target.}`
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({
+  sku,
+  name,
+  salePrice
+}) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
