@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchItensComputers();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -52,13 +48,13 @@ const fetchItensComputers = async () => {
     const object = await response.json();
 
     if (object.error) {
-      throw new Error(object.error)
+      throw new Error(object.error);
     }
     object.results.forEach((item) => {
       const image = item.thumbnail;
       const name = item.title;
-      const sku = item.id; 
-      let eachResult = createProductItemElement({sku, name, image});
+      const sku = item.id;
+      const eachResult = createProductItemElement({ sku, name, image });
       const itens = document.querySelector('.items');
       itens.appendChild(eachResult);
     })
@@ -67,3 +63,8 @@ const fetchItensComputers = async () => {
   }
 
 }
+
+window.onload = function onload() {
+  fetchItensComputers();
+};
+
