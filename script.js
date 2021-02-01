@@ -42,7 +42,6 @@ const newObject = (element) => {
 };
 
 const fetchListCart = (id) => {
-  const listCartMain = document.querySelector('.cart__items');
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
 
   fetch(endpoint)
@@ -51,10 +50,10 @@ const fetchListCart = (id) => {
       if (object.error) {
         throw new Error(object.error);
       }
-      listCartMain.appendChild(createCartItemElement(newObject(object)));
+      codeClimate(object);
     })
     .catch(erro => console.log(erro));
-}
+};
 
 function cartItemClickListener(event) {
   // coloque seu código aqui.
@@ -69,6 +68,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 
   return li;
 }
+
+const codeClimate = (object) => {
+  const listCartMain = document.querySelector('.cart__items');
+  listCartMain.appendChild(createCartItemElement(newObject(object)));
+};
 
 const loopButton = () => {
   const buttonAddItem = document.querySelectorAll('.item__add');
