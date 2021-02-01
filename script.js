@@ -44,7 +44,6 @@ const fetchShoppingCart = (productQuery) => {
     .then(response => response.json())
     .then(object => object.results.forEach((productItem) => {
       document.querySelector('.items').appendChild(createProductItemElement(productItem));
-      // document.querySelector('.items').appendChild(itemElement);
     }))
     .catch((error) => {
       window.alert(`Error: ${error}`);
