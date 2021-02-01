@@ -50,7 +50,7 @@ async function fetchMercadoLivre(term) {
   const itemsElement = document.querySelector('.items');
 
   results.forEach((result) => {
-    const { id: sku, title: name, thumbnail: image } = result
+    const { id: sku, title: name, thumbnail: image } = result;
     const element = createProductItemElement({ sku, name, image });
     itemsElement.appendChild(element);
   });
