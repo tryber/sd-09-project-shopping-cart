@@ -29,7 +29,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const cart = document.querySelector('.cart__items');
+  cart.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -47,7 +48,6 @@ function appendChildCartItemList(item) {
 
 async function fetchItemMercadoLivre(item) {
   const linkItem = `https://api.mercadolibre.com/items/${item}`;
-  console.log(linkItem);
 
   const responseItem = await fetch(linkItem);
   const responseItemJSON = await responseItem.json();
@@ -63,7 +63,7 @@ function addItemInCartListener() {
   const addButtons = document.querySelectorAll('.item__add');
   addButtons.forEach(addButton => (addButton
     .addEventListener('click', (event) => {
-      const itemID = event.path[1].childNodes[0].innerText;
+      const itemID = getSkuFromProductItem(event.target.parentNode);
       fetchItemMercadoLivre(itemID);
     },
   )));
