@@ -14,6 +14,23 @@ async function fetchAPI(endpoint) {
     return window.alert('Error');
   }
 }
+const calculateTotalPrice = () => {
+  const cartItems = document.querySelector('.cart__items').childNodes;
+  let totalPrice = 0;
+  cartItems.forEach((element) => {
+    const elementText = element.innerText.split(' ');
+    const priceIndex = elementText.indexOf('PRICE:') + 1;
+    const price = elementText[priceIndex];
+    totalPrice += parseFloat(price.substring(1));
+  });
+  return totalPrice;
+};
+
+const updateTotalPrice = async () => {
+  const totalPrice = await calculateTotalPrice();
+  const totalPriceField = document.querySelector('.total-price');
+  totalPriceField.innerHTML = `<strong>Total Price: </strong> R$${totalPrice.toFixed(2)}`;
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -85,24 +102,6 @@ function createCartItemElement({
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-const calculateTotalPrice = () => {
-  const cartItems = document.querySelector('.cart__items').childNodes;
-  let totalPrice = 0;
-  cartItems.forEach((element) => {
-    const elementText = element.innerText.split(' ');
-    const priceIndex = elementText.indexOf('PRICE:') + 1;
-    const price = elementText[priceIndex];
-    totalPrice += parseFloat(price.substring(1));
-  });
-  return totalPrice;
-}
-
-const updateTotalPrice = async () =>{
-  let totalPrice = await calculateTotalPrice();
-  const totalPriceField = document.querySelector('.total-price');
-  totalPriceField.innerHTML = `<strong>Total Price: </strong> R$${totalPrice.toFixed(2)}`;
 }
 
 const addCartItem = async (event) => {
