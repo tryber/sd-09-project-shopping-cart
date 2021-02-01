@@ -70,7 +70,7 @@ function addItems(event) {
     const endpoint = `https://api.mercadolibre.com/items/${event.target.parentElement.firstChild.innerText}`;
 
     fetch(endpoint)
-      .then((response) => response.json())
+      .then(response => response.json())
       .then((data) => {
         const productInfo = {
           sku: data.id,
@@ -84,7 +84,7 @@ function addItems(event) {
         cartSection.appendChild(cartItemElement);
         updatePriceSum(productInfo.salePrice);
       })
-      .catch((error) => window.alert(error));
+      .catch(error => window.alert(error));
   }
 }
 
@@ -99,7 +99,7 @@ function fetchAPI() {
   const itemsSection = document.querySelector('.items');
 
   fetch(endpoint)
-    .then((response) => response.json())
+    .then(response => response.json())
     .then((data) => {
       data.results.forEach((result) => {
         const obj = {
