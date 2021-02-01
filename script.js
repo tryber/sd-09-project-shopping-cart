@@ -47,7 +47,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 const getLocalStorage = () => {
   const listCart = document.querySelector('.cart__items');
   listCart.innerHTML = localStorage.getItem('shopping-cart');
-}
+};
 
 // Adicione o produto ao carrinho de compras
 
