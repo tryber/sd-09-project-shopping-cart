@@ -94,8 +94,8 @@ function addItemsClickListener() {
   itemAddButtonNodeList.addEventListener('click', addItems);
 }
 
-function fetchAPI() {
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+function fetchAPI(term) {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   const itemsSection = document.querySelector('.items');
 
   fetch(endpoint)
@@ -133,7 +133,7 @@ function listenToEmptyCartButton() {
 }
 
 window.onload = function onload() {
-  fetchAPI();
+  fetchAPI('computador');
   addItemsClickListener();
   cartItemClickListener();
   listenToEmptyCartButton();
