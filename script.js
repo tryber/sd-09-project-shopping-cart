@@ -33,6 +33,12 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  cartItemsOl.addEventListener('click', (event) => {
+    const element = event.target;
+    if (element.classList.contains('cart__item')) {
+      element.remove();
+    }
+  });
 }
 
 
@@ -94,4 +100,5 @@ function setItemsEvents() {
 window.onload = function onload() {
   searchFor('computador');
   setItemsEvents();
+  cartItemClickListener();
 };
