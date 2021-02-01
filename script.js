@@ -10,9 +10,21 @@ async function fetchItemById(itemID) {
   return item;
 }
 
+async function calculateTotalPrice()  {
+  const cartItems = document.querySelectorAll('li.cart__item');
+  const totalPrice = Array.from(cartItems).reduce((total, item) => {
+    const priceIndex = item.innerText.lastIndexOf('PRICE');
+    return (total + Number(item.innerText.substr(priceIndex + 8)));
+  }, 0);
+  const priceSpan = document.querySelector('span.cart-price');
+  // priceSpan.innerText = Math.round(totalPrice * 100) / 100;
+  priceSpan.innerText = totalPrice;
+}
+
 function saveCart() {
   const cartList = document.querySelector('ol.cart__items');
   localStorage.setItem('cart', cartList.innerHTML);
+  calculateTotalPrice();
 }
 
 function cartItemClickListener(event) {
@@ -25,6 +37,7 @@ function loadCart() {
   cartList.innerHTML = localStorage.getItem('cart');
   const cartItems = document.querySelectorAll('li.cart__item');
   cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
+  calculateTotalPrice();
 }
 
 function createProductImageElement(imageSource) {
