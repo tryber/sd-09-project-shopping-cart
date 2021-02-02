@@ -92,7 +92,8 @@ function cartItemClickListener(event) {
     }
   }
   if (localStorage.length === 0) {
-    clearCart();
+    const cartListItems = document.querySelector('.cart__items');
+    cartListItems.innerHTML = '';
   }
   currentCartValue();
 }
