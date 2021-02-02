@@ -1,6 +1,6 @@
 function printTotalPrice(value) {
-  const price = document.querySelector('.price');
-  price.innerText = value.toFixed(2);
+  const price = document.querySelector('.total-price');
+  price.innerText = value;
 }
 
 async function getTotalPriceItems() {
@@ -35,14 +35,14 @@ function clearCart() {
 
 function createDivTotalPrice() {
   const cart = document.querySelector('.cart');
-  const totalPrice = document.createElement('div');
+  const total = document.createElement('div');
   const price = document.createElement('span');
-  price.classList.add('price');
+  total.classList.add('total');
+  total.innerHTML = 'Preço total: $';
+  price.classList.add('total-price');
   price.innerText = 0;
-  totalPrice.classList.add('total-price');
-  totalPrice.innerHTML = 'Preço total: $';
-  cart.appendChild(totalPrice);
-  totalPrice.appendChild(price);
+  cart.appendChild(total);
+  total.appendChild(price);
 }
 
 function saveItemCartOnLocalStorage(item) {
