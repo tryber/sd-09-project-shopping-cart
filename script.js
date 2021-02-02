@@ -102,6 +102,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 const fetchListCart = (id) => {
   const listCartMain = document.querySelector('.cart__items');
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
+  removeAndAddLoading('block');
 
   fetch(endpoint)
     .then(response => response.json())
@@ -110,6 +111,7 @@ const fetchListCart = (id) => {
         throw new Error(object.error);
       }
       listCartMain.appendChild(createCartItemElement(newObject(object)));
+      removeAndAddLoading('none')
       sumPrice();
       salveItem();
     })
@@ -118,9 +120,15 @@ const fetchListCart = (id) => {
 
 const createItemList = event => fetchListCart(getSkuFromProductItem(event.path[1]));
 
+const removeAndAddLoading = (string) => {
+  const loading = document.querySelector('.loading');
+  loading.style.display = string;
+}
+
 const fetchMercadoLivre = (id) => {
   const sectionMain = document.querySelector('.items');
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${id}`;
+  removeAndAddLoading('block');
 
   fetch(endpoint)
     .then(response => response.json())
@@ -132,6 +140,7 @@ const fetchMercadoLivre = (id) => {
         sectionMain.appendChild(createProductItemElement(newObject(element)));
         loopButtons('.item__add', createItemList);
       });
+      removeAndAddLoading('none')
     })
     .catch(() => console.log('ERRO'));
 };
