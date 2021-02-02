@@ -72,11 +72,7 @@ const fetchSelectedItem = async (event) => {
     const result = createCartItemElement({ sku, name, salePrice, id });
     const cartItens = document.querySelector('.cart__items');
     cartItens.appendChild(result);
-    objLocalStorage.push({
-      sku: sku,
-      name: name,
-      salePrice: salePrice,
-      id: id });
+    objLocalStorage.push({ sku, name, salePrice, id });
     localStorage.setItem('MLCart', JSON.stringify(objLocalStorage));
   } catch (error) {
     window.alert(error);
