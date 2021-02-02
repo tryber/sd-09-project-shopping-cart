@@ -9,7 +9,7 @@ function clearCart() {
   const clearCartButton = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
   clearCartButton.addEventListener('click', function () {
-    ol.innerHTML = ''
+    ol.innerHTML = '';
   });
   localStorage.clear();
 }
