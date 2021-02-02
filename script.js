@@ -97,6 +97,11 @@ async function addItemToCart(event) {
   }
 }
 
+function removeLoader() {
+  const loader = document.querySelector('.loading');
+  loader.parentNode.removeChild(loader);
+}
+
 window.onload = async function onload() {
   updateSumOfPrices();
   const ads = await fetchAds('computador');
@@ -106,5 +111,5 @@ window.onload = async function onload() {
   });
   document.querySelectorAll('.item__add').forEach(item =>
     item.addEventListener('click', addItemToCart));
-  document.querySelector('.loading').style.display = 'none';
+  removeLoader();
 };

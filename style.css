@@ -5,13 +5,13 @@ body {
 }
 
 .loading {
-  background-color: yellow;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
   align-items: center;
+  background-color: yellow;
+  display: flex;
   font-size: 5em;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
 }
 
 .top-bar {
