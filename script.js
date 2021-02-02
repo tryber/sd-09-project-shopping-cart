@@ -87,7 +87,17 @@ function addItems() {
   });
 }
 
+function emptyCart() {
+  const cartItems = document.querySelector('.cart__items');
+  const cartItemsLength = cartItems.childElementCount - 1;
+
+  for (let index = cartItemsLength; index >= 0; index -= 1) {
+    cartItems.removeChild(cartItems.children[index]);
+  }
+}
+
 window.onload = function onload() {
   getProductList();
   addItems();
+  document.querySelector('.empty-cart').addEventListener('click', emptyCart);
 };
