@@ -24,9 +24,9 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
   const ol = document.querySelector('.cart__items');
-  ol.addEventListener('click', event => event.target.remove())
+  ol.addEventListener('click', event => event.target.remove());
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
