@@ -1,9 +1,9 @@
 
 function saveAtTheLocalStorage() {
-  const cart = document.querySelector('.cart')
-  const stringfiedCart = JSON.stringify(cart.innerHTML)
+  const cart = document.querySelector('.cart');
+  const stringfiedCart = JSON.stringify(cart.innerHTML);
 
-  localStorage.setItem('cart', stringfiedCart)
+  localStorage.setItem('cart', stringfiedCart);
 }
 
 
@@ -11,18 +11,18 @@ function updatePrice() {
   return new Promise(function (resolve) {
     const totalPriceSpan = document.querySelector('#total-price');
     const cartProductsNodeList = document.querySelectorAll('li');
-    let currentPrice = 0
+    let currentPrice = 0;
 
     cartProductsNodeList.forEach((product) => {
-      currentPrice += parseFloat(product.id)
-    })
+      currentPrice += parseFloat(product.id);
+    });
 
-    const priceToBeDisplayed = (Math.round(currentPrice * 100) / 100).toFixed(2)
+    const priceToBeDisplayed = (Math.round(currentPrice * 100) / 100).toFixed(2);
 
     if (currentPrice === 0.00) {
-      totalPriceSpan.innerText = 0
+      totalPriceSpan.innerText = 0;
     } else {
-      totalPriceSpan.innerText = priceToBeDisplayed
+      totalPriceSpan.innerText = priceToBeDisplayed;
     }
 
     resolve();
@@ -193,10 +193,10 @@ function listenToSearchIpt() {
 }
 
 function loadLocalStorage() {
-  const cart = document.querySelector('.cart')
-  const parsedCart = JSON.parse(localStorage.getItem('cart'))
+  const cart = document.querySelector('.cart');
+  const parsedCart = JSON.parse(localStorage.getItem('cart'));
 
-  cart.innerHTML = parsedCart
+  cart.innerHTML = parsedCart;
 }
 
 window.onload = function onload() {
