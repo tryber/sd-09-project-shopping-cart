@@ -43,7 +43,7 @@ const lessPrice = (event) => {
   const itemIndex = Object.values(arrayItems).findIndex(item => item === element);
   priceArray.splice(itemIndex, 1);
   const sumTotal = priceArray.length > 0 ? priceArray.reduce((a, b) => a + b) : 0;
-  totalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
+  totalPrice.textContent = `${Math.round(sumTotal * 100) / 100}`;
 };
 
 function cartItemClickListener(event) {
@@ -62,7 +62,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 const sumPrices = () => {
   const sumTotal = priceArray.reduce((a, b) => a + b);
   const tagTotalPrice = document.querySelector('.total-price');
-  tagTotalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
+  tagTotalPrice.textContent = `${Math.round(sumTotal * 100) / 100}`;
 };
 
 const addItemOnCart = async (param) => {
@@ -78,7 +78,6 @@ const addItemOnCart = async (param) => {
     console.log(error);
   }
 };
-
 
 const addToShoppingCart = () => {
   const btnItems = document.querySelectorAll('.item__add');
@@ -110,18 +109,12 @@ const clearList = () => {
   const ol = document.querySelector('.cart__items');
   while (ol.firstChild) { ol.firstChild.remove(); }
   const totalPrice = document.querySelector('.total-price');
-  totalPrice.textContent = 'Total: R$ 0,00';
+  totalPrice.textContent = '0,00';
 };
-
-// const eventListenerOnCart = () => {
-//   const ol = document.querySelector('.cart__items')
-//   ol.addEventListener('click', lessPrice)
-// }
 
 const addEvent = () => {
   const btnClear = document.querySelector('.empty-cart');
   btnClear.addEventListener('click', clearList);
-  // eventListenerOnCart()
 };
 
 window.onload = function onload() {
