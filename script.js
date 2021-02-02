@@ -80,13 +80,13 @@ function sumPrices() {
   }
   const labelPrice = document.querySelector('.total-price');
   if (items.length === 0) {
-    labelPrice.innerHTML = 'R$ 0,00';
+    labelPrice.innerHTML = '0,00';
   } else {
     let totalPrice = 0;
     ids.forEach(async (value) => {
       const price = await searchPriceByID(value);
       totalPrice += price;
-      labelPrice.innerHTML = `R$ ${totalPrice.toFixed(2)}`;
+      labelPrice.innerHTML = `${totalPrice}`;
     });
   }
 }
