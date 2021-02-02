@@ -69,7 +69,16 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const addLoadingText = () => {
+  const myCart = document.querySelector('.cart__items');
+  const li = document.createElement('li');
+  li.className = 'loading';
+  li.innerText = 'loading...';
+  myCart.appendChild(li);
+};
+
 const fetchAddToCartStorage = async (event) => {
+  addLoadingText();
   const myCart = document.querySelector('.cart__items');
   const clickedCard = event.target.parentNode;
   const itemId = getSkuFromProductItem(clickedCard);
@@ -87,6 +96,7 @@ const fetchAddToCartStorage = async (event) => {
     alert(error);
   }
   addItemsToLocalStorage();
+  document.querySelector('.loading').remove();
 };
 
 const addListenersToPageItems = () => {
