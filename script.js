@@ -24,26 +24,21 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
 function cartItemClickListener(event) {
   // coloque seu código aqui
-
 }
 
-function fetchProducts(query) {
-  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
-    .then(response => response.json())
-    .then((object) => {
-      object.results.forEach((result) => {
-        const { id, title, thumbnail } = result;
-        const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
-        document.querySelector('.items').appendChild(item);
-      });
-    });
-}
+async function fetchProducts(query) {
+  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
+  const object = await response.json();
+  object.results.forEach((result) => {
+    const { id, title, thumbnail } = result;
+    const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
+    document.querySelector('.items').appendChild(item);
+  });
+  addToCart();
+};
+
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -53,7 +48,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchAddRequest = async (itemId) => {
+const fetchAddToCartRequest = async (itemId) => {
   const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
   const object = await response.json();
   const { id, title, price } = object;
@@ -62,18 +57,27 @@ const fetchAddRequest = async (itemId) => {
   cartItems.appendChild(item);
 };
 
-function getProductId(event) {
-  const id = event.target.parentNode.firstChild.innerText;
-  fetchAddRequest(id);
-}
 
+function getSkuFromProductItem(item) {
+  const id = item.querySelector('span.item__sku').innerText;
+  fetchAddToCartRequest(id);
+}
 function addToCart() {
   document.querySelectorAll('.item__add').forEach((button) => {
-    button.addEventListener('click', getProductId);
+    button.addEventListener('click', function (event) {
+      const selectedElement = event.target.parentElement;
+      getSkuFromProductItem(selectedElement);
+    });
   });
 }
 
+// function getProductId(event) {
+//   const id = event.target.parentNode.firstChild.innerText;
+//   fetchAddToCartRequest(id);
+// }
+
 window.onload = function onload() {
   fetchProducts('computador');
-  setTimeout(() => addToCart(), 500);
+  
+
 };
