@@ -17,7 +17,21 @@ const appendChildElement = (father, elementChild) => {
   elementFather.appendChild(elementChild);
 };
 
-const cartItemClickListener = event => {
+const getLocalStorage = () => {
+  const list = document.querySelector('.cart__items');
+  const storage = localStorage.getItem('products');
+  storage === null
+    ? localStorage.setItem('products', '')
+    : list.innerHTML = localStorage.getItem('products');
+  list.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
+};
+
+const updateLocalStorage = () => {
+  const list = document.querySelector('.cart__items');
+  localStorage.setItem('products', list.innerHTML);
+}
+
+const cartItemClickListener = (event) => {
   event.target.remove();
   updateLocalStorage();
 };
@@ -30,25 +44,11 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const getLocalStorage = () => {
-  const list = document.querySelector('.cart__items');
-  const storage = localStorage.getItem('products');
-  !storage
-    ? localStorage.setItem('products', '')
-    : list.innerHTML = localStorage.getItem('products');
-  list.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)))
-}
-
-const updateLocalStorage = () => {
-  const list = document.querySelector('.cart__items');
-  localStorage.setItem('products', list.innerHTML);
-}
-
 const getProductFromAPIIds = (event) => {
   const idProduct = event.path[1].firstChild.innerText;
   return fetch(`https://api.mercadolibre.com/items/${idProduct}`)
     .then(response => response.json())
-    .then(object => {
+    .then((object) => {
       const { id: sku, title: name, price: salePrice } = object;
       appendChildElement('.cart__items', createCartItemElement({ sku, name, salePrice }));
       updateLocalStorage();
