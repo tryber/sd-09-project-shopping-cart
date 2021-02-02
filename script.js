@@ -28,9 +28,12 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// Remove li element from the cart
+// Remove li element from the cart and local storage
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
+  const localStorageEntries = Object.entries(localStorage);
+  const deletedItem = localStorageEntries.find(value => value[1] === event.target.innerText)[0];
+  localStorage.removeItem(deletedItem);
 }
 
 // Retrieves the list of products from Mercado livre API and loads in 'items' section on HTML
@@ -53,11 +56,43 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+// Generates a random key for local storage
+function generateKey () {
+  const string = 'QWERTYUIOPASDFGHJKLZXCVBNM123456789';
+  const keyLength = 10;
+  let key = '';
+  for (let index = 0; index < keyLength; index += 1 ) {
+    key = `${key + string[Math.round(Math.random() * string.length -1)]}`
+  }
+  return key;
+}
+
+// Saves the item inserted in the cart to local storage
+function saveCartItemOnLocalStorage(item) {
+  localStorage.setItem(`cartItem${generateKey()}`, item.innerText);
+}
+
+// Loads on page all cart items saved on local storage
+function loadCartItemOnLocalSorage() {
+  const shoppingCart = document.querySelector('.cart__items');
+  const localStorageValues = Object.entries(localStorage);
+  localStorageValues.forEach((value) => {
+    if (value[0].indexOf('cartItem') !== -1) {
+      value[1] = value[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
+      const localStorageArr = value[1].split(' | ');
+      const localStorageObj = { sku: localStorageArr[0], name: localStorageArr[1], salePrice: localStorageArr[2] };
+      const cartItem = createCartItemElement(localStorageObj);
+      shoppingCart.appendChild(cartItem);
+    }
+  });
+}
+
 // Add the product to the 'cart items' HTML ol
 function addProductToCart(product) {
   const shoppingCart = document.querySelector('.cart__items');
   const { id: sku, title: name, price: salePrice } = product;
   const cartItem = createCartItemElement({ sku, name, salePrice });
+  saveCartItemOnLocalStorage(cartItem);
   shoppingCart.appendChild(cartItem);
 }
 
@@ -84,4 +119,5 @@ function setupEvents() {
 window.onload = function onload() {
   fetchProductList('computador');
   setupEvents();
+  loadCartItemOnLocalSorage();
 };
