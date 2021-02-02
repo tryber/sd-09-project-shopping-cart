@@ -36,10 +36,30 @@ function savedStorage() {
   localStorage.setItem('list', list.innerHTML);
 }
 
+function decrePrices(event) {
+  const getPrice = document.querySelector('.total-price').innerText;
+
+  const searchNumber = event.target.innerText.indexOf('$');
+  const number = event.target.innerText.slice(searchNumber + 1);
+
+  const valueConvert = Number(number);
+  const degree = Math.round(Number(getPrice) - valueConvert);
+
+  document.querySelector('.total-price').innerHTML = degree;
+}
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
+  decrePrices(event)
   savedStorage();
+}
+
+async function sumPrices(price) {
+  const getPrice = document.querySelector('.total-price').innerText;
+  const valueConvert = Number(getPrice);
+  let result = await Math.round(price + valueConvert);
+  document.querySelector('.total-price').innerHTML = result;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -47,6 +67,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+
+  sumPrices(salePrice);
 
   return li;
 }
@@ -92,11 +114,6 @@ function addList() {
   sectionItems.addEventListener('click', getId);
 }
 
-function removeItemList() {
-  const listCarts = document.querySelector('.cart__items');
-  listCarts.addEventListener('click', cartItemClickListener);
-}
-
 function clearList() {
   const buttonClear = document.querySelector('.empty-cart');
   buttonClear.addEventListener('click', function () {
@@ -108,12 +125,15 @@ function clearList() {
 
 function recovery() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('list');
+  const list = document.querySelectorAll('.cart__item');
+  list.forEach(element => {
+    element.addEventListener('click', cartItemClickListener);
+  })
 }
 
 window.onload = function onload() {
   getProduct();
   addList();
-  removeItemList();
   clearList();
   recovery();
 };
