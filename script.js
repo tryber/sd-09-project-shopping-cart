@@ -30,6 +30,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  localStorage.removeItem(event.target.id);
   event.target.remove();
 }
 
@@ -41,7 +42,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchAddItemToCart = async (event) => {
+const addItemToLocalStorageWithId = (obj, htmlTagString) => {
+  const key = `${localStorage.length + 1}-${obj.sku}`;
+  localStorage.setItem(key, htmlTagString);
+  return key;
+}
+
+const fetchAddToCartStorage = async (event) => {
   const clickedCard = event.target.parentNode;
   const itemId = getSkuFromProductItem(clickedCard);
   const endpointURL = `https://api.mercadolibre.com/items/${itemId}`;
@@ -50,7 +57,10 @@ const fetchAddItemToCart = async (event) => {
     const itemObject = await queryItem.json();
     const { id: sku, title: name, price: salePrice } = itemObject;
     const myCart = document.querySelector('.cart__items');
-    myCart.appendChild(createCartItemElement({ sku, name, salePrice }));
+    const cartItem = createCartItemElement({ sku, name, salePrice });
+    myCart.appendChild(cartItem);
+    const cartItemString = cartItem.outerHTML;
+    cartItem.id = addItemToLocalStorageWithId({ sku, name, salePrice }, cartItemString);
   } catch (error) {
     alert(error);
   }
@@ -58,7 +68,7 @@ const fetchAddItemToCart = async (event) => {
 
 const addListenersToPageItems = () => {
   const pageItems = document.querySelectorAll('.item__add');
-  pageItems.forEach(item => item.addEventListener('click', fetchAddItemToCart));
+  pageItems.forEach(item => item.addEventListener('click', fetchAddToCartStorage));
 };
 
 const fetchApiResultsAddToPage = async () => {
@@ -79,6 +89,14 @@ const fetchApiResultsAddToPage = async () => {
   }
 };
 
+const retrieveCartFromLocalStorage = () => {
+  const myCart = document.querySelector('.cart__items');
+  Object.keys(localStorage).forEach(element => {
+    myCart.innerHTML += localStorage.getItem(element);
+  });
+};
+
 window.onload = function onload() {
   fetchApiResultsAddToPage();
+  retrieveCartFromLocalStorage();
 };
