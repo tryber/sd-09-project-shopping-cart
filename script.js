@@ -50,12 +50,26 @@ const fetchProducts = async (query) => {
       const eachResult = createProductItemElement({ sku, name, image });
       document.querySelector('.items').appendChild(eachResult);
     });
+    document.querySelectorAll('.item__add')
+      .forEach(element => element.addEventListener('click', addToCart));
   } catch (error) {
     console.log(error);
   }
+}
 
-  document.querySelectorAll('.item__add')
-  .forEach(element => element.addEventListener('click', createCartItemElement));
+const addToCart = async (event) => {
+  const itemId = event.target.parentNode.firstChild.innerHTML;
+  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
+  try {
+    const response = await fetch(endpoint);
+    const item = await response.json();
+    const { id: sku, title: name, price: salePrice } = item;
+
+    const cartItem = createCartItemElement({ sku, name, salePrice });
+    document.querySelector('.cart__items').appendChild(cartItem);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 window.onload = function () {
