@@ -62,7 +62,6 @@ const captureTargetItem = () => {
   itemAdd.forEach((element) => {
     element.addEventListener('click', (event) => {
       target = event.target.parentNode.querySelector('.item__sku').innerText;
-      console.log(target);
       retrieveItems(target);
     });
   });
@@ -73,22 +72,12 @@ const retrieveItems = async (target) => {
   try {
     const promise = await fetch(`https://api.mercadolibre.com/items/${target}`);
     const response = await promise.json();
-    console.log(response);
     const { id: sku, title: name, base_price: salePrice } = response;
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
   } catch (error) { }
 };
 
-
 window.onload = function onload() {
   retriveMercadoLivreApi();
   cartItemClickListener();
 };
-
-// Adicione o produto ao carrinho de compras
-// Cada produto na página HTML possui um botão com o nome Adicionar ao carrinho!.
-// Ao clicar nesse botão você deve realizar uma requisição para o endpoint: "https://api.mercadolibre.com/items/$ItemID" onde $ItemID deve ser o valor id do item selecionado.
-// Quando colocado o id MLB1341706310 retorno desse endpoint será algo no formato: elemento do objeto .result
-// Preste atenção que o JSON deve conter apenas um item.
-// Você deve utilizar a função createCartItemElement() para criar os componentes HTML referentes a um item do carrinho.
-// Adicione o elemento retornado da função createCartItemElement(product) como filho do elemento <ol class="cart__items">.
