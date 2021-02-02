@@ -32,7 +32,9 @@ async function sumPrices() {
   let totalPrice = 0;
   const cartItems = document.querySelectorAll('.cart__item');
   cartItems.forEach(item => (totalPrice += parseFloat(item.innerText.split('$')[1])));
-  return totalPrice;
+  const totalPriceValue = document.createElement('span');
+  totalPriceValue.innerText = Math.round(totalPrice * 100) / 100;
+  return totalPriceValue;
 }
 
 async function createTotalPriceElement() {
@@ -41,7 +43,8 @@ async function createTotalPriceElement() {
     const cart = document.querySelector('.cart');
     const totalPriceElement = document.createElement('span');
     totalPriceElement.className = 'total-price';
-    totalPriceElement.innerText = `Preço Total: $${Math.round(totalPrice * 100) / 100}`;
+    totalPriceElement.innerText = 'Preço Total: $';
+    totalPriceElement.appendChild(totalPrice);
     cart.appendChild(totalPriceElement);
   } catch (error) {
     window.alert(error);
