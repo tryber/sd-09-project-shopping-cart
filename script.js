@@ -46,7 +46,7 @@ const addItemToLocalStorageWithId = (obj, htmlTagString) => {
   const key = `${localStorage.length + 1}-${obj.sku}`;
   localStorage.setItem(key, htmlTagString);
   return key;
-}
+};
 
 const fetchAddToCartStorage = async (event) => {
   const clickedCard = event.target.parentNode;
@@ -91,7 +91,7 @@ const fetchApiResultsAddToPage = async () => {
 
 const retrieveCartFromLocalStorage = () => {
   const myCart = document.querySelector('.cart__items');
-  Object.keys(localStorage).forEach(element => {
+  Object.keys(localStorage).forEach((element) => {
     myCart.innerHTML += localStorage.getItem(element);
   });
 };
