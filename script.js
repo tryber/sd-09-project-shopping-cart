@@ -121,6 +121,7 @@ const createSectionTotalPriceAssyncAwait = async () => {
     window.alert('função com problemas');
   };
 }
+// Deleta o texto de preço total
 const deleteSectionTotalPriceAssyncAeait = async () => {
   try {
     const span = await document.querySelector('.total-price');
