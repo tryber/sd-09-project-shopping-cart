@@ -1,13 +1,3 @@
-function saveCartStorage() {
-  const getcart = document.querySelector('.cart__items');
-  localStorage.setItem('cart', getcart.innerHTML);
-}
-
-function loadCartStorage() {
-  const getcart = document.querySelector('.cart__items');
-  getcart.innerHTML = localStorage.getItem('cart');
-}
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -16,10 +6,10 @@ function createProductImageElement(imageSource) {
 }
 
 function createCustomElement(element, className, innerText) {
-  const getElement = document.createElement(element);
-  getElement.className = className;
-  getElement.innerText = innerText;
-  return getElement;
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -41,6 +31,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.remove();
   saveCartStorage();
+  updateCheckoutPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -104,9 +95,56 @@ async function fetchMercadoLivre(term) {
   removeLoading();
 }
 
+async function cartCheckout() {
+  const productsCart = document.querySelector('.cart_items');
+  let checkoutPrice = 0
+  productsCart.forEach(checkoutPrice => (checkoutPrice += parseFloat(item.innerText.split('$')[1])
+  ));
+  return checkoutPrice
+}
+
+async function checkoutElement() {
+  try {
+    const checkoutPrice = await cartCheckout();
+    const cart = document.querySelector('.cart');
+    const checkoutPriceElement = document.createElement('span');
+    checkoutPriceElement.className = 'total-price';
+    checkoutPriceElement.innerText = Math.round(checkoutPrice * 100) / 100;
+    cart.appendChild(checkoutPriceElement);
+  } catch (error) {
+    window.alert(error);
+  }
+}
+
+function updateCheckoutPrice() {
+  const checkoutPriceElement = document.querySelector('.total-price');
+  checkoutPriceElement.remove();
+  checkoutElement();
+}
+
+function saveCartStorage() {
+  const getcart = document.querySelector('.cart__items');
+  localStorage.setItem('cart', getcart.innerHTML);
+}
+
+function loadCartStorage() {
+  const getcart = document.querySelector('.cart__items');
+  getcart.innerHTML = localStorage.getItem('cart');
+}
+function emptyCartcheckout() {
+  const emptyCartBtn = document.querySelector('.empty-cart');
+  emptyCartBtn.addEventListener('click', () => {
+    const checkout = document.querySelectorAll('.cart__item');
+    checkout.forEach(item => item.remove());
+    localStorage.removeItem('cart');
+    updateCheckoutPrice();
+  });
+}
+
 window.onload = function onload() {
   createLoading();
   fetchMercadoLivre('computador');
   addItemCart();
   loadCartStorage();
+  emptyCartcheckout();
 };
