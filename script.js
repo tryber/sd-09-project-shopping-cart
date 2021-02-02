@@ -76,4 +76,17 @@ function getSkuFromProductItem(item) {
 
 window.onload = function onload() {
   putElementsOnScreen();
+
+  const bntClearCart = document.querySelector('.empty-cart');
+  bntClearCart.addEventListener('click', () => {
+    const elementsToDelete = document.querySelectorAll('.cart__item');
+
+    if (elementsToDelete.length > 0) {
+      elementsToDelete.forEach(element => {
+        console.log(element);
+        element.remove();
+      });
+    }
+  });
+  return 'Tudo Deletado';
 };
