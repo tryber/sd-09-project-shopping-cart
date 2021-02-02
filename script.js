@@ -1,3 +1,39 @@
+function createDviTotalPrice() {
+  const cart = document.querySelector('.cart');
+  const totalPrice = document.createElement('div');
+  const price = document.createElement('span');
+  price.classList.add('price');
+  price.innerText = 0;
+  totalPrice.classList.add('total-price');
+  totalPrice.innerHTML = 'Preço total: $';
+  cart.appendChild(totalPrice);
+  totalPrice.appendChild(price);
+}
+
+function printTotalPrice(value) {
+  const price = document.querySelector('.price');
+  price.innerText = value;
+}
+async function getTotalPriceItems() {
+  let saved = '';
+  let amount = 0;
+  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
+  const arraySaved = saved.split(',');
+  arraySaved.forEach(async (item) => {
+    const linkItem = `https://api.mercadolibre.com/items/${item}`;
+    if (item) {
+      try {
+        const responseItem = await fetch(linkItem);
+        const responseItemJSON = await responseItem.json();
+        amount += responseItemJSON.price;
+      } catch (error) {
+        alert(error);
+      }
+    }
+    printTotalPrice(amount);
+  });
+}
+
 function saveItemCartOnLocalStorage(item) {
   let saved = '';
   if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
@@ -129,43 +165,6 @@ function loadItemCartSavedOnLocalStorage() {
     if (item) fetchItemMercadoLivre(item, addItem = false);
   });
   getTotalPriceItems();
-}
-
-function createDviTotalPrice() {
-  const cart = document.querySelector('.cart');
-  const totalPrice = document.createElement('div');
-  const price = document.createElement('span');
-  price.classList.add('price');
-  price.innerText = 0;
-  totalPrice.classList.add('total-price');
-  totalPrice.innerHTML = 'Preço total: $'
-  cart.appendChild(totalPrice);
-  totalPrice.appendChild(price);
-}
-
-function printTotalPrice(value) {
-  const price = document.querySelector('.price');
-  price.innerText = value;
-}
-
-async function getTotalPriceItems() {
-  let saved = '';
-  let amount = 0;
-  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
-  const arraySaved = saved.split(',');
-  arraySaved.forEach(async (item) => {
-    const linkItem = `https://api.mercadolibre.com/items/${item}`;
-    if (item) {
-      try {
-        const responseItem = await fetch(linkItem);
-        const responseItemJSON = await responseItem.json();
-        amount += responseItemJSON.price;
-      } catch (error) {
-        alert(error);
-      }
-    }
-    printTotalPrice(amount);
-  });
 }
 
 window.onload = function onload() {
