@@ -1,21 +1,3 @@
-window.onload = function onload() {
-  getMLResults();
- };
-
- function getMLResults() {
-   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
-
-   const response = await fetch(endpoint);
-   const results = await response.json().results;
-   const itemsElement = document.querySelector('.items');
-
-   results.forEach((result) => {
-     const { id: sku, title: name, thumbnail: image } = result;
-     const element = createProductItemElement({ sku, name, image });
-     itemsElement.appendChild(element);
-   });
- }
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -57,3 +39,45 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function addToCart() {
+  const items = document.querySelector('.items');
+  items.addEventListener('click', async (event) => {
+    const mySku = getSkuFromProductItem(event.target.parentNode);
+    const endpoint = `https://api.mercadolibre.com/items/${mySku}`;
+    const response = await fetch(endpoint)
+    .then(response => response.json());
+    const item = {
+      sku: mySku,
+      name: response.title,
+      salePrice: response.price,
+    };
+    const cartItems = document.querySelector('.cart__items');
+    const cartItem = createCartItemElement(item);
+    cartItems.appendChild(cartItem);
+  });
+}
+
+async function getMLResults() {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=computador`;
+
+  const response = await fetch(endpoint);
+  const object = await response.json();
+  const results = object.results;
+  const itemsElement = document.querySelector('.items');
+
+  results.forEach((result) => {
+    const obj = {
+      sku: result.id,
+      name: result.title,
+      image: result.thumbnail,
+    };
+    const element = createProductItemElement(obj);
+    itemsElement.appendChild(element);
+  });
+}
+
+window.onload = function onload() {
+  getMLResults();
+  addToCart();
+};
