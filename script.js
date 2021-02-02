@@ -15,10 +15,10 @@ const refreshTotalPrice = () => {
   const listItems = document.querySelectorAll('.cart__item');
   listItems.forEach((item) => {
     actualPrice += parseFloat(item.id);
-  })
+  });
   const totalPrice = document.querySelector('.total-price');
   totalPrice.innerText = actualPrice.toFixed(2);
-}
+};
 
 function removeItem() {
   this.parentNode.removeChild(this);
