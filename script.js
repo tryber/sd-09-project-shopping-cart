@@ -77,6 +77,13 @@ function saveCart() {
   localStorage.setItem('item', cart.innerHTML);
 }
 
+function getCart() {
+  const cart = document.querySelectorAll('.cart__item');
+  cart.innerHTML = localStorage.getItem('item');
+}
+
 window.onload = function onload() {
   fetchProducts('computador');
+  saveCart();
+  getCart();
 };
