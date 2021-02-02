@@ -104,10 +104,9 @@ async function fetchProducts(query) {
 function emptyCartList() {
   const emptyListButton = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
-  const olLength = ol.childElementCount;
   emptyListButton.addEventListener('click', function () {
     ol.innerHTML = '';
-    localStorage.clear();    
+    localStorage.clear();
   });
 }
 
