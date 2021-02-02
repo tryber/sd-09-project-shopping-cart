@@ -3,30 +3,30 @@ window.onload = function onload() {
 };
 
 async function fetchInit() {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=computador`;
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   const response = await fetch(endpoint);
   const object = await response.json();
   const results = object.results;
   const createItens = document.querySelector('.items');
-    results.forEach((obj) => {
-      const { id:sku, title:name, thumbnail:image } = obj;
+  results.forEach((obj) => {
+      const { id: sku, title: name, thumbnail: image } = obj;
       const desc = createProductItemElement({ sku, name, image });
       createItens.appendChild(desc);
     });
-    document.querySelectorAll('.item__add')
+  document.querySelectorAll('.item__add')
     .forEach((button) => {
-    const sku = getSkuFromProductItem(button.parentNode)
-    button.addEventListener('click', () => {
+      const sku = getSkuFromProductItem(button.parentNode);
+      button.addEventListener('click', () => {
       adcItem(sku);
-    })
-    })
-  }
+    });
+    });
+}
 
 async function adcItem(id) {
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
   const response = await fetch(endpoint);
   const object = await response.json();
-  const { id:sku, title:name, price:salePrice } = object;
+  const { id: sku, title: name, price: salePrice } = object;
   const itemList = createCartItemElement({ sku, name, salePrice });
   const priceElement = document.querySelector('.cart__items');
   priceElement.appendChild(itemList);
@@ -54,7 +54,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  
+
   return section;
 }
 
@@ -63,7 +63,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-   event.target.remove();
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -73,4 +73,3 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
