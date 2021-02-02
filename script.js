@@ -86,7 +86,15 @@ function loadFromLocalStorage() {
   li.forEach(el => el.addEventListener('click', cartItemClickListener));
 }
 
+function removeCartItemElements() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = '';
+}
+
 window.onload = function onload() {
   fetchProductList('computador');
   loadFromLocalStorage();
+
+  const emptyCart = document.querySelector('.empty-cart');
+  emptyCart.addEventListener('click', removeCartItemElements);
 };
