@@ -56,7 +56,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 function addToCart() {
   document.querySelectorAll('.item__add').forEach((button) => {
     button.addEventListener('click', getProductId)
-  })
+  });
 }
 
 const fetchAddRequest = (itemId) => {
@@ -67,7 +67,7 @@ const fetchAddRequest = (itemId) => {
       const item = createCartItemElement({ sku: id, name: title, salePrice: price });
       document.querySelector('.cart__items').appendChild(item);
     });
-}
+};
 
 function getProductId(event) {
   const id = event.target.parentNode.firstChild.innerText;
