@@ -80,13 +80,13 @@ const criaLista = () => {
 };
 criaLista();
 
-function limparTudo(){
+function limparTudo() {
   const selectButton = document.querySelector('.empty-cart');
-  selectButton.addEventListener('click', function() {
-  const selectLista = document.querySelector('.cart__items');
-  selectLista.remove();
+  selectButton.addEventListener('click', function () {
+    const selectLista = document.querySelector('.cart__items');
+    selectLista.remove();
   });
-};
+}
 
 window.onload = function onload() {
   criaLista();
