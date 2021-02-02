@@ -6,7 +6,7 @@ function retrieveMercadoLivreResults(term) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
   const response = fetch(endpoint);
-  const object = await response.json();
+  const object =  response.json();
   const results = object.results;
 
   results.forEach((result) => {
