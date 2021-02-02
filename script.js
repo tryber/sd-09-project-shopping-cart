@@ -13,7 +13,6 @@ function createCustomElement(element, className, innerText) {
 }
 
 function addProductItem(section) {
-  const loading = document.querySelector('.loading');
   const items = document.querySelector('.items');
   items.appendChild(section);
 }
