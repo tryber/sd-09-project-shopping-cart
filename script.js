@@ -3,25 +3,14 @@ function saveItemCartOnLocalStorage(item) {
   if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
   const arraySaved = saved.split(',');
   const toSave = [...arraySaved];
-  arraySaved.splice(0,0);
   toSave.push(item.sku);
   localStorage.setItem('itemToBuy', toSave);
-}
-
-function loadItemCartSavedOnLocalStorage() {
-  let saved = '';
-  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
-  const arraySaved = saved.split(',');
-  arraySaved.forEach((item) => {
-    if (item) fetchItemMercadoLivre(item, addItem = false);
-  });
 }
 
 async function removeFromLocalStorage(item) {
   const itemID = item.innerText.slice(5, 18);
   let saved = localStorage.getItem('itemToBuy');
   saved = saved.split(',')
-  const toSave = [];
   const toDelete = saved.indexOf(itemID);
   saved.splice(toDelete, 1);
   localStorage.setItem('itemToBuy', saved);
@@ -91,7 +80,7 @@ async function fetchItemMercadoLivre(item, addItem) {
     appendChildCartItemList(createCartItemElement(newItem));
     if (addItem) saveItemCartOnLocalStorage(newItem);
   } catch (error) {
-    alert(error)
+    alert(error);
   }
 }
 function addItemInCartListener() {
@@ -128,6 +117,14 @@ async function fetchMercadoLivreAPI(search) {
   } catch (error) {
     alert(error);
   }
+}
+function loadItemCartSavedOnLocalStorage() {
+  let saved = '';
+  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
+  const arraySaved = saved.split(',');
+  arraySaved.forEach((item) => {
+    if (item) fetchItemMercadoLivre(item, addItem = false);
+  });
 }
 
 window.onload = function onload() {
