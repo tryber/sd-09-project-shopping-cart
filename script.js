@@ -32,7 +32,7 @@ function extractProductsData(productData) {
     const productSection = createProductItemElement(formatedProduct);
     console.log(productSection);
     sectionItems.appendChild(productSection);
-  })
+  });
 }
 
 function getProductListFromAPI(product) {
