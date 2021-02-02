@@ -110,7 +110,6 @@ function fetchAPI(term) {
         // };
 
         itemsSection.appendChild(createProductItemElement({ sku, name, image }));
-        document.querySelector('.load').style.display = 'none';
       });
     })
     .catch((error) => {
@@ -132,9 +131,27 @@ function listenToEmptyCartButton() {
   emptyCartButton.addEventListener('click', clearList);
 }
 
+function searchProduct() {
+  const itemsSection = document.querySelector('.items')
+  const searchIptInput = document.querySelector('#search-ipt')
+
+  if (searchIptInput.value) {
+    itemsSection.innerHTML = ''
+
+    fetchAPI(searchIptInput.value);
+  }
+}
+
+function listenToSearchBtn() {
+  const searchBtnButton = document.querySelector('#search-btn');
+
+  searchBtnButton.addEventListener('click', searchProduct);
+}
+
 window.onload = function onload() {
   fetchAPI('computador');
   addItemsClickListener();
   cartItemClickListener();
   listenToEmptyCartButton();
+  listenToSearchBtn();
 };
