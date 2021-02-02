@@ -41,10 +41,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-window.onload = function onload() {
-  retrieveMercadoLivreResults('computador');
-};
-
 async function retrieveMercadoLivreResults(computador) {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
   const reponse = await fetch(endpoint);
@@ -58,3 +54,7 @@ async function retrieveMercadoLivreResults(computador) {
     itemsElement.appendChild(element);
   });
 }
+
+window.onload = function onload() {
+  retrieveMercadoLivreResults('computador');
+};
