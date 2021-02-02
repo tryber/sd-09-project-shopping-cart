@@ -31,10 +31,12 @@ const cartItemClickListener = (event) => {
 const getLocalStorage = () => {
   const list = document.querySelector('.cart__items');
   const storage = localStorage.getItem('products');
-  (storage === null)
-    ? localStorage.setItem('products', '')
-    : list.innerHTML = localStorage.getItem('products');
-  list.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
+  if (!storage) {
+    localStorage.setItem('products', '');
+  } else {
+    list.innerHTML = localStorage.getItem('products');
+    list.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
+  }
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
