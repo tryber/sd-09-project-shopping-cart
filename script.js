@@ -84,7 +84,7 @@ function clearCart() {
 
 
 const getTotalOrder = async () => {
-  
+// a fazer
 };
 
 
