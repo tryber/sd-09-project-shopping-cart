@@ -28,12 +28,27 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// Updates the cart items saved to local storage
+function updateLocalStorageItems() {
+  localStorage.clear();
+  const cartItems = document.querySelector('.cart__items');
+  let items = '';
+  if (cartItems.childNodes.length !== 0 ) {
+    cartItems.childNodes.forEach((item) => {
+      if (items === '') {
+        items = `${item.innerText}`;
+      } else {
+        items = `${items}%${item.innerText}`;
+      }
+    });
+    localStorage.setItem('cartItem', items);
+  }
+}
+
 // Remove li element from the cart and local storage
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
-  const localStorageEntries = Object.entries(localStorage);
-  const deletedItem = localStorageEntries.find(value => value[1] === event.target.innerText)[0];
-  localStorage.removeItem(deletedItem);
+  updateLocalStorageItems();
 }
 
 // Retrieves the list of products from Mercado livre API and loads in 'items' section on HTML
@@ -56,29 +71,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// Generates a random key for local storage
-function generateKey() {
-  const string = 'QWERTYUIOPASDFGHJKLZXCVBNM123456789';
-  const keyLength = 10;
-  let key = '';
-  for (let index = 0; index < keyLength; index += 1) {
-    key = `${key + string[Math.round(Math.random() * (string.length - 1))]}`;
-  }
-  return key;
-}
-
-// Saves the item inserted in the cart to local storage
-function saveCartItemOnLocalStorage(item) {
-  localStorage.setItem(`cartItem${generateKey()}`, item.innerText);
-}
-
 // Loads on page all cart items saved on local storage
 function loadCartItemOnLocalSorage() {
-  const shoppingCart = document.querySelector('.cart__items');
-  const localStorageEntries = Object.entries(localStorage);
-  localStorageEntries.forEach((item) => {
-    if (item[0].indexOf('cartItem') !== -1) {
-      const itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
+  if (localStorage.length !== 0) {
+    const shoppingCart = document.querySelector('.cart__items');
+    const itemsArr = localStorage.getItem('cartItem').split('%');
+    itemsArr.forEach((item) => {
+      const itemValue = item.replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
       const localStorageArr = itemValue.split(' | ');
       const localStorageObj = {
         sku: localStorageArr[0],
@@ -87,8 +86,8 @@ function loadCartItemOnLocalSorage() {
       };
       const cartItem = createCartItemElement(localStorageObj);
       shoppingCart.appendChild(cartItem);
-    }
-  });
+    });
+  }
 }
 
 // Add the product to the 'cart items' HTML ol
@@ -97,7 +96,7 @@ function addProductToCart(product) {
   const { id: sku, title: name, price: salePrice } = product;
   const cartItem = createCartItemElement({ sku, name, salePrice });
   shoppingCart.appendChild(cartItem);
-  saveCartItemOnLocalStorage(cartItem);
+  updateLocalStorageItems();
 }
 
 // Retrieves the product from Mercado livre API by ID
