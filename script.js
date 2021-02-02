@@ -41,9 +41,9 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const fetchIdItem = async (event) => {
-  const cartItems = document.querySelector('.cart__items')
+  const cartItems = document.querySelector('.cart__items');
   const getSku = getSkuFromProductItem(event.target.parentNode);
-  const urlId = `https://api.mercadolibre.com/items/${getSku}`
+  const urlId = `https://api.mercadolibre.com/items/${getSku}`;
   try {
     const response = await fetch(urlId);
     const idObject = await response.json();
@@ -78,6 +78,5 @@ const fetchListApi = async () => {
 };
 
 window.onload = function onload() {
-
   fetchListApi();
 };
