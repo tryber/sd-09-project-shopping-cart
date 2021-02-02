@@ -133,6 +133,7 @@ const getSkuFromProduct = () => {
 // as variáveis sku, se referem aos campos id retornados pela API.
 
 const implementResults = (data) => {
+  removeLoading();
   const getSectionItem = document.querySelector('.items');
   const object = {};
   data.forEach((item) => {
@@ -145,10 +146,9 @@ const implementResults = (data) => {
 
 const fetchMLB = () => {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
-  const promise = fetch(endpoint)
-    .then(response => response.json());
-  removeLoading();
-  promise.then(data => implementResults(data.results));
+  fetch(endpoint)
+    .then(response => response.json())
+    .then(data => implementResults(data.results));
 };
 
 window.onload = () => {
