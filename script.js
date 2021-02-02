@@ -62,10 +62,10 @@ async function searchItemCart(sku) {
     .then(responseItem => responseItem.json())
       .then((itemCart) => {
         const objectCart = {};
-        objectCart.sku = itemCart.id;
-        objectCart.name = itemCart.title;
-        objectCart.salePrice = itemCart.price;
-        classCartItems.appendChild(createCartItemElement(objectCart));
+        // objectCart.sku = itemCart.id;
+        // objectCart.name = itemCart.title;
+        // objectCart.salePrice = itemCart.price;
+        // classCartItems.appendChild(createCartItemElement(objectCart));
       });
   loading(false);
 }
