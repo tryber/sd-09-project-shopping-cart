@@ -31,7 +31,7 @@ const totalPrice = async () => {
     sumTotal +=
       (Number(product.textContent.slice(positionPrice, product.textContent.length)));
   });
-  priceElement.innerText = `${parseFloat((sumTotal))}`;
+  priceElement.innerText = `${(sumTotal)}`;
 };
 
 const cartItemClickListener = (event) => {
@@ -105,7 +105,7 @@ const getProductsFromAPI = async (link) => {
       const { id: sku, title: name, thumbnail: image } = product;
       appendChildElement('.items', createProductItemElement({ sku, name, image }));
     });
-  } catch(error) {
+  } catch (error) {
     window.alert(error);
   }
 };
