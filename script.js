@@ -91,6 +91,7 @@ const criaLista = () => {
     });
     const loading = document.querySelector('.loading');
     loading.remove();
+    setLocalStorage();
   })
   .catch(error => window.alert(error));
 };
