@@ -81,7 +81,11 @@ function cartItemClickListener(event) {
       break;
     }
   }
+  if (localStorage.length === 0) {
+    clearCart()
+  }
   currentCartValue();
+  
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
