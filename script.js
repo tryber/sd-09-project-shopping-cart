@@ -78,7 +78,7 @@ function createProductsList(item) {
   fetchList(item)
   .then(obj => obj.json())
   .then(({ results }) => {
-    results.map(({ id: sku, title: name, thumbnail: image }) => 
+    results.map(({ id: sku, title: name, thumbnail: image }) =>
     items.appendChild(createProductItemElement({ sku, name, image })));
     buttonTest();
   })
