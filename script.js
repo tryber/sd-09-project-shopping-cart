@@ -134,8 +134,8 @@ async function loadingItems() {
           addEventItemInMyCart(section, value.id);
           const containerItems = document.querySelector('.items');
           containerItems.appendChild(section);
-          stopLoading();
         }));
+      stopLoading();
     });
 }
 
