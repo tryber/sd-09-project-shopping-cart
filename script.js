@@ -1,5 +1,5 @@
-window.onload = function onload() { 
-  buildListFetch(); 
+window.onload = function onload() {
+  buildListFetch();
 };
 
 function createProductImageElement(imageSource) {
@@ -27,11 +27,9 @@ function createProductItemElement( { sku, name, image } ) {
   return section;
 }
 
-
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-} 
+}
 
 function cartItemClickListener() {
   // coloque seu código aqui
@@ -49,14 +47,14 @@ function buildListFetch() {
   const endpoint = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
   return new Promise((resolve, reject) => {
     fetch(endpoint)
-    .then((response) => response.json())
+    .then(response => response.json())
     .then((object) => {
       if (object.error) {
         throw new Error(object.error);
       }
       object.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
-        const element = createProductItemElement( { sku, name, image } );
+        const element = createProductItemElement({ sku, name, image });
         const list = document.querySelector('.items');
         list.appendChild(element);
         resolve();
