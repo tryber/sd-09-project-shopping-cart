@@ -65,7 +65,7 @@ function searchItemCart(sku) {
     const objectItem = {};
     objectItem.sku = item.id;
     objectItem.name = item.title;
-    objectItem.salePrice = item.salePrice;
+    objectItem.salePrice = item.price;
     classCartItems.appendChild(createCartItemElement(objectItem));
   });
   loading(false);
