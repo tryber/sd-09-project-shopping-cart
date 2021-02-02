@@ -75,7 +75,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', function cartItemClickListener() {
     const cartItemsOrderedList = document.querySelector('ol.cart__items');
 
-  cartItemsOrderedList.addEventListener('click', (event) => {
+    cartItemsOrderedList.addEventListener('click', (event) => {
     cartItemsOrderedList.removeChild(event.target);
     asyncUpdatePrice();
   });
