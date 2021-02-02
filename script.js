@@ -1,12 +1,13 @@
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
-  e.className = className;
+  // e.className = className;
+  className.forEach(item => e.classList.add(item));
   e.innerText = innerText;
   return e;
 }
 async function fetchAPI(endpoint) {
   const body = document.querySelector('body');
-  body.appendChild(createCustomElement('p', 'loading', 'loading...'));
+  body.appendChild(createCustomElement('p', ['loading'], 'loading...'));
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
@@ -50,10 +51,10 @@ function createProductItemElement({
   const section = document.createElement('section');
   section.className = 'item';
 
-  section.appendChild(createCustomElement('span', 'item__sku', sku));
-  section.appendChild(createCustomElement('span', 'item__title', name));
+  section.appendChild(createCustomElement('span', ['item__sku'], sku));
+  section.appendChild(createCustomElement('span', ['item__title'], name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  section.appendChild(createCustomElement('button', ['item__add', 'button', 'is-dark'], 'Adicionar ao carrinho!'));
 
   return section;
 }
