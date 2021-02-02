@@ -62,9 +62,11 @@ function searchItemCart(sku) {
   const classCartItems = document.querySelector('.cart__items');
   loading(true);
   apiCall(API_URL).then((item) => {
-    classCartItems.appendChild(createCartItemElement({ sku: item.id,
-      name: item.title,
-      salePrice: item.salePrice }));
+    const objectItem = {};
+    objectItem.sku = item.id;
+    objectItem.name = item.title;
+    objectItem.salePrice = item.salePrice
+    classCartItems.appendChild(createCartItemElement(objectItem));
   });
   loading(false);
 }
