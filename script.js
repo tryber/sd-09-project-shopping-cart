@@ -114,7 +114,6 @@ const fetchSearch = async (query) => {
 };
 
 window.onload = function onload() {
-
   fetchSearch('Computador');
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
