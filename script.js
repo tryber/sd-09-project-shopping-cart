@@ -1,5 +1,7 @@
 // window.onload = function onload() { };
 
+let totalPrice = 0;
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -30,8 +32,30 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const priceOfItemRemoved = (event) => {
+  const string = event.target.innerText;
+  const search = string.indexOf('$');
+  const sliceString = string.slice(search + 1);
+  const price = parseInt(sliceString);
+  return price;
+}
+
+const removePrice = (event) => {
+  const getPrice = document.querySelector('.total-price').innerText;
+  const priceToDecrease = priceOfItemRemoved(event);
+  const convertToNumber = parseInt(getPrice);
+  const totalPrice = Math.round((convertToNumber - priceToDecrease) * 100) / 100;
+  document.querySelector('.total-price').innerText = totalPrice;
+}
+
 function cartItemClickListener(event) {
+  // const priceToDecrease = priceOfItemRemoved(event);
+  // totalPrice -= priceToDecrease;
+  removePrice(event);
   event.target.remove();
+  const cartList = document.querySelector('.cart__items');
+  localStorage.clear();
+  localStorage.setItem('shopping-cart', cartList.innerHTML);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -39,7 +63,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  sumPrices(salePrice);
   return li;
+}
+
+// Some o valor total dos itens do carrinho de compras de forma assíncrona
+
+const sumPrices = async (price) => {
+  const getPrice = document.querySelector('.total-price').innerText;
+  const convertedPrice = parseInt(getPrice);
+  const totalPrice = await Math.round((convertedPrice + price) * 100) / 100;
+  document.querySelector('.total-price').innerText = totalPrice;
 }
 
 // Carregue o carrinho de compras atraves do LocalStorage ao iniciar a pagina
@@ -60,10 +94,10 @@ const fetchProduct = (sku) => {
         name: data.title,
         salePrice: data.price,
       };
-      const shoppingCart = document.querySelector('.cart__items');
-      shoppingCart.appendChild(createCartItemElement(itemCart));
+      const cartList = document.querySelector('.cart__items');
+      cartList.appendChild(createCartItemElement(itemCart));
       localStorage.clear();
-      localStorage.setItem('shopping-cart', shoppingCart.innerHTML);
+      localStorage.setItem('shopping-cart', cartList.innerHTML);
     });
 };
 
