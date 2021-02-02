@@ -71,7 +71,7 @@ function currentCartValue() {
 
 function cartItemClickListener(event) {
   if (localStorage.length === 0) {
-    return
+    return;
   }
   eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
   const obj1 = [];
