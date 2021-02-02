@@ -49,7 +49,7 @@ const addToCart = async (event) => {
   const elementTarget = await fetch(endpoint)
   .then(response => response.json())
   .then(obj => obj);
-  const { id: sku, title: name, base_price: salePrice } = elementTarget;
+  const { id: sku, title: name, price: salePrice } = elementTarget;
   const element = createCartItemElement({ sku, name, salePrice });
   ol.appendChild(element);
 };
