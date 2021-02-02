@@ -1,13 +1,13 @@
 body {
-  background: rgb(237, 237, 237);
+  background: rgb( 237, 237, 237 );
   font-family: Poppins, sans-serif;
   margin: 0;
 }
 
 header {
   align-items: center;
-  background: rgb(122, 27, 201);
-  border-bottom: 1px solid rgb(190, 190, 190);
+  background: rgb( 122, 27, 201 );
+  border-bottom: 1px solid rgb( 190, 190, 190 );
   display: flex;
   justify-content: center;
   height: 90px;
@@ -59,7 +59,7 @@ header {
 
 .item {
   background: white;
-  border: 1px solid rgb(228, 228, 228);
+  border: 1px solid rgb( 228, 228, 228 );
   border-radius: 5px;
   box-sizing: border-box;
   display: flex;
@@ -84,7 +84,7 @@ header {
 }
 
 .item .item__add {
-  background: rgb(122, 27, 201);
+  background: rgb( 122, 27, 201 );
   border: 0;
   color: white;
   cursor: pointer;
@@ -94,13 +94,13 @@ header {
 }
 
 .item .item__add:hover {
-  background: rgb(47, 193, 140);
+  background: rgb( 47, 193, 140 );
 }
 
 .cart {
   align-items: center;
   background: white;
-  border: 1px solid rgb(228, 228, 228);
+  border: 1px solid rgb( 228, 228, 228 );
   border-radius: 5px;
   display: flex;
   flex-basis: 30%;
@@ -120,7 +120,7 @@ header {
 }
 
 .empty-cart {
-  background: rgb(47, 193, 140);
+  background: rgb( 47, 193, 140 );
   border: none;
   border-radius: 5px;
   color: white;
@@ -132,11 +132,11 @@ header {
 }
 
 .empty-cart:hover {
-  background: rgb(34, 150, 107);
+  background: rgb( 34, 150, 107 );
 }
 
 .cart__item {
   list-style: none;
-  border-bottom: 1px solid rgb(204, 204, 204);
+  border-bottom: 1px solid rgb( 204, 204, 204 );
   margin: 10px 0;
 }
