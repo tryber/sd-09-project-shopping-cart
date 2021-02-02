@@ -86,5 +86,5 @@ window.onload = function onload() {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     const itemsList = document.querySelector('.cart__items');
     itemsList.innerHTML = '';
-  })
+  });
 };
