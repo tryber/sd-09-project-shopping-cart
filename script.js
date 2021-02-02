@@ -60,18 +60,23 @@ const addToCart = async (itemId) => {
 
 const fetchProducts = async (search) => {
   try {
+    setLoading();
     const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${search}`);
     const resultsJson = await response.json();
     const result = await resultsJson.results;
 
-    result.forEach(({ id: sku, title: name, thumbnail: image }) => {
-      document.querySelector('.items').appendChild(createProductItemElement({ sku, name, image }))
-        .lastChild.addEventListener('click', (event) => {
-          const id = event.target.parentNode.firstChild.innerText;
-          addToCart(id);
-          saveLocal();
-        });
-    });
+    setTimeout(() => {
+      document.querySelector('.items h2').remove();
+      result.forEach(({ id: sku, title: name, thumbnail: image }) => {
+        document.querySelector('.items').appendChild(createProductItemElement({ sku, name, image }))
+          .lastChild.addEventListener('click', (event) => {
+            const id = event.target.parentNode.firstChild.innerText;
+            addToCart(id);
+            saveLocal();
+          });
+      });
+    }, 700);
+
   } catch (error) {
     console.log('Erro ao criar lista de produtos');
   }
@@ -95,6 +100,13 @@ const clearCart = () => {
     document.querySelector('.cart__items').innerText = '';
   });
 };
+
+const setLoading = () => {
+  const loading = document.createElement('h2');
+  loading.className = 'loading';
+  loading.innerText = 'loading...';
+  document.querySelector('.items').appendChild(loading);
+}
 
 window.onload = function onload() {
   fetchProducts('computador');
