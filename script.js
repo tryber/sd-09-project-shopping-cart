@@ -50,7 +50,7 @@ const rewritingList = () => {
     const price = arrayItem[2].split(': ')[1].replace('$', '');
     includeLocalStorage({ sku: id, name: title, salePrice: price });
 
-    const total = await sumPricesCart(parseFloat(price)).toFixed(2);
+    const total = await sumPricesCart(parseFloat(price));
     document.querySelector('.total-price').innerText = total;
   });
 };
@@ -73,7 +73,7 @@ const addListItem = async ({ sku, name, salePrice }) => {
   const productCart = createCartItemElement({ sku, name, salePrice });
   document.querySelector('.cart__items').appendChild(productCart);
 
-  const total = await sumPricesCart(parseFloat(salePrice)).toFixed(2);
+  const total = await sumPricesCart(parseFloat(salePrice));
   document.querySelector('.total-price').innerText = total;
 };
 
