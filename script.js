@@ -28,7 +28,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function sumPrice() {
+function sumPrice01() {
   const sumTotal = document.querySelector('#price');
   const allli = document.querySelectorAll('li');
   let sum = 0;
@@ -38,9 +38,35 @@ function sumPrice() {
   }
   allli.forEach((element) => {
     const id = element.innerText.split(' ')[element.innerText.split(' ').length - 1];
-    sum = sum += parseInt(id.substr(1));
+    sum += (parseInt(id.substr(1)));
   });
   return (sumTotal.innerHTML = `Preco total: $${sum}`);
+}
+
+function sumPrice() {
+  const sumTotal = document.querySelector('#price');
+  const allli = document.querySelectorAll('li');
+  let sum = 0;
+  if (allli.length === 0) {
+    return (sumTotal.innerHTML = `Preco total: $${sum}`);
+  }
+  allli.forEach( async (element) => {
+    const id = element.innerText.split(' ')[1];
+    const endpoint = `https://api.mercadolibre.com/items/${id}`;
+  try {
+    await fetch(endpoint)
+    .then(response => response.json())
+    .then((object) => {
+      console.log(object.price);
+      sum += (object.price);
+      const formatSum = Math.round(sum * 100) / 100;
+      return (sumTotal.innerHTML = `Preco total: $${formatSum}`);
+    })
+  } catch (erro) {
+    window.alert(erro);
+  }
+  });
+  // return (sumTotal.innerHTML = `Preco total: $${sum}`);
 }
 
 const newObject = (element) => {
