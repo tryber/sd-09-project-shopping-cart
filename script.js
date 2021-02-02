@@ -78,6 +78,7 @@ const fetchApiResultsAddToPage = async () => {
   try {
     const queryResult = await fetch(endpointURL);
     const objectResult = await queryResult.json();
+
     objectResult.results.forEach((element) => {
       const { id: sku, title: name, thumbnail: image } = element;
       const itemsDePesquisa = document.querySelector('.items');
@@ -91,11 +92,20 @@ const fetchApiResultsAddToPage = async () => {
 
 const retrieveCartFromLocalStorage = () => {
   const myCart = document.querySelector('.cart__items');
+
   myCart.innerHTML = localStorage.getItem('1');
   myCart.addEventListener('click', cartItemClickListener);
+};
+
+const emptyShoppingCart = () => {
+  document.querySelector('.cart__items').innerHTML = '';
+  localStorage.clear();
 };
 
 window.onload = function onload() {
   fetchApiResultsAddToPage();
   retrieveCartFromLocalStorage();
+
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', emptyShoppingCart);
 };
