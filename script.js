@@ -77,7 +77,7 @@ function cartItemClickListener(event) {
   const obj1 = [];
   obj1.push(Object.entries(localStorage)
     .find(value => JSON.parse(value[1]).sku === eventTextIDproduct));
-  localStorage.removeItem(obj1[0][0]);
+  // localStorage.removeItem(obj1[0][0]);
   event.target.remove();
   currentCartValue();
 }
