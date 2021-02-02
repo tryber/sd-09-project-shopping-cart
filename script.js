@@ -30,6 +30,9 @@ function getSkuFromProductItem(item) {
 
 function sumItems() {
   return new Promise((resolve, reject) => {
+    const loading = document.querySelector('.loading');
+    loading.innerText = 'loading...';
+    console.log(loading.innerText);
     const myCart = document.querySelectorAll('.cart__item');
     let price = '';
     let sum = 0;
@@ -53,6 +56,8 @@ async function putPrice() {
   let price;
   try {
     price = await sumItems();
+    const loading = document.querySelector('.loading');
+    loading.innerText = '';
     const elementPrice = document.querySelector('.total-price');
     elementPrice.innerText = `${price}`;
   } catch (error) {
@@ -113,15 +118,21 @@ async function addEventItemInMyCart(element, id) {
 }
 
 async function loadingItems() {
+  const loading = document.querySelector('.loading');
+  loading.innerText = 'loading...';
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
-    .then(response => response.json()
-    .then(item => item.results.forEach((value) => {
-      const obj = { sku: value.id, name: value.title, image: value.thumbnail };
-      const section = createProductItemElement(obj);
-      addEventItemInMyCart(section, value.id);
-      const containerItems = document.querySelector('.items');
-      containerItems.appendChild(section);
-    })));
+    .then(response => {
+      const loading = document.querySelector('.loading');
+      loading.innerText = '';
+      response.json()
+       .then(item => item.results.forEach((value) => {
+          const obj = { sku: value.id, name: value.title, image: value.thumbnail };
+          const section = createProductItemElement(obj);
+          addEventItemInMyCart(section, value.id);
+          const containerItems = document.querySelector('.items');
+          containerItems.appendChild(section);
+    }));
+  });
 }
 
 window.onload = function onload() {
