@@ -36,6 +36,8 @@ async function fetchResponse(URL) {
 
 async function fetchItemsByType(query = 'computador') {
   const URL = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+  const loadElement = document.querySelector('.loading');
+  loadElement.remove();
   return fetchResponse(URL);
 }
 
