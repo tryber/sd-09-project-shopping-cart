@@ -1,5 +1,3 @@
-window.onload = function onload() {};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -63,4 +61,7 @@ async function apiAdd() {
     window.alert(error);
   }
 }
-apiAdd();
+
+window.onload = function onload() {
+  apiAdd();
+};
