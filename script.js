@@ -197,7 +197,8 @@ function listenToSearchIpt() {
 }
 
 function listenToCartItemsOrderedList() {
-  const cartItemsOrderedList = document.querySelector('.cart__items');
+  const cartItemsOrderedList = document.querySelector('ol.cart__items');
+
 
   cartItemsOrderedList.addEventListener('click', removeItem);
 }
@@ -206,11 +207,7 @@ function loadLocalStorage() {
   const cart = document.querySelector('.cart');
   const parsedCart = JSON.parse(localStorage.getItem('cart'));
 
-  if (cart) {
     cart.innerHTML = parsedCart;
-
-    listenToCartItemsOrderedList();
-  }
 }
 
 window.onload = function onload() {
@@ -220,4 +217,5 @@ window.onload = function onload() {
   listenToEmptyCartButton();
   listenToSearchBtn();
   listenToSearchIpt();
+  listenToCartItemsOrderedList();
 };
