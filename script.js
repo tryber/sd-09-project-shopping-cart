@@ -26,7 +26,7 @@ function emptyCart() {
   clearButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     refreshTotalPrice();
-  })
+  });
 }
 
 function removeItem() {
