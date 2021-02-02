@@ -3,10 +3,22 @@ const cartItemsOl = document.querySelector('.cart__items');
 const totalPriceDiv = document.querySelector('.total-price');
 const emptyCartButton = document.querySelector('.empty-cart');
 
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
+
 const loadingDisplay = {
-  element: document.querySelector('.loading'),
-  show() { this.element.style.display = 'flex'; },
-  hide() { this.element.style.display = 'none'; },
+  show() {
+    const loadingElement = createCustomElement('div', 'loading', 'loading...');
+    document.body.appendChild(loadingElement);
+  },
+  hide() {
+    const loadingElement = document.querySelector('.loading');
+    loadingElement.remove();
+  },
 };
 
 const shoppingCart = {
@@ -32,13 +44,6 @@ function createProductImageElement(imageSource) {
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
-
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
 }
 
 function createProductItemElement({ sku, name, image }) {
