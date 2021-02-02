@@ -2,7 +2,7 @@ window.onload = function onload() {
   retrieveMercadoLivreResults();
 };
 
-function retrieveMercadoLivreResults(term) {
+async function retrieveMercadoLivreResults(term) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
   const response = await fetch(endpoint);
