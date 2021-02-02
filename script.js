@@ -27,7 +27,7 @@ function createProductItemElement({ sku, name, image }) {
 function fetchProducts() {
   const url = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   const htmlElement = document.querySelector('.items');
-  const promise = fetch(url)
+  fetch(url)
   .then(response => response.json())
   .then((pc) => {
     const itens = pc.results;
@@ -59,7 +59,7 @@ function cartItemClickListener(event) {
 
 function fetchProductById(itemId) {
   const url = `https://api.mercadolibre.com/items/${itemId}`;
-  const cartItem = document.querySelector('.cart__items')
+  const cartItem = document.querySelector('.cart__items');
   fetch(url)
   .then(response => response.json())
   .then((product) => {
