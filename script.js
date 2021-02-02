@@ -8,13 +8,9 @@ function createProductImageElement(imageSource) {
 function clearCart() {
   const clearCartButton = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
-  const olLength = ol.children.length;
-  clearCartButton.addEventListener('click', function() {
-    for (index = 0; index < olLength; index += 1) {
-      ol.firstChild.remove();
-    }
-  });
-  localStorage.clear(); 
+    clearCartButton.addEventListener('click', function() {
+      ol.innerHTML = ''});
+  localStorage.clear();
 }
 
 function createCustomElement(element, className, innerText) {
@@ -126,7 +122,7 @@ function fetchAllProducts(query) {
 }
 
 window.onload = function onload() {
-  clearCart();
   fetchAllProducts('computador');
   getStorageItems();
+  clearCart();
 };
