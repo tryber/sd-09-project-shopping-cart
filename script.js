@@ -73,6 +73,17 @@ const retriveMercadoLivreApi = async () => {
   } catch (error) { window.alert(error); }
 };
 
+const removeItemsFromTheShoppingCart = () => {
+  const emptyCart = document.querySelector('.empty-cart');
+  emptyCart.addEventListener('click', () => {
+    const cartItems = document.querySelector('.cart__items');
+    while (cartItems.firstChild) {
+      cartItems.removeChild(cartItems.firstChild);
+    }
+  });
+};
+
 window.onload = function onload() {
   retriveMercadoLivreApi();
+  removeItemsFromTheShoppingCart();
 };
