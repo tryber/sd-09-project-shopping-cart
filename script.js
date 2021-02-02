@@ -57,7 +57,7 @@ function currentCartValue() {
   spanTextPrice.innerText = 0;
   if (localStorage.length > 0) {
     const actualValue = Object.values(localStorage)
-      .reduce((acc, cur) => acc += JSON.parse(cur).salePrice, 0);
+      .reduce((acc, cur) => acc = acc + JSON.parse(cur).salePrice, 0);
     spanTextPrice.innerText = actualValue;
   }
 }
