@@ -56,11 +56,9 @@ function cartItemClickListener(event) {
 }
 
 async function sumPrices(price) {
-  console.log(price)
   const getPrice = document.querySelector('.total-price').innerText;
   const valueConvert = Number(getPrice);
   const result = await Number(price) + valueConvert;
-  console.log(result)
   document.querySelector('.total-price').innerHTML = Number(result);
 }
 
