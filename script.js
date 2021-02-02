@@ -110,7 +110,9 @@ function addItems(event) {
 function addItemsClickListener() {
   const itemAddButtonNodeList = document.querySelector('.items');
 
-  itemAddButtonNodeList.addEventListener('click', addItems);
+  if (itemAddButtonNodeList) {
+    itemAddButtonNodeList.addEventListener('click', addItems);
+  }
 }
 
 function fetchAPI(term) {
@@ -155,6 +157,7 @@ function clearList() {
 function listenToEmptyCartButton() {
   const emptyCartButton = document.querySelector('.empty-cart');
 
+  console.log(emptyCartButton)
   emptyCartButton.addEventListener('click', clearList);
 }
 
