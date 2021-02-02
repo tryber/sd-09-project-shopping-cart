@@ -94,20 +94,18 @@ function getProducts() {
 
   try {
     fetch(api)
-      .then(response => {
+      .then((response) => {
         loading.remove();
         response.json()
           .then((elements) => {
             elements.results.forEach((e) => {
               createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
             });
-          })
+          });
       });
-  }
-  catch (err) {
+  } catch (err) {
     window.alert(err);
   }
-
 }
 
 function getCartProducts() {
