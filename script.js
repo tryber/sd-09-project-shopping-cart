@@ -38,6 +38,7 @@ function cartItemClickListener(event) {
   const item = event.target;
   // console.log(localStorage.getItem(item.innerText));
   localStorage.removeItem(item.innerText);
+  totalPrice();
   item.remove();
 }
 
@@ -61,6 +62,7 @@ function addToCart(event) {
       cart.appendChild(cartItem);
       cartItem.addEventListener('click', cartItemClickListener);
       localStorage.setItem(cartItem.innerText, JSON.stringify(details));
+      totalPrice();
     })
     .catch(err => err);
 }
@@ -102,10 +104,23 @@ function clearCart() {
   cartItems.innerHTML = '';
 }
 
-const buttonClear = document.querySelector('.empty-cart');
-buttonClear.addEventListener('click', clearCart);
+async function totalPrice() {
+  const priceSection = document.querySelector('.price');
+  const localStorageKeys = Object.keys(localStorage);
+  let totalPrice = 0;
+  await localStorageKeys.forEach((key) => {
+    const product = JSON.parse(localStorage[key]);
+    const productPrice = product['price']
+    totalPrice += productPrice; 
+  });
+  priceSection.innerText = totalPrice;
+}
+
 
 window.onload = function onload() {
   mercadoLivreFetch('computador');
   localStorageCart();
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', clearCart);
+  totalPrice();
 };
