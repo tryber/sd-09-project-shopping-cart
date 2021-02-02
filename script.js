@@ -8,8 +8,9 @@ function createProductImageElement(imageSource) {
 function clearCart() {
   const clearCartButton = document.querySelector('.empty-cart');
   const ol = document.querySelector('ol');
-    clearCartButton.addEventListener('click', function() {
-      ol.innerHTML = ''});
+  clearCartButton.addEventListener('click', function () {
+    ol.innerHTML = ''
+  });
   localStorage.clear();
 }
 
