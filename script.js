@@ -1,6 +1,7 @@
 const search = (url, query) => url.replace('$QUERY', query);
 const sumSpan = document.querySelector('.total-price');
 const emptyCartButton = document.querySelector('.empty-cart');
+const cart = document.querySelector('.cart__items');
 
 async function updateSumOfPrices() {
   const items = Array.from(document.querySelectorAll('.cart__item'));
@@ -12,7 +13,6 @@ async function updateSumOfPrices() {
 }
 
 emptyCartButton.addEventListener('click', () => {
-  const cart = document.querySelector('.cart__items');
   if (!cart.children.length) {
     window.alert('O carrinho já está vazio!');
   } else {
@@ -71,8 +71,7 @@ function cartItemClickListener(event) {
   const description = event.target.innerText;
   event.target.remove();
   updateSumOfPrices();
-  const keyName = description.substring(5, 18);
-  localStorage.removeItem(keyName);
+  localStorage.removeItem(description.substring(5, 18));
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -93,10 +92,9 @@ async function addItemToCart(event) {
     const newCartItem = createCartItemElement(productInfo);
 
     const { id, title, price } = productInfo;
-    const resumedProdInfo = JSON.stringify({ id, title, price });
-    localStorage.setItem(id, resumedProdInfo);
+    localStorage.setItem(id, JSON.stringify({ id, title, price }));
 
-    document.querySelector('.cart__items').appendChild(newCartItem);
+    cart.appendChild(newCartItem);
 
     updateSumOfPrices();
   } catch (error) {
@@ -110,7 +108,6 @@ function removeLoader() {
 }
 
 function loadShoppingCart() {
-  const cart = document.querySelector('.cart__items');
   Object.values(localStorage).forEach((item) => {
     const newItem = createCartItemElement(JSON.parse(item));
     cart.appendChild(newItem);
