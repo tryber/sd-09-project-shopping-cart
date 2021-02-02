@@ -30,30 +30,6 @@ function cartItemClickListener(event) {
   // cod
 }
 
-
-function fetchAllProducts(query) {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
-  fetch(endpoint)
-    .then(response => response.json())
-    .then((dataAll) => {
-      if (dataAll.error) {
-        throw new Error(dataAll.error);
-      }
-      const allProductsInfo = dataAll.results;
-      allProductsInfo.forEach((object) => {
-        const { id, title, thumbnail } = object;
-        const item = createProductItemElement({
-          sku: id,
-          name: title,
-          image: thumbnail });
-        document.querySelector('.items').appendChild(item);
-      });
-    })
-    .catch((error) => {
-      window.alert(error);
-    });
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -62,7 +38,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchAddToCartRequest = async (itemId) => {
+async function fetchAddToCartRequest(itemId) {
   const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
   const object = await response.json();
   const { id, title, price } = object;
@@ -83,7 +59,30 @@ function addToCart() {
   });
 }
 
+function fetchAllProducts(query) {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+  fetch(endpoint)
+    .then(response => response.json())
+    .then((dataAll) => {
+      if (dataAll.error) {
+        throw new Error(dataAll.error);
+      }
+      const allProductsInfo = dataAll.results;
+      allProductsInfo.forEach((object) => {
+        const { id, title, thumbnail } = object;
+        const item = createProductItemElement({
+          sku: id,
+          name: title,
+          image: thumbnail });
+        document.querySelector('.items').appendChild(item);
+      });
+      addToCart();
+    })
+    .catch((error) => {
+      window.alert(error);
+    });
+}
+
 window.onload = function onload() {
   fetchAllProducts('computador');
-  setTimeout(() => addToCart(), 500);
 };
