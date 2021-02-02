@@ -5,17 +5,21 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function setLocalStorage() {
-  const selectList = document.querySelector('ol');
-  localStorage.setItem('item', selectList.innerHTML);
+const setLocalStorage = (produto) => {
+  const ls = JSON.parse(localStorage.getItem('cart')) || [];
+  ls.push(produto);
+  localStorage.setItem('cart', JSON.stringify(ls));
 }
 
-function getLocalStorage() {
-  const selectList = document.querySelector('ol');
-  if (localStorage.getItem('item')) {
-    selectList.innerHTML = localStorage.getItem('item');
-  }
-}
+const getLocalStorage = () => {
+  const ls = JSON.parse(localStorage.getItem('cart'));
+  if (!ls) return;
+  const lista = document.querySelector('.cart__items');
+  ls.forEach((element) => {
+    lista.innerHTML += element;
+    lista.addEventListener('click', cartItemClickListener);
+  });
+};
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
@@ -26,7 +30,6 @@ function createCustomElement(element, className, innerText) {
 
 function cartItemClickListener(event) {
   event.target.remove();
-  setLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -34,6 +37,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  setLocalStorage(li.outerHTML);
   return li;
 }
 
@@ -56,13 +60,11 @@ function addItemNoCarrinho(id) {
         itens.appendChild(addItem);
       }),
   );
-  setLocalStorage();
 }
 
 async function resolveCarrinho(event) {
   const selectElement = await event.target.parentElement;
   await addItemNoCarrinho(getSkuFromProductItem(selectElement));
-  setLocalStorage();
 }
 
 
@@ -76,7 +78,6 @@ function createProductItemElement({ sku, name, image }) {
   createCustomEl.addEventListener('click', resolveCarrinho);
   section.appendChild(createCustomEl);
 
-  setLocalStorage();
   return section;
 }
 const criaLista = () => {
@@ -93,7 +94,6 @@ const criaLista = () => {
     });
     const loading = document.querySelector('.loading');
     loading.remove();
-    setLocalStorage();
   })
   .catch(error => window.alert(error));
 };
@@ -104,8 +104,8 @@ function limparTudo() {
   selectButton.addEventListener('click', function () {
     const selectLista = document.querySelectorAll('.cart__item');
     selectLista.forEach(element => element.remove());
+    localStorage.clear();
   });
-  setLocalStorage();
 }
 
 window.onload = function onload() {
