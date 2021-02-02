@@ -24,7 +24,7 @@ const calculateTotalPrice = () => {
     const elementText = element.innerText.split(' ');
     const priceIndex = elementText.indexOf('PRICE:') + 1;
     const price = elementText[priceIndex];
-    totalPrice += parseFloat(price.substring(1));
+    totalPrice += Number(price.substring(1));
   });
   return totalPrice;
 };
@@ -32,7 +32,7 @@ const calculateTotalPrice = () => {
 const updateTotalPrice = async () => {
   const totalPrice = await calculateTotalPrice();
   const totalPriceField = document.querySelector('.total-price');
-  totalPriceField.innerText = totalPrice.toFixed(2);
+  totalPriceField.innerText = totalPrice;
 };
 
 function createProductImageElement(imageSource) {
