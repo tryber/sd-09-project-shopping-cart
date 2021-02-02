@@ -63,10 +63,19 @@ async function getProductList() {
   const term = 'computador';
   const URL = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
+  const sectionItems = document.querySelector('.items');
+  const loading = document.createElement('spam');
+
+  loading.className = 'loading';
+  loading.innerText = 'loading...';
+  loading.style.fontSize = '36px';
+  sectionItems.appendChild(loading);
+
   try {
     const response = await fetch(URL);
     const products = await response.json();
-    const sectionItems = document.querySelector('.items');
+
+    document.querySelector('.loading').remove();
 
     products.results.forEach((result) => {
       const { id: sku, title: name, thumbnail: image } = result;
