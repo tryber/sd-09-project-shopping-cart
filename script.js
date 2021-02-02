@@ -28,6 +28,12 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+  saveCartStorage();
+  updateCheckoutPrice();
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -38,11 +44,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function getSku(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function saveCartStorage() {
-  const getcart = document.querySelector('.cart__items');
-  localStorage.setItem('cart', getcart.innerHTML);
 }
 
 function addItemCart() {
@@ -93,12 +94,11 @@ async function fetchMercadoLivre(term) {
   });
   removeLoading();
 }
-const addToPrice = async (price) => {
-  let total = document.querySelector('.total-price').innerText;
-  total = await parseFloat(total);
-  total = Math.round((total + price) * 100) / 100;
-  document.querySelector('.total-price').innerText = total;
-};
+
+function saveCartStorage() {
+  const getcart = document.querySelector('.cart__items');
+  localStorage.setItem('cart', getcart.innerHTML);
+}
 
 function loadCartStorage() {
   const getcart = document.querySelector('.cart__items');
