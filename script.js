@@ -1,4 +1,17 @@
 const search = (url, query) => url.replace('$QUERY', query);
+const sumSpan = document.querySelector('.total-price');
+const emptyCartButton = document.querySelector('.empty-cart');
+
+emptyCartButton.addEventListener('click', () => {
+  const cart = document.querySelector('.cart__items');
+  if (!cart.children.length) {
+    window.alert('O carrinho já está vazio!')
+  } else {
+    while (cart.children.length) cart.removeChild(cart.firstChild);
+    updateSumOfPrices();
+    localStorage.clear();
+  }
+});
 
 async function fetchAds(query) {
   const url = 'https://api.mercadolibre.com/sites/MLB/search?q=$QUERY';
@@ -44,11 +57,10 @@ function getSkuFromProductItem(item) {
 }
 
 async function updateSumOfPrices() {
-  const sumSpan = document.querySelector('.total-price');
   const items = Array.from(document.querySelectorAll('.cart__item--info'));
   const sum = !items ? 0 : items.map(item => JSON.parse(item.innerText))
     .reduce((acc, { salePrice }) => acc + salePrice, 0);
-  sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `$${Math.round(sum * 100) / 100}`;
+  sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `${Math.round(sum * 100) / 100}`;
 }
 
 function cartItemClickListener(event) {
@@ -70,7 +82,7 @@ async function addItemToCart(event) {
 
   try {
     const productInfo = await fetch(search(url, sku))
-      .then(response => response.json());
+    .then(response => response.json());
     const newCartItem = createCartItemElement(productInfo);
 
     const { id, title, price } = productInfo;
@@ -94,4 +106,5 @@ window.onload = async function onload() {
   });
   document.querySelectorAll('.item__add').forEach(item =>
     item.addEventListener('click', addItemToCart));
+  document.querySelector('.loading').style.display = 'none';
 };
