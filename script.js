@@ -33,7 +33,7 @@ function sumPrice() {
   const allli = document.querySelectorAll('li');
   let sum = 0;
   if (allli.length === 0) {
-    return (sumTotal.innerHTML = `Preco total: $${sum}`);
+    return (sumTotal.innerHTML = 0);
   }
   return allli.forEach(async (element) => {
     const id = element.innerText.split(' ')[1];
@@ -44,7 +44,7 @@ function sumPrice() {
       .then((object) => {
         sum += (object.price);
         const formatSum = Math.round(sum * 100) / 100;
-        return (sumTotal.innerHTML = `Preco total: $${formatSum}`);
+        return (sumTotal.innerHTML = formatSum);
       });
     } catch (erro) {
       window.alert(erro);
