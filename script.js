@@ -28,6 +28,12 @@ async function sumCartPrices(item) {
   document.querySelector('.total-price').innerHTML = `Total: R$${cartPrice.toFixed(2)}`;
 }
 
+function emptyCart() {
+  localStorage.setItem('cartProducts', '{}');
+  document.querySelector('.cart__items').innerText = '';
+  document.querySelector('.total-price').innerText = 'Total: R$ 0.00';
+}
+
 async function cartItemClickListener(evt) {
   const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
   const clickedCartItem = Object.entries(cartStorage).find(entry => entry[0] === evt.target.id);
@@ -115,14 +121,10 @@ function searchAPI(evt) {
   }
 }
 
-function emptyCart() {
-  // code
-}
-
 function inputListeners() {
   document.querySelector('#search-input').addEventListener('keyup', searchAPI);
   document.querySelector('#search-button').addEventListener('click', searchAPI);
-  document.querySelector('.empty-cart').addEventListener('click', emptyCart)
+  document.querySelector('.empty-cart').addEventListener('click', emptyCart);
 }
 
 window.onload = function onload() {
