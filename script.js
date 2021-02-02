@@ -78,12 +78,12 @@ function loadCartItemOnLocalSorage() {
   const localStorageEntries = Object.entries(localStorage);
   localStorageEntries.forEach((item) => {
     if (item[0].indexOf('cartItem') !== -1) {
-      let itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
+      const itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
       const localStorageArr = itemValue.split(' | ');
-      const localStorageObj = { 
+      const localStorageObj = {
         sku: localStorageArr[0],
         name: localStorageArr[1],
-        salePrice: localStorageArr[2] 
+        salePrice: localStorageArr[2],
       };
       const cartItem = createCartItemElement(localStorageObj);
       shoppingCart.appendChild(cartItem);
