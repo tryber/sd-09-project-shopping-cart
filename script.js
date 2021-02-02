@@ -75,6 +75,8 @@ const criaLista = () => {
       const section = createProductItemElement({ sku, name, image });
       itens.appendChild(section);
     });
+    const loading = document.querySelector('.loading');
+    loading.remove();
   })
   .catch(error => window.alert(error));
 };
