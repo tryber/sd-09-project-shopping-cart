@@ -1,6 +1,7 @@
 const itemsSection = document.querySelector('.items');
 const cartItemsOl = document.querySelector('.cart__items');
 const totalPriceDiv = document.querySelector('.total-price');
+const emptyCartButton = document.querySelector('.empty-cart');
 
 const shoppingCart = {
   storageKey: 'cart',
@@ -133,6 +134,15 @@ function setItemsEvents() {
   });
 }
 
+const setEmptyCartEvents = () => {
+  emptyCartButton.addEventListener('click', () => {
+    cartItemsOl.innerHTML = '';
+    shoppingCart.items = [];
+    shoppingCart.save();
+    updateBalance();
+  });
+};
+
 const loadCartItems = () => {
   shoppingCart.load();
   shoppingCart.items.forEach((item) => { addItemElementToCart(item); });
@@ -143,4 +153,5 @@ window.onload = function onload() {
   searchFor('computador');
   setItemsEvents();
   cartItemClickListener();
+  setEmptyCartEvents();
 };
