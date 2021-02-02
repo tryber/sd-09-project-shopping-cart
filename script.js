@@ -75,12 +75,15 @@ function fetchItemById(itemId) {
     });
 }
 
-document.addEventListener('click', (element) => {
-  const idOnFocus = element.target.parentNode;
-  const itemId = getSkuFromProductItem(idOnFocus);
-  fetchProductById(itemId);
-});
+function addToCart() {
+  document.addEventListener('click', (element) => {
+    const idOnFocus = element.target.parentNode;
+    const itemId = getSkuFromProductItem(idOnFocus);
+    fetchProductById(itemId);
+  });  
+}
 
 window.onload = function onload() {
-  getItens();
+  fetchApi();
+  addToCart();
 };
