@@ -16,12 +16,18 @@ const appendChild = (father, element) => {
   document.querySelector(father).appendChild(element);
 };
 
+const saveCartToLocalStorage = () => {
+  const getCart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('currentCart', getCart);
+};
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
+  saveCartToLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -32,19 +38,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchProductId = async (itemId) => {
+const addToCart = async (itemId) => {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   const response = await fetch(endpoint);
   const object = await response.json();
   const { id, title, price } = object;
   appendChild('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
+  saveCartToLocalStorage();
 };
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   const createButton = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -52,7 +58,7 @@ function createProductItemElement({ sku, name, image }) {
   createButton.addEventListener('click', (event) => {
     const productClicked = event.target;
     const fatherElement = productClicked.parentNode;
-    fetchProductId(getSkuFromProductItem(fatherElement));
+    addToCart(getSkuFromProductItem(fatherElement));
   });
   return section;
 }
@@ -73,10 +79,12 @@ function cleanCart() {
   getButtonEmptyCart.addEventListener('click', () => {
     const cartElement = document.querySelector('.cart__items');
     cartElement.innerText = ' ';
+    saveCartToLocalStorage();
   });
 }
 
 window.onload = function onload() {
   fetchProduct();
   cleanCart();
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('currentCart');
 };
