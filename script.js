@@ -1,4 +1,6 @@
-window.onload = function onload() { };
+window.onload = function onload() { 
+  buildListFetch(); 
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -52,15 +54,13 @@ function buildListFetch() {
       if (object.error) {
         throw new Error(object.error);
       }
-      const { results } = object;
-      results.forEach((result) => {
+      object.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
         const element = createProductItemElement( { sku, name, image } );
         const list = document.querySelector('.items');
         list.appendChild(element);
         resolve();
       });
-      
     })
     .catch((error) => {
       window.alert(error);
@@ -68,5 +68,3 @@ function buildListFetch() {
     });
   });
 }
-
-buildListFetch();
