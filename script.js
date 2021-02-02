@@ -29,16 +29,13 @@ function getSkuFromProductItem(item) {
 }
 
 function startLoading() {
-  const paragraph = document.createElement('p');
-  paragraph.className = 'loading';
-  paragraph.innerText = 'loading...';
-  const body = document.querySelector('body');
-  body.appendChild(paragraph);
+  const loading = document.querySelector('.loading');
+  loading.innerText = 'loading...';
 }
 
 function stopLoading() {
   const loading = document.querySelector('.loading');
-  loading.remove();
+  loading.innerText = '';
 }
 
 function sumItems() {
