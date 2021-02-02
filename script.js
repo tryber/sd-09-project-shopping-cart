@@ -32,7 +32,7 @@ const calculateTotalPrice = () => {
 const updateTotalPrice = async () => {
   const totalPrice = await calculateTotalPrice();
   const totalPriceField = document.querySelector('.total-price');
-  totalPriceField.innerHTML = `<strong>Total Price: </strong> R$${totalPrice.toFixed(2)}`;
+  totalPriceField.innerText = totalPrice.toFixed(2);
 };
 
 function createProductImageElement(imageSource) {
