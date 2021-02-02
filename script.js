@@ -70,18 +70,16 @@ const updateBalance = async () => {
   totalPriceDiv.style.display = 'flex';
 };
 
-function cartItemClickListener() {
+function cartItemClickListener(event) {
   // coloque seu código aqui
-  cartItemsOl.addEventListener('click', (event) => {
-    const element = event.target;
-    if (element.classList.contains('cart__item')) {
-      const itemSku = element.innerText.split(':')[1].split('|')[0].trim();
-      shoppingCart.remove(itemSku);
-      shoppingCart.save();
-      element.remove();
-      updateBalance();
-    }
-  });
+  const element = event.target;
+  if (element.classList.contains('cart__item')) {
+    const itemSku = element.innerText.split(':')[1].split('|')[0].trim();
+    shoppingCart.remove(itemSku);
+    shoppingCart.save();
+    element.remove();
+    updateBalance();
+  }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -165,6 +163,5 @@ window.onload = function onload() {
   loadCartItems();
   searchFor('computador');
   setItemsEvents();
-  cartItemClickListener();
   setEmptyCartEvents();
 };
