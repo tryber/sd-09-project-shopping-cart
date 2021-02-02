@@ -17,7 +17,7 @@ async function getTotalPriceItems() {
       } catch (error) {
         alert(error);
       }
-    }
+    } else if (item.length === 1) amount = 0;
     printTotalPrice(amount);
   });
 }
@@ -54,7 +54,7 @@ function saveItemCartOnLocalStorage(item) {
 
 async function removeFromLocalStorage(item) {
   const itemID = item.innerText.slice(5, 18);
-  let saved = JSON.parse(localStorage.getItem('itemToBuy'));
+  const saved = JSON.parse(localStorage.getItem('itemToBuy'));
   const toDelete = saved.indexOf(itemID);
   saved.splice(toDelete, 1);
   localStorage.setItem('itemToBuy', JSON.stringify(saved));
