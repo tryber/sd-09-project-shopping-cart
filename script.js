@@ -125,7 +125,7 @@ async function addEventItemInMyCart(element, id) {
 async function loadingItems() {
   startLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
-    .then(response => {
+    .then((response) => {
       stopLoading();
       response.json()
         .then(item => item.results.forEach((value) => {
