@@ -98,7 +98,7 @@ function getProducts() {
           createProductItemElement({ sku: e.id, name: e.title, image: e.thumbnail });
         });
       }));
-  loading.style.display = 'none';
+  loading.remove();
 }
 
 function getCartProducts() {
