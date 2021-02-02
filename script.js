@@ -66,7 +66,6 @@ async function putPrice() {
     const elementPrice = document.querySelector('.total-price');
     if (price === 0) elementPrice.innerText = '';
     else elementPrice.innerText = `${price}`;
-
   } catch (error) {
     window.alert(error);
   }
