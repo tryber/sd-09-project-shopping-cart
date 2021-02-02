@@ -29,33 +29,35 @@ function getSkuFromProductItem(item) {
 }
 
 // Incluindo na LocalStorage
-const includeLocalStorage = ({ sku, name, salePrice }) => {
+function includeLocalStorage({ sku, name, salePrice }) {
   localStorage.setItem(`product-${localStorage.length + 1}`, JSON.stringify({ sku, name, salePrice }));
-};
+}
 
-let totalItemsCart = 0;
-
-const sumPricesCart = price => (totalItemsCart = Math.round((price + totalItemsCart) * 100) / 100);
+// Somatório dos Produtos no Carrinho
+function sumPricesCart(price) {
+  const total = parseFloat(document.querySelector('.total-price').innerText);
+  return Math.round((total + price) * 100) / 100;
+}
 
 // Removendo item e reordenando lista da LocalStorage
-const rewritingList = () => {
-  const liProductsCart = document.querySelectorAll('.cart__item');
-
+async function rewritingList() {
   localStorage.clear();
-  totalItemsCart = 0;
-  liProductsCart.forEach(async (item) => {
+  document.querySelector('.total-price').innerText = '0';
+
+  document.querySelectorAll('.cart__item').forEach((item) => {
     const arrayItem = item.innerText.split(' | ');
-    const id = arrayItem[0].split(': ')[1];
-    const title = arrayItem[1].split(': ')[1];
-    const price = arrayItem[2].split(': ')[1].replace('$', '');
-    includeLocalStorage({ sku: id, name: title, salePrice: price });
+    const sku = arrayItem[0].split(': ')[1];
+    const name = arrayItem[1].split(': ')[1];
+    const salePrice = arrayItem[2].split(': ')[1].replace('$', '');
 
-    const total = await sumPricesCart(parseFloat(price));
-    document.querySelector('.total-price').innerText = total;
+    includeLocalStorage({ sku, name, salePrice });
+
+    document.querySelector('.total-price').innerText = sumPricesCart(parseFloat(salePrice));
   });
-};
+}
 
-function cartItemClickListener(event) {
+// Remove item clicado
+async function cartItemClickListener(event) {
   event.target.remove();
   rewritingList();
 }
@@ -69,15 +71,14 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 // Adicionando itens no Carrinho de Compras
-const addListItem = async ({ sku, name, salePrice }) => {
+async function addListItem({ sku, name, salePrice }) {
   const productCart = createCartItemElement({ sku, name, salePrice });
   document.querySelector('.cart__items').appendChild(productCart);
 
-  const total = await sumPricesCart(parseFloat(salePrice));
-  document.querySelector('.total-price').innerText = total;
-};
+  document.querySelector('.total-price').innerText = sumPricesCart(parseFloat(salePrice));
+}
 
-// Adicionando ao Carrinho de Compras
+// Adicionando produto ao Carrinho de Compras
 const addProductCart = async (event) => {
   const ItemID = getSkuFromProductItem(event.target.parentNode);
 
@@ -91,17 +92,16 @@ const addProductCart = async (event) => {
 
 // Limpando Carrinho de Compras e LocalStorage
 const emptyCartStorage = () => {
-  totalItemsCart = 0;
+  document.querySelector('.total-price').innerText = '0';
   localStorage.clear();
+
   document.querySelectorAll('.cart__item').forEach((item) => {
     item.remove();
   });
-
-  document.querySelector('.total-price').innerText = 0;
 };
 
 // Listando produtos
-const productListing = async (QUERY) => {
+const listingProducts = async (QUERY) => {
   const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`);
   const json = await response.json();
   document.querySelector('.loading').remove();
@@ -119,20 +119,24 @@ const productListing = async (QUERY) => {
   document.querySelector('.empty-cart').addEventListener('click', emptyCartStorage);
 };
 
-window.onload = function onload() {
-  document.querySelector('.items').appendChild(createCustomElement('p', 'loading', 'loading...'));
-
-  productListing('computador');
-
-  // Adicionando itens no carrinho, ao carregar a página
+// Adicionando itens no carrinho, ao carregar a página
+function recoverItemsLocalstorage() {
   if (localStorage.length > 0) {
     for (let index = 1; index <= localStorage.length; index += 1) {
       const objectProductStorage = (JSON.parse(localStorage.getItem(`product-${index}`)));
       addListItem(objectProductStorage);
     }
   }
+}
 
-  const p = createCustomElement('p', 'total-text', 'Preço total: $');
-  const span = createCustomElement('span', 'total-price', '0');
-  document.querySelector('.cart').appendChild(p).appendChild(span);
+window.onload = function onload() {
+  document.querySelector('.items')
+    .appendChild(createCustomElement('p', 'loading', 'loading...'));
+
+  document.querySelector('.cart')
+    .appendChild(createCustomElement('p', 'total-text', 'Preço total: $'))
+    .appendChild(createCustomElement('span', 'total-price', '0'));
+
+  listingProducts('computador');
+  recoverItemsLocalstorage();
 };
