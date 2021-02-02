@@ -84,4 +84,5 @@ function getSkuFromProductItem(item) {
 
 window.onload = function onload() {
   fetchProducts();
+  fetchProductById();
 };
