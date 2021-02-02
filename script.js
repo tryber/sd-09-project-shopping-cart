@@ -38,17 +38,17 @@ function saveCart() {
 }
 
 
-function restoreCart() {
-  if(localStorage.length !== 0) {
-    document.querySelector('ol').innerHTML = localStorage.getItem('cartItems');
-  }
-  document.querySelectorAll('li').forEach(item => item.addEventListener('click', cartItemClickListener));
-}
-
-
 function cartItemClickListener(event) {
   document.querySelector('.cart__items').removeChild(event.target);
   saveCart();
+}
+
+
+function restoreCart() {
+  if (localStorage.length !== 0) {
+    document.querySelector('ol').innerHTML = localStorage.getItem('cartItems');
+  }
+  document.querySelectorAll('li').forEach(item => item.addEventListener('click', cartItemClickListener));
 }
 
 
@@ -84,7 +84,7 @@ function clearCart() {
 
 
 const getTotalOrder = async () => {
-  
+
 };
 
 
