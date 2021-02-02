@@ -22,26 +22,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-async function fetchAllProducts(productType) {
-  const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${productType}`;
-  const response = await fetch(endPoint);
-  const object = await response.json();
-  const results = object.results;
-  results.forEach((result) => {
-    const { id, title, thumbnail } = result;
-    const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
-    document.querySelector('.items').appendChild(item);
-  });
-}
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -49,6 +29,39 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+async function fetchItemById(ItemID) {
+  const endPoint = `https://api.mercadolibre.com/items/${ItemID}`;
+  const response = await fetch(endPoint);
+  const object = await response.json();
+  const { id, title, price } = object;
+  const cartElement = createCartItemElement({ sku: id, name: title, salePrice: price });
+  document.querySelector('.cart__items').appendChild(cartElement);
+}
+
+function cartItemClickListener(event) {
+event.target.remove();
+}
+
+async function fetchAllProducts(productType) {
+  const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${productType}`;
+  const response = await fetch(endPoint);
+  const object = await response.json();
+  const results = object.results;
+  results.forEach((result) => {
+    const { id, title, thumbnail, price} = result;
+    const structure = createProductItemElement({ sku: id, name: title, image: thumbnail });
+    document.querySelector('.items').appendChild(structure);
+
+  });
+}
+
+
+
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
 
 window.onload = function onload() {
   fetchAllProducts('computador');
