@@ -4,18 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>TRYBUM</title>
+    <link rel="stylesheet" href="framework/bulma.min.css">
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
 
   <body>
+    <header class="header">
+      <h1 class="title is-1">TRYBUM</h1>
+    </header>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
-        <span class="cart__title">Carrinho de compras</span>
-        <button class="empty-cart">Esvaziar carrinho</button>
+        <span class="cart__title title">Carrinho de compras</span>
+        <button class="empty-cart button is-danger">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
+        <p><strong>Total Price: </strong>R$ <span class="total-price"> 0.00</span></p>
       </section>
     </section>
   </body>
