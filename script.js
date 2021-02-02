@@ -36,7 +36,7 @@ function savedStorage() {
   localStorage.setItem('list', list.innerHTML);
 }
 
-function decrePrices(event) {
+function decreasePrices(event) {
   const getPrice = document.querySelector('.total-price').innerText;
 
   const searchNumber = event.target.innerText.indexOf('$');
@@ -51,14 +51,14 @@ function decrePrices(event) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
-  decrePrices(event)
+  decreasePrices(event);
   savedStorage();
 }
 
 async function sumPrices(price) {
   const getPrice = document.querySelector('.total-price').innerText;
   const valueConvert = Number(getPrice);
-  let result = await Math.round(price + valueConvert);
+  const result = await Math.round(price + valueConvert);
   document.querySelector('.total-price').innerHTML = result;
 }
 
@@ -126,9 +126,9 @@ function clearList() {
 function recovery() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('list');
   const list = document.querySelectorAll('.cart__item');
-  list.forEach(element => {
+  list.forEach((element) => {
     element.addEventListener('click', cartItemClickListener);
-  })
+  });
 }
 
 window.onload = function onload() {
