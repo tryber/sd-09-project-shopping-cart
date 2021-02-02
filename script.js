@@ -41,22 +41,37 @@ async function createTotalPriceElement() {
     const cart = document.querySelector('.cart');
     const totalPriceElement = document.createElement('span');
     totalPriceElement.className = 'total-price';
-    totalPriceElement.innerText = totalPrice;
+    totalPriceElement.innerText = Math.round(totalPrice *100) / 100;
     cart.appendChild(totalPriceElement);
   } catch (error) {
     window.alert(error);
   }
 }
 
-function cartItemClickListener(event) {
+function updatePrice() {
   const totalPriceElement = document.querySelector('.total-price');
+  const cart = document.querySelector('.cart');
+  cart.removeChild(totalPriceElement);
+  createTotalPriceElement();
+}
+
+function cartItemClickListener(event) {
   const cartProduct = event.target;
   const cart = cartProduct.parentElement;
   cart.removeChild(cartProduct);
-  cart.parentElement.removeChild(totalPriceElement);
   const currentCart = cart.innerHTML;
   localStorage.setItem('cart', JSON.stringify(currentCart));
-  createTotalPriceElement();
+  updatePrice();
+}
+
+function emptyCartList() {
+  const emptyCartButtom = document.querySelector('.empty-cart');
+  emptyCartButtom.addEventListener('click', () => {
+    const cartList = document.querySelectorAll('.cart__item');
+    cartList.forEach((item) => item.parentElement.removeChild(item));
+    localStorage.removeItem('cart');
+    updatePrice();
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -73,11 +88,7 @@ function addProductToTarget(parentClass, productObject, callback) {
   targetParent.appendChild(productResult);
   if (parentClass === '.cart__items') {
     localStorage.setItem('cart', JSON.stringify(targetParent.innerHTML));
-    const totalPriceElement = document.querySelector('.total-price');
-    if (totalPriceElement) {
-      targetParent.parentElement.removeChild(totalPriceElement);
-      createTotalPriceElement();
-    }
+    updatePrice();
   }
 }
 
@@ -133,4 +144,5 @@ window.onload = function onload() {
   createProductList('computador');
   loadCurrentCart();
   createTotalPriceElement();
+  emptyCartList();
 };
