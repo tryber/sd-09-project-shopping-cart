@@ -11,10 +11,9 @@ async function retrieveMercadoLivreResults(term) {
 
   results.forEach((result) => {
     const { id: sku, title: name, thumbnail } = result;
-    const element = createProductItemElement({sku, name, thumbnail });
+    const element = createProductItemElement({ sku, name, thumbnail });
     itemsElement.appendChild(element);
-
-  })
+  });
 }
 
 function createProductImageElement(imageSource) {
