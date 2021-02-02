@@ -24,6 +24,10 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -44,7 +48,7 @@ function addToCar() {
             sku: response.id,
             name: response.title,
             salePrice: response.price,
-          }
+          };
           const ol = document.querySelector('.cart__items');
           ol.appendChild(createCartItemElement(objResult));
         });
@@ -74,10 +78,6 @@ function createListing(search) {
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
 }
 
 window.onload = function onload() {
