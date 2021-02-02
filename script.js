@@ -44,7 +44,7 @@ function emptyCart() {
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', () => {
     const cartList = document.querySelectorAll('.cart__item');
-    cartList.forEach((item) => (item.parentNode.removeChild(item)));
+    cartList.forEach(item => (item.parentNode.removeChild(item)));
   });
 }
 
@@ -90,5 +90,5 @@ const fetchProducts = (product) => {
 };
 window.onload = function onload() {
   fetchProducts('computador');
-  emptyCart()
+  emptyCart();
 };
