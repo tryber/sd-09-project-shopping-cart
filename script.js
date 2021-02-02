@@ -10,9 +10,20 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+const refreshTotalPrice = () => {
+  let actualPrice = 0;
+  const listItems = document.querySelectorAll('.cart__item');
+  listItems.forEach((item) => {
+    actualPrice += parseFloat(item.id);
+  })
+  const totalPrice = document.querySelector('.total-price');
+  totalPrice.innerText = actualPrice.toFixed(2);
+}
+
 function removeItem() {
   this.parentNode.removeChild(this);
   saveListOnStorage();
+  refreshTotalPrice();
 }
 
 function restoreCart() {
@@ -21,12 +32,14 @@ function restoreCart() {
   [...list].forEach((item) => {
     item.addEventListener('click', removeItem);
   });
+  refreshTotalPrice();
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.setAttribute('id', salePrice);
   li.addEventListener('click', removeItem);
   return li;
 }
@@ -40,6 +53,7 @@ const cartItemClickListener = async (itemID) => {
         const newProduct = createCartItemElement(object);
         document.querySelector('.cart__items').appendChild(newProduct);
         saveListOnStorage();
+        refreshTotalPrice();
       });
   } catch (error) {
     console.log(`Ocorreu um erro: ${error}`);
@@ -94,4 +108,5 @@ const setupEvents = () => {
 window.onload = function onload() {
   setupEvents();
   restoreCart();
+  refreshTotalPrice();
 };
