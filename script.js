@@ -9,16 +9,6 @@ const setLocalStorage = (produto) => {
   const ls = JSON.parse(localStorage.getItem('cart')) || [];
   ls.push(produto);
   localStorage.setItem('cart', JSON.stringify(ls));
-}
-
-const getLocalStorage = () => {
-  const ls = JSON.parse(localStorage.getItem('cart'));
-  if (!ls) return;
-  const lista = document.querySelector('.cart__items');
-  ls.forEach((element) => {
-    lista.innerHTML += element;
-    lista.addEventListener('click', cartItemClickListener);
-  });
 };
 
 function createCustomElement(element, className, innerText) {
@@ -31,6 +21,16 @@ function createCustomElement(element, className, innerText) {
 function cartItemClickListener(event) {
   event.target.remove();
 }
+
+const getLocalStorage = () => {
+  const ls = JSON.parse(localStorage.getItem('cart'));
+  if (!ls) return;
+  const lista = document.querySelector('.cart__items');
+  ls.forEach((element) => {
+    lista.innerHTML += element;
+    lista.addEventListener('click', cartItemClickListener);
+  });
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
