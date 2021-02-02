@@ -31,24 +31,36 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
-  const skuToRemove = item.innerText.split(' | ', 1);
+  const id = Number(item.id);
+  console.log(id);
   document.querySelector('.cart__items').removeChild(item);
-  localStorage.removeItem(skuToRemove);
+  const storageItem = JSON.parse(localStorage.getItem('MLCart'));
+  const newStorage = storageItem.filter(itens => itens.id !== id);
+  console.log(newStorage);
+
+
+}
+
+function getRandomInt() {
+  min = Math.ceil(1);
+  max = Math.floor(8000);
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function rebuildCart() {
-  const stored = localStorage
-  console.log(stored)
+  const stored = localStorage;
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({ sku, name, salePrice, id }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
+  li.id = id;
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
+let objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
   const id = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
@@ -63,10 +75,12 @@ const fetchSelectedItem = async (event) => {
     const salePrice = object.price;
     const name = object.title;
     const sku = object.id;
-    const result = createCartItemElement({ sku, name, salePrice });
+    const id = getRandomInt();
+    const result = createCartItemElement({ sku, name, salePrice, id });
     const cartItens = document.querySelector('.cart__items');
     cartItens.appendChild(result);
-    localStorage.setItem(`SKU: ${sku}`, `${sku}/${name}/${salePrice}`);
+    objLocalStorage.push({ sku: sku, name: name, salePrice: salePrice, id: id });
+    localStorage.setItem('MLCart', JSON.stringify(objLocalStorage));
   } catch (error) {
     window.alert(error);
   }
