@@ -46,7 +46,7 @@ function addToCart() {
     const mySku = getSkuFromProductItem(event.target.parentNode);
     const endpoint = `https://api.mercadolibre.com/items/${mySku}`;
     const response = await fetch(endpoint)
-    .then(response => response.json());
+    .then(res => res.json());
     const item = {
       sku: mySku,
       name: response.title,
@@ -59,7 +59,7 @@ function addToCart() {
 }
 
 async function getMLResults() {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=computador`;
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
 
   const response = await fetch(endpoint);
   const object = await response.json();
