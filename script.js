@@ -35,7 +35,7 @@ function cartItemClickListener(event) {
 
 function fetchProducts(query) {
 
-   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
     .then(response => response.json())
     .then((object) => {
       object.results.forEach((result) => {
@@ -54,25 +54,25 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function getProductId(event) {
+  const id = event.target.parentNode.firstChild.innerText;
+  fetchAddRequest(id);
+}
+
 function addToCart() {
-  document.querySelectorAll('.item__add').forEach(button => {
-    button.addEventListener('click', teste)
+  document.querySelectorAll('.item__add').forEach((button) => {
+    button.addEventListener('click', getProductId)
   })
 }
 
 const fetchAddRequest = (id) => {
-  fetch(`https://api.mercadolibre.com/items/${ id }`)
+  fetch(`https://api.mercadolibre.com/items/${id}`)
     .then(response => response.json())
-    .then(object => {
+    .then((object) => {
       const { id, title, price } = object;
         const item = createCartItemElement({ sku: id, name: title, salePrice: price });
         document.querySelector('.cart__items').appendChild(item);
     });
-}
-
-function teste(event) {
-  let id = event.target.parentNode.firstChild.innerText;
-  fetchAddRequest(id);
 }
 
 window.onload = function onload() {
