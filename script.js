@@ -31,10 +31,10 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
-  const id = Number(item.id);
+  const identification = Number(item.id);
   document.querySelector('.cart__items').removeChild(item);
   const storageItem = JSON.parse(localStorage.getItem('MLCart'));
-  const newStorage = storageItem.filter(itens => itens.id !== id);
+  const newStorage = storageItem.filter(itens => itens.id !== identification);
   localStorage.setItem('MLCart', JSON.stringify(newStorage));
 }
 
@@ -72,7 +72,11 @@ const fetchSelectedItem = async (event) => {
     const result = createCartItemElement({ sku, name, salePrice, id });
     const cartItens = document.querySelector('.cart__items');
     cartItens.appendChild(result);
-    objLocalStorage.push({ sku: sku, name: name, salePrice: salePrice, id: id });
+    objLocalStorage.push({ 
+      sku: sku, 
+      name: name, 
+      salePrice: salePrice, 
+      id: id });
     localStorage.setItem('MLCart', JSON.stringify(objLocalStorage));
   } catch (error) {
     window.alert(error);
