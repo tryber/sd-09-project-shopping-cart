@@ -104,6 +104,7 @@ const emptyCartStorage = () => {
 const productListing = async (QUERY) => {
   const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`);
   const json = await response.json();
+  document.querySelector('.loading').remove();
 
   json.results.forEach((objProduct) => {
     const { id, title, thumbnail } = objProduct;
@@ -119,6 +120,8 @@ const productListing = async (QUERY) => {
 };
 
 window.onload = function onload() {
+  document.querySelector('.items').appendChild(createCustomElement('p', 'loading', 'loading...'));
+
   productListing('computador');
 
   // Adicionando itens no carrinho, ao carregar a página
