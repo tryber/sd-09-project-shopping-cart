@@ -9,14 +9,14 @@ function loadCartStorage() {
 }
 
 function createLoadingElement() {
-  const loadingElement = documento.createElement('h1')
+  const loadingElement = documento.createElement('h1');
   loadingElement.className = 'loading';
   loadingElement.innerText = 'Loading...';
-  document.body.appendChild(loadingElement)
+  document.body.appendChild(loadingElement);
 }
 
 function stopLoadingElement() {
-  const loadingElement = documento.querySelector('.loading')
+  const loadingElement = documento.querySelector('.loading');
   loadingElement.remove();
 }
 
