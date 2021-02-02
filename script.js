@@ -45,7 +45,7 @@ async function fetchAddToCartRequest(itemId) {
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
-};
+}
 
 function getProductId(event) {
   const id = event.target.parentNode.firstChild.innerText;
