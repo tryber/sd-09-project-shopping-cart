@@ -82,7 +82,7 @@ const itemsList = async (search) => {
 
 const clearList = () => {
   const ol = document.querySelector('.cart__items');
-  while (ol.firstChild) { ol.firstChild.remove() };
+  while (ol.firstChild) { ol.firstChild.remove(); }
 };
 
 const addEvent = () => {
