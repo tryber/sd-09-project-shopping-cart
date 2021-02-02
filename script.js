@@ -1,5 +1,3 @@
-window.onload = function onload() {};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -31,22 +29,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
-  const ol = document.querySelector('.cart__items');
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  ol.appendChild(li);
+function cartItemClickListener(event) {
+  if (event.target.className === 'item__add') {
+    const idElement = event.target.parentNode.firstChild.innerText;
+    cartItemElement(idElement);
+  }
 }
 
-const filterIdElement = ({ id, title, price }) => {
+const filterIdElement = ({ id, title, price }, callback) => {
   const object = {
     sku: id,
     name: title,
     salePrice: price,
   };
-  createCartItemElement(object);
+  callback(object);
 };
 
 const cartItemElement = async (idElement) => {
@@ -57,24 +53,11 @@ const cartItemElement = async (idElement) => {
     if (object.message) {
       throw new Error(object.message);
     }
-    filterIdElement(object);
+    filterIdElement(object, createCartItemElement);
   } catch (error) {
     alert(error);
   }
 };
-
-function cartItemClickListener(event) {
-  if (event.target.className === 'item__add') {
-    const idElement = event.target.parentNode.firstChild.innerText;
-    cartItemElement(idElement);
-  }
-}
-
-const clickEvent = () => {
-  const items = document.querySelector('.items');
-  items.addEventListener('click', cartItemClickListener);
-};
-clickEvent();
 
 const objectFilterElement = (productsDatas) => {
   const entries = Object.entries(productsDatas.results);
@@ -84,9 +67,24 @@ const objectFilterElement = (productsDatas) => {
       name: info[1].title,
       image: info[1].thumbnail,
     };
-    createProductItemElement(infos);
+   createProductItemElement(infos);
   });
 };
+
+const clickEvent = () => {
+  const items = document.querySelector('.items');
+  items.addEventListener('click', cartItemClickListener);
+};
+clickEvent();
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const ol = document.querySelector('.cart__items');
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  ol.appendChild(li);
+}
 
 const productItemElement = async () => {
   const productChoise = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
@@ -101,4 +99,9 @@ const productItemElement = async () => {
     alert(error);
   }
 };
+
+window.onload = function onload() {
 productItemElement();
+
+};
+
