@@ -28,11 +28,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function startLoading() {
+  const loading = document.querySelector('.loading');
+  loading.innerText = 'loading...';
+}
+
+function stopLoading() {
+  const loading = document.querySelector('.loading');
+  loading.innerText = '';
+}
+
 function sumItems() {
   return new Promise((resolve, reject) => {
-    const loading = document.querySelector('.loading');
-    loading.innerText = 'loading...';
-    console.log(loading.innerText);
     const myCart = document.querySelectorAll('.cart__item');
     let price = '';
     let sum = 0;
@@ -56,8 +63,6 @@ async function putPrice() {
   let price;
   try {
     price = await sumItems();
-    const loading = document.querySelector('.loading');
-    loading.innerText = '';
     const elementPrice = document.querySelector('.total-price');
     elementPrice.innerText = `${price}`;
   } catch (error) {
@@ -118,21 +123,19 @@ async function addEventItemInMyCart(element, id) {
 }
 
 async function loadingItems() {
-  const loading = document.querySelector('.loading');
-  loading.innerText = 'loading...';
+  startLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
     .then(response => {
-      const loading = document.querySelector('.loading');
-      loading.innerText = '';
+      stopLoading();
       response.json()
-       .then(item => item.results.forEach((value) => {
+        .then(item => item.results.forEach((value) => {
           const obj = { sku: value.id, name: value.title, image: value.thumbnail };
           const section = createProductItemElement(obj);
           addEventItemInMyCart(section, value.id);
           const containerItems = document.querySelector('.items');
           containerItems.appendChild(section);
-    }));
-  });
+        }));
+    });
 }
 
 window.onload = function onload() {
