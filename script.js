@@ -49,8 +49,8 @@ const addItemOnCart = async (param) => {
     const ol = document.querySelector('.cart__items');
     const { id: sku, title: name, price: salePrice } = jsonEndPoint;
     ol.appendChild(createCartItemElement({ sku, name, salePrice }));
-  } catch {
-
+  } catch (error) {
+    console.log(error);
   }
 }
 
