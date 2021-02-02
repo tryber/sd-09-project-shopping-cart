@@ -80,6 +80,17 @@ const criaLista = () => {
 };
 criaLista();
 
+function limparTudo() {
+  const selectLista = document.querySelector('.cart__items');
+  selectLista.remove();
+}
+
+function startButton() {
+  const selectButton = document.querySelector('.empty-cart');
+  selectButton.addEventListener('click',limparTudo)
+}
+
 window.onload = function onload() {
   criaLista();
+  startButton();
 };
