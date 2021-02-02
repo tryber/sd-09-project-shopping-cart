@@ -25,7 +25,7 @@ function toLocalStorage(sku, name, salePrice) {
 
 async function sumCartPrices(item) {
   cartPrice += item;
-  document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
+  document.querySelector('.total-price').innerText = `${Math.round(cartPrice * 100) / 100}`;
 }
 
 function emptyCart() {
@@ -36,8 +36,9 @@ function emptyCart() {
 
 async function cartItemClickListener(evt) {
   const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
-  const clickedCartItem = Object.entries(cartStorage).find(entry => entry[0] === evt.target.id);
-  await sumCartPrices(-(clickedCartItem[1].salePrice));
+  const clickedCartItem = Object.entries(cartStorage)
+    .find(entry => entry[0] === evt.target.id)[1].salePrice;
+  await sumCartPrices(-(clickedCartItem));
   delete cartStorage[`${evt.target.id}`];
   localStorage.setItem('cartProducts', JSON.stringify(cartStorage));
   evt.target.parentNode.removeChild(evt.target);
@@ -50,6 +51,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.id = `${sku}`;
   li.addEventListener('click', cartItemClickListener);
   toLocalStorage(sku, name, salePrice);
+  document.querySelector('.cart__items').appendChild(li);
   return li;
 }
 
@@ -58,8 +60,7 @@ async function getSingleItem(item) {
   await fetch(endpoint).then(response => response.json())
     .then((data) => {
       const { id: sku, title: name, base_price: salePrice } = data;
-      document.querySelector('.cart__items')
-        .appendChild(createCartItemElement({ sku, name, salePrice }));
+      createCartItemElement({ sku, name, salePrice });
       sumCartPrices(salePrice);
     })
     .catch(reason => console.log(reason));
@@ -85,7 +86,7 @@ function addToCart(evt) {
   getSingleItem(getSkuFromProductItem(parentNode));
 }
 
-function createProductItemElement(sku, name, image) {
+function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -99,9 +100,10 @@ function createProductItemElement(sku, name, image) {
 }
 
 function productsToItemsSection(marketList) {
-  marketList.forEach(({ id, title, thumbnail }) => {
+  marketList.forEach((product) => {
+    const { id, title, thumbnail } = product;
     document.querySelector('section .items')
-      .appendChild(createProductItemElement(id, title, thumbnail));
+      .appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
   });
 }
 
