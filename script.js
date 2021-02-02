@@ -83,8 +83,8 @@ criaLista();
 function limparTudo() {
   const selectButton = document.querySelector('.empty-cart');
   selectButton.addEventListener('click', function () {
-    const selectLista = document.querySelector('.cart__items');
-    selectLista.remove();
+    const selectLista = document.querySelectorAll('.cart__item');
+    selectLista.forEach (element => element.remove())
   });
 }
 
