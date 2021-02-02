@@ -65,7 +65,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 // }
 
 const updatePriceSum = (price) => {
-  return new Promise((resolve) => {
+  return new Promise(function(resolve) {
     const totalPriceSpan = document.querySelector('#total-price');
     let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
 
@@ -74,7 +74,7 @@ const updatePriceSum = (price) => {
 
     resolve();
   });
-}
+};
 
 async function asyncSum(price) {
   try {
