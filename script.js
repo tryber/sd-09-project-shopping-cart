@@ -126,7 +126,6 @@ async function loadingItems() {
   startLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
     .then((response) => {
-      stopLoading();
       response.json()
         .then(item => item.results.forEach((value) => {
           const obj = { sku: value.id, name: value.title, image: value.thumbnail };
