@@ -89,9 +89,9 @@ function addItems() {
 
 function loadAndSaveLocalStorage(item) {
   if (!item) {
-    item = JSON.parse(localStorage.getItem('items'));
+  // const products = JSON.parse(localStorage.getItem('items'));
   } else {
-    localStorage.setItem('items', JSON.stringify(item));
+  // localStorage.setItem('items', JSON.stringify(item));
   }
 }
 
