@@ -29,13 +29,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const priceArray = [];
+
+const targetElement = (event) => {
+  const item = event.target;
+  return item;
+};
+
 const lessPrice = (event) => {
   const totalPrice = document.querySelector('.total_price');
   element = targetElement(event);
   const arrayItems = element.parentNode.childNodes;
   const itemIndex = Object.values(arrayItems).findIndex(item => item === element);
   priceArray.splice(itemIndex, 1);
-  const sumTotal = priceArray.length > 0 ? priceArray.reduce((a, b) => a + b): 0;
+  const sumTotal = priceArray.length > 0 ? priceArray.reduce((a, b) => a + b) : 0;
   totalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
 };
 
@@ -51,13 +58,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-const priceArray = [];
-
-const targetElement = (event) => {
-  const item = event.target;
-  return item;
-};
 
 const sumPrices = () => {
   const sumTotal = priceArray.reduce((a, b) => a + b);
