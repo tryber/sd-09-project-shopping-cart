@@ -36,8 +36,8 @@ function loadingText() {
 }
 
 function stopLoading() {
-  const stopLoading = document.querySelector('.loading');
-  document.body.removeChild(stopLoading);
+  const stopLoadingText = document.querySelector('.loading');
+  document.body.removeChild(stopLoadingText);
 }
 
 function saveCartChanges() {
