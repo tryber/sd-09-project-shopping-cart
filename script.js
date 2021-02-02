@@ -61,7 +61,7 @@ const sumItemsInCart = () => shoppingCart.items.reduce(
 
 const updateBalance = async () => {
   const cartSum = sumItemsInCart();
-  totalPriceDiv.innerText = `Total: R$ ${cartSum}`;
+  totalPriceDiv.innerText = `${cartSum}`;
   totalPriceDiv.style.display = 'flex';
 };
 
