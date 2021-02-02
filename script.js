@@ -14,7 +14,7 @@ function createCustomElement(element, className, innerText) {
 
 function totalPrice(price) {
   const value = Number(document.querySelector('.total-price').innerText);
-  document.querySelector('.total-price').innerText = (value + price).toFixed(2);
+  document.querySelector('.total-price').innerText = (value + price);
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -32,10 +32,14 @@ function createProductItemElement({ sku, name, image }) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
-  const totalPrice = document.querySelector('.total-price');
+  const total = document.querySelector('.total-price');
   const priceTarget = Number(event.target.innerText.split('$')[1]);
-  localStorage.totalPrice -= priceTarget;
-  totalPrice.innerText = localStorage.totalPrice;
+  if (Number(total.innerText) - priceTarget < 1) {
+    total.innerText = 0;
+  } else {
+    total.innerText = Number(total.innerText) - priceTarget;
+  }
+  localStorage.totalPrice = total.innerText;
   localStorage.myCart = document.querySelector('.cart__items').innerHTML;
 }
 
@@ -73,9 +77,9 @@ function buttonsListener(button) {
       totalPrice(salePrice);
       return addItemToCart({ sku, name, salePrice });
     })
-    .then(result => {
+    .then((result) => {
       localStorage.setItem('myCart', result.innerHTML);
-      localStorage.setItem('totalPrice', document.querySelector('.total-price').innerHTML);
+      localStorage.setItem('totalPrice', Number(document.querySelector('.total-price').innerText));
     })
     .catch(() => alert('Outro erro! Dá uma olhado nos botões "Adicionar ao carrinho"'));
   });
@@ -103,13 +107,11 @@ function createProductsList(item) {
 
 function storageItems() {
   const myCart = document.querySelector('.cart__items');
-  const totalPrice = document.querySelector('.total-price');
-  if (localStorage.myCart) {
+  const total = document.querySelector('.total-price');
+  if (localStorage.myCart && localStorage.totalPrice) {
     myCart.innerHTML = localStorage.myCart;
     myCart.childNodes.forEach(item => item.addEventListener('click', cartItemClickListener));
-  }
-  if (localStorage.totalPrice) {
-    totalPrice.innerText = localStorage.totalPrice;
+    total.innerText = localStorage.totalPrice;
   }
 }
 
