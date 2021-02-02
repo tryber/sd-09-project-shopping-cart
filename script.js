@@ -27,7 +27,7 @@ function clearCart() {
   const emptyCartButton = document.querySelector('.empty-cart');
   emptyCartButton.addEventListener('click', () => {
     const itemsInCart = document.querySelectorAll('.cart__item');
-    itemsInCart.forEach((item) => item.remove());
+    itemsInCart.forEach(item => item.remove());
     localStorage.setItem('itemToBuy', '');
     getTotalPriceItems();
   });
