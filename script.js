@@ -15,33 +15,41 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-  
+
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  
+
   return section;
 }
 
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
 function addToCar() {
-  const buttonItemList = document.querySelectorAll('.item__add')
-  buttonItemList.forEach(specifcButton => {
+  const buttonItemList = document.querySelectorAll('.item__add');
+  buttonItemList.forEach((specifcButton) => {
     specifcButton.addEventListener('click', () => {
-      let idSelected = specifcButton.parentNode.querySelector('.item__sku').innerText;
+      const idSelected = specifcButton.parentNode.querySelector('.item__sku').innerText;
       fetch(`https://api.mercadolibre.com/items/${idSelected}`)
         .then(response => response.json())
-        .then(response => {
-          let objResult = {
+        .then((response) => {
+          const objResult = {
             sku: response.id,
             name: response.title,
             salePrice: response.price,
           }
           const ol = document.querySelector('.cart__items');
           ol.appendChild(createCartItemElement(objResult));
-        })
-    })
-  })
+        });
+    });
+  });
 }
 
 function createListing(search) {
@@ -50,17 +58,17 @@ function createListing(search) {
     .then(response => response.json());
   const arrayResults = promiseAPI.then(response => response.results);
   arrayResults
-    .then(response => {
-      response.forEach(value => {
+    .then((response) => {
+      response.forEach((value) => {
         resultOgj = {
-        sku: value.id,
-        name: value.title,
-        image: value.thumbnail,
+          sku: value.id,
+          name: value.title,
+          image: value.thumbnail,
         };
         sectionItems.appendChild(createProductItemElement(resultOgj));
-      })
-      //Chamar a função reuisito 2
-      addToCar()
+      });
+      // Chamar a função reuisito 2
+      addToCar();
     });
 }
 
@@ -70,14 +78,6 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 window.onload = function onload() {
