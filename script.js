@@ -60,14 +60,14 @@ async function searchItemCart(sku) {
   loading(false);
 }
 
-function makeButtonsListner() {
-  const buttonAdd = document.querySelectorAll('.item__add');
-  buttonAdd.forEach((button) => {
-    button.addEventListener('click', function (event) {
-      searchItemCart(event.path[1].querySelector('.item__sku').innerText);
-    });
-  });
-}
+// function makeButtonsListner() {
+//   const buttonAdd = document.querySelectorAll('.item__add');
+//   buttonAdd.forEach((button) => {
+//     button.addEventListener('click', function (event) {
+//       searchItemCart(event.path[1].querySelector('.item__sku').innerText);
+//     });
+//   });
+// }
 
 async function makeItems() {
   const searchItem = 'computador';
@@ -88,7 +88,7 @@ async function makeItems() {
       });
 
   loading(false);
-  makeButtonsListner();
+//  makeButtonsListner();
 }
 
 window.onload = function onload() {
