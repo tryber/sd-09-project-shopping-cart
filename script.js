@@ -46,8 +46,8 @@ async function fetchItemsById(ItemID) {
 
 function cartItemClickListener(event) {
   eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
-  const obj = Object.entries(localStorage).find((value) => 
-    JSON.parse(value[1]).sku === eventTextIDproduct);
+  const obj = Object.entries(localStorage)
+    .find(value => JSON.parse(value[1]).sku === eventTextIDproduct);
   localStorage.removeItem(obj[0]);
   event.target.remove();
 }
@@ -99,8 +99,8 @@ async function start() {
     itemListClickListener();
     fillCartLoadItems();
   } catch (error) {
-    alert(error)
-  };
+    alert(error);
+  }
 }
 
 window.onload = function onload() {
