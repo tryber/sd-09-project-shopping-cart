@@ -30,13 +30,13 @@ function getSkuFromProductItem(item) {
 
 function startLoading() {
   const loading = document.querySelector('.loading');
-  loading.innerText = 'loading...';
+  loading.innerText = 'loading';
 }
 
-function stopLoading() {
-  const loading = document.querySelector('.loading');
-  loading.innerText = '';
-}
+// function stopLoading() {
+//   const loading = document.querySelector('.loading');
+//   loading.innerText = '';
+// }
 
 function sumItems() {
   return new Promise((resolve, reject) => {
