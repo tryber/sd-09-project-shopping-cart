@@ -73,7 +73,7 @@ function removeItem(event) {
 
   cartItemsOrderedList.removeChild(event.target);
   asyncUpdatePrice();
-} 
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -160,7 +160,7 @@ function clearList() {
 
 function listenToEmptyCartButton() {
   const emptyCartButton = document.querySelector('.empty-cart');
-  
+
   if (emptyCartButton) {
     emptyCartButton.addEventListener('click', clearList);
   }
@@ -209,7 +209,7 @@ function loadLocalStorage() {
   if (cart) {
     cart.innerHTML = parsedCart;
 
-    console.log(cart)
+    listenToCartItemsOrderedList();
   }
 }
 
@@ -220,5 +220,4 @@ window.onload = function onload() {
   listenToEmptyCartButton();
   listenToSearchBtn();
   listenToSearchIpt();
-  listenToCartItemsOrderedList();
 };
