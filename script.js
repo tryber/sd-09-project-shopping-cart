@@ -83,4 +83,8 @@ function fetchProducts(search) {
 
 window.onload = function onload() {
   fetchProducts('computador');
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    const itemsList = document.querySelector('.cart__items');
+    itemsList.innerHTML = '';
+  })
 };
