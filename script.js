@@ -87,7 +87,6 @@ function cartItemClickListener(event) {
     const searchKey = JSON.parse(data).sku;
     if (eventTextIDproduct === searchKey) {
       localStorage.removeItem(position);
-      event.target.remove();
       break;
     }
   }
@@ -95,6 +94,7 @@ function cartItemClickListener(event) {
     const cartListItems = document.querySelector('.cart__items');
     cartListItems.innerHTML = '';
   }
+  event.target.remove();
   currentCartValue();
 }
 
