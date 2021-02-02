@@ -89,7 +89,7 @@ async function getProduct() {
         createProductItemElement({ sku, name, image });
       });
     }).catch(error => window.alert(error));
-    removeLoading();
+  removeLoading();
 }
 
 function createCartListItem(itemList) {
