@@ -24,6 +24,17 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function setLocalStorage() {
+  const lineItens = document.getElementsByTagName('li');
+  for (let index = 0; index < lineItens.length; index += 1) {
+    const objeto = {
+      text: lineItens[index].innerText,
+      class: lineItens[index].className,
+    };
+    localStorage.setItem(index, JSON.stringify(objeto));
+  }
+}
+
 function cartItemClickListener(event) {
   // coloque seu códigoaqui
   event.target.remove();
@@ -37,17 +48,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-function setLocalStorage() {
-  const lineItens = document.getElementsByTagName('li');
-    for (let index = 0; index < lineItens.length; index += 1) {
-      const objeto = {
-        text: lineItens[index].innerText,
-        class: lineItens[index].className,
-      };
-      localStorage.setItem(index, JSON.stringify(objeto));
-    }  
 }
 
 function getStorageItems() {
