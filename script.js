@@ -17,18 +17,24 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function cartItemClickListener(evt) {
-  const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
-  console.log(evt.target.id);
-  delete cartStorage[`${evt.target.id}`];
-  localStorage.setItem('cartProducts', JSON.stringify(cartStorage));
-  evt.target.parentNode.removeChild(evt.target);
-}
-
 function toLocalStorage(sku, name, salePrice) {
   const cartProducts = JSON.parse(localStorage.getItem('cartProducts'));
   cartProducts[sku] = { name, salePrice };
   localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+}
+
+async function sumCartPrices(item) {
+  cartPrice += item;
+  document.querySelector('.total-price').innerHTML = `Total: R$${cartPrice.toFixed(2)}`;
+}
+
+async function cartItemClickListener(evt) {
+  const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
+  const clickedCartItem = Object.entries(cartStorage).find(entry => entry[0] === evt.target.id);
+  await sumCartPrices(-(clickedCartItem[1].salePrice));
+  delete cartStorage[`${evt.target.id}`];
+  localStorage.setItem('cartProducts', JSON.stringify(cartStorage));
+  evt.target.parentNode.removeChild(evt.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -39,14 +45,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   toLocalStorage(sku, name, salePrice);
   return li;
-}
-
-async function sumCartPrices(item) {
-  const totalPrice = document.createElement('span');
-  totalPrice.className = 'total-price';
-  cartPrice += item;
-  totalPrice.innerHTML = cartPrice;
-  document.querySelector('.cart').appendChild(totalPrice);
 }
 
 async function getSingleItem(item) {
@@ -63,14 +61,13 @@ async function getSingleItem(item) {
 
 function retrieveLocalStorage() {
   const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
-  console.log(cartStorage);
   if (!cartStorage) {
     return localStorage.setItem('cartProducts', '{}');
   }
   Object.keys(cartStorage).forEach((id) => {
     getSingleItem(id);
   });
-  return true;
+  return console.log(cartStorage);
 }
 
 function getSkuFromProductItem(item) {
@@ -118,9 +115,14 @@ function searchAPI(evt) {
   }
 }
 
+function emptyCart() {
+  // code
+}
+
 function inputListeners() {
   document.querySelector('#search-input').addEventListener('keyup', searchAPI);
   document.querySelector('#search-button').addEventListener('click', searchAPI);
+  document.querySelector('.empty-cart').addEventListener('click', emptyCart)
 }
 
 window.onload = function onload() {
