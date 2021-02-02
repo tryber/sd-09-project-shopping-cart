@@ -6,11 +6,10 @@ function idToSkuTranslator(objectWithId) {
 
 async function totalPrice() {
   const priceSection = document.querySelector('.price');
-  const localStorageKeys = Object.keys(localStorage);
+  const localStorageContent = JSON.parse(localStorage['carrinho']);
   let completePrice = 0;
-  await localStorageKeys.forEach((key) => {
-    const product = JSON.parse(localStorage[key]);
-    const productPrice = product.price;
+  await localStorageContent.forEach((product) => {
+    const productPrice = product.salePrice;
     completePrice += productPrice;
   });
   priceSection.innerText = completePrice;
@@ -46,10 +45,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function getSkuFromItem(itemInnertext) {
+  return itemInnertext.split(':')[1].split('|')[0].trim()
+}
+
 function cartItemClickListener(event) {
   const item = event.target;
-  // console.log(localStorage.getItem(item.innerText));
-  localStorage.removeItem(item.innerText);
+  const localStorageContent = JSON.parse(localStorage['carrinho']);
+  const indexToRemove = localStorageContent.findIndex((product) => {
+    const itemSku = getSkuFromItem(item.innerText);
+    return product.sku === itemSku;
+  });
+  localStorageContent.splice(indexToRemove, 1);
+  const newValueForCart = JSON.stringify(localStorageContent) || [];
+  localStorage.setItem('carrinho', newValueForCart);
   totalPrice();
   item.remove();
 }
@@ -73,7 +82,9 @@ function addToCart(event) {
       const cartItem = createCartItemElement(cartDetails);
       cart.appendChild(cartItem);
       cartItem.addEventListener('click', cartItemClickListener);
-      localStorage.setItem(cartItem.innerText, JSON.stringify(details));
+      const productsArray = JSON.parse(localStorage.getItem('carrinho')) || [];
+      productsArray.push(cartDetails);
+      localStorage.setItem('carrinho', JSON.stringify(productsArray));
       totalPrice();
     })
     .catch(err => err);
@@ -105,24 +116,19 @@ function mercadoLivreFetch(requiredProduct) {
 }
 
 function localStorageCart() {
-  const productKeys = Object.keys(localStorage);
+  const products = JSON.parse(localStorage['carrinho']);
   const cart = document.querySelector('.cart__items');
-  if (productKeys.length > 0) {
-    productKeys.forEach((productKey) => {
-      const productObject = JSON.parse(localStorage[productKey]);
-      const { id, title, price } = productObject;
-      const cartDetails = { sku: id, name: title, salePrice: price };
-      const cartItem = createCartItemElement(cartDetails);
-      cart.appendChild(cartItem);
-      cartItem.addEventListener('click', cartItemClickListener);
-    });
-  }
+  products.forEach((product) => {
+    const cartItem = createCartItemElement(product);
+    cart.appendChild(cartItem);
+    cartItem.addEventListener('click', cartItemClickListener);
+  }); 
 }
 
 function clearCart() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = '';
-  localStorage.clear();
+  localStorage.setItem('carrinho', JSON.stringify([]));
   totalPrice();
 }
 
