@@ -48,12 +48,8 @@ const addToCart = async (itemId) => {
   const object = await response.json();
   const { id, title, price } = object;
   appendChild('.cart__items', createCartItemElement({ sku: id, name: title, salePrice: price }));
+  // const sumPrice = await new Promise
   saveCartToLocalStorage();
-};
-
-const removeLoading = (elementLoadingFather) => {
-  const getElementLoading = document.querySelector('.loading');
-  document.querySelector(elementLoadingFather).removeChild(getElementLoading);
 };
 
 function createProductItemElement({ sku, name, image }) {
@@ -77,7 +73,7 @@ const fetchProduct = () => {
   fetch(endpoint)
     .then(response => response.json())
     .then((object) => {
-      removeLoading('.items');
+      document.querySelector('.loading').remove();
       object.results.forEach((product) => {
         const { id, title, thumbnail } = product;
         appendChild('.items', createProductItemElement({ sku: id, name: title, image: thumbnail }));
