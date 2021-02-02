@@ -35,6 +35,7 @@ function cartItemClickListener(event) {
   document.querySelector('.cart__items').removeChild(item);
   const storageItem = JSON.parse(localStorage.getItem('MLCart'));
   const newStorage = storageItem.filter(itens => itens.id !== id);
+  localStorage.setItem('MLCart', JSON.stringify(newStorage));
 }
 
 function getRandomInt() {
