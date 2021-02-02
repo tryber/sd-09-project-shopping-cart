@@ -1,6 +1,7 @@
 // Brenno Calado Project
 
 let resultList = [];
+let cartPrice = 0;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -40,6 +41,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+async function sumCartPrices(item) {
+  const totalPrice = document.createElement('span');
+  totalPrice.className = 'total-price';
+  cartPrice += item;
+  totalPrice.innerHTML = cartPrice;
+  document.querySelector('.cart').appendChild(totalPrice);
+}
+
 async function getSingleItem(item) {
   const endpoint = `https://api.mercadolibre.com/items/${item}`;
   await fetch(endpoint).then(response => response.json())
@@ -47,6 +56,7 @@ async function getSingleItem(item) {
       const { id: sku, title: name, base_price: salePrice } = data;
       document.querySelector('.cart__items')
         .appendChild(createCartItemElement({ sku, name, salePrice }));
+      sumCartPrices(salePrice);
     })
     .catch(reason => console.log(reason));
 }
