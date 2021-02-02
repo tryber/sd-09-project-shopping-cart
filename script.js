@@ -1,20 +1,4 @@
-window.onload = function onload() {
-  apiAdd();
-};
-
-async function apiAdd() {
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=${computador}'
-  const response = await fetch(endpoint);
-  const object = await response.json();
-  const results = object.results;
-  const itemsElement = document.querySelector('.items');
-
-  results.forEach((result) => {
-    const { id: sku, title: name, thumbnail: image } = result;
-    const element = createProductItemElement({ sku, name, image });
-    itemsElement.appendChild(element);
-  });
-}
+window.onload = function onload() {};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -61,3 +45,18 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+async function apiAdd() {
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=${computador}';
+  const response = await fetch(endpoint);
+  const object = await response.json();
+  const results = object.results;
+  const itemsElement = document.querySelector('.items');
+
+  results.forEach((result) => {
+    const { id: sku, title: name, thumbnail: image } = result;
+    const element = createProductItemElement({ sku, name, image });
+    itemsElement.appendChild(element);
+  });
+}
+apiAdd();
