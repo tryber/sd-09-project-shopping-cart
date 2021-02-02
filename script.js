@@ -135,12 +135,6 @@ function emptyCartcheckout() {
   });
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-  saveCartStorage();
-  updateCheckoutPrice();
-}
-
 window.onload = function onload() {
   createLoading();
   fetchMercadoLivre('computador');
