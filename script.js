@@ -57,12 +57,12 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 // Generates a random key for local storage
-function generateKey () {
+function generateKey() {
   const string = 'QWERTYUIOPASDFGHJKLZXCVBNM123456789';
   const keyLength = 10;
   let key = '';
-  for (let index = 0; index < keyLength; index += 1 ) {
-    key = `${key + string[Math.round(Math.random() * string.length -1)]}`
+  for (let index = 0; index < keyLength; index += 1) {
+    key = `${key + string[Math.round(Math.random() * (string.length - 1))]}`;
   }
   return key;
 }
@@ -75,12 +75,16 @@ function saveCartItemOnLocalStorage(item) {
 // Loads on page all cart items saved on local storage
 function loadCartItemOnLocalSorage() {
   const shoppingCart = document.querySelector('.cart__items');
-  const localStorageValues = Object.entries(localStorage);
-  localStorageValues.forEach((value) => {
-    if (value[0].indexOf('cartItem') !== -1) {
-      value[1] = value[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
-      const localStorageArr = value[1].split(' | ');
-      const localStorageObj = { sku: localStorageArr[0], name: localStorageArr[1], salePrice: localStorageArr[2] };
+  const localStorageEntries = Object.entries(localStorage);
+  localStorageEntries.forEach((item) => {
+    if (item[0].indexOf('cartItem') !== -1) {
+      let itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
+      const localStorageArr = itemValue.split(' | ');
+      const localStorageObj = { 
+        sku: localStorageArr[0],
+        name: localStorageArr[1],
+        salePrice: localStorageArr[2] 
+      };
       const cartItem = createCartItemElement(localStorageObj);
       shoppingCart.appendChild(cartItem);
     }
