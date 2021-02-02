@@ -70,19 +70,10 @@ function currentCartValue() {
 }
 
 function cartItemClickListener(event) {
-  /*
-  eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
-  const obj1 = [];
-  obj1.push(Object.entries(localStorage)
-    .find(value => JSON.parse(value[1]).sku === eventTextIDproduct));
-  localStorage.removeItem(obj1[0][0]);
-  event.target.remove();
-  currentCartValue();
-  */
   eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
   const obj1 = [...Object.entries(localStorage)];
   for (let index = 0; index < obj1.length; index += 1) {
-    const [ position, data] = obj1[index];
+    const [ position, data ] = obj1[index];
     const searchKey = JSON.parse(data).sku;
     if (eventTextIDproduct === searchKey) {
       localStorage.removeItem(position);
