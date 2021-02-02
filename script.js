@@ -87,7 +87,7 @@ function limparTudo() {
 
 function startButton() {
   const selectButton = document.querySelector('.empty-cart');
-  selectButton.addEventListener('click',limparTudo)
+  selectButton.addEventListener('click', limparTudo);
 }
 
 window.onload = function onload() {
