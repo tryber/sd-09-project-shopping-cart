@@ -3,9 +3,9 @@ const totalValue = document.createElement('h3');
 totalValue.className = 'total-price';
 cart.appendChild(totalValue);
 if (localStorage.getItem('value')) {
-  totalValue.innerText = `Valor total: $ ${localStorage.getItem('value')}`;
+  totalValue.innerText = localStorage.getItem('value');
 } else {
-  totalValue.innerText = 'Valor total: $ 0.00';
+  totalValue.innerText = '0.00';
 }
 async function sumPrice() {
   const array = [];
@@ -16,8 +16,8 @@ async function sumPrice() {
     }
   });
   const sum = await array.reduce((acc, curr) => acc + curr, 0);
-  localStorage.setItem('value', sum.toFixed(2));
-  totalValue.innerText = `Valor total: $ ${localStorage.getItem('value')}`;
+  localStorage.setItem('value', sum.toFixed(0));
+  totalValue.innerText = localStorage.getItem('value');
 }
 
 function createProductImageElement(imageSource) {
