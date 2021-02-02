@@ -40,13 +40,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   ol.appendChild(li);
 }
 
-const filterIdElement = ({ id, title, price }, callback) => {
+const filterIdElement = ({ id, title, price }) => {
   const object = {
     sku: id,
     name: title,
     salePrice: price,
   };
-  callback(object);
+  createCartItemElement(object);
 };
 
 const cartItemElement = async (idElement) => {
@@ -57,13 +57,13 @@ const cartItemElement = async (idElement) => {
     if (object.message) {
       throw new Error(object.message);
     }
-    filterIdElement(object, createCartItemElement);
+    filterIdElement(object);
   } catch (error) {
     alert(error);
   }
 };
 
-function cartItemClickListener() {
+function cartItemClickListener(event) {
   if (event.target.className === 'item__add') {
     const idElement = event.target.parentNode.firstChild.innerText;
     cartItemElement(idElement);
@@ -76,7 +76,7 @@ const clickEvent = () => {
 };
 clickEvent();
 
-const objectFilterElement = (productsDatas, callback) => {
+const objectFilterElement = (productsDatas) => {
   const entries = Object.entries(productsDatas.results);
   entries.forEach((info) => {
     const infos = {
@@ -84,7 +84,7 @@ const objectFilterElement = (productsDatas, callback) => {
       name: info[1].title,
       image: info[1].thumbnail,
     };
-    callback(infos);
+    createProductItemElement(infos);
   });
 };
 
@@ -96,7 +96,7 @@ const productItemElement = async () => {
     if (object.results.length === 0) {
       throw new Error('Busca inválida');
     }
-    objectFilterElement(object, createProductItemElement);
+    objectFilterElement(object);
   } catch (error) {
     alert(error);
   }
