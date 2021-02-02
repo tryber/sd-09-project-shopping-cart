@@ -1,5 +1,12 @@
-function retrieveObjects({id: sku, title: name, thumbnail: image}) {
-  const filhoSection = document.querySelector("section.items");
+function createProductImageElement(imageSource) {
+  const img = document.createElement('img');
+  img.className = 'item__image';
+  img.src = imageSource;
+  return img;
+}
+
+function retrieveObjects({ id: sku, title: name, thumbnail: image }) {
+  const filhoSection = document.querySelector('section.items');
 
   filhoSection.appendChild(createProductItemElement({ sku, name, image }));
 }
@@ -15,13 +22,6 @@ async function loadAPI(find = 'computador') {
 window.onload = function onload() {
   loadAPI();
 };
-
-function createProductImageElement(imageSource) {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-  img.src = imageSource;
-  return img;
-}
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
