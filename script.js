@@ -13,7 +13,7 @@ function getProductListFromAPI(product) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   fetch(endPoint)
     .then(response => response.json())
-    .then(data => {
+    .then((data) => {
       extractProductsData(data.results);
     })
     .catch(error => console.log(error));
@@ -61,4 +61,4 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-window.onload = function onload() { getProductListFromAPI('computador')};
+window.onload = function onload() { getProductListFromAPI('computador'); };
