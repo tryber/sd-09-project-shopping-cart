@@ -25,13 +25,13 @@ function toLocalStorage(sku, name, salePrice) {
 
 async function sumCartPrices(item) {
   cartPrice += item;
-  document.querySelector('.total-price').innerHTML = `Total: R$${cartPrice.toFixed(2)}`;
+  document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100)/100}`;
 }
 
 function emptyCart() {
   localStorage.setItem('cartProducts', '{}');
   document.querySelector('.cart__items').innerText = '';
-  document.querySelector('.total-price').innerText = 'Total: R$ 0.00';
+  document.querySelector('.total-price').innerText = '';
 }
 
 async function cartItemClickListener(evt) {
@@ -68,12 +68,13 @@ async function getSingleItem(item) {
 function retrieveLocalStorage() {
   const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
   if (!cartStorage) {
-    return localStorage.setItem('cartProducts', '{}');
+    localStorage.setItem('cartProducts', '{}');
   }
-  Object.keys(cartStorage).forEach((id) => {
-    getSingleItem(id);
-  });
-  return console.log(cartStorage);
+  else {
+    Object.keys(cartStorage).forEach((id) => {
+      getSingleItem(id);
+    });
+  }
 }
 
 function getSkuFromProductItem(item) {
