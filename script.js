@@ -38,7 +38,7 @@ const showTotalPrice = async (value) => {
   }
 
   const myCart = document.querySelector('.cart');
-  const totalOfItens = document.createElement('div');
+  const totalOfItens = document.createElement('span');
   totalOfItens.classList.toggle('total-price');
   totalOfItens.innerText = `Total dos itens selecionados:\n$ ${value}`;
 
