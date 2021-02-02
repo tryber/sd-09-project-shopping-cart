@@ -14,8 +14,8 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-const fetchElement = () => {
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
+const fetchElement = (item = 'computador') => {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${item}`;
   const promise = fetch(endpoint)
     .then(response => response.json())
     .then(object => object);
@@ -44,7 +44,9 @@ const putElementsOnScreen = () => {
 
       elementsArray.forEach((element) => {
         const { id: sku, title: name, thumbnail: image } = element;
-        sectionItems.appendChild(createProductItemElement({ sku, name, image }));
+        const itemHtml = createProductItemElement({ sku, name, image });
+        itemHtml.lastChild.addEventListener('click', addToCart);
+        sectionItems.appendChild(itemHtml);
       });
     });
 };
@@ -58,6 +60,10 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
+
+const addToCart = () => {
+  console.log('deu certo');
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
