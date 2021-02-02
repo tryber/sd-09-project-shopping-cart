@@ -1,3 +1,5 @@
+const itensInMemory = [];
+
 function cartItemClickListener(event) {
   const ol = document.querySelector('.cart__items');
   ol.removeChild(event.target);
@@ -19,6 +21,7 @@ const addItemInCart = async (event) => {
     const li = createCartItemElement({ sku, name, salePrice });
     const ol = document.querySelector('.cart__items');
     ol.appendChild(li);
+    itensInMemory.push(res);
   }));
 };
 
