@@ -35,7 +35,7 @@ function startLoading() {
 
 function stopLoading() {
   const loading = document.querySelector('.loading');
-  loading.innerText = '';
+  loading.remove();
 }
 
 function sumItems() {
@@ -134,9 +134,9 @@ async function loadingItems() {
           addEventItemInMyCart(section, value.id);
           const containerItems = document.querySelector('.items');
           containerItems.appendChild(section);
+          stopLoading();
         }));
     });
-  stopLoading();
 }
 
 window.onload = function onload() {
