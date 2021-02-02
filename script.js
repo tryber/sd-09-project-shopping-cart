@@ -53,11 +53,8 @@ function loading(operation) {
   }
 }
 
-function apiCall (url) {
-
-  return fetch(url)
-    .then(response => response.json());  
- 
+function apiCall(url) {
+  return fetch(url).then(response => response.json());
 }
 
 function searchItemCart(sku) {
@@ -66,8 +63,8 @@ function searchItemCart(sku) {
   loading(true);
   apiCall(API_URL).then((item) => {
     classCartItems.appendChild(createCartItemElement({ sku: item.id,
-               name: item.title,
-               salePrice: item.salePrice }));
+      name: item.title,
+      salePrice: item.salePrice }));
   });
   loading(false);
 }
