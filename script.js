@@ -68,20 +68,18 @@ async function asyncUpdatePrice() {
   saveAtTheLocalStorage();
 }
 
-function cartItemClickListener() {
-  const cartItemsOrderedList = document.querySelector('ol.cart__items');
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', function cartItemClickListener() {
+    const cartItemsOrderedList = document.querySelector('ol.cart__items');
 
   cartItemsOrderedList.addEventListener('click', (event) => {
     cartItemsOrderedList.removeChild(event.target);
     asyncUpdatePrice();
   });
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  });
   return li;
 }
 
