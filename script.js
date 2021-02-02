@@ -43,11 +43,18 @@ async function cartItemClickListener(event) {
   const item = event.target;
   const itemID = item.id;
   document.querySelector('.cart__items').removeChild(item);
-  const endpoint = `https://api.mercadolibre.com/items/${itemID}`;
+  const endpoint = await `https://api.mercadolibre.com/items/${itemID}`;
 
-  fetch(endpoint)
+  await fetch(endpoint)
     .then(response => response.json())
     .then(myitem => substractFromCart(myitem.price));
+
+  // tentativa de tirar do storage
+  let myCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
+  const myIndex = myCartItems.indexOf(myCartItems.find(myItem => itemID === myItem.sku));
+
+  myCartItems = myCartItems.slice(0, myIndex).concat(myCartItems.slice(myIndex + 1));
+  localStorage.setItem('savedCartItems', JSON.stringify(myCartItems));
 }
 
 const addToPrice = async (price) => {
