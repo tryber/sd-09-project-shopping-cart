@@ -54,7 +54,7 @@ async function putPrice() {
   try {
     price = await sumItems();
     const elementPrice = document.querySelector('.total-price');
-    elementPrice.innerText = `${price.toFixed(2)}`;
+    elementPrice.innerText = `${price}`;
   } catch (error) {
     window.alert(error);
   }
