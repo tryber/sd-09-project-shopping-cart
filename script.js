@@ -66,7 +66,7 @@ function addProductCart() {
       sku: myId,
       name: object.title,
       salePrice: object.price,
-    }
+    };
     const cartDadList = document.querySelector('.cart__items');
     const productToCart = createCartItemElement(objProduct);
     cartDadList.appendChild(productToCart);
