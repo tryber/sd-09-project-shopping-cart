@@ -35,9 +35,8 @@ const showTotalPrice = async (value) => {
     if (totalDisplayed !== null) {
       totalDisplayed.remove();
     }
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 
   const myCart = document.querySelector('.cart');
@@ -75,9 +74,8 @@ const addItemsToLocalStorage = () => {
 function cartItemClickListener(event) {
   try {
     document.querySelector('.total-price').remove();
-
-  } catch(error) {
-    console.log(error)
+  } catch (error) {
+    console.log(error);
   }
 
   event.target.remove();
