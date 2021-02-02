@@ -37,6 +37,8 @@ function updatePriceMinus(event) {
 
   parseTotalPrice -= priceToBeSubtracted;
   totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
+
+  saveAtTheLocalStorage();
 }
 
 function cartItemClickListener() {
@@ -82,6 +84,8 @@ async function asyncSum(price) {
   } catch (error) {
     window.alert(error);
   }
+
+  saveAtTheLocalStorage();
 }
 
 function addItems(event) {
@@ -149,6 +153,8 @@ function clearList() {
 
   cartItemsList.innerHTML = '';
   totalPrice.innerText = 0;
+
+  saveAtTheLocalStorage();
 }
 
 function listenToEmptyCartButton() {
@@ -187,7 +193,22 @@ function listenToSearchIpt() {
   });
 }
 
+function saveAtTheLocalStorage() {
+  const cart = document.querySelector('.cart')
+  const stringfiedCart = JSON.stringify(cart.innerHTML)
+
+  localStorage.setItem('cart', stringfiedCart)
+}
+
+function loadLocalStorage() {
+  const cart = document.querySelector('.cart')
+  const parsedCart = JSON.parse(localStorage.getItem('cart'))
+
+  cart.innerHTML = parsedCart
+}
+
 window.onload = function onload() {
+  loadLocalStorage();
   fetchAPI('computador');
   addItemsClickListener();
   cartItemClickListener();
