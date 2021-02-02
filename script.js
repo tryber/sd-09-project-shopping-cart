@@ -82,7 +82,7 @@ window.onload = function onload() {
     const elementsToDelete = document.querySelectorAll('.cart__item');
 
     if (elementsToDelete.length > 0) {
-      elementsToDelete.forEach(element => {
+      elementsToDelete.forEach((element) => {
         console.log(element);
         element.remove();
       });
