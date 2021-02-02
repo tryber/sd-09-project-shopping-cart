@@ -45,7 +45,7 @@ function decreasePrices(event) {
   const valueConvert = Number(number);
   const degree = Math.round(Number(getPrice) - valueConvert);
 
-  document.querySelector('.total-price').innerHTML = degree;
+  document.querySelector('.total-price').innerHTML = Number(degree);
 }
 
 function cartItemClickListener(event) {
@@ -56,10 +56,12 @@ function cartItemClickListener(event) {
 }
 
 async function sumPrices(price) {
+  console.log(price)
   const getPrice = document.querySelector('.total-price').innerText;
   const valueConvert = Number(getPrice);
-  const result = await Math.round(price + valueConvert);
-  document.querySelector('.total-price').innerHTML = result;
+  const result = await Number(price) + valueConvert;
+  console.log(result)
+  document.querySelector('.total-price').innerHTML = Number(result);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
