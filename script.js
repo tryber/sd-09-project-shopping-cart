@@ -148,10 +148,24 @@ function appendChildItemsList(item) {
   items.appendChild(item);
 }
 
+function showLoadingStatus() {
+  const items = document.querySelector('.items');
+  const loading = document.createElement('div');
+  loading.classList.add('loading');
+  loading.innerHTML = 'Loading...';
+  items.appendChild(loading);
+}
+
+function removeLoadingStatus() {
+  const loading = document.querySelector('.loading');
+  loading.innerHTML = '';
+}
+
 async function fetchMercadoLivreAPI(search) {
   const link = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
 
   try {
+    showLoadingStatus();
     const response = await fetch(link);
     const responseJSON = await response.json();
     responseJSON.results.forEach((result) => {
@@ -164,10 +178,12 @@ async function fetchMercadoLivreAPI(search) {
       appendChildItemsList(createProductItemElement(item));
     });
     addItemInCartListener();
+    removeLoadingStatus();
   } catch (error) {
     alert(error);
   }
 }
+
 function loadItemCartSavedOnLocalStorage() {
   let saved = '';
   if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
