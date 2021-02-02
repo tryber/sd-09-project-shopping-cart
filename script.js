@@ -39,8 +39,6 @@ function createListing(search) {
   }));
 }
 
-
-
 window.onload = function onload() {
   createListing('computador');
 };
