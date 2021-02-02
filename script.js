@@ -50,14 +50,6 @@ async function cartItemClickListener(event) {
     .then(myitem => substractFromCart(myitem.price));
 }
 
-const cartClickRemoveFromStorage = (event) => {
-  const itemID = event.target.id;
-  let myCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
-  const myIndex = myCartItems.indexOf(myCartItems.find(item => itemID === item.sku));
-  myCartItems = myCartItems.slice(0, myIndex).concat(myCartItems.slice(myIndex + 1));
-  localStorage.setItem('savedCartItems', JSON.stringify(myCartItems));
-};
-
 const addToPrice = async (price) => {
   let total = document.querySelector('.total-price').innerText;
   total = await parseFloat(total);
@@ -71,7 +63,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.id = sku;
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  li.addEventListener('click', cartClickRemoveFromStorage);
   addToPrice(salePrice);
   return li;
 }
