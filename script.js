@@ -199,7 +199,7 @@ function listenToSearchIpt() {
 function listenToCartItemsOrderedList() {
   const cartItemsOrderedList = document.querySelector('.cart__items');
 
-  cartItemsOrderedList.addEventListener('click', removeItem)
+  cartItemsOrderedList.addEventListener('click', removeItem);
 }
 
 function loadLocalStorage() {
