@@ -70,7 +70,7 @@ async function asyncSum(price) {
   } catch (error) {
     window.alert(error);
   }
-} 
+}
 
 function addItems(event) {
   if (event.target.className === 'item__add') {
