@@ -99,9 +99,9 @@ const getLocalStorage = () => {
   const listCart = document.querySelector('.cart__items');
   listCart.innerHTML = localStorage.getItem('shopping-cart');
   liList = listCart.childNodes;
-  for(let index = 0; index < liList.length; index += 1) {
+  for (let index = 0; index < liList.length; index += 1) {
     liList[index].addEventListener('click', cartItemClickListener);
-  };
+  }
   const recoverTotalPrice = document.querySelector('.total-price');
   if (localStorage.getItem('totalPrice') !== null) {
     recoverTotalPrice.innerText = localStorage.getItem('totalPrice');
