@@ -29,10 +29,10 @@ function getSkuFromProductItem(item) {
 }
 
 async function sumPrices() {
-    let totalPrice = 0;
-    const cartItems = document.querySelectorAll('.cart__item');
-    cartItems.forEach(item => (totalPrice += parseFloat(item.innerText.split('$')[1])));
-    return totalPrice;
+  let totalPrice = 0;
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach(item => (totalPrice += parseFloat(item.innerText.split('$')[1])));
+  return totalPrice;
 }
 
 async function createTotalPriceElement() {
