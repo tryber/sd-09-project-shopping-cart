@@ -17,9 +17,10 @@ async function getTotalPriceItems() {
       } catch (error) {
         alert(error);
       }
-    } else if (item.length === 1) amount = 0;
+    }
     printTotalPrice(amount);
   });
+  if (saved.length === 0) printTotalPrice(0);
 }
 
 function clearCart() {
