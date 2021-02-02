@@ -10,34 +10,34 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-const getItemPrice = async(itemId) => {
+const getItemPrice = async (itemId) => {
   // let actualPrice = 0;
   try {
     const productDetails = `https://api.mercadolibre.com/items/${itemId}`;
     await fetch(productDetails)
       .then(response => response.json())
       .then((object) => {
-          const itemPrice = object.price;
-          // console.log(itemPrice)
-          return itemPrice;
+        const itemPrice = object.price;
+        // console.log(itemPrice)
+        return itemPrice;
       });
-    } catch (error) {
-      console.log(`Ocorreu um erro: ${error}`);
-    }
-}
+  } catch (error) {
+    console.log(`Ocorreu um erro: ${error}`);
+  }
+};
 
 async function refreshTotalPrice() {
   let actualPrice = 0;
   const listItems = document.querySelectorAll('.cart__item');
   if (listItems.length > 0) {
     listItems.forEach((item) => {
-        actualPrice += getItemPrice(item.id);
-        // console.log(actualPrice);
-      })
-    } else {
-      const totalPrice = document.querySelector('.total-price');
-      totalPrice.innerText = 0;
-    }
+      actualPrice += getItemPrice(item.id);
+      // console.log(actualPrice);
+    });
+  } else {
+    const totalPrice = document.querySelector('.total-price');
+    totalPrice.innerText = 0;
+  }
 }
 
 function emptyCart() {
