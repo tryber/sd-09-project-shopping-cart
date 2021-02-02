@@ -1,3 +1,4 @@
+let totalPrice = 0;
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -63,15 +64,24 @@ function cartItemClickListener(event) {
   const li = document.querySelectorAll('.cart__item');
   li.forEach((liItem) => {
     const textOfClickedLi = event.path[0].innerText;
+    const itemPrice = parseFloat(event.path[0].id);
     if (liItem.innerText === textOfClickedLi) {
+      totalPrice -= itemPrice;
+      totalPrice.toFixed(2);
+      createSectionTotalPriceAssyncAwait();
+      deleteSectionTotalPriceAssyncAeait();
       ol.removeChild(liItem);
     }
   });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
+  deleteSectionTotalPriceAssyncAeait();
+  totalPrice += salePrice;
+  createSectionTotalPriceAssyncAwait();
   const li = document.createElement('li');
   li.className = 'cart__item';
+  li.id = salePrice;
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
@@ -99,6 +109,24 @@ const fetchItemById = (id) => {
     window.alert(error);
   });
 };
+const createSectionTotalPriceAssyncAwait = async () => {
+  try {
+    const span = await document.createElement('span');
+    span.className = 'total-price';
+    span. innerHTML =  `Preço Total: $${totalPrice}`;
+    const sectionOl = await document.querySelector('.cart');
+    sectionOl.appendChild(span);
+  }
+  catch {};
+}
+const deleteSectionTotalPriceAssyncAeait = async () => {
+  try {
+    const span = await document.querySelector('.total-price');
+    const sectionOl = await document.querySelector('.cart');
+    sectionOl.removeChild(span);
+  }
+  catch {};
+}
 window.onload = function onload() {
   // Chamada de funções e recuperação de variáveis
   createStoreItens();
