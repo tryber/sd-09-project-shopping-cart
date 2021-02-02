@@ -63,7 +63,7 @@ async function searchItemCart(sku) {
       .then((itemCart) => {
         classCartItems.appendChild(createCartItemElement({ sku: itemCart.id,
           name: itemCart.title,
-          salePrice: itemCart.salePrice}));
+          salePrice: itemCart.salePrice }));
       });
   loading(false);
 }
@@ -87,9 +87,9 @@ async function makeItems() {
     .then(response => response.json())
       .then((response) => {
         response.results.forEach((item) => {
-          classItems.appendChild(createProductItemElement({sku: item.id,
+          classItems.appendChild(createProductItemElement({ sku: item.id,
             name: item.title,
-            image: item.thumbnail}));
+            image: item.thumbnail }));
         });
       });
   loading(false);
