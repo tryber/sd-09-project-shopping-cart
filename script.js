@@ -45,7 +45,7 @@ async function fetchItemsById(ItemID) {
 }
 
 function roundNum(number) {
-  return parseFloat((Math.round(number * 100) / 100).toFixed(2))
+  return parseFloat((Math.round(number * 100) / 100).toFixed(2));
 }
 
 async function priceSum(itemID) {
@@ -60,12 +60,11 @@ function currentCartValue() {
   const spanTextPrice = document.querySelector('.total-price');
   spanTextPrice.innerText = 0;
   if (localStorage.length > 0) {
-    const actualValue = Object.values(localStorage)
-      .reduce((acc, cur) => {
-        acc += JSON.parse(cur).salePrice;
-        return roundNum(acc);
-      }, 0);
-    spanTextPrice.innerText = actualValue;
+    let acc = 0;
+    Object.values(localStorage).forEach((value) => {
+      acc += JSON.parse(value).salePrice;
+    });
+    spanTextPrice.innerText = roundNum(acc);
   }
 }
 
@@ -74,7 +73,6 @@ function cartItemClickListener(event) {
     eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
     const obj = Object.entries(localStorage)
       .find(value => JSON.parse(value[1]).sku === eventTextIDproduct);
-    console.log(obj[0]);
     localStorage.removeItem(obj[0]);
     event.target.remove();
     currentCartValue();
