@@ -58,6 +58,13 @@ const addToCart = async (itemId) => {
   }
 };
 
+const setLoading = () => {
+  const loading = document.createElement('h2');
+  loading.className = 'loading';
+  loading.innerText = 'loading...';
+  document.querySelector('.items').appendChild(loading);
+};
+
 const fetchProducts = async (search) => {
   try {
     setLoading();
@@ -76,7 +83,6 @@ const fetchProducts = async (search) => {
           });
       });
     }, 700);
-
   } catch (error) {
     console.log('Erro ao criar lista de produtos');
   }
@@ -100,13 +106,6 @@ const clearCart = () => {
     document.querySelector('.cart__items').innerText = '';
   });
 };
-
-const setLoading = () => {
-  const loading = document.createElement('h2');
-  loading.className = 'loading';
-  loading.innerText = 'loading...';
-  document.querySelector('.items').appendChild(loading);
-}
 
 window.onload = function onload() {
   fetchProducts('computador');
