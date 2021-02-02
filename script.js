@@ -40,9 +40,9 @@ function searchElements() {
   .catch(error => window.alert(error));
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
+// function getSkuFromProductItem(item) {
+//   return item.querySelector('span.item__sku').innerText;
+// }
 
 function saveCart() {
   const listItem = document.getElementsByClassName('cart__item');
@@ -60,26 +60,34 @@ function saveCart() {
   }
 }
 
-function searchPriceByID(id) {
+async function searchPriceByID(id) {
   return fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(response => response.json())
   .then(object => object.price)
   .catch(error => window.alert(error));
 }
 
-async function sumPrices() {
+// async function getPrice(item) {
+//   const price = await searchPriceByID(item);
+//   return price;
+// }
+
+function sumPrices() {
   const items = document.querySelectorAll('.cart__item');
+  const ids = [];
+  for (let index = 0; index < items.length; index += 1) {
+    ids.push(items[index].id);
+  }
   const labelPrice = document.querySelector('.total-price');
-  const prices = [];
   if (items.length === 0) {
-    labelPrice.innerHTML = `R$ 0,00`;
+    labelPrice.innerHTML = 'R$ 0,00';
   } else {
-    for (let index = 0; index < items.length; index += 1) {
-      const price = await searchPriceByID(items[0].id);
-      prices.push(price);
-    }
-    const totalPrice = prices.reduce((acc, value) => acc + value);
-    labelPrice.innerHTML = `R$ ${totalPrice.toFixed(2)}`;
+    let totalPrice = 0;
+    ids.forEach(async (value) => {
+      const price = await searchPriceByID(value);
+      totalPrice += price;
+      labelPrice.innerHTML = `R$ ${totalPrice.toFixed(2)}`;
+    });
   }
 }
 
