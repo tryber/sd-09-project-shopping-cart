@@ -70,11 +70,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const addLoadingText = () => {
-  const myCart = document.querySelector('.cart__items');
-  const li = document.createElement('li');
-  li.className = 'loading';
-  li.innerText = 'loading...';
-  myCart.appendChild(li);
+  document.querySelector('.loading').style.display = 'block';
+};
+
+const removeLoadingText = () => {
+  document.querySelector('.loading').style.display = '';
 };
 
 const fetchAddToCartStorage = async (event) => {
@@ -96,7 +96,7 @@ const fetchAddToCartStorage = async (event) => {
     alert(error);
   }
   addItemsToLocalStorage();
-  document.querySelector('.loading').remove();
+  removeLoadingText();
 };
 
 const addListenersToPageItems = () => {
@@ -122,7 +122,7 @@ const fetchApiResultsAddToPage = async () => {
   } catch (error) {
     alert(error);
   }
-  document.querySelector('.loading').remove();
+  removeLoadingText();
 };
 
 const retrieveCartFromLocalStorage = () => {
