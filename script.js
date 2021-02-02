@@ -49,9 +49,8 @@ async function createTotalPriceElement() {
 }
 
 function updatePrice() {
-  const totalPriceElement = document.querySelector('.total-price');
-  const cart = document.querySelector('.cart');
-  cart.removeChild(totalPriceElement);
+  const totalPriceElement = document.querySelector('.total-price')
+  totalPriceElement.remove();
   createTotalPriceElement();
 }
 
@@ -68,7 +67,7 @@ function emptyCartList() {
   const emptyCartButtom = document.querySelector('.empty-cart');
   emptyCartButtom.addEventListener('click', () => {
     const cartList = document.querySelectorAll('.cart__item');
-    cartList.forEach(item => item.parentElement.removeChild(item));
+    cartList.forEach(item => item.remove());
     localStorage.removeItem('cart');
     updatePrice();
   });
@@ -109,6 +108,19 @@ async function fetchItemById(event) {
   }
 }
 
+function addLoading() {
+  const loadingElement = document.createElement('p');
+  const container = document.querySelector('.container');
+  loadingElement.innerText = 'Loading...';
+  loadingElement.className = 'loading';
+  container.appendChild(loadingElement);
+}
+
+function removeLoading() {
+  const loadingElement = document.querySelector('.loading');
+  loadingElement.remove();
+}
+
 function addClickEventToAddButton() {
   const addItemButtons = document.querySelectorAll('.item__add');
   addItemButtons.forEach((button) => {
@@ -125,6 +137,7 @@ async function createProductList(productName) {
       addProductToTarget('.items', productObject, createProductItemElement);
     });
     addClickEventToAddButton();
+    removeLoading();
   } catch (error) {
     window.alert(error);
   }
@@ -141,6 +154,7 @@ function loadCurrentCart() {
 }
 
 window.onload = function onload() {
+  addLoading();
   createProductList('computador');
   loadCurrentCart();
   createTotalPriceElement();
