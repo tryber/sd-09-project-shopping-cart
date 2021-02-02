@@ -201,7 +201,6 @@ window.onload = function onload() {
   loadLocalStorage();
   fetchAPI('computador');
   addItemsClickListener();
-  cartItemClickListener();
   listenToEmptyCartButton();
   listenToSearchBtn();
   listenToSearchIpt();
