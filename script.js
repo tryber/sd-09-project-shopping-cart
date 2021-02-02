@@ -68,6 +68,15 @@ async function asyncUpdatePrice() {
   saveAtTheLocalStorage();
 }
 
+function cartItemClickListener() {
+  const cartItemsOrderedList = document.querySelector('ol.cart__items');
+
+  cartItemsOrderedList.addEventListener('click', (event) => {
+    cartItemsOrderedList.removeChild(event.target);
+    asyncUpdatePrice();
+  });
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -98,15 +107,6 @@ function addItems(event) {
       })
       .catch(error => window.alert(error));
   }
-}
-
-function cartItemClickListener() {
-  const cartItemsOrderedList = document.querySelector('ol.cart__items');
-
-  cartItemsOrderedList.addEventListener('click', (event) => {
-    cartItemsOrderedList.removeChild(event.target);
-    asyncUpdatePrice();
-  });
 }
 
 function addItemsClickListener() {
