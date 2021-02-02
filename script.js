@@ -49,7 +49,8 @@ function cartItemClickListener(event) {
   const obj = Object.entries(localStorage)
     .find(value => JSON.parse(value[1]).sku === eventTextIDproduct);
   localStorage.removeItem(obj[0]);
-  event.target.remove();
+  const parentNode = (event.target.parentNode);
+  parentNode.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -87,9 +88,17 @@ function fillCartLoadItems() {
   values.sort((a, b) => Number(a[0]) - Number(b[0]));
   values.forEach((value) => {
     const obj = JSON.parse(value[1]);
-    const cartList = document.querySelector('.cart');
+    const cartList = document.querySelector('.cart__items');
     const cartObject = { sku: obj.sku, name: obj.name, salePrice: obj.salePrice };
     cartList.appendChild(createCartItemElement(cartObject));
+  });
+}
+
+function clearCart() {
+  const buttonClear = document.querySelector('.empty-cart');
+  const cartListItems = document.querySelector('.cart__items');
+  buttonClear.addEventListener('click', function () {
+    cartListItems.innerHTML = '';
   });
 }
 
@@ -97,7 +106,7 @@ async function start() {
   try {
     await fetchItemsByType().then(data => fillSectiomItems(data));
     itemListClickListener();
-    fillCartLoadItems();
+    clearCart();
   } catch (error) {
     alert(error);
   }
@@ -105,4 +114,5 @@ async function start() {
 
 window.onload = function onload() {
   start();
+  fillCartLoadItems();
 };
