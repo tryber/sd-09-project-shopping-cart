@@ -103,7 +103,6 @@ const getProductsFromAPI = async () => {
   });
 };
 
-
 const emptyCart = () => {
   const list = document.querySelector('.cart__items');
   list.innerHTML = '';
