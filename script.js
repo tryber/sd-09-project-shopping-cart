@@ -44,6 +44,14 @@ async function fetchItemsById(ItemID) {
   return fetchResponse(URL);
 }
 
+async function priceSum(itemID) {
+  const data = await fetchItemsById(itemID);
+  const spanTextPrice = document.querySelector('.total-price');
+  let sum = parseFloat(spanTextPrice.innerText);
+  sum += data.price;
+  spanTextPrice.innerText = Math.round(sum * 100) / 100;
+}
+
 function cartItemClickListener(event) {
   if (localStorage.length > 0) {
     eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
@@ -52,6 +60,7 @@ function cartItemClickListener(event) {
     console.log(obj[0]);
     localStorage.removeItem(obj[0]);
     event.target.remove();
+    currentCartValue();
   }
 }
 
@@ -63,7 +72,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function itemListClickListener() {
+async function itemListClickListener() {
   const buttons = document.querySelectorAll('.item__add');
   const cartList = document.querySelector('.cart__items');
   buttons.forEach(button => button.addEventListener('click', async function (event) {
@@ -73,6 +82,7 @@ function itemListClickListener() {
     cartList.appendChild(createCartItemElement(obj));
     // local storage save
     localStorage.setItem(localStorage.length, JSON.stringify(obj));
+    await priceSum(itemSearched.id);
   }));
 }
 
@@ -95,20 +105,33 @@ function fillCartLoadItems() {
     cartList.appendChild(createCartItemElement(cartObject));
   });
 }
+function currentCartValue() {
+  const spanTextPrice = document.querySelector('.total-price');
+  spanTextPrice.innerText = 0;
+  if (localStorage.length > 0) {
+    const actualValue = Object.values(localStorage)
+      .reduce((acc, cur) => acc += JSON.parse(cur).salePrice, 0);
+    spanTextPrice.innerText = actualValue;
+  }
+}
 
 function clearCart() {
   const buttonClear = document.querySelector('.empty-cart');
   const cartListItems = document.querySelector('.cart__items');
   buttonClear.addEventListener('click', function () {
     cartListItems.innerHTML = '';
+    localStorage.clear();
+    currentCartValue();
   });
 }
 
 async function start() {
   try {
     await fetchItemsByType().then(data => fillSectiomItems(data));
-    itemListClickListener();
+    await itemListClickListener();
     clearCart();
+    fillCartLoadItems();
+    currentCartValue();
   } catch (error) {
     alert(error);
   }
@@ -116,5 +139,4 @@ async function start() {
 
 window.onload = function onload() {
   start();
-  fillCartLoadItems();
 };
