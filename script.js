@@ -88,7 +88,15 @@ const getProductsFromAPI = () =>
     })
     .catch(error => window.alert(error));
 
+const emptyCart = () => {
+  const list = document.querySelector('.cart__items');
+  list.innerHTML = '';
+  updateLocalStorage();
+};
+
 window.onload = function onload() {
   getProductsFromAPI();
   getLocalStorage();
+  const buttonEmptyCart = document.querySelector('.empty-cart');
+  buttonEmptyCart.addEventListener('click', emptyCart);
 };
