@@ -117,21 +117,22 @@ const createSectionTotalPriceAssyncAwait = async () => {
     const sectionOl = await document.querySelector('.cart');
     sectionOl.appendChild(span);
   }
-  catch {
-    window.alert('função com problemas');
-  };
+  catch(error) {
+    window.alert(error);
+  }
 }
-// Deleta o texto de preço total
+  // Deleta o texto de preço total
 const deleteSectionTotalPriceAssyncAeait = async () => {
   try {
     const span = await document.querySelector('.total-price');
     const sectionOl = await document.querySelector('.cart');
     sectionOl.removeChild(span);
   }
-  catch {
-    window.alert('função com problemas');
-  };
+  catch(error) {
+    window.alert(error);
+  }
 }
+
 window.onload = function onload() {
   // Chamada de funções e recuperação de variáveis
   createStoreItens();
