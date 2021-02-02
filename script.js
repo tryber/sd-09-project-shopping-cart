@@ -60,4 +60,6 @@ async function getItens() {
         });
 }
 
-window.onload = function onload() {getItens()};
+window.onload = function onload() {
+  getItens();
+};
