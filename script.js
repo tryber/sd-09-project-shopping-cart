@@ -64,6 +64,14 @@ function updatePriceSum(price) {
   totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
 }
 
+async function asyncSum(price) {
+  try {
+    await updatePriceSum(price)
+  } catch (error) {
+    window.alert(error)
+  }
+} 
+
 function addItems(event) {
   if (event.target.className === 'item__add') {
     const cartSection = document.querySelector('.cart__items');
@@ -82,7 +90,7 @@ function addItems(event) {
 
         cartItemElement.id = productInfo.salePrice;
         cartSection.appendChild(cartItemElement);
-        updatePriceSum(productInfo.salePrice);
+        asyncSum(productInfo.salePrice);
       })
       .catch(error => window.alert(error));
   }
