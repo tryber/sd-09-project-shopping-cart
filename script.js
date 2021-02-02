@@ -31,15 +31,17 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-const addToCart = (event) => {
+const addToCart = async (event) => {
+  const ol = document.querySelector('.cart__items');
   const targetId = event.target.parentElement.children[0].textContent;
   const endpoint = `https://api.mercadolibre.com/items/${targetId}`;
-  const elementTarget = fetch(endpoint)
+  const elementTarget = await fetch(endpoint)
   .then(response => response.json())
   .then(obj => obj);
-  console.log(elementTarget);
+  console.log('elementTarget',elementTarget);
   const { id: sku, title: name, base_price: salePrice } = elementTarget;
-  console.log({ sku, name, salePrice });
+  const element = createCartItemElement({ sku, name, salePrice });
+  ol.appendChild(element);
 };
 
 const putElementsOnScreen = () => {
