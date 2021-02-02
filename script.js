@@ -24,6 +24,18 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+const priceSum = () => {
+  let sum = 0;
+  const cartOl = document.querySelectorAll('.cart__item');
+  cartOl.forEach((cartItem) => {
+    const index = cartItem.innerText.lastIndexOf('$');
+    const value = cartItem.innerText.substr(index + 1);
+    sum += Number(value);
+  });
+  const totalPriceSpan = document.querySelector('.total-price');
+  totalPriceSpan.innerText = sum;
+};
+
 const saveCartItens = () => {
   localStorage.setItem('myCart', document.querySelector('.cart__items').innerHTML);
 };
@@ -36,6 +48,7 @@ function cartItemClickListener(event) {
   // coloque seu código aquii
   event.target.remove();
   saveCartItens();
+  priceSum();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -58,6 +71,7 @@ const fetchProductToCart = async (id) => {
     const salePrice = object.price;
     cartOl.appendChild(createCartItemElement({ sku, name, salePrice }));
     saveCartItens();
+    priceSum();
   } catch (error) {
     window.alert(error);
   }
@@ -93,4 +107,5 @@ const fetchMLB = async (ProductType) => {
 window.onload = function onload() {
   fetchMLB('computador');
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('myCart');
+  priceSum();
 };
