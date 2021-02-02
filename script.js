@@ -33,9 +33,13 @@ const shoppingCart = {
   save() {
     localStorage.setItem(this.storageKey, JSON.stringify(this.items));
   },
-  add(itemObject) { this.items.push(itemObject); },
+  add(itemObject) {
+    this.items.push(itemObject);
+    this.save();
+  },
   remove(itemSku) {
     this.items = this.items.filter(({ sku }) => sku !== itemSku);
+    this.save();
   },
 };
 
@@ -76,7 +80,6 @@ function cartItemClickListener(event) {
   if (element.classList.contains('cart__item')) {
     const itemSku = element.innerText.split(':')[1].split('|')[0].trim();
     shoppingCart.remove(itemSku);
-    shoppingCart.save();
     element.remove();
     updateBalance();
   }
@@ -107,13 +110,11 @@ const retrieveJsonFor = async (...args) => {
   return jsonResponse;
 };
 
-const getCustomObjectFor = ({ id, title, thumbnail }) =>
-  ({ sku: id, name: title, image: thumbnail });
-
 const showResultsFor = async (searchTerm) => {
   const { results } = await retrieveJsonFor('search', searchTerm);
   results.forEach((item) => {
-    const itemObject = getCustomObjectFor(item);
+    const { id: sku, title: name, thumbnail: image } = item;
+    const itemObject = { sku, name, image };
     const itemElement = createProductItemElement(itemObject);
     itemsSection.appendChild(itemElement);
   });
@@ -132,7 +133,6 @@ const addSearchItemToCart = async (element) => {
   const { id: sku, title: name, price: salePrice } = await retrieveJsonFor('itemInfo', itemSku);
   const itemObject = { sku, name, salePrice };
   shoppingCart.add(itemObject);
-  shoppingCart.save();
   addItemElementToCart(itemObject);
 };
 
