@@ -79,9 +79,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function getProduct() {
+async function getProduct() {
   removeLoading();
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then((object) => {
       const product = object.results;
