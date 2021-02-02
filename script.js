@@ -1,4 +1,4 @@
-window.onload = function onload() { };
+const searchTerm = 'computador'
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -26,14 +26,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -41,3 +33,45 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+async function fetchAddItemToCart(itemID) {
+  const response = await fetch(`https://api.mercadolibre.com/items/${itemID}`);
+  const object = await response.json();
+  const items = document.querySelector('.cart__items');
+  const { id, title, price } = object;
+  const item = createCartItemElement({ sku: id, name: title, salePrice: price });
+  items.appendChild(item);
+}
+
+function getSkuFromProductItem(item) {
+  const id = item.querySelector('span.item__sku').innerText;
+  fetchAddItemToCart(id);
+}
+
+function addToCart() {
+  document.querySelectorAll('.item__add').forEach((button) => {
+    button.addEventListener('click', function (event) {
+      const selectedElement = event.target.parentElement;
+      getSkuFromProductItem(selectedElement);
+    });
+  });
+}
+
+async function fetchSearch(searchTerm) {
+  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${searchTerm}`);
+  const object = await response.json();
+  object.results.forEach(value => {
+    const { id, title, thumbnail } = value;
+    const item = createProductItemElement({ sku:id, name:title, image:thumbnail });
+    document.querySelector('.items').appendChild(item);
+  });
+  addToCart();
+}
+
+function cartItemClickListener(event) {
+  event.target.remove();
+}
+
+window.onload = function onload() {
+  fetchSearch(searchTerm);
+};
