@@ -12,7 +12,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElement( { sku, name, image } ) {
+function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -40,7 +40,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function buildListFetch() {
-  const product = `computador`;
+  const product = 'computador';
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   return new Promise((resolve, reject) => {
     fetch(endpoint)
