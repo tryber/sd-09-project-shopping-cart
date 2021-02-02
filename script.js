@@ -45,12 +45,14 @@ async function fetchItemsById(ItemID) {
 }
 
 function cartItemClickListener(event) {
-  eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
-  const obj = Object.entries(localStorage)
-    .find(value => JSON.parse(value[1]).sku === eventTextIDproduct);
-  localStorage.removeItem(obj[0]);
-  const parentNode = (event.target.parentNode);
-  parentNode.removeChild(event.target);
+  if (localStorage.length > 0) {
+    eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
+    const obj = Object.entries(localStorage)
+      .find(value => JSON.parse(value[1]).sku === eventTextIDproduct);
+    console.log(obj[0]);
+    localStorage.removeItem(obj[0]);
+    event.target.remove();
+  }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
