@@ -1,6 +1,22 @@
 const itemsSection = document.querySelector('.items');
 const cartItemsOl = document.querySelector('.cart__items');
-const shoppingCart = [];
+const shoppingCart = {
+  storageKey: 'cart',
+  items: [],
+  load() {
+    const isInLocalStorage = Object.keys(localStorage).includes(this.storageKey);
+    if (isInLocalStorage) {
+      this.items = JSON.parse(localStorage.getItem(this.storageKey));
+    }
+  },
+  save() {
+    localStorage.setItem(this.storageKey, JSON.stringify(this.items));
+  },
+  add(itemObject) { this.items.push(itemObject); },
+  remove(itemSku) {
+    this.items = this.items.filter(({ sku }) => sku !== itemSku);
+  },
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -31,12 +47,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
   // coloque seu código aqui
-  cartItemsOl.addEventListener('click', () => {
+  cartItemsOl.addEventListener('click', (event) => {
     const element = event.target;
     if (element.classList.contains('cart__item')) {
+      const itemSku = getSkuFromProductItem(element.parentNode);
       element.remove();
+      shoppingCart.remove(itemSku);
+      shoppingCart.save();
     }
   });
 }
@@ -77,26 +96,39 @@ const showResultsFor = async (searchTerm) => {
 
 const searchFor = (searchTerm) => { showResultsFor(searchTerm); };
 
-const addElementProductToCart = async (element) => {
-  const itemSku = getSkuFromProductItem(element.parentNode);
-  const { id, title, price } = await retrieveJsonFor('itemInfo', itemSku);
-  const itemObject = { sku: id, name: title, salePrice: price };
-  shoppingCart.push(itemObject);
+const addItemElementToCart = (itemObject) => {
   const itemCartElement = createCartItemElement(itemObject);
+  itemCartElement.appendChild(createCustomElement('span', 'item__sku', itemObject.sku));
   cartItemsOl.appendChild(itemCartElement);
+};
+
+const addSearchItemToCart = async (element) => {
+  const itemSku = getSkuFromProductItem(element.parentNode);
+  const { id: sku, title: name, price: salePrice } = await retrieveJsonFor('itemInfo', itemSku);
+  const itemObject = { sku, name, salePrice };
+  shoppingCart.add(itemObject);
+  shoppingCart.save();
+  addItemElementToCart(itemObject);
 };
 
 function setItemsEvents() {
   itemsSection.addEventListener('click', (event) => {
     const element = event.target;
     if (element.classList.contains('item__add')) {
-      addElementProductToCart(element);
+      addSearchItemToCart(element);
     }
   });
 }
 
+const loadCartItems = () => {
+  shoppingCart.load();
+  shoppingCart.items.forEach((item) => { addItemElementToCart(item); });
+};
+
 
 window.onload = function onload() {
+  console.log(Object.keys(localStorage));
+  loadCartItems();
   searchFor('computador');
   setItemsEvents();
   cartItemClickListener();
