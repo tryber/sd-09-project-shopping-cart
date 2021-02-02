@@ -9,7 +9,7 @@ async function getTotalPriceItems() {
   cartItems.forEach((item) => {
     price += +(item.innerText.split('$')[1]);
     printTotalPrice(price);
-  })
+  });
   if (cartItems.length === 0) printTotalPrice(0);
 }
 
@@ -69,7 +69,7 @@ function saveItemCartOnLocalStorage() {
 //   getTotalPriceItems();
 // }
 
-async function removeFromLocalStorage(item) {
+async function removeFromLocalStorage() {
   const cartItems = document.querySelector('.cart__items');
   localStorage.setItem('itemToBuy', cartItems.innerHTML);
   getTotalPriceItems();
