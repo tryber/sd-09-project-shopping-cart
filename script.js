@@ -51,8 +51,8 @@ const addToCart = async (event) => {
     document.querySelector('.cart__items').appendChild(cartItem);
   } catch (error) {
     console.log(error);
-  };
-}
+  }
+};
 
 const fetchProducts = async (query) => {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
@@ -68,8 +68,8 @@ const fetchProducts = async (query) => {
       .forEach(element => element.addEventListener('click', addToCart));
   } catch (error) {
     console.log(error);
-  };
-}
+  }
+};
 
 window.onload = function () {
   fetchProducts('computador');
