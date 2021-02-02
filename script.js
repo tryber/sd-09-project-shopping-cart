@@ -28,8 +28,29 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// Incluindo na LocalStorage
+const includeLocalStorage = ({ sku, name, salePrice }) => {
+  localStorage.setItem(`product-${localStorage.length + 1}`, JSON.stringify({ sku, name, salePrice }));
+};
+
+// Removendo item e reordenando lista da LocalStorage
+const rewritingList = () => {
+  const liProductsCart = document.querySelectorAll('.cart__item');
+
+  localStorage.clear();
+  liProductsCart.forEach((item) => {
+    const arrayItem = item.innerText.split(' | ');
+    const id = arrayItem[0].split(': ')[1];
+    const title = arrayItem[1].split(': ')[1];
+    const price = arrayItem[2].split(': ')[1];
+
+    includeLocalStorage({ sku: id, name: title, salePrice: price });
+  });
+};
+
 function cartItemClickListener(event) {
   event.target.remove();
+  rewritingList();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -40,17 +61,23 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// Adicionando produto ao carrinho
+// Adicionando itens no Carrinho de Compras
+const addListItem = ({ sku, name, salePrice }) => {
+  const productCart = createCartItemElement({ sku, name, salePrice });
+  document.querySelector('.cart__items').appendChild(productCart);
+};
+
+// Adicionando ao Carrinho de Compras
 const addProductCart = async (event) => {
-  const ItemID = (event.target.parentNode).firstChild.innerText;
+  const ItemID = getSkuFromProductItem(event.target.parentNode);
 
   const response = await fetch(`https://api.mercadolibre.com/items/${ItemID}`);
   const json = await response.json();
 
   const { id, title, price } = json;
 
-  const productCart = createCartItemElement({ sku: id, name: title, salePrice: price });
-  document.querySelector('.cart__items').appendChild(productCart);
+  addListItem({ sku: id, name: title, salePrice: price });
+  includeLocalStorage({ sku: id, name: title, salePrice: price });
 };
 
 // Listando produtos
@@ -71,4 +98,12 @@ const productListing = async (QUERY) => {
 
 window.onload = function onload() {
   productListing('computador');
+
+  // Adicionando itens no carrinho, ao carregar a página
+  if (localStorage.length > 0) {
+    for (let index = 1; index <= localStorage.length; index += 1) {
+      const objectProductStorage = (JSON.parse(localStorage.getItem(`product-${index}`)));
+      addListItem(objectProductStorage);
+    }
+  }
 };
