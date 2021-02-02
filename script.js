@@ -24,14 +24,13 @@ const updateLocalStorage = () => {
 
 const totalPrice = async () => {
   const products = document.querySelector('.cart__items').childNodes;
+  const priceElement = document.querySelector('.total-price');
   let sumTotal = 0;
   await products.forEach((product) => {
     positionPrice = product.textContent.indexOf('$') + 1;
-    sumTotal = sumTotal +
+    sumTotal +=
       (Number(product.textContent.slice(positionPrice, product.textContent.length)));
   });
-  appendChildElement('.cart', createCustomElement('section', 'total-price', ''));
-  const priceElement = document.querySelector('.total-price');
   priceElement.innerText = `R$ ${(sumTotal).toFixed(2)}`;
 };
 
@@ -91,16 +90,16 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const getProductsFromAPI = () =>
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then(response => response.json())
-    .then((object) => {
-      object.results.forEach((product) => {
-        const { id: sku, title: name, thumbnail: image } = product;
-        appendChildElement('.items', createProductItemElement({ sku, name, image }));
-      });
-    })
-    .catch(error => window.alert(error));
+const getProductsFromAPI = async () => {
+  const loadingElement = document.querySelector('.loading');
+  const response = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
+  if (response.status === 200) loadingElement.classList.add('hide');
+  const object = await response.json();
+  object.results.forEach((product) => {
+    const { id: sku, title: name, thumbnail: image } = product;
+    appendChildElement('.items',createProductItemElement({ sku, name, image }));
+  });
+};
 
 const emptyCart = () => {
   const list = document.querySelector('.cart__items');
