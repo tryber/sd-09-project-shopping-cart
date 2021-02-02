@@ -6,7 +6,7 @@ function idToSkuTranslator(objectWithId) {
 
 async function totalPrice() {
   const priceSection = document.querySelector('.price');
-  const localStorageContent = JSON.parse(localStorage['carrinho']);
+  const localStorageContent = JSON.parse(localStorage.carrinho);
   let completePrice = 0;
   await localStorageContent.forEach((product) => {
     const productPrice = product.salePrice;
@@ -46,12 +46,12 @@ function getSkuFromProductItem(item) {
 }
 
 function getSkuFromItem(itemInnertext) {
-  return itemInnertext.split(':')[1].split('|')[0].trim()
+  return itemInnertext.split(':')[1].split('|')[0].trim();
 }
 
 function cartItemClickListener(event) {
   const item = event.target;
-  const localStorageContent = JSON.parse(localStorage['carrinho']);
+  const localStorageContent = JSON.parse(localStorage.carrinho);
   const indexToRemove = localStorageContent.findIndex((product) => {
     const itemSku = getSkuFromItem(item.innerText);
     return product.sku === itemSku;
@@ -116,13 +116,13 @@ function mercadoLivreFetch(requiredProduct) {
 }
 
 function localStorageCart() {
-  const products = JSON.parse(localStorage['carrinho']);
+  const products = JSON.parse(localStorage.carrinho);
   const cart = document.querySelector('.cart__items');
   products.forEach((product) => {
     const cartItem = createCartItemElement(product);
     cart.appendChild(cartItem);
     cartItem.addEventListener('click', cartItemClickListener);
-  }); 
+  });
 }
 
 function clearCart() {
