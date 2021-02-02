@@ -2,10 +2,10 @@ const cart = document.querySelector('.cart');
 const totalValue = document.createElement('h3');
 totalValue.className = 'total-price';
 cart.appendChild(totalValue);
-if (localStorage.getItem('value')) {
-  totalValue.innerText = localStorage.getItem('value');
-} else {
+if (!localStorage.getItem('value')) {
   totalValue.innerText = '0.00';
+} else {
+  totalValue.innerText = localStorage.getItem('value');
 }
 async function sumPrice() {
   const array = [];
