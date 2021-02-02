@@ -41,7 +41,7 @@ async function createTotalPriceElement() {
     const cart = document.querySelector('.cart');
     const totalPriceElement = document.createElement('span');
     totalPriceElement.className = 'total-price';
-    totalPriceElement.innerText = Math.round(totalPrice *100) / 100;
+    totalPriceElement.innerText = Math.round(totalPrice * 100) / 100;
     cart.appendChild(totalPriceElement);
   } catch (error) {
     window.alert(error);
@@ -68,7 +68,7 @@ function emptyCartList() {
   const emptyCartButtom = document.querySelector('.empty-cart');
   emptyCartButtom.addEventListener('click', () => {
     const cartList = document.querySelectorAll('.cart__item');
-    cartList.forEach((item) => item.parentElement.removeChild(item));
+    cartList.forEach(item => item.parentElement.removeChild(item));
     localStorage.removeItem('cart');
     updatePrice();
   });
