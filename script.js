@@ -80,17 +80,15 @@ const criaLista = () => {
 };
 criaLista();
 
-function limparTudo() {
+function limparTudo(){
+  const selectButton = document.querySelector('.empty-cart');
+  selectButton.addEventListener('click', function() {
   const selectLista = document.querySelector('.cart__items');
   selectLista.remove();
-}
-
-function startButton() {
-  const selectButton = document.querySelector('.empty-cart');
-  selectButton.addEventListener('click', limparTudo);
-}
+  });
+};
 
 window.onload = function onload() {
   criaLista();
-  startButton();
+  limparTudo();
 };
