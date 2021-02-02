@@ -16,7 +16,7 @@ async function sumPrice() {
     }
   });
   const sum = await array.reduce((acc, curr) => acc + curr, 0);
-  localStorage.setItem('value', sum.toFixed(0));
+  localStorage.setItem('value', sum.toFixed(2));
   totalValue.innerText = localStorage.getItem('value');
 }
 
