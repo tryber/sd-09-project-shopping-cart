@@ -13,7 +13,7 @@ async function totalPrice() {
     const productPrice = Math.round(product.price * 100) / 100;
     completePrice += productPrice;
   });
-  priceSection.innerText = completePrice.toFixed(2);
+  priceSection.innerText = completePrice.toFixed();
 }
 
 function createProductImageElement(imageSource) {
@@ -114,6 +114,8 @@ function localStorageCart() {
 function clearCart() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = '';
+  localStorage.clear();
+  totalPrice();
 }
 
 
