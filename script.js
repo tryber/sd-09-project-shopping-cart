@@ -1,9 +1,6 @@
 async function fetchAPI(endpoint) {
   const body = document.querySelector('body');
-  const loading = document.createElement('p');
-  loading.innerText = 'loading...';
-  loading.className = 'loading';
-  body.appendChild(loading);
+  body.appendChild(createCustomElement('p', 'loading', 'loading...'));
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
