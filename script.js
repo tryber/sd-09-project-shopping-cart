@@ -17,31 +17,52 @@ const appendChildElement = (father, elementChild) => {
   elementFather.appendChild(elementChild);
 };
 
-const cartItemClickListener = (event) => event.target.remove();
+const cartItemClickListener = event => {
+  event.target.remove();
+  updateLocalStorage();
+};
 
-function createCartItemElement({ id, title, price }) {
+function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${id} | NAME: ${title} | PRICE: $${price}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+const getLocalStorage = () => {
+  const list = document.querySelector('.cart__items');
+  const storage = localStorage.getItem('products');
+  !storage
+    ? localStorage.setItem('products', '')
+    : list.innerHTML = localStorage.getItem('products');
+  list.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)))
+}
+
+const updateLocalStorage = () => {
+  const list = document.querySelector('.cart__items');
+  localStorage.setItem('products', list.innerHTML);
 }
 
 const getProductFromAPIIds = (event) => {
   const idProduct = event.path[1].firstChild.innerText;
   return fetch(`https://api.mercadolibre.com/items/${idProduct}`)
     .then(response => response.json())
-    .then(object => appendChildElement('.cart__items', createCartItemElement(object)))
+    .then(object => {
+      const { id: sku, title: name, price: salePrice } = object;
+      appendChildElement('.cart__items', createCartItemElement({ sku, name, salePrice }));
+      updateLocalStorage();
+    })
     .catch(error => window.alert(error));
 };
 
-function createProductItemElement({ id, title, thumbnail }) {
+function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
-  section.appendChild(createCustomElement('span', 'item__sku', id));
-  section.appendChild(createCustomElement('span', 'item__title', title));
-  section.appendChild(createProductImageElement(thumbnail));
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  section.appendChild(createCustomElement('span', 'item__title', name));
+  section.appendChild(createProductImageElement(image));
   const buttonAdd = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   buttonAdd.addEventListener('click', getProductFromAPIIds);
   section.appendChild(buttonAdd);
@@ -58,11 +79,13 @@ const getProductsFromAPI = () =>
     .then(response => response.json())
     .then((object) => {
       object.results.forEach((product) => {
-        appendChildElement('.items', createProductItemElement(product));
+        const { id: sku, title: name, thumbnail: image } = product;
+        appendChildElement('.items', createProductItemElement({ sku, name, image }));
       });
     })
     .catch(error => window.alert(error));
 
 window.onload = function onload() {
   getProductsFromAPI();
+  getLocalStorage();
 };
