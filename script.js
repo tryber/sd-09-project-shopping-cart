@@ -28,8 +28,7 @@ function sumValues() {
   const prices = [];
   const itemListLi = document.querySelectorAll('.cart__item');
   if (itemListLi.length > 0) {
-    console.log('passou no if')
-  itemListLi.forEach((element) => {
+    itemListLi.forEach((element) => {
     prices.push(element.innerText.split('$')[1]);
   });
   }
