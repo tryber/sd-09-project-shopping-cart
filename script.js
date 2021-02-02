@@ -92,14 +92,15 @@ function addProductToSection(productList) {
 function mercadoLivreFetch(requiredProduct) {
   const loadingMessage = document.createElement('span');
   const itemSection = document.querySelector('.items');
-  loadingMessage.innerText = "loading";
+  loadingMessage.innerText = 'loading';
   loadingMessage.classList.add('loading');
   itemSection.appendChild(loadingMessage);
   return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${requiredProduct}`)
     .then(result => result.json())
-    .then(jsonList => { 
+    .then((jsonList) => {
       loadingMessage.remove();
-      return addProductToSection(jsonList)})
+      return addProductToSection(jsonList);
+    })
     .catch(err => err);
 }
 
