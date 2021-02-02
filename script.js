@@ -33,7 +33,6 @@ const showTotalPrice = async (value) => {
   const totalDisplayed = await document.querySelector('.total-price');
 
   if (totalDisplayed !== null) {
-    console.log(totalDisplayed);
     totalDisplayed.remove();
   }
 
@@ -60,7 +59,7 @@ const totalPriceOfItems = (myCartItems) => {
 const sumTotalItensOnCart = async () => {
   const myCartItems = document.querySelectorAll('.cart__item');
   const sumOfItemsOnCart = await totalPriceOfItems(myCartItems);
-  console.log(sumOfItemsOnCart);
+
   return showTotalPrice(sumOfItemsOnCart);
 };
 
@@ -70,6 +69,8 @@ const addItemsToLocalStorage = () => {
 };
 
 function cartItemClickListener(event) {
+  document.querySelector('.total-price').remove();
+
   event.target.remove();
 
   localStorage.clear();
@@ -143,6 +144,7 @@ const retrieveCartFromLocalStorage = () => {
 const emptyShoppingCart = () => {
   document.querySelector('.cart__items').innerHTML = '';
   localStorage.clear();
+
   sumTotalItensOnCart();
 };
 
