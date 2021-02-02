@@ -31,13 +31,22 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const filterIdElement = ({ id, title, price }) => {
+function createCartItemElement({ sku, name, salePrice }) {
+  const ol = document.querySelector('.cart__items');
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  ol.appendChild(li);
+}
+
+const filterIdElement = ({ id, title, price }, callback) => {
   const object = {
     sku: id,
     name: title,
     salePrice: price,
   };
-  createCartItemElement(object);
+  callback(object);
 };
 
 const cartItemElement = async (idElement) => {
@@ -48,13 +57,13 @@ const cartItemElement = async (idElement) => {
     if (object.message) {
       throw new Error(object.message);
     }
-    filterIdElement(object);
+    filterIdElement(object, createCartItemElement);
   } catch (error) {
     alert(error);
   }
 };
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
   if (event.target.className === 'item__add') {
     const idElement = event.target.parentNode.firstChild.innerText;
     cartItemElement(idElement);
@@ -67,16 +76,7 @@ const clickEvent = () => {
 };
 clickEvent();
 
-function createCartItemElement({ sku, name, salePrice }) {
-  const ol = document.querySelector('.cart__items');
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  ol.appendChild(li);
-}
-
-const objectFilterElement = (productsDatas) => {
+const objectFilterElement = (productsDatas, callback) => {
   const entries = Object.entries(productsDatas.results);
   entries.forEach((info) => {
     const infos = {
@@ -84,9 +84,10 @@ const objectFilterElement = (productsDatas) => {
       name: info[1].title,
       image: info[1].thumbnail,
     };
-    createProductItemElement(infos);
+    callback(infos);
   });
 };
+
 const productItemElement = async () => {
   const productChoise = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   try {
@@ -95,7 +96,7 @@ const productItemElement = async () => {
     if (object.results.length === 0) {
       throw new Error('Busca inválida');
     }
-    objectFilterElement(object);
+    objectFilterElement(object, createProductItemElement);
   } catch (error) {
     alert(error);
   }
