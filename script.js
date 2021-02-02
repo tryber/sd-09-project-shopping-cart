@@ -69,8 +69,7 @@ function fetchProductById(itemId) {
       name: item.title,
       salePrice: item.price,
     };
-    console.log(item)
-      cartItem.appendChild(createCartItemElement(obj));
+    cartItem.appendChild(createCartItemElement(obj));
   });
 }
 
@@ -84,4 +83,4 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 window.onload = function onload() {
   fetchProducts();
- };
+};
