@@ -31,7 +31,7 @@ const totalPrice = async () => {
     sumTotal +=
       (Number(product.textContent.slice(positionPrice, product.textContent.length)));
   });
-  priceElement.innerText = `R$ ${(sumTotal).toFixed(2)}`;
+  priceElement.innerText = `${parseFloat((sumTotal))}`;
 };
 
 const cartItemClickListener = (event) => {
@@ -91,10 +91,13 @@ function getSkuFromProductItem(item) {
 }
 
 const getProductsFromAPI = async () => {
+  appendChildElement('.items', createCustomElement('span', 'loading', 'loading...'));
   const loadingElement = document.querySelector('.loading');
+
   const response = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
   if (response.status === 200) loadingElement.classList.add('hide');
   const object = await response.json();
+
   object.results.forEach((product) => {
     const { id: sku, title: name, thumbnail: image } = product;
     appendChildElement('.items', createProductItemElement({ sku, name, image }));
