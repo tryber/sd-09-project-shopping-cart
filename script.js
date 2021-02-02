@@ -1,5 +1,3 @@
-// window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -65,16 +63,15 @@ const removePrice = (event) => {
   const convertToNumber = parseFloat(getPrice);
   const decreasedTotal = Math.round((convertToNumber - priceToDecrease) * 100) / 100;
   document.querySelector('.total-price').innerText = decreasedTotal;
+  localStorage.setItem('totalPrice', decreasedTotal);
 };
 
 function cartItemClickListener(event) {
-  // const priceToDecrease = priceOfItemRemoved(event);
-  // totalPrice -= priceToDecrease;
-  removePrice(event);
   event.target.remove();
   const cartList = document.querySelector('.cart__items');
   localStorage.clear();
   localStorage.setItem('shopping-cart', cartList.innerHTML);
+  removePrice(event);
 }
 
 // Some o valor total dos itens do carrinho de compras de forma assíncrona
@@ -84,6 +81,7 @@ const sumPrices = async (price) => {
   const convertedPrice = parseFloat(getPrice);
   const totalPrice = await Math.round((convertedPrice + price) * 100) / 100;
   document.querySelector('.total-price').innerText = totalPrice;
+  localStorage.setItem('totalPrice', totalPrice);
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -100,6 +98,14 @@ function createCartItemElement({ sku, name, salePrice }) {
 const getLocalStorage = () => {
   const listCart = document.querySelector('.cart__items');
   listCart.innerHTML = localStorage.getItem('shopping-cart');
+  liList = listCart.childNodes;
+  for(let index = 0; index < liList.length; index += 1) {
+    liList[index].addEventListener('click', cartItemClickListener);
+  };
+  const recoverTotalPrice = document.querySelector('.total-price');
+  if (localStorage.getItem('totalPrice') !== null) {
+    recoverTotalPrice.innerText = localStorage.getItem('totalPrice');
+  }
 };
 
 // Adicione o produto ao carrinho de compras
@@ -153,7 +159,7 @@ const fetchMLB = () => {
 
 window.onload = () => {
   fetchMLB();
-  getSkuFromProduct();
   getLocalStorage();
+  getSkuFromProduct();
   clearShoppingCart();
 };
