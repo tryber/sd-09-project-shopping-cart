@@ -65,15 +65,15 @@ function createCartItemElement({ sku, name, salePrice }) {
 // }
 
 const updatePriceSum = (price) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const totalPriceSpan = document.querySelector('#total-price');
     let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
 
     parseTotalPrice += price;
     totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
 
-    resolve()
-  })
+    resolve();
+  });
 }
 
 async function asyncSum(price) {
