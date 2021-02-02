@@ -43,7 +43,6 @@ async function createTotalPriceElement() {
     const cart = document.querySelector('.cart');
     const totalPriceElement = document.createElement('span');
     totalPriceElement.className = 'total-price';
-    totalPriceElement.innerText = 'Preço Total: $';
     totalPriceElement.appendChild(totalPrice);
     cart.appendChild(totalPriceElement);
   } catch (error) {
