@@ -27,6 +27,8 @@ function createProductItemElement({ sku, name, image }) {
 function cartItemClickListener(event) {
   // coloque seu códigoaqui
   event.target.remove();
+  localStorage.clear();
+  setLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -37,6 +39,29 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function setLocalStorage() {
+  const lineItens = document.getElementsByTagName('li');
+    for (let index = 0; index < lineItens.length; index += 1) {
+      const objeto = {
+        text: lineItens[index].innerText,
+        class: lineItens[index].className,
+      };
+      localStorage.setItem(index, JSON.stringify(objeto));
+    }  
+}
+
+function getStorageItems() {
+  const ol = document.querySelector('.cart__items');
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const listItem = document.createElement('li');
+    const objStorage = JSON.parse(localStorage.getItem(index));
+    listItem.innerText = objStorage.text;
+    listItem.className = objStorage.class;
+    listItem.addEventListener('click', cartItemClickListener);
+    ol.appendChild(listItem);
+  }
+}
+
 const fetchAddToCartRequest = async (itemId) => {
   const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
   const object = await response.json();
@@ -44,6 +69,7 @@ const fetchAddToCartRequest = async (itemId) => {
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
+  setLocalStorage();
 };
 
 
@@ -77,4 +103,5 @@ async function fetchProducts(query) {
 
 window.onload = function onload() {
   fetchProducts('computador');
+  getStorageItems();
 };
