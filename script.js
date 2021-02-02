@@ -32,7 +32,8 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const target = event.target;
+  target.remove(target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
