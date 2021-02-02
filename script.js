@@ -108,16 +108,16 @@ const productItemElement = async () => {
 
 function updateLocalStorage() {
   const li = document.querySelector('.cart__items');
-  li.addEventListener('click', (event => {
+  li.addEventListener('click', (event) => {
     event.target.remove();
     let list = [];
     list = document.querySelector('.cart__items').getElementsByTagName('li');
     const arr = [];
-    for (index = 0; index < list.length; index += 1) {
-      arr.push(list[index].innerText);
+    for (index of list) {
+      arr.push(index.innerText);
     }
     localStorage.setItem('cartList', JSON.stringify(arr));
-  }));
+  });
 }
 
 const storageListSaved = () => {
