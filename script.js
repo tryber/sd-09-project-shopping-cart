@@ -97,8 +97,27 @@ function emptyCart() {
   });
 }
 
+function saveCart() {
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('cart', cartList.innerHTML);
+}
+
+function loadCart() {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
+  const cartItems = document.querySelectorAll('cart__item');
+  cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
+}
+
+// async function cartTotalValue() {
+//   cartItems = document.querySelectorAll('.cart__item');
+//   cartItems.reduce((total, item) => {
+//   })
+// }
+
 window.onload = function onload() {
   getMLResults();
   addToCart();
   emptyCart();
+  loadCart();
 };
