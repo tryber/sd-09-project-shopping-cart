@@ -82,3 +82,14 @@
   padding: 5px;
   justify-content: center;
 }
+
+.loading {
+  background-color: rgba(75, 75, 75, 0.3);
+  justify-content: center;
+  width: 100%;
+  top: 0;
+  margin: 0;
+  padding: 15px;
+  position: absolute;
+  display: none;
+}

@@ -3,6 +3,12 @@ const cartItemsOl = document.querySelector('.cart__items');
 const totalPriceDiv = document.querySelector('.total-price');
 const emptyCartButton = document.querySelector('.empty-cart');
 
+const loadingDisplay = {
+  element: document.querySelector('.loading'),
+  show() { this.element.style.display = 'flex' },
+  hide() { this.element.style.display = 'none' },
+};
+
 const shoppingCart = {
   storageKey: 'cart',
   items: [],
@@ -91,7 +97,10 @@ const urls = {
 
 const retrieveJsonFor = async (...args) => {
   const url = urls.getFor(args);
-  const jsonResponse = await fetch(url).then(resp => resp.json());
+  loadingDisplay.show();
+  const jsonResponse = await fetch(url)
+    .then(resp => resp.json());
+  loadingDisplay.hide();
   return jsonResponse;
 };
 
