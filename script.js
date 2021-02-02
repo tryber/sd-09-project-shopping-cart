@@ -72,9 +72,9 @@ async function fetchAddToCartRequest(itemId) {
     const cartItems = document.querySelector('.cart__items');
     cartItems.appendChild(item);
     setLocalStorage();
-  } catch(error) { 
-      window.alert(error);
-  };
+  } catch (error) {
+    window.alert(error);
+  }
 }
 
 function getProductId(event) {
