@@ -24,7 +24,6 @@ function createProductItemElement({ sku, name, image }) {
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-
 }
 
 const cartItemClickListener = () => {
@@ -74,7 +73,7 @@ const retriveMercadoLivreApi = async () => {
       items.appendChild(createProductItemElement({ sku, name, image }));
     });
     captureTargetItem();
-  } catch (error) { alert(error); };
+  } catch (error) { alert(error); }
 };
 
 window.onload = function onload() {
