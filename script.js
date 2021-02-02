@@ -45,7 +45,7 @@ const cartItemElement = async (idElement) => {
   }
 };
 
-function cartItemClickListener() {
+function cartItemClickListener(event) {
   if (event.target.className === 'item__add') {
     const idElement = event.target.parentNode.firstChild.innerText;
     cartItemElement(idElement);
