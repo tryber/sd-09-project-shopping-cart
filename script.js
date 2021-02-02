@@ -59,13 +59,6 @@ async function fetchItemId(itemID) {
   return response.json();
 }
 
-function loadCart() {
-  const cartList = document.querySelector('ol.cart__items');
-  cartList.innerHTML = localStorage.getItem('savedItems');
-  const storedItems = document.querySelectorAll('li.cart__item');
-  storedItems.forEach(currentItem => currentItem.addEventListener('click', cartItemClickListener));
-}
-
 async function addItemToCart(clickedItem) {
   const clickedItemId = clickedItem.target.parentNode.firstChild.innerText;
   const clickedItemInfo = await fetchItemId(clickedItemId);
@@ -78,6 +71,11 @@ async function addItemToCart(clickedItem) {
 
   cartList.appendChild(createCartItemElement(output));
   updateCartListStorage(cartList);
+}
+
+function clearCartEvent() {
+  document.querySelector('ol.cart__items').innerHTML = '';
+  localStorage.clear();
 }
 
 async function generateProductList() {
@@ -96,6 +94,16 @@ async function generateProductList() {
 
   const buttons = document.querySelectorAll('button.item__add');
   buttons.forEach(button => button.addEventListener('click', addItemToCart));
+
+  const clearCartButton = document.querySelector('button.empty-cart');
+  clearCartButton.addEventListener('click', clearCartEvent);
+}
+
+function loadCart() {
+  const cartList = document.querySelector('ol.cart__items');
+  cartList.innerHTML = localStorage.getItem('savedItems');
+  const storedItems = document.querySelectorAll('li.cart__item');
+  storedItems.forEach(currentItem => currentItem.addEventListener('click', cartItemClickListener));
 }
 
 window.onload = function onload() {
