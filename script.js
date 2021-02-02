@@ -38,10 +38,7 @@ function cartItemClickListener(event) {
 
 function rebuildCart() {
   const stored = localStorage
-  const number = stored.length
-  console.log(number);
-  const converted = Object.entries(stored);
-  console.log(converted[0]);
+  console.log(stored)
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -69,7 +66,7 @@ const fetchSelectedItem = async (event) => {
     const result = createCartItemElement({ sku, name, salePrice });
     const cartItens = document.querySelector('.cart__items');
     cartItens.appendChild(result);
-    localStorage.setItem(`${sku}`, `${sku}/${name}/${salePrice}`);
+    localStorage.setItem(`SKU: ${sku}`, `${sku}/${name}/${salePrice}`);
   } catch (error) {
     window.alert(error);
   }
