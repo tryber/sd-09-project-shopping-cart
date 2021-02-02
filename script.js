@@ -29,9 +29,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const addItemsToLocalStorage = () => {
+  const myCart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('1', myCart);
+};
+
 function cartItemClickListener(event) {
-  localStorage.removeItem(event.target.id);
   event.target.remove();
+  localStorage.clear();
+  addItemsToLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -42,28 +48,22 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const addItemToLocalStorageWithId = (obj, htmlTagString) => {
-  const key = `${localStorage.length + 1}-${obj.sku}`;
-  localStorage.setItem(key, htmlTagString);
-  return key;
-};
-
 const fetchAddToCartStorage = async (event) => {
   const clickedCard = event.target.parentNode;
   const itemId = getSkuFromProductItem(clickedCard);
   const endpointURL = `https://api.mercadolibre.com/items/${itemId}`;
+
   try {
     const queryItem = await fetch(endpointURL);
     const itemObject = await queryItem.json();
     const { id: sku, title: name, price: salePrice } = itemObject;
-    const myCart = document.querySelector('.cart__items');
     const cartItem = createCartItemElement({ sku, name, salePrice });
+    const myCart = document.querySelector('.cart__items');
     myCart.appendChild(cartItem);
-    const cartItemString = cartItem.outerHTML;
-    cartItem.id = addItemToLocalStorageWithId({ sku, name, salePrice }, cartItemString);
   } catch (error) {
     alert(error);
   }
+  addItemsToLocalStorage();
 };
 
 const addListenersToPageItems = () => {
@@ -91,9 +91,8 @@ const fetchApiResultsAddToPage = async () => {
 
 const retrieveCartFromLocalStorage = () => {
   const myCart = document.querySelector('.cart__items');
-  Object.keys(localStorage).forEach((element) => {
-    myCart.innerHTML += localStorage.getItem(element);
-  });
+  myCart.innerHTML = localStorage.getItem('1');
+  myCart.addEventListener('click', cartItemClickListener);
 };
 
 window.onload = function onload() {
