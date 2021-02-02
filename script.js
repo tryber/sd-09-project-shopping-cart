@@ -28,9 +28,47 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function sumItems() {
+  return new Promise((resolve, reject) => {
+    const myCart = document.querySelectorAll('.cart__item');
+    let price = '';
+    let sum = 0;
+    myCart.forEach((value) => {
+      let position = value.innerText.indexOf('$');
+      for (let index = position + 1; index < value.innerText.length; index += 1) {
+        price += value.innerText[index];
+      }
+      sum += Number(price);
+      price = '';
+    });
+    if (sum >= 0) {
+      resolve(sum);
+    } else {
+      reject('Erro! Soma inválida')
+    }
+  });
+}
+
+async function putPrice() {
+  let price;
+  try {
+    price = await sumItems();
+    const elementPrice = document.querySelector('.total-price');
+    elementPrice.innerText = `Total R$ ${price.toFixed(2)}`;
+  } catch(error) {
+    window.alert(error);
+  }
+}
+
+function saveMyCart() {
+  const listItems = document.querySelector('.cart__items');
+  localStorage.setItem('myCart', listItems.innerHTML);
+}
+
 function cartItemClickListener(event) {
   const list = document.querySelector('.cart__items');
   list.removeChild(event.target);
+  putPrice();
   saveMyCart();
 }
 
@@ -45,12 +83,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 function emptyCart() {
   const list = document.querySelector('.cart__items');
   list.innerHTML = '';
+  putPrice();
   saveMyCart();
-}
-
-function saveMyCart() {
-  const listItems = document.querySelector('.cart__items');
-  localStorage.setItem('myCart', listItems.innerHTML);
 }
 
 function restoreMyCart() {
@@ -58,8 +92,9 @@ function restoreMyCart() {
   listItems.innerHTML = localStorage.getItem('myCart');
   const items = document.querySelectorAll('.cart__item');
   if (items !== null) {
-    items.forEach((value) => value.addEventListener('click', cartItemClickListener));
+    items.forEach(value => value.addEventListener('click', cartItemClickListener));
   }
+  putPrice();
 }
 
 async function addEventItemInMyCart(element, id) {
@@ -69,9 +104,9 @@ async function addEventItemInMyCart(element, id) {
       .then((item) => {
         const obj = { sku: item.id, name: item.title, salePrice: item.price };
         const li = createCartItemElement(obj);
-        li.addEventListener('click', cartItemClickListener);
         const listItems = document.querySelector('.cart__items');
         listItems.appendChild(li);
+        putPrice();
         saveMyCart();
       }));
   });
@@ -86,7 +121,7 @@ async function loadingItems() {
       addEventItemInMyCart(section, value.id);
       const containerItems = document.querySelector('.items');
       containerItems.appendChild(section);
-  })));
+    })));
 }
 
 window.onload = function onload() {
