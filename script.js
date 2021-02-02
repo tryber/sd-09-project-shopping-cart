@@ -117,7 +117,9 @@ const createSectionTotalPriceAssyncAwait = async () => {
     const sectionOl = await document.querySelector('.cart');
     sectionOl.appendChild(span);
   }
-  catch {};
+  catch {
+    window.alert('função com problemas');
+  };
 }
 const deleteSectionTotalPriceAssyncAeait = async () => {
   try {
@@ -125,7 +127,9 @@ const deleteSectionTotalPriceAssyncAeait = async () => {
     const sectionOl = await document.querySelector('.cart');
     sectionOl.removeChild(span);
   }
-  catch {};
+  catch {
+    window.alert('função com problemas');
+  };
 }
 window.onload = function onload() {
   // Chamada de funções e recuperação de variáveis
@@ -135,4 +139,5 @@ window.onload = function onload() {
     const itemId = event.path[1].childNodes[0].innerText;
     fetchItemById(itemId);
   });
+  createSectionTotalPriceAssyncAwait();
 };
