@@ -4,11 +4,10 @@ const emptyCartButton = document.querySelector('.empty-cart');
 
 async function updateSumOfPrices() {
   const items = Array.from(document.querySelectorAll('.cart__item'));
-  const sum = !items ? 0 : items.map(item => {
+  const sum = !items ? 0 : items.map((item) => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
-  })
-    .reduce((acc, price) => acc + price, 0);
+  }).reduce((acc, price) => acc + price, 0);
   sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `${Math.round(sum * 100) / 100}`;
 }
 
@@ -112,7 +111,7 @@ function removeLoader() {
 
 function loadShoppingCart() {
   const cart = document.querySelector('.cart__items');
-  Object.values(localStorage).forEach(item => {
+  Object.values(localStorage).forEach((item) => {
     const newItem = createCartItemElement(JSON.parse(item));
     cart.appendChild(newItem);
   });
