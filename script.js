@@ -10,10 +10,10 @@ async function totalPrice() {
   let completePrice = 0;
   await localStorageKeys.forEach((key) => {
     const product = JSON.parse(localStorage[key]);
-    const productPrice = Math.round(product.price * 100) / 100;
+    const productPrice = product.price;
     completePrice += productPrice;
   });
-  priceSection.innerText = completePrice.toFixed(2);
+  priceSection.innerText = completePrice;
 }
 
 function createProductImageElement(imageSource) {
