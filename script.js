@@ -35,7 +35,7 @@ function sumPrice() {
   if (allli.length === 0) {
     return (sumTotal.innerHTML = `Preco total: $${sum}`);
   }
-  allli.forEach( async (element) => {
+  return allli.forEach(async (element) => {
     const id = element.innerText.split(' ')[1];
     const endpoint = `https://api.mercadolibre.com/items/${id}`;
     try {
@@ -50,7 +50,6 @@ function sumPrice() {
       window.alert(erro);
     }
   });
-  return;
 }
 
 const newObject = (element) => {
