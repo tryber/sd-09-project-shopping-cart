@@ -53,8 +53,8 @@ async function apiAdd() {
   const results = object.results;
   const itemsElement = document.querySelector('.items');
 
-  results.forEach((result) => {
-    const { id: sku, title: name, thumbnail: image } = result;
+  results.forEach((results) => {
+    const { id: sku, title: name, thumbnail: image } = results;
     const element = createProductItemElement({ sku, name, image });
     itemsElement.appendChild(element);
   });
