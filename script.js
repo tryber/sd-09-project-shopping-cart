@@ -13,7 +13,7 @@ async function totalPrice() {
     const productPrice = Math.round(product.price * 100) / 100;
     completePrice += productPrice;
   });
-  priceSection.innerText = completePrice.toFixed();
+  priceSection.innerText = completePrice.toFixed(2);
 }
 
 function createProductImageElement(imageSource) {
