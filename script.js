@@ -4,6 +4,18 @@ function idToSkuTranslator(objectWithId) {
   return objectWithSku;
 }
 
+async function totalPrice() {
+  const priceSection = document.querySelector('.price');
+  const localStorageKeys = Object.keys(localStorage);
+  let completePrice = 0;
+  await localStorageKeys.forEach((key) => {
+    const product = JSON.parse(localStorage[key]);
+    const productPrice = Math.round(product.price * 100) / 100;
+    completePrice += productPrice;
+  });
+  priceSection.innerText = completePrice.toFixed(2);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -102,18 +114,6 @@ function localStorageCart() {
 function clearCart() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = '';
-}
-
-async function totalPrice() {
-  const priceSection = document.querySelector('.price');
-  const localStorageKeys = Object.keys(localStorage);
-  let totalPrice = 0;
-  await localStorageKeys.forEach((key) => {
-    const product = JSON.parse(localStorage[key]);
-    const productPrice = product['price']
-    totalPrice += productPrice; 
-  });
-  priceSection.innerText = totalPrice;
 }
 
 
