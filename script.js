@@ -157,7 +157,6 @@ function clearList() {
 function listenToEmptyCartButton() {
   const emptyCartButton = document.querySelector('.empty-cart');
 
-  console.log(emptyCartButton)
   emptyCartButton.addEventListener('click', clearList);
 }
 
