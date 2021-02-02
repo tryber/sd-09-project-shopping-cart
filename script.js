@@ -62,6 +62,7 @@ function addItemNoCarrinho(id) {
 async function resolveCarrinho(event) {
   const selectElement = await event.target.parentElement;
   await addItemNoCarrinho(getSkuFromProductItem(selectElement));
+  setLocalStorage();
 }
 
 
@@ -75,6 +76,7 @@ function createProductItemElement({ sku, name, image }) {
   createCustomEl.addEventListener('click', resolveCarrinho);
   section.appendChild(createCustomEl);
 
+  setLocalStorage();
   return section;
 }
 const criaLista = () => {
@@ -103,6 +105,7 @@ function limparTudo() {
     const selectLista = document.querySelectorAll('.cart__item');
     selectLista.forEach(element => element.remove());
   });
+  setLocalStorage();
 }
 
 window.onload = function onload() {
