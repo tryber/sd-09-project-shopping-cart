@@ -50,8 +50,8 @@ function cartItemClickListener() {
 }
 
 function moveToCart() {
-  const package = document.querySelector('.items');
-  package.addEventListener('click', (event) => {
+  const listOfContents = document.querySelector('.items');
+  listOfContents.addEventListener('click', (event) => {
   if (event.target.classList.contains('item__add')){
     const upperEle = event.target.parentElement;
     const upperEleId = getSkuFromProductItem(upperEle);
