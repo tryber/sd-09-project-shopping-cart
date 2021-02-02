@@ -1,13 +1,12 @@
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
-  // e.className = className;
   className.forEach(item => e.classList.add(item));
   e.innerText = innerText;
   return e;
 }
 async function fetchAPI(endpoint) {
-  const body = document.querySelector('body');
-  body.appendChild(createCustomElement('p', ['loading'], 'loading...'));
+  const body = document.querySelector('.items');
+  body.appendChild(createCustomElement('progress', ['loading', 'progress', 'is-small', 'is-dark'], 'loading...'));
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
@@ -33,7 +32,7 @@ const calculateTotalPrice = () => {
 const updateTotalPrice = async () => {
   const totalPrice = await calculateTotalPrice();
   const totalPriceField = document.querySelector('.total-price');
-  totalPriceField.innerText = totalPrice;
+  totalPriceField.innerText = totalPrice.toFixed(2);
 };
 
 function createProductImageElement(imageSource) {
@@ -138,16 +137,6 @@ const loadLocalStorage = () => {
   updateTotalPrice();
 };
 
-const siteInitialize = async () => {
-  const searchEndpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
-  const object = await fetchAPI(searchEndpoint);
-  createListOfItems(object);
-  const addItemsButtons = document.querySelectorAll('.item__add');
-  addItemsButtons.forEach((button) => {
-    button.addEventListener('click', addCartItem);
-  });
-};
-
 const clearCart = () => {
   localStorage.clear();
   const cartItems = document.querySelector('.cart__items');
@@ -157,9 +146,19 @@ const clearCart = () => {
   updateTotalPrice();
 };
 
-window.onload = function onload() {
-  siteInitialize();
+const siteInitialize = async () => {
+  const searchEndpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
+  const object = await fetchAPI(searchEndpoint);
+  createListOfItems(object);
+  const addItemsButtons = document.querySelectorAll('.item__add');
+  addItemsButtons.forEach((button) => {
+    button.addEventListener('click', addCartItem);
+  });
   const clearCartButton = document.querySelector('.empty-cart');
   clearCartButton.addEventListener('click', clearCart);
+};
+
+window.onload = function onload() {
+  siteInitialize();
   loadLocalStorage();
 };
