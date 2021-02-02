@@ -77,15 +77,17 @@ function loadCartItemOnLocalSorage() {
   const shoppingCart = document.querySelector('.cart__items');
   const localStorageEntries = Object.entries(localStorage);
   localStorageEntries.forEach((item) => {
-    const itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
-    const localStorageArr = itemValue.split(' | ');
-    const localStorageObj = {
-      sku: localStorageArr[0],
-      name: localStorageArr[1],
-      salePrice: localStorageArr[2],
-    };
-    const cartItem = createCartItemElement(localStorageObj);
-    shoppingCart.appendChild(cartItem);
+    if (item[0].indexOf('cartItem') !== -1) {
+      const itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
+      const localStorageArr = itemValue.split(' | ');
+      const localStorageObj = {
+        sku: localStorageArr[0],
+        name: localStorageArr[1],
+        salePrice: localStorageArr[2],
+      };
+      const cartItem = createCartItemElement(localStorageObj);
+      shoppingCart.appendChild(cartItem);
+    }
   });
 }
 
@@ -94,8 +96,8 @@ function addProductToCart(product) {
   const shoppingCart = document.querySelector('.cart__items');
   const { id: sku, title: name, price: salePrice } = product;
   const cartItem = createCartItemElement({ sku, name, salePrice });
-  saveCartItemOnLocalStorage(cartItem);
   shoppingCart.appendChild(cartItem);
+  saveCartItemOnLocalStorage(cartItem);
 }
 
 // Retrieves the product from Mercado livre API by ID
@@ -119,7 +121,7 @@ function setupEvents() {
 }
 
 window.onload = function onload() {
+  loadCartItemOnLocalSorage();
   fetchProductList('computador');
   setupEvents();
-  loadCartItemOnLocalSorage();
 };
