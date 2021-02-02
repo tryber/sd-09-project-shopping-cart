@@ -1,5 +1,3 @@
-// window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -51,17 +49,20 @@ const loopButtons = (className, functionName) => {
 
 const salveItem = () => {
   const listItem = document.querySelectorAll('li');
+  const priceTotal = document.querySelector('#price');
   const arrayItem = [];
   listItem.forEach((element) => {
     arrayItem.push(element.className);
     arrayItem.push(element.innerText);
   });
   localStorage.setItem('listItemCart', JSON.stringify(arrayItem));
+  localStorage.setItem('priceItemTotal', priceTotal.innerHTML)
 };
 
 function cartItemClickListener(event) {
   // coloque seu código aqui.
   event.target.remove();
+  sumPrice()
   salveItem();
 }
 
@@ -85,6 +86,7 @@ const fetchListCart = (id) => {
         throw new Error(object.error);
       }
       listCartMain.appendChild(createCartItemElement(newObject(object)));
+      sumPrice()
       salveItem();
     })
     .catch(erro => console.log(erro));
@@ -92,7 +94,7 @@ const fetchListCart = (id) => {
 
 const createItemList = event => fetchListCart(getSkuFromProductItem(event.path[1]));
 
-const fetchMercadorLivre = (id) => {
+const fetchMercadoLivre = (id) => {
   const sectionMain = document.querySelector('.items');
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${id}`;
 
@@ -120,8 +122,25 @@ const addListItem = (text, className) => {
   listCartMain.appendChild(li);
 };
 
+function sumPrice() {
+  let sumTotal = document.querySelector('#price');
+  const allli = document.querySelectorAll('li');
+  let sum = 0;
+
+  if (allli.length === 0) {
+    return sumTotal.innerHTML = `Preco total: $${sum}`;;
+  }
+  allli.forEach(element => {
+    const id = element.innerText.split(' ')[element.innerText.split(' ').length-1];
+    sum += parseInt(id.substr(1));
+    sumTotal.innerHTML = `Preco total: $${sum}`;
+  })
+}
+
 const returnLocalStorage = () => {
   const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
+  const priceLocalStorage = localStorage.getItem('priceItemTotal')
+  const priceTotal = document.querySelector('#price');
   if (arrayItem === null) {
     return;
   }
@@ -131,9 +150,10 @@ const returnLocalStorage = () => {
     const text = arrayItem[index + 1];
     addListItem(text, className);
   }
+  priceTotal.innerHTML = priceLocalStorage;
 };
 
 window.onload = () => {
-  fetchMercadorLivre('computador');
+  fetchMercadoLivre('computador');
   returnLocalStorage();
 };
