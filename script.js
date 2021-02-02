@@ -114,7 +114,7 @@ function emptyCartList() {
 }
 
 window.onload = function onload() {
-  fetchProducts('ps5');
+  fetchProducts('computador');
   getStorageItems();
   emptyCartList();
 };
