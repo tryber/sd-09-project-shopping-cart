@@ -25,7 +25,7 @@ function toLocalStorage(sku, name, salePrice) {
 
 async function sumCartPrices(item) {
   cartPrice += item;
-  document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100)/100}`;
+  document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
 }
 
 function emptyCart() {
@@ -69,8 +69,7 @@ function retrieveLocalStorage() {
   const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
   if (!cartStorage) {
     localStorage.setItem('cartProducts', '{}');
-  }
-  else {
+  } else {
     Object.keys(cartStorage).forEach((id) => {
       getSingleItem(id);
     });
