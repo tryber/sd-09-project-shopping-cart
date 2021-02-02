@@ -87,8 +87,15 @@ function addItems() {
   });
 }
 
+function loadAndSaveLocalStorage(item) {
+  if (!item) {
+    item = JSON.parse(localStorage.getItem('items'));
+  } else {
+    localStorage.setItem('items', JSON.stringify(item));
+  }
+}
+
 window.onload = function onload() {
   getProductList();
   addItems();
-  cartItemClickListener('click');
 };
