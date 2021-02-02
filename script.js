@@ -1,3 +1,8 @@
+function removeLoading() {
+  const loading = document.querySelector('.loading');
+  loading.remove();
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -75,6 +80,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function getProduct() {
+  removeLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
     .then(response => response.json())
     .then((object) => {
