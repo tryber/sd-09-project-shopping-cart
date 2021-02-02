@@ -54,7 +54,7 @@ function loading(operation) {
 }
 
 async function searchItemCart(sku) {
-  const API_URL = `https://api.mercadolibre.com/items/${sku}`;
+ // const API_URL = `https://api.mercadolibre.com/items/${sku}`;
   const classCartItems = document.querySelector('.cart__items');
   loading(true);
 
