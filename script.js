@@ -74,7 +74,7 @@ function updatePriceSum(price) {
 
     resolve();
   });
-};
+}
 
 async function asyncSum(price) {
   try {
