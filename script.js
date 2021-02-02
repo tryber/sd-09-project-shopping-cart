@@ -84,12 +84,20 @@ const restoreLocal = () => {
     selectItem.addEventListener('click', (event) => {
       if (event.target.classList.contains('cart__item')) {
         cartItemClickListener(event);
-      };
+      }
     });
-  };
+  }
+};
+
+const clearCart = () => {
+  document.querySelector('.empty-cart').addEventListener('click', () => {
+    localStorage.removeItem('saveLocal');
+    document.querySelector('.cart__items').innerText = '';
+  });
 };
 
 window.onload = function onload() {
   fetchProducts('computador');
   restoreLocal();
+  clearCart();
 };
