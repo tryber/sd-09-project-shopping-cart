@@ -62,6 +62,7 @@ li {
 .item .item__add {
   background-color: green;
   border: 0;
+  color: aliceblue;
   cursor: pointer;
   margin: 0;
   padding: 5px;
