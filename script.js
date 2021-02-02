@@ -28,14 +28,29 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function cartItemClickListener(event) {
+  // recuperar o botao referente ao click
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
 const fetchSingleProduct = async (id) => {
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
-  // const endpoint = `https://api.mercadolibre.com/items/${id}`;
+
   try {
     const response = await fetch(endpoint);
     const searchResult = await response.json();
-    // createCartItemElement(searchResult);
-    console.log(searchResult);
+    const { id: sku, title: name, price: salePrice } = searchResult;
+
+    const listItem = createCartItemElement({ sku, name, salePrice });
+    const cartItemsList = document.querySelector('.cart__items');
+    cartItemsList.appendChild(listItem);
     if (searchResult.error) {
       throw new Error(searchResult.error);
     }
@@ -47,9 +62,7 @@ const fetchSingleProduct = async (id) => {
 function handleClickAddToCart(event) {
   const sectionItem = event.target.parentNode;
   const sku = getSkuFromProductItem(sectionItem);
-  // cartItemClickListener(sku);
   fetchSingleProduct(sku);
-  // console.log(sku);
 }
 
 function addEventInAddToCartButton() {
@@ -91,20 +104,6 @@ async function fetchProducts() {
   } catch (error) {
     console.log(error);
   }
-}
-
-function cartItemClickListener(event) {
-  // recuperar o botao referente ao click
-  alert(event.target);
-  
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 window.onload = function onload() {
