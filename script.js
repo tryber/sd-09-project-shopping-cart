@@ -71,6 +71,7 @@ function searchItemCart(sku) {
   loading(false);
 }
 
+
 function makeButtonsListner() {
   const buttonAdd = document.querySelectorAll('.item__add');
   buttonAdd.forEach((button) => {
