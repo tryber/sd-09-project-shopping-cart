@@ -10,7 +10,7 @@ function saveItemCartOnLocalStorage(item) {
 async function removeFromLocalStorage(item) {
   const itemID = item.innerText.slice(5, 18);
   let saved = localStorage.getItem('itemToBuy');
-  saved = saved.split(',')
+  saved = saved.split(',');
   const toDelete = saved.indexOf(itemID);
   saved.splice(toDelete, 1);
   localStorage.setItem('itemToBuy', saved);
