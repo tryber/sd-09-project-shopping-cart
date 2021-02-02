@@ -1,7 +1,5 @@
 // window.onload = function onload() { };
 
-let totalPrice = 0;
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -38,15 +36,15 @@ const priceOfItemRemoved = (event) => {
   const sliceString = string.slice(search + 1);
   const price = parseInt(sliceString);
   return price;
-}
+};
 
 const removePrice = (event) => {
   const getPrice = document.querySelector('.total-price').innerText;
   const priceToDecrease = priceOfItemRemoved(event);
   const convertToNumber = parseInt(getPrice);
-  const totalPrice = Math.round((convertToNumber - priceToDecrease) * 100) / 100;
-  document.querySelector('.total-price').innerText = totalPrice;
-}
+  const decreasedTotal = Math.round((convertToNumber - priceToDecrease) * 100) / 100;
+  document.querySelector('.total-price').innerText = decreasedTotal;
+};
 
 function cartItemClickListener(event) {
   // const priceToDecrease = priceOfItemRemoved(event);
@@ -58,15 +56,6 @@ function cartItemClickListener(event) {
   localStorage.setItem('shopping-cart', cartList.innerHTML);
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  sumPrices(salePrice);
-  return li;
-}
-
 // Some o valor total dos itens do carrinho de compras de forma assíncrona
 
 const sumPrices = async (price) => {
@@ -75,6 +64,15 @@ const sumPrices = async (price) => {
   const totalPrice = await Math.round((convertedPrice + price) * 100) / 100;
   document.querySelector('.total-price').innerText = totalPrice;
 }
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  sumPrices(salePrice);
+  return li;
+};
 
 // Carregue o carrinho de compras atraves do LocalStorage ao iniciar a pagina
 
