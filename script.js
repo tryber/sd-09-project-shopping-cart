@@ -1,5 +1,3 @@
-let x = localStorage.length;
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -83,7 +81,6 @@ const clearCart = () => {
   const bntClearCart = document.querySelector('.empty-cart');
   bntClearCart.addEventListener('click', () => {
     const elementsToDelete = document.querySelectorAll('.cart__item');
-  
     if (elementsToDelete.length > 0) {
       elementsToDelete.forEach((element) => {
         localStorage.clear();
