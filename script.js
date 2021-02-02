@@ -61,7 +61,7 @@ function fetchAllProducts(query) {
     .catch((error) => {
       window.alert(error);
     });
-};
+}
 
 window.onload = function onload() {
   fetchAllProducts('computador');
