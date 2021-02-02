@@ -84,7 +84,7 @@ async function makeItems() {
           objectItem.name = item.title;
           objectItem.image = item.thumbnail;
           classItems.appendChild(createProductItemElement(objectItem));
-        });
+        })
       });
 
   loading(false);
