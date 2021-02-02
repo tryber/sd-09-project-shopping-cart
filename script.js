@@ -95,11 +95,17 @@ const addProductToCart = () => {
   });
 };
 
+const removeLoadin = () => {
+  const loadingSpan = document.querySelector('.loading');
+  loadingSpan.remove();
+};
+
 const fetchMLB = async (ProductType) => {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${ProductType}`;
   try {
     const response = await fetch(endPoint);
     const object = await response.json();
+    removeLoadin();
     object.results.forEach((element) => {
       const sectionElement = document.querySelector('.items');
       const sku = element.id;
