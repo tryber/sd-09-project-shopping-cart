@@ -5,8 +5,8 @@ window.onload = function onload() {
 function retrieveMercadoLivreResults(term) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
-  const response = fetch(endpoint);
-  const object =  response.json();
+  const response = await fetch(endpoint);
+  const object = await response.json();
   const results = object.results;
 
   results.forEach((result) => {
