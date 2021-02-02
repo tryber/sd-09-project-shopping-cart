@@ -179,7 +179,7 @@ function searchProduct() {
 
 function listenToSearchBtn() {
   const searchBtnButton = document.querySelector('button.search-btn');
-  
+
   searchBtnButton.addEventListener('click', searchProduct);
 }
 
