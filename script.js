@@ -20,7 +20,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(
-    createCustomElement('button', 'item__add', 'Adicionar ao carrinho!')
+    createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'),
   );
 
   return section;
@@ -70,7 +70,7 @@ function addItems(event) {
     const endpoint = `https://api.mercadolibre.com/items/${event.target.parentElement.firstChild.innerText}`;
 
     fetch(endpoint)
-      .then((response) => response.json())
+      .then(response => response.json())
       .then((data) => {
         const productInfo = {
           sku: data.id,
@@ -84,7 +84,7 @@ function addItems(event) {
         cartSection.appendChild(cartItemElement);
         updatePriceSum(productInfo.salePrice);
       })
-      .catch((error) => window.alert(error));
+      .catch(error => window.alert(error));
   }
 }
 
@@ -99,7 +99,7 @@ function fetchAPI(term) {
   const itemsSection = document.querySelector('.items');
 
   fetch(endpoint)
-    .then((response) => response.json())
+    .then(response => response.json())
     .then((data) => {
       data.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
@@ -110,7 +110,7 @@ function fetchAPI(term) {
         // };
 
         itemsSection.appendChild(
-          createProductItemElement({ sku, name, image })
+          createProductItemElement({ sku, name, image }),
         );
       });
     })
