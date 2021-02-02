@@ -4,11 +4,10 @@ function printTotalPrice(value) {
 }
 
 async function getTotalPriceItems() {
-  let saved = '';
+  let saved = [];
+  if (localStorage.getItem('itemToBuy')) saved = JSON.parse(localStorage.getItem('itemToBuy'));
   let amount = 0;
-  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
-  const arraySaved = saved.split(',');
-  arraySaved.forEach(async (item) => {
+  saved.forEach(async (item) => {
     const linkItem = `https://api.mercadolibre.com/items/${item}`;
     if (item) {
       try {
@@ -46,22 +45,19 @@ function createDivTotalPrice() {
 }
 
 function saveItemCartOnLocalStorage(item) {
-  let saved = '';
-  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
-  const arraySaved = saved.split(',');
-  const toSave = [...arraySaved];
-  toSave.push(item.sku);
-  localStorage.setItem('itemToBuy', toSave);
+  let saved = [];
+  if (localStorage.getItem('itemToBuy')) saved = JSON.parse(localStorage.getItem('itemToBuy'));
+  saved.push(item.sku);
+  localStorage.setItem('itemToBuy', JSON.stringify(saved));
   getTotalPriceItems();
 }
 
 async function removeFromLocalStorage(item) {
   const itemID = item.innerText.slice(5, 18);
-  let saved = localStorage.getItem('itemToBuy');
-  saved = saved.split(',');
+  let saved = JSON.parse(localStorage.getItem('itemToBuy'));
   const toDelete = saved.indexOf(itemID);
   saved.splice(toDelete, 1);
-  localStorage.setItem('itemToBuy', saved);
+  localStorage.setItem('itemToBuy', JSON.stringify(saved));
   getTotalPriceItems();
 }
 
@@ -185,10 +181,9 @@ async function fetchMercadoLivreAPI(search) {
 }
 
 function loadItemCartSavedOnLocalStorage() {
-  let saved = '';
-  if (localStorage.getItem('itemToBuy')) saved = localStorage.getItem('itemToBuy');
-  const arraySaved = saved.split(',');
-  arraySaved.forEach((item) => {
+  let saved = [];
+  if (localStorage.getItem('itemToBuy')) saved = JSON.parse(localStorage.getItem('itemToBuy'));
+  saved.forEach((item) => {
     if (item) fetchItemMercadoLivre(item, addItem = false);
   });
   getTotalPriceItems();
