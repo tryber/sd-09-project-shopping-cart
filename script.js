@@ -97,6 +97,14 @@ function localStorageCart() {
   }
 }
 
+const buttonClear = document.querySelector('.empty-cart');
+buttonClear.addEventListener('click', clearCart);
+
+function clearCart() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = '';
+}
+
 window.onload = function onload() {
   mercadoLivreFetch('computador');
   localStorageCart();
