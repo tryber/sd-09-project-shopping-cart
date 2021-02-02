@@ -101,7 +101,20 @@ async function fetchProducts(query) {
 //   fetchAddToCartRequest(id);
 // }
 
+function emptyCartList() {
+  const emptyListButton = document.querySelector('.empty-cart');
+  const ol = document.querySelector('ol');
+  const olLength = ol.children.length;
+  emptyListButton.addEventListener('click', function() {
+    for (let index = 0; index < olLength; index += 1) {
+      ol.firstElementChild.remove();
+    }
+    localStorage.clear();
+  });
+}
+
 window.onload = function onload() {
-  fetchProducts('computador');
+  fetchProducts('ps5');
   getStorageItems();
+  emptyCartList();
 };
