@@ -87,14 +87,6 @@ function addItems() {
   });
 }
 
-function loadAndSaveLocalStorage(item) {
-  if (!item) {
-  // const products = JSON.parse(localStorage.getItem('items'));
-  } else {
-  // localStorage.setItem('items', JSON.stringify(item));
-  }
-}
-
 window.onload = function onload() {
   getProductList();
   addItems();
