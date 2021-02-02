@@ -73,7 +73,7 @@ function cartItemClickListener(event) {
   eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
   const obj1 = [...Object.entries(localStorage)];
   for (let index = 0; index < obj1.length; index += 1) {
-    const [ position, data ] = obj1[index];
+    const [position, data] = obj1[index];
     const searchKey = JSON.parse(data).sku;
     if (eventTextIDproduct === searchKey) {
       localStorage.removeItem(position);
