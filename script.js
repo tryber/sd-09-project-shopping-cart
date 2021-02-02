@@ -1,15 +1,3 @@
-function setLocalStorage() {
-  const cartList = document.querySelector('.cart__items');
-  localStorage.setItem('items', cartList.innerHTML);
-}
-
-function getLocalStorage() {
-  if (localStorage.getItem('items') !== null) {
-    const cartList = document.querySelector('.cart__items');
-    cartList.innerHTML = localStorage.getItem('items');
-  }
-}
-
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -41,8 +29,10 @@ function getSkuFromProductItem(item) {
 }
 
 const cartItemClickListener = (event) => {
-  event.target.parentNode.removeChild(event.target);
-  setLocalStorage();
+  if(event.target.parentNode) {
+    event.target.parentNode.removeChild(event.target);
+    setLocalStorage();
+  }
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -51,6 +41,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function setLocalStorage() {
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('items', cartList.innerHTML);
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem('items')) {
+    const carttOl = document.querySelector('.cart__items');
+    carttOl.addEventListener('click', cartItemClickListener);
+    carttOl.innerHTML = localStorage.getItem('items');
+  }
 }
 
 function emptyCart() {
@@ -84,6 +87,13 @@ const addProductToCart = () => {
   }));
 };
 
+/* const sumValueOfProducts = () => {
+  const cartList = document.querySelectorAll('.cart__item');
+  const newArr = [];
+  cartList.forEach(item => newArr.push(item.innerText.split('$')[1]));
+  console.log(newArr)
+} */
+
 const fetchProducts = (product) => {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   const section = document.querySelector('section.items');
@@ -101,11 +111,11 @@ const fetchProducts = (product) => {
         return section.appendChild(createProductItemElement({ sku, name, image }));
       });
       addProductToCart();
-      getLocalStorage();
       emptyCart();
     })
     .catch(error => window.alert(error));
 };
 window.onload = function onload() {
   fetchProducts('computador');
+  getLocalStorage();
 };
