@@ -207,7 +207,7 @@ function loadLocalStorage() {
   const cart = document.querySelector('.cart');
   const parsedCart = JSON.parse(localStorage.getItem('cart'));
 
-    cart.innerHTML = parsedCart;
+  cart.innerHTML = parsedCart;
 }
 
 window.onload = function onload() {
