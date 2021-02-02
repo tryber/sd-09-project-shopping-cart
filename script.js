@@ -42,15 +42,9 @@ async function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
   const itemID = item.id;
-
-  let myCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
-  const itemToRemove = myCartItems.find(myItem => itemID === myItem.sku);
-  const indexToRemove = myCartItems.indexOf(itemToRemove);
-  myCartItems = myCartItems.slice(0, indexToRemove).concat(myCartItems.slice(indexToRemove + 1));
-  localStorage.setItem('savedCartItems', JSON.stringify(myCartItems));
-
   document.querySelector('.cart__items').removeChild(item);
   const endpoint = `https://api.mercadolibre.com/items/${itemID}`;
+
   fetch(endpoint)
     .then(response => response.json())
     .then(myitem => substractFromCart(myitem.price));
@@ -85,9 +79,7 @@ const sendToCart = async (event) => {
     name: myResponse.title,
     salePrice: myResponse.price,
   };
-  const myCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
-  myCartItems.push(myItem);
-  localStorage.setItem('savedCartItems', JSON.stringify(myCartItems));
+
   const myListItem = createCartItemElement(myItem);
   document.querySelector('.cart__items').appendChild(myListItem);
 };
@@ -121,33 +113,11 @@ const fetchSearch = async (query) => {
   addSendToCart();
 };
 
-const emptyCart = () => {
-  document.querySelector('.cart__items').innerHTML = '';
-  document.querySelector('.total-price').innerText = 0;
-};
-
-const emptyStorage = () => localStorage.setItem('savedCartItems', JSON.stringify([]));
-
-const getCartFromStorage = () => {
-  const mySavedItems = JSON.parse(localStorage.getItem('savedCartItems'));
-  emptyCart();
-  mySavedItems.forEach((item) => {
-    const myLi = createCartItemElement(item);
-    document.querySelector('.cart__items').appendChild(myLi);
-  });
-};
-
 window.onload = function onload() {
-  if (!localStorage.getItem('savedCartItems')) {
-    console.log('teste');
-    localStorage.setItem('savedCartItems', JSON.stringify([]));
-  } else {
-    getCartFromStorage();
-  }
 
   fetchSearch('Computador');
   document.querySelector('.empty-cart').addEventListener('click', () => {
-    emptyCart();
-    emptyStorage();
+    document.querySelector('.cart__items').innerHTML = '';
+    document.querySelector('.total-price').innerText = 0;
   });
 };
