@@ -29,7 +29,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // recuperar o botao referente ao click
+  const parent = event.target.parentNode;
+  parent.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
