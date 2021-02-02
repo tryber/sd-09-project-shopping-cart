@@ -34,14 +34,14 @@ const priceOfItemRemoved = (event) => {
   const string = event.target.innerText;
   const search = string.indexOf('$');
   const sliceString = string.slice(search + 1);
-  const price = parseInt(sliceString);
+  const price = parseFloat(sliceString);
   return price;
 };
 
 const removePrice = (event) => {
   const getPrice = document.querySelector('.total-price').innerText;
   const priceToDecrease = priceOfItemRemoved(event);
-  const convertToNumber = parseInt(getPrice);
+  const convertToNumber = parseFloat(getPrice);
   const decreasedTotal = Math.round((convertToNumber - priceToDecrease) * 100) / 100;
   document.querySelector('.total-price').innerText = decreasedTotal;
 };
@@ -60,10 +60,10 @@ function cartItemClickListener(event) {
 
 const sumPrices = async (price) => {
   const getPrice = document.querySelector('.total-price').innerText;
-  const convertedPrice = parseInt(getPrice);
+  const convertedPrice = parseFloat(getPrice);
   const totalPrice = await Math.round((convertedPrice + price) * 100) / 100;
   document.querySelector('.total-price').innerText = totalPrice;
-}
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -72,7 +72,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   sumPrices(salePrice);
   return li;
-};
+}
 
 // Carregue o carrinho de compras atraves do LocalStorage ao iniciar a pagina
 
