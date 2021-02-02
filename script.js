@@ -54,7 +54,7 @@ const addItemOnCart = async (param) => {
   }
 };
 
-const addToShoppingCart = async (event) => {
+const addToShoppingCart = () => {
   const btnItems = document.querySelectorAll('.item__add');
   btnItems.forEach((btn) => {
     btn.addEventListener('click', (event) => {
