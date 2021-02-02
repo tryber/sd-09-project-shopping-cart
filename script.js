@@ -53,12 +53,12 @@ function loading(operation) {
   }
 }
 
-async function searchItemCart(sku) {
-  if (sku) {
-    loading(true);
-  }
-  loading(false);
-}
+// async function searchItemCart(sku) {
+//   if (sku) {
+//     loading(true);
+//   }
+//   loading(false);
+// }
 
 // function makeButtonsListner() {
 //   const buttonAdd = document.querySelectorAll('.item__add');
