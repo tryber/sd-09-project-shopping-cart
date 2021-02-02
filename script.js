@@ -29,13 +29,16 @@ function getSkuFromProductItem(item) {
 }
 
 function startLoading() {
-  const loading = document.querySelector('.loading');
-  loading.innerText = 'loading...';
+  const paragraph = document.createElement('p');
+  paragraph.className = 'loading';
+  paragraph.innerText = 'loading...';
+  const body = document.querySelector('body');
+  body.appendChild(paragraph);
 }
 
 function stopLoading() {
   const loading = document.querySelector('.loading');
-  loading.innerText = '';
+  loading.remove();
 }
 
 function sumItems() {
@@ -135,8 +138,8 @@ async function loadingItems() {
           const containerItems = document.querySelector('.items');
           containerItems.appendChild(section);
         }));
-      stopLoading();
     });
+  stopLoading();
 }
 
 window.onload = function onload() {
