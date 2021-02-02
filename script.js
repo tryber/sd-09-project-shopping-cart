@@ -37,7 +37,7 @@ const targetElement = (event) => {
 };
 
 const lessPrice = (event) => {
-  const totalPrice = document.querySelector('.total_price');
+  const totalPrice = document.querySelector('.total-price');
   element = targetElement(event);
   const arrayItems = element.parentNode.childNodes;
   const itemIndex = Object.values(arrayItems).findIndex(item => item === element);
@@ -61,7 +61,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 const sumPrices = () => {
   const sumTotal = priceArray.reduce((a, b) => a + b);
-  const tagTotalPrice = document.querySelector('.total_price');
+  const tagTotalPrice = document.querySelector('.total-price');
   tagTotalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
 };
 
@@ -109,7 +109,7 @@ const itemsList = async (search) => {
 const clearList = () => {
   const ol = document.querySelector('.cart__items');
   while (ol.firstChild) { ol.firstChild.remove(); }
-  const totalPrice = document.querySelector('.total_price');
+  const totalPrice = document.querySelector('.total-price');
   totalPrice.textContent = 'Total: R$ 0,00';
 };
 
