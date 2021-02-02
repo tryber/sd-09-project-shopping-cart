@@ -29,8 +29,8 @@ function sumValues() {
   const itemListLi = document.querySelectorAll('.cart__item');
   if (itemListLi.length > 0) {
     itemListLi.forEach((element) => {
-    prices.push(element.innerText.split('$')[1]);
-  });
+      prices.push(element.innerText.split('$')[1]);
+    });
   }
   const sumOfAllPrices = prices.reduce((a, b) => +(a) + +(b), 0);
   const spanTotalPrices = document.querySelector('.total-price');
