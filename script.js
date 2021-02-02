@@ -115,9 +115,21 @@ function storageItems() {
   }
 }
 
+function clearCartItems() {
+  const clearButton = document.querySelector('.empty-cart');
+  clearButton.addEventListener('click', () => {
+    const cartItems = document.querySelectorAll('.cart__item');
+    cartItems.forEach(item => item.remove());
+    document.querySelector('.total-price').innerText = '';
+    localStorage.totalPrice = 0;
+    localStorage.myCart = '';
+  });
+}
+
 window.onload = function onload() {
   createProductsList('computador');
-  document.querySelector('.cart').appendChild(createCustomElement('span', 'total-price', 0));
+  document.querySelector('.cart').appendChild(createCustomElement('span', 'total-price', ''));
   storageItems();
   buttonTest();
+  clearCartItems();
 };
