@@ -28,6 +28,22 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function sumPrice() {
+  const sumTotal = document.querySelector('#price');
+  const allli = document.querySelectorAll('li');
+  let sum = 0;
+
+  if (allli.length === 0) {
+    return (sumTotal.innerHTML = `Preco total: $${sum}`);
+  }
+  allli.forEach((element) => {
+    const id = element.innerText.split(' ')[element.innerText.split(' ').length - 1];
+    sum += parseInt(id.substr(1));
+    
+  });
+  return (sumTotal.innerHTML = `Preco total: $${sum}`);
+}
+
 const newObject = (element) => {
   const { id, title, thumbnail, price } = element;
   const object = {
@@ -56,13 +72,13 @@ const salveItem = () => {
     arrayItem.push(element.innerText);
   });
   localStorage.setItem('listItemCart', JSON.stringify(arrayItem));
-  localStorage.setItem('priceItemTotal', priceTotal.innerHTML)
+  localStorage.setItem('priceItemTotal', priceTotal.innerHTML);
 };
 
 function cartItemClickListener(event) {
   // coloque seu código aqui.
   event.target.remove();
-  sumPrice()
+  sumPrice();
   salveItem();
 }
 
@@ -86,7 +102,7 @@ const fetchListCart = (id) => {
         throw new Error(object.error);
       }
       listCartMain.appendChild(createCartItemElement(newObject(object)));
-      sumPrice()
+      sumPrice();
       salveItem();
     })
     .catch(erro => console.log(erro));
@@ -122,24 +138,17 @@ const addListItem = (text, className) => {
   listCartMain.appendChild(li);
 };
 
-function sumPrice() {
-  let sumTotal = document.querySelector('#price');
-  const allli = document.querySelectorAll('li');
-  let sum = 0;
+const clearListItem = () => {
+  const allList = document.querySelectorAll('.cart__item');
+  allList.forEach(element => element.remove());
+};
 
-  if (allli.length === 0) {
-    return sumTotal.innerHTML = `Preco total: $${sum}`;;
-  }
-  allli.forEach(element => {
-    const id = element.innerText.split(' ')[element.innerText.split(' ').length-1];
-    sum += parseInt(id.substr(1));
-    sumTotal.innerHTML = `Preco total: $${sum}`;
-  })
-}
+const buttonClear = document.querySelector('.empty-cart');
+
 
 const returnLocalStorage = () => {
   const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
-  const priceLocalStorage = localStorage.getItem('priceItemTotal')
+  const priceLocalStorage = localStorage.getItem('priceItemTotal');
   const priceTotal = document.querySelector('#price');
   if (arrayItem === null) {
     return;
