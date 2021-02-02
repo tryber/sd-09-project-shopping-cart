@@ -2,34 +2,6 @@ window.onload = function onload() {
   retrieveMercadoLivreResults('computador');
 };
 
-function createProductImageElement(imageSource) {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-  img.src = imageSource;
-  return img;
-}
-
-async function retrieveMercadoLivreResults(computador) {
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
-  const reponse = await fetch(endpoint);
-  const object = await reponse.json();
-  const results = object.results;
-  const itemsElement = document.querySelector('.items');
-
-  results.forEach((result) => {
-    const { id : sku, title : name, thumbnail : image } = result;
-    const element = createProductItemElement({ sku, name, image });
-    itemsElement.appendChild(element);
-  });
-}
-
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
-
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -40,6 +12,34 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
   return section;
+}
+
+async function retrieveMercadoLivreResults(computador) {
+  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
+  const reponse = await fetch(endpoint);
+  const object = await reponse.json();
+  const results = object.results;
+  const itemsElement = document.querySelector('.items');
+
+  results.forEach((result) => {
+    const { id:sku, title:name, thumbnail:image } = result;
+    const element = createProductItemElement({ sku, name, image });
+    itemsElement.appendChild(element);
+  });
+}
+
+function createProductImageElement(imageSource) {
+  const img = document.createElement('img');
+  img.className = 'item__image';
+  img.src = imageSource;
+  return img;
+}
+
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
 }
 
 function getSkuFromProductItem(item) {
