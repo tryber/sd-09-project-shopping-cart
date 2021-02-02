@@ -1,18 +1,18 @@
-window.onload = function onload() { 
+window.onload = function onload() {
   retrieveMercadoLivreResults();
 };
 
 function retrieveMercadoLivreResults(term) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
-  const response = await fetch(endpoint);
+  const response = fetch(endpoint);
   const object = await response.json();
   const results = object.results;
 
   results.forEach((result) => {
     const { id: sku, title: name, thumbnail } = result;
     const element = createProductItemElement({sku, name, thumbnail });
-    
+
   })
 }
 
