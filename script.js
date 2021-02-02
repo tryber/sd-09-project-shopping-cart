@@ -56,12 +56,24 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function updatePriceSum(price) {
-  const totalPriceSpan = document.querySelector('#total-price');
-  let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
+// function updatePriceSum(price) {
+//   const totalPriceSpan = document.querySelector('#total-price');
+//   let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
 
-  parseTotalPrice += price;
-  totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
+//   parseTotalPrice += price;
+//   totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
+// }
+
+const updatePriceSum = (price) => {
+  return new Promise((resolve, reject) => {
+    const totalPriceSpan = document.querySelector('#total-price');
+    let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
+
+    parseTotalPrice += price;
+    totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
+
+    resolve()
+  })
 }
 
 async function asyncSum(price) {
