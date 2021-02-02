@@ -105,6 +105,7 @@ const addListenersToPageItems = () => {
 };
 
 const fetchApiResultsAddToPage = async () => {
+  addLoadingText();
   const query = 'computador';
   const endpointURL = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
 
@@ -121,6 +122,7 @@ const fetchApiResultsAddToPage = async () => {
   } catch (error) {
     alert(error);
   }
+  document.querySelector('.loading').remove();
 };
 
 const retrieveCartFromLocalStorage = () => {
