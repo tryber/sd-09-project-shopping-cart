@@ -30,6 +30,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  lessPrice(event);
   event.target.remove();
 }
 
@@ -41,13 +42,29 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-let sumPrice = 0;
-const sumPrices = (price) => {
-  const totalPrice = document.querySelector('.total_price');
-  sumPrice += price;
+let priceArray = [];
 
-  totalPrice.textContent = Math.round(sumPrice * 100) / 100;
+const targetElement = (event) => {
+  const item = event.target;
+  return item;
+}
+
+const sumPrices = () => {
+  const sumTotal = priceArray.reduce((a, b) =>  a + b )
+  const tagTotalPrice = document.querySelector('.total_price');
+  tagTotalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
 };
+
+const lessPrice = (event) => {
+  const totalPrice = document.querySelector('.total_price');
+  const ol = document.querySelector('.cart__items');
+  element = targetElement(event);
+  let arrayItems = element.parentNode.childNodes;
+  let itemIndex = Object.values(arrayItems).findIndex(item => item === element);
+  priceArray.splice(itemIndex, 1)
+  const sumTotal = priceArray.length > 0? priceArray.reduce((a, b) =>  a + b ): 0;
+  totalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
+}
 
 const addItemOnCart = async (param) => {
   try {
@@ -55,12 +72,14 @@ const addItemOnCart = async (param) => {
     const jsonEndPoint = await endPointId.json();
     const ol = document.querySelector('.cart__items');
     const { id: sku, title: name, price: salePrice } = jsonEndPoint;
-    sumPrices(salePrice);
+    priceArray.push(salePrice);
+    sumPrices();
     ol.appendChild(createCartItemElement({ sku, name, salePrice }));
   } catch (error) {
     console.log(error);
   }
 };
+
 
 const addToShoppingCart = () => {
   const btnItems = document.querySelectorAll('.item__add');
@@ -91,11 +110,19 @@ const itemsList = async (search) => {
 const clearList = () => {
   const ol = document.querySelector('.cart__items');
   while (ol.firstChild) { ol.firstChild.remove(); }
+  const totalPrice = document.querySelector('.total_price');
+  totalPrice.textContent = 'Total: R$ 0,00';
 };
+
+// const eventListenerOnCart = () => {
+//   const ol = document.querySelector('.cart__items')
+//   ol.addEventListener('click', lessPrice)
+// }
 
 const addEvent = () => {
   const btnClear = document.querySelector('.empty-cart');
   btnClear.addEventListener('click', clearList);
+  // eventListenerOnCart()
 };
 
 window.onload = function onload() {
