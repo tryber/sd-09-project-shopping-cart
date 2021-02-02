@@ -80,6 +80,17 @@ const itemsList = async (search) => {
   }
 };
 
+const clearList = () => {
+  const ol = document.querySelector('.cart__items');
+  while (ol.firstChild) {ol.firstChild.remove()}
+}
+
+const addEvent = () => {
+  const btnClear = document.querySelector('.empty-cart');
+  btnClear.addEventListener('click', clearList)
+}
+
 window.onload = function onload() {
   itemsList('computador');
+  addEvent();
 };
