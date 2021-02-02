@@ -2,6 +2,13 @@ const search = (url, query) => url.replace('$QUERY', query);
 const sumSpan = document.querySelector('.total-price');
 const emptyCartButton = document.querySelector('.empty-cart');
 
+async function updateSumOfPrices() {
+  const items = Array.from(document.querySelectorAll('.cart__item--info'));
+  const sum = !items ? 0 : items.map(item => JSON.parse(item.innerText))
+    .reduce((acc, { salePrice }) => acc + salePrice, 0);
+  sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `${Math.round(sum * 100) / 100}`;
+}
+
 emptyCartButton.addEventListener('click', () => {
   const cart = document.querySelector('.cart__items');
   if (!cart.children.length) {
@@ -26,12 +33,6 @@ async function fetchAds(query) {
   }
 }
 
-async function updateSumOfPrices() {
-  const items = Array.from(document.querySelectorAll('.cart__item--info'));
-  const sum = !items ? 0 : items.map(item => JSON.parse(item.innerText))
-    .reduce((acc, { salePrice }) => acc + salePrice, 0);
-  sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `${Math.round(sum * 100) / 100}`;
-}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
