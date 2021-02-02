@@ -132,7 +132,6 @@ function clearCart() {
   totalPrice();
 }
 
-
 window.onload = function onload() {
   mercadoLivreFetch('computador');
   localStorageCart();
