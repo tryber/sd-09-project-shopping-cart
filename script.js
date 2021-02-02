@@ -40,6 +40,11 @@ function getSku(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function saveCartStorage() {
+  const getcart = document.querySelector('.cart__items');
+  localStorage.setItem('cart', getcart.innerHTML);
+}
+
 function addItemCart() {
   const itemsElement = document.querySelector('.items');
   itemsElement.addEventListener('click', async (event) => {
@@ -88,38 +93,12 @@ async function fetchMercadoLivre(term) {
   });
   removeLoading();
 }
-
-async function cartCheckout() {
-  const productsCart = document.querySelector('.cart_items');
-  let checkoutPrice = 0
-  productsCart.forEach(checkoutPrice => (checkoutPrice += parseFloat(item.innerText.split('$')[1])
-  ));
-  return checkoutPrice
-}
-
-async function checkoutElement() {
-  try {
-    const checkoutPrice = await cartCheckout();
-    const cart = document.querySelector('.cart');
-    const checkoutPriceElement = document.createElement('span');
-    checkoutPriceElement.className = 'total-price';
-    checkoutPriceElement.innerText = Math.round(checkoutPrice * 100) / 100;
-    cart.appendChild(checkoutPriceElement);
-  } catch (error) {
-    window.alert(error);
-  }
-}
-
-function updateCheckoutPrice() {
-  const checkoutPriceElement = document.querySelector('.total-price');
-  checkoutPriceElement.remove();
-  checkoutElement();
-}
-
-function saveCartStorage() {
-  const getcart = document.querySelector('.cart__items');
-  localStorage.setItem('cart', getcart.innerHTML);
-}
+const addToPrice = async (price) => {
+  let total = document.querySelector('.total-price').innerText;
+  total = await parseFloat(total);
+  total = Math.round((total + price) * 100) / 100;
+  document.querySelector('.total-price').innerText = total;
+};
 
 function loadCartStorage() {
   const getcart = document.querySelector('.cart__items');
@@ -131,7 +110,6 @@ function emptyCartcheckout() {
     const checkout = document.querySelectorAll('.cart__item');
     checkout.forEach(item => item.remove());
     localStorage.removeItem('cart');
-    updateCheckoutPrice();
   });
 }
 
