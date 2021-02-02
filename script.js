@@ -1,3 +1,15 @@
+function setLocalStorage() {
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('items', cartList.innerHTML);
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem('items') !== null) {
+    const cartList = document.querySelector('.cart__items');
+    cartList.innerHTML = localStorage.getItem('items');
+  }
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -28,8 +40,9 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const cartItemClickListener = (event) => {
+const cartItemClickListener= (event) => {
   event.target.parentNode.removeChild(event.target);
+  setLocalStorage();
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -45,6 +58,7 @@ function emptyCart() {
   button.addEventListener('click', () => {
     const cartList = document.querySelectorAll('.cart__item');
     cartList.forEach(item => (item.parentNode.removeChild(item)));
+    setLocalStorage();
   });
 }
 
@@ -62,7 +76,9 @@ const addProductToCart = () => {
         const sku = getId;
         const name = obj.title;
         const salePrice = obj.price;
-        ol.appendChild(createCartItemElement({ sku, name, salePrice }));
+        const item = createCartItemElement({ sku, name, salePrice });
+        ol.appendChild(item);
+        setLocalStorage();
       })
       .catch(error => window.alert(error));
   }));
@@ -85,10 +101,11 @@ const fetchProducts = (product) => {
         return section.appendChild(createProductItemElement({ sku, name, image }));
       });
       addProductToCart();
+      getLocalStorage();
+      emptyCart();
     })
     .catch(error => window.alert(error));
 };
 window.onload = function onload() {
   fetchProducts('computador');
-  emptyCart();
 };
