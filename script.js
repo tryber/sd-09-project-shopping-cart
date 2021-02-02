@@ -37,17 +37,17 @@ function addItemNoCarrinho(id) {
           sku: object.id,
           name: object.title,
           salePrice: object.price,
-      };
+        };
         const addItem = createCartItemElement(itensInfo);
         itens.appendChild(addItem);
-    }),
+      }),
   );
-};
+}
 
 async function resolveCarrinho(event) {
   const selectElement = await event.target.parentElement;
-    await addItemNoCarrinho(getSkuFromProductItem(selectElement));
-  };
+  await addItemNoCarrinho(getSkuFromProductItem(selectElement));
+}
 
 
 function createProductItemElement({ sku, name, image }) {
@@ -57,7 +57,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   const createCustomEl = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
-  createCustomEl.addEventListener('click', resolveCarrinho)
+  createCustomEl.addEventListener('click', resolveCarrinho);
   section.appendChild(createCustomEl);
 
   return section;
