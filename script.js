@@ -72,7 +72,11 @@ async function fetchProducts(query) {
   addToCart();
 }
 
+function saveCart() {
+  const cart = document.querySelectorAll('.cart__item');
+  localStorage.setItem('item', cart.innerHTML);
+}
+
 window.onload = function onload() {
   fetchProducts('computador');
-  setTimeout(() => addToCart(), 500);
 };
