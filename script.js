@@ -15,7 +15,6 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -38,6 +37,16 @@ const priceSum = () => {
 
 const saveCartItens = () => {
   localStorage.setItem('myCart', document.querySelector('.cart__items').innerHTML);
+};
+
+const emptyCart = () => {
+  const emptyButton = document.querySelector('.empty-cart');
+  const cartOl = document.querySelector('ol');
+  const priceSpan = document.querySelector('.total-price');
+  emptyButton.addEventListener('click', () => {
+    cartOl.innerHTML = '';
+    priceSpan.innerText = 0;
+  });
 };
 
 function getSkuFromProductItem(item) {
@@ -108,4 +117,5 @@ window.onload = function onload() {
   fetchMLB('computador');
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('myCart');
   priceSum();
+  emptyCart();
 };
