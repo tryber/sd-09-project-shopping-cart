@@ -10,7 +10,7 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-const refreshTotalPrice = () => {
+const refreshTotalPrice = async () => {
   let actualPrice = 0;
   const listItems = document.querySelectorAll('.cart__item');
   listItems.forEach((item) => {
