@@ -7,14 +7,14 @@ function createProductImageElement(imageSource) {
 
 function setLocalStorage() {
   const selectList = document.querySelector('ol');
-  localStorage.setItem('item', selectList.innerHTML)
-};
+  localStorage.setItem('item', selectList.innerHTML);
+}
 
 function getLocalStorage() {
   const selectList = document.querySelector('ol');
   if (localStorage.getItem('item')) {
     selectList.innerHTML = localStorage.getItem('item');
-  };
+  }
 }
 
 function createCustomElement(element, className, innerText) {
