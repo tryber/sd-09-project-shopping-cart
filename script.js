@@ -1,19 +1,8 @@
-function createDviTotalPrice() {
-  const cart = document.querySelector('.cart');
-  const totalPrice = document.createElement('div');
-  const price = document.createElement('span');
-  price.classList.add('price');
-  price.innerText = 0;
-  totalPrice.classList.add('total-price');
-  totalPrice.innerHTML = 'Preço total: $';
-  cart.appendChild(totalPrice);
-  totalPrice.appendChild(price);
-}
-
 function printTotalPrice(value) {
   const price = document.querySelector('.price');
-  price.innerText = value;
+  price.innerText = value.toFixed(2);
 }
+
 async function getTotalPriceItems() {
   let saved = '';
   let amount = 0;
@@ -32,6 +21,28 @@ async function getTotalPriceItems() {
     }
     printTotalPrice(amount);
   });
+}
+
+function clearCart() {
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', () => {
+    const itemsInCart = document.querySelectorAll('.cart__item');
+    itemsInCart.forEach((item) => item.remove());
+    localStorage.setItem('itemToBuy', '');
+    getTotalPriceItems();
+  });
+}
+
+function createDivTotalPrice() {
+  const cart = document.querySelector('.cart');
+  const totalPrice = document.createElement('div');
+  const price = document.createElement('span');
+  price.classList.add('price');
+  price.innerText = 0;
+  totalPrice.classList.add('total-price');
+  totalPrice.innerHTML = 'Preço total: $';
+  cart.appendChild(totalPrice);
+  totalPrice.appendChild(price);
 }
 
 function saveItemCartOnLocalStorage(item) {
@@ -168,7 +179,8 @@ function loadItemCartSavedOnLocalStorage() {
 }
 
 window.onload = function onload() {
-  createDviTotalPrice();
+  createDivTotalPrice();
   fetchMercadoLivreAPI('computador');
   loadItemCartSavedOnLocalStorage();
+  clearCart();
 };
