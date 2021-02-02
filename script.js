@@ -30,9 +30,6 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  if (event.target.className === 'item__add') {
-    event = event.target.parentNode.firstChild.innerText;
-  }
   return event;
 }
 
