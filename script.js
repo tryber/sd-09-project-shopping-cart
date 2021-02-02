@@ -38,6 +38,31 @@ function cartItemClickListener(event) {
   localStorage.setItem('MLCart', JSON.stringify(newStorage));
 }
 
+function rebuildCart() {
+  const localStorageItens = JSON.parse(localStorage.getItem('MLCart'));
+  if (localStorageItens === null) {
+    return;
+  }
+  localStorageItens.forEach((ite) => {
+    let storSku = ite.sku;
+    let storName = ite.name;
+    let storSalePrice = ite.salePrice;
+    let storId = ite.id;
+    let storReturn = rebuildCartItemElement({ storSku, storName, storSalePrice, storId });
+    const storCartItens = document.querySelector('.cart__items');
+    storCartItens.appendChild(storReturn);
+  });
+}
+
+function rebuildCartItemElement({ storSku, storName, storSalePrice, storId }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.id = storId;
+  li.innerText = `SKU: ${storSku} | NAME: ${storName} | PRICE: $${storSalePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
 function getRandomInt() {
   min = Math.ceil(1);
   max = Math.floor(8000);
@@ -108,4 +133,5 @@ const fetchItensComputers = async () => {
 
 window.onload = function onload() {
   fetchItensComputers();
+  rebuildCart();
 };
