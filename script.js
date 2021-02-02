@@ -33,18 +33,25 @@ const includeLocalStorage = ({ sku, name, salePrice }) => {
   localStorage.setItem(`product-${localStorage.length + 1}`, JSON.stringify({ sku, name, salePrice }));
 };
 
+let totalItemsCart = 0;
+
+const sumPricesCart = price => (totalItemsCart += price);
+
 // Removendo item e reordenando lista da LocalStorage
 const rewritingList = () => {
   const liProductsCart = document.querySelectorAll('.cart__item');
 
   localStorage.clear();
-  liProductsCart.forEach((item) => {
+  totalItemsCart = 0;
+  liProductsCart.forEach(async (item) => {
     const arrayItem = item.innerText.split(' | ');
     const id = arrayItem[0].split(': ')[1];
     const title = arrayItem[1].split(': ')[1];
-    const price = arrayItem[2].split(': ')[1];
-
+    const price = arrayItem[2].split(': ')[1].replace('$', '');
     includeLocalStorage({ sku: id, name: title, salePrice: price });
+
+    const total = await sumPricesCart(parseFloat(price)).toFixed(2);
+    document.querySelector('.total-price').innerText = `Preço total: $${total}`;
   });
 };
 
@@ -62,9 +69,12 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 // Adicionando itens no Carrinho de Compras
-const addListItem = ({ sku, name, salePrice }) => {
+const addListItem = async ({ sku, name, salePrice }) => {
   const productCart = createCartItemElement({ sku, name, salePrice });
   document.querySelector('.cart__items').appendChild(productCart);
+
+  await sumPricesCart(parseFloat(salePrice));
+  document.querySelector('.total-price').innerText = `Preço total: $${totalItemsCart.toFixed(2)}`;
 };
 
 // Adicionando ao Carrinho de Compras
@@ -75,7 +85,6 @@ const addProductCart = async (event) => {
   const json = await response.json();
 
   const { id, title, price } = json;
-
   addListItem({ sku: id, name: title, salePrice: price });
   includeLocalStorage({ sku: id, name: title, salePrice: price });
 };
@@ -106,4 +115,6 @@ window.onload = function onload() {
       addListItem(objectProductStorage);
     }
   }
+
+  document.querySelector('.cart').appendChild(createCustomElement('p', 'total-price', 'Preço total: $0'));
 };
