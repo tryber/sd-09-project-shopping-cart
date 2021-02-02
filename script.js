@@ -32,13 +32,9 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
   const id = Number(item.id);
-  console.log(id);
   document.querySelector('.cart__items').removeChild(item);
   const storageItem = JSON.parse(localStorage.getItem('MLCart'));
   const newStorage = storageItem.filter(itens => itens.id !== id);
-  console.log(newStorage);
-
-
 }
 
 function getRandomInt() {
