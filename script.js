@@ -129,4 +129,3 @@ window.onload = async function onload() {
   getCartProducts();
   getProducts();
 };
-
