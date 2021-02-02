@@ -29,6 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  event.target.remove();
 }
 
 function fetchProducts(query) {
