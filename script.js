@@ -70,7 +70,7 @@ function itemListClickListener() {
     const obj = { sku: itemSearched.id, name: itemSearched.title, salePrice: itemSearched.price };
     cartList.appendChild(createCartItemElement(obj));
     // local storage save
-    localStorage.setItem(Math.random() * 100, JSON.stringify(obj));
+    localStorage.setItem(localStorage.length, JSON.stringify(obj));
   }));
 }
 
@@ -84,13 +84,14 @@ function fillSectiomItems(data) {
 }
 
 function fillCartLoadItems() {
-  const values = Object.values(localStorage)
-  for (let index = 0; index < values.length; index += 1) {
-    const value = JSON.parse(values[index]);
+  const values = Object.entries(localStorage);
+  values.sort((a,b) => Number(a[0]) - Number(b[0]));
+  values.forEach((value) => {
+    const obj = JSON.parse(value[1]);
     const cartList = document.querySelector('.cart');
-    const cartObject = { sku: value.sku, name: value.name, salePrice: value.salePrice };
+    const cartObject = { sku: obj.sku, name: obj.name, salePrice: obj.salePrice };
     cartList.appendChild(createCartItemElement(cartObject));
-  };
+  });
 }
 
 async function start() {
