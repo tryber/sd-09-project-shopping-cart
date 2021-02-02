@@ -77,7 +77,15 @@ async function getMLResults() {
   });
 }
 
+function emptyCart() {
+  emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = ''
+  });
+}
+
 window.onload = function onload() {
   getMLResults();
   addToCart();
+  emptyCart();
 };
