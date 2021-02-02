@@ -55,8 +55,8 @@ function createCartItemElement({ sku, name, salePrice, id }) {
 
 const objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
-  const id = getSkuFromProductItem(event.target.parentNode);
-  const endpoint = `https://api.mercadolibre.com/items/${id}`;
+  const api = getSkuFromProductItem(event.target.parentNode);
+  const endpoint = `https://api.mercadolibre.com/items/${api}`;
 
   try {
     const response = await fetch(endpoint);
@@ -73,10 +73,10 @@ const fetchSelectedItem = async (event) => {
     const cartItens = document.querySelector('.cart__items');
     cartItens.appendChild(result);
     objLocalStorage.push({ 
-      sku: sku, 
-      name: name, 
-      salePrice: salePrice, 
-      id: id });
+    sku: sku, 
+    name: name, 
+    salePrice: salePrice, 
+    id: id });
     localStorage.setItem('MLCart', JSON.stringify(objLocalStorage));
   } catch (error) {
     window.alert(error);
