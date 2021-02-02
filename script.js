@@ -44,11 +44,11 @@ function rebuildCart() {
     return;
   }
   localStorageItens.forEach((ite) => {
-    let storSku = ite.sku;
-    let storName = ite.name;
-    let storSalePrice = ite.salePrice;
-    let storId = ite.id;
-    let storReturn = rebuildCartItemElement({ storSku, storName, storSalePrice, storId });
+    const storSku = ite.sku;
+    const storName = ite.name;
+    const storSalePrice = ite.salePrice;
+    const storId = ite.id;
+    const storReturn = rebuildCartItemElement({ storSku, storName, storSalePrice, storId });
     const storCartItens = document.querySelector('.cart__items');
     storCartItens.appendChild(storReturn);
   });
