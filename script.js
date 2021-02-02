@@ -12,11 +12,15 @@ async function sumPrice() {
   const productsList = document.querySelectorAll('.cart__item');
   productsList.forEach((item) => {
     if (!array.includes(item)) {
-      array.push(parseFloat(item.innerText.split('PRICE: $')[1]));
+      if (item.innerText.split('PRICE: $')[1].includes('.')) {
+        array.push(parseFloat(item.innerText.split('PRICE: $')[1]));
+      } else {
+        array.push(parseInt(item.innerText.split('PRICE: $')[1], 10));
+      }
     }
   });
   const sum = await array.reduce((acc, curr) => acc + curr, 0);
-  localStorage.setItem('value', sum.toFixed(2));
+  localStorage.setItem('value', sum);
   totalValue.innerText = localStorage.getItem('value');
 }
 
