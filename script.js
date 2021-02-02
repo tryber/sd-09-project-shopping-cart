@@ -30,12 +30,12 @@ function getSkuFromProductItem(item) {
 
 function saveCart() {
   const cart = document.querySelector('.cart__items');
-  localStorage.setItem('item', cart.innerHTML);
+  localStorage.setItem('cart', cart.innerHTML);
 }
 
 function getCart() {
   const cart = document.querySelector('.cart__items');
-  cart.innerHTML = localStorage.getItem('item');
+  cart.innerHTML = localStorage.getItem('cart');
 }
 
 function cartItemClickListener(event) {
