@@ -62,7 +62,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function itemListClickListener() {
   const buttons = document.querySelectorAll('.item__add');
-  const cartList = document.querySelector('.cart');
+  const cartList = document.querySelector('.cart__items');
   buttons.forEach(button => button.addEventListener('click', async function (event) {
     const itemID = getSkuFromProductItem(event.target.parentNode);
     const itemSearched = await fetchItemsById(itemID);
