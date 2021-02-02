@@ -70,7 +70,7 @@ function cartItemClickListener() {
   cartItemsOl.addEventListener('click', (event) => {
     const element = event.target;
     if (element.classList.contains('cart__item')) {
-      const itemSku = getSkuFromProductItem(element);
+      const itemSku = element.innerText.split(':')[1].split('|')[0].trim();
       shoppingCart.remove(itemSku);
       shoppingCart.save();
       element.remove();
@@ -120,7 +120,6 @@ const searchFor = (searchTerm) => { showResultsFor(searchTerm); };
 
 const addItemElementToCart = (itemObject) => {
   const itemCartElement = createCartItemElement(itemObject);
-  itemCartElement.appendChild(createCustomElement('span', 'item__sku', itemObject.sku));
   cartItemsOl.appendChild(itemCartElement);
   updateBalance();
 };
