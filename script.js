@@ -158,7 +158,7 @@ function showLoadingStatus() {
 
 function removeLoadingStatus() {
   const loading = document.querySelector('.loading');
-  loading.innerHTML = '';
+  loading.remove();
 }
 
 async function fetchMercadoLivreAPI(search) {
