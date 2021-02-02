@@ -75,6 +75,12 @@ const emptyLocalStorage = () => {
   localStorage.setItem('savedCartItems', JSON.stringify([]));
 };
 
+const sendItemToStorage = (item) => {
+  const myCartItems = JSON.parse(localStorage.getItem('savedCartItems'));
+  myCartItems.push(item);
+  localStorage.setItem('savedCartItems', JSON.stringify(myCartItems));
+};
+
 const sendToCart = async (event) => {
   const mySku = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${mySku}`;
@@ -90,6 +96,7 @@ const sendToCart = async (event) => {
 
   const myListItem = createCartItemElement(myItem);
   document.querySelector('.cart__items').appendChild(myListItem);
+  sendItemToStorage(myItem);
 };
 
 const addSendToCart = () => {
@@ -127,4 +134,8 @@ window.onload = function onload() {
     emptyCart();
     emptyLocalStorage();
   });
+
+  if (!localStorage.getItem('savedCartItems')) {
+    localStorage.setItem('savedCartItems', JSON.stringify([]));
+  }
 };
