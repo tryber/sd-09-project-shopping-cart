@@ -49,7 +49,7 @@ async function createTotalPriceElement() {
 }
 
 function updatePrice() {
-  const totalPriceElement = document.querySelector('.total-price')
+  const totalPriceElement = document.querySelector('.total-price');
   totalPriceElement.remove();
   createTotalPriceElement();
 }
