@@ -77,17 +77,15 @@ function loadCartItemOnLocalSorage() {
   const shoppingCart = document.querySelector('.cart__items');
   const localStorageEntries = Object.entries(localStorage);
   localStorageEntries.forEach((item) => {
-    if (item[0].indexOf('cartItem') !== -1) {
-      const itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
-      const localStorageArr = itemValue.split(' | ');
-      const localStorageObj = {
-        sku: localStorageArr[0],
-        name: localStorageArr[1],
-        salePrice: localStorageArr[2],
-      };
-      const cartItem = createCartItemElement(localStorageObj);
-      shoppingCart.appendChild(cartItem);
-    }
+    const itemValue = item[1].replace('SKU: ', '').replace('NAME: ', '').replace('PRICE: $', '');
+    const localStorageArr = itemValue.split(' | ');
+    const localStorageObj = {
+      sku: localStorageArr[0],
+      name: localStorageArr[1],
+      salePrice: localStorageArr[2],
+    };
+    const cartItem = createCartItemElement(localStorageObj);
+    shoppingCart.appendChild(cartItem);
   });
 }
 
