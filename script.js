@@ -28,7 +28,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-async function fetchResponse(URL){
+async function fetchResponse(URL) {
   const response = await fetch(URL);
   const jsonResponse = await response.json();
   return jsonResponse;
@@ -36,19 +36,18 @@ async function fetchResponse(URL){
 
 async function fetchItemsByType(query = 'computador') {
   const URL = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
-  return await fetchResponse(URL);
+  return fetchResponse(URL);
 }
 
 async function fetchItemsById(ItemID) {
   const URL = `https://api.mercadolibre.com/items/${ItemID}`;
-  return await fetchResponse(URL);
+  return fetchResponse(URL);
 }
 
 function cartItemClickListener(event) {
   eventTextIDproduct = event.target.innerText.split('').splice(5, 13).join('');
-  const obj = Object.entries(localStorage).find((value) => {
-    return JSON.parse(value[1]).sku === eventTextIDproduct
-  });
+  const obj = Object.entries(localStorage).find((value) => 
+    JSON.parse(value[1]).sku === eventTextIDproduct);
   localStorage.removeItem(obj[0]);
   event.target.remove();
 }
@@ -64,7 +63,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 function itemListClickListener() {
   const buttons = document.querySelectorAll('.item__add');
   const cartList = document.querySelector('.cart');
-  buttons.forEach(button => button.addEventListener('click', async function(event) {
+  buttons.forEach(button => button.addEventListener('click', async function (event) {
     const itemID = getSkuFromProductItem(event.target.parentNode);
     const itemSearched = await fetchItemsById(itemID);
     const obj = { sku: itemSearched.id, name: itemSearched.title, salePrice: itemSearched.price };
@@ -85,7 +84,7 @@ function fillSectiomItems(data) {
 
 function fillCartLoadItems() {
   const values = Object.entries(localStorage);
-  values.sort((a,b) => Number(a[0]) - Number(b[0]));
+  values.sort((a, b) => Number(a[0]) - Number(b[0]));
   values.forEach((value) => {
     const obj = JSON.parse(value[1]);
     const cartList = document.querySelector('.cart');
@@ -101,9 +100,9 @@ async function start() {
     fillCartLoadItems();
   } catch (error) {
     alert(error)
-  }
+  };
 }
 
-window.onload = function onload() { 
+window.onload = function onload() {
   start();
 };
