@@ -66,9 +66,9 @@ function updatePriceSum(price) {
 
 async function asyncSum(price) {
   try {
-    await updatePriceSum(price)
+    await updatePriceSum(price);
   } catch (error) {
-    window.alert(error)
+    window.alert(error);
   }
 } 
 
