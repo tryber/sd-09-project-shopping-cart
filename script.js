@@ -30,11 +30,10 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  let list = '';
   if (event.target.className === 'item__add') {
-    list = event.target.parentNode.firstChild.innerText;
+    event = event.target.parentNode.firstChild.innerText;
   }
-  return list;
+  return event;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
