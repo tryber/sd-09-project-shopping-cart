@@ -65,9 +65,18 @@ const fetchProduct = () => {
       const { id, title, thumbnail } = product;
       appendChild('.items', createProductItemElement({ sku: id, name: title, image: thumbnail }));
     }))
-    .catch(error => window.alert(error));
+    .catch(error => window.alert(`${error}, não foi possível achar este produto`));
 };
+
+function cleanCart() {
+  const getButtonEmptyCart = document.querySelector('.empty-cart');
+  getButtonEmptyCart.addEventListener('click', () => {
+    const cartElement = document.querySelector('.cart__items');
+    cartElement.innerText = ' ';
+  });
+}
 
 window.onload = function onload() {
   fetchProduct();
+  cleanCart();
 };
