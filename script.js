@@ -28,14 +28,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// Remove li element from the cart
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.parentNode.removeChild(event.target);
 }
 
 // Retrieves the list of products from Mercado livre API and loads in 'items' section on HTML
-async function fetchProductList(item) {
+function fetchProductList(item) {
   const itemsList = document.querySelector('.items');
-  await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${item}`)
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${item}`)
     .then(response => response.json())
     .then(data => data.results
       .forEach(({ id: sku, title: name, thumbnail: image }) => {
