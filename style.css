@@ -84,7 +84,7 @@
 }
 
 .loading {
-  background-color: rgba(75, 75, 75, 0.3);
+  background-color: rgba( 75, 75, 75, 0.3 );
   justify-content: center;
   width: 100%;
   top: 0;

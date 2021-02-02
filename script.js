@@ -5,8 +5,8 @@ const emptyCartButton = document.querySelector('.empty-cart');
 
 const loadingDisplay = {
   element: document.querySelector('.loading'),
-  show() { this.element.style.display = 'flex' },
-  hide() { this.element.style.display = 'none' },
+  show() { this.element.style.display = 'flex'; },
+  hide() { this.element.style.display = 'none'; },
 };
 
 const shoppingCart = {
