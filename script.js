@@ -24,7 +24,7 @@ const calculateTotalPrice = () => {
     const elementText = element.innerText.split(' ');
     const priceIndex = elementText.indexOf('PRICE:') + 1;
     const price = elementText[priceIndex];
-    totalPrice += parseInt(price.substring(1));
+    totalPrice += parseInt(price.substring(1), 10);
   });
   return totalPrice;
 };
