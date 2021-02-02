@@ -43,7 +43,7 @@ function decreasePrices(event) {
   const number = event.target.innerText.slice(searchNumber + 1);
 
   const valueConvert = Number(number);
-  const degree = Math.round(Number(getPrice) - valueConvert);
+  const degree = Math.round((Number(getPrice) - valueConvert) * 100) / 100;
 
   document.querySelector('.total-price').innerHTML = Number(degree);
 }
@@ -58,7 +58,8 @@ function cartItemClickListener(event) {
 async function sumPrices(price) {
   const getPrice = document.querySelector('.total-price').innerText;
   const valueConvert = Number(getPrice);
-  const result = await Number(price) + valueConvert;
+  const result = await Math.round((Number(price) + valueConvert) * 100) / 100;
+
   document.querySelector('.total-price').innerHTML = Number(result);
 }
 
