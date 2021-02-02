@@ -46,7 +46,8 @@ const retrieveItems = async (target) => {
   try {
     const promise = await fetch(`https://api.mercadolibre.com/items/${target}`);
     const response = await promise.json();
-    const { id: sku, title: name, base_price: salePrice } = response;
+    console.log(response);
+    const { id: sku, title: name, price: salePrice } = response;
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
   } catch (error) { alert(error); }
 };
