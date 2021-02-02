@@ -30,23 +30,12 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function updatePriceMinus(event) {
-  const totalPriceSpan = document.querySelector('#total-price');
-  const priceToBeSubtracted = parseFloat(event.target.id);
-  let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
-
-  parseTotalPrice -= priceToBeSubtracted;
-  totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
-
-  saveAtTheLocalStorage();
-}
-
 function cartItemClickListener() {
   const cartItemsOrderedList = document.querySelector('.cart__items');
 
   cartItemsOrderedList.addEventListener('click', (event) => {
     cartItemsOrderedList.removeChild(event.target);
-    updatePriceMinus(event);
+    asyncUpdatePrice()
   });
 }
 
@@ -58,29 +47,31 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// function updatePriceSum(price) {
-//   const totalPriceSpan = document.querySelector('#total-price');
-//   let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
-
-//   parseTotalPrice += price;
-//   totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
-// }
-
-function updatePriceSum(price) {
+function updatePrice() {
   return new Promise(function (resolve) {
     const totalPriceSpan = document.querySelector('#total-price');
-    let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
+    const cartProductsNodeList = document.querySelectorAll('li');
+    let currentPrice = 0
 
-    parseTotalPrice += price;
-    totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
+    cartProductsNodeList.forEach((product) => {
+      currentPrice += parseFloat(product.id)
+    })
+
+    const priceToBeDisplayed = (Math.round(currentPrice * 100) / 100).toFixed(2)
+
+    if (currentPrice === 0.00) {
+      totalPriceSpan.innerText = 0
+    } else {
+      totalPriceSpan.innerText = priceToBeDisplayed
+    }
 
     resolve();
   });
 }
 
-async function asyncSum(price) {
+async function asyncUpdatePrice() {
   try {
-    await updatePriceSum(price);
+    await updatePrice();
   } catch (error) {
     window.alert(error);
   }
@@ -106,7 +97,7 @@ function addItems(event) {
 
         cartItemElement.id = productInfo.salePrice;
         cartSection.appendChild(cartItemElement);
-        asyncSum(productInfo.salePrice);
+        asyncUpdatePrice(productInfo.salePrice);
       })
       .catch(error => window.alert(error));
   }
