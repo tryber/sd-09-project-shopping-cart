@@ -34,7 +34,7 @@ function sumItems() {
     let price = '';
     let sum = 0;
     myCart.forEach((value) => {
-      let position = value.innerText.indexOf('$');
+      const position = value.innerText.indexOf('$');
       for (let index = position + 1; index < value.innerText.length; index += 1) {
         price += value.innerText[index];
       }
@@ -44,7 +44,7 @@ function sumItems() {
     if (sum >= 0) {
       resolve(sum);
     } else {
-      reject('Erro! Soma inválida')
+      reject('Erro! Soma inválida');
     }
   });
 }
@@ -55,7 +55,7 @@ async function putPrice() {
     price = await sumItems();
     const elementPrice = document.querySelector('.total-price');
     elementPrice.innerText = `Total R$ ${price.toFixed(2)}`;
-  } catch(error) {
+  } catch (error) {
     window.alert(error);
   }
 }
