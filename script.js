@@ -3,7 +3,6 @@ function saveListOnStorage() {
   localStorage.setItem('cart', list);
 }
 
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -25,6 +24,7 @@ function emptyCart() {
   const clearButton = document.querySelector('.empty-cart');
   clearButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
+    saveListOnStorage();
     refreshTotalPrice();
   });
 }
@@ -108,6 +108,8 @@ const fetchItems = async (product) => {
   } catch (error) {
     console.log(`Houve um erro: ${error}`);
   }
+  const loading = document.querySelector('.loading');
+  loading.remove();
 };
 
 const setupEvents = () => {
