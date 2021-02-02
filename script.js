@@ -38,8 +38,7 @@ function sumPrice() {
   }
   allli.forEach((element) => {
     const id = element.innerText.split(' ')[element.innerText.split(' ').length - 1];
-    sum += parseInt(id.substr(1));
-    
+    sum = sum += parseInt(id.substr(1));
   });
   return (sumTotal.innerHTML = `Preco total: $${sum}`);
 }
@@ -141,10 +140,14 @@ const addListItem = (text, className) => {
 const clearListItem = () => {
   const allList = document.querySelectorAll('.cart__item');
   allList.forEach(element => element.remove());
+  sumPrice();
+  salveItem();
 };
 
-const buttonClear = document.querySelector('.empty-cart');
-
+const clearButton = () => {
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', clearListItem);
+};
 
 const returnLocalStorage = () => {
   const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
@@ -165,4 +168,5 @@ const returnLocalStorage = () => {
 window.onload = () => {
   fetchMercadoLivre('computador');
   returnLocalStorage();
+  clearButton();
 };
