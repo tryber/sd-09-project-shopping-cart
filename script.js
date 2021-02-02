@@ -29,12 +29,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const showTotalPrice = (value) => {
-  if (document.getElementsByClassName('total-price').length !== 0) {
-    document.getElementsByClassName('total-price').remove();
+const showTotalPrice = async (value) => {
+  const totalDisplayed = await document.querySelector('.total-price');
+
+  if (totalDisplayed !== null) {
+    console.log(totalDisplayed);
+    totalDisplayed.remove();
   }
 
-  const myCart = document.querySelector('.cart__items');
+  const myCart = document.querySelector('.cart');
   const totalOfItens = document.createElement('div');
   totalOfItens.classList.toggle('total-price');
   totalOfItens.innerText = `Total dos itens selecionados:\n$ ${value}`;
@@ -57,8 +60,8 @@ const totalPriceOfItems = (myCartItems) => {
 const sumTotalItensOnCart = async () => {
   const myCartItems = document.querySelectorAll('.cart__item');
   const sumOfItemsOnCart = await totalPriceOfItems(myCartItems);
-
-  showTotalPrice(sumOfItemsOnCart);
+  console.log(sumOfItemsOnCart);
+  return showTotalPrice(sumOfItemsOnCart);
 };
 
 const addItemsToLocalStorage = () => {
