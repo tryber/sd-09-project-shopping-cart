@@ -100,14 +100,13 @@ async function makeItems() {
 
   loading(false);
   makeButtonsListner();
-
 }
 
 function clearCart() {
   const classEmptyCart = document.querySelector('.empty-cart');
-  classEmptyCart.addEventListener('click', function() {
+  classEmptyCart.addEventListener('click', function () {
     const classCartItems = document.querySelectorAll('.cart__item');
-    classCartItems.forEach((item) => item.remove());
+    classCartItems.forEach(item => item.remove());
   });
 }
 
