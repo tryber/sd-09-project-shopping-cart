@@ -66,7 +66,11 @@ function searchItemCart(sku) {
     objectItem.sku = item.id;
     objectItem.name = item.title;
     objectItem.salePrice = item.price;
-    classCartItems.appendChild(createCartItemElement(objectItem));
+    const itemCart = classCartItems.appendChild(createCartItemElement(objectItem));
+    itemCart.addEventListener('click', function (element) {
+      console.log(element.path[0]);
+      element.path[0].remove();
+    });
   });
   loading(false);
 }
