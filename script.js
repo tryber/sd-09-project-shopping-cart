@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 }
 
 function sumPrice() {
-  const sumTotal = document.querySelector('#price');
+  const sumTotal = document.querySelector('.total-price');
   const allli = document.querySelectorAll('li');
   let sum = 0;
   if (allli.length === 0) {
@@ -73,7 +73,7 @@ const loopButtons = (className, functionName) => {
 
 const salveItem = () => {
   const listItem = document.querySelectorAll('li');
-  const priceTotal = document.querySelector('#price');
+  const priceTotal = document.querySelector('.total-price');
   const arrayItem = [];
   listItem.forEach((element) => {
     arrayItem.push(element.className);
@@ -161,7 +161,7 @@ const clearButton = () => {
 const returnLocalStorage = () => {
   const arrayItem = JSON.parse(localStorage.getItem('listItemCart'));
   const priceLocalStorage = localStorage.getItem('priceItemTotal');
-  const priceTotal = document.querySelector('#price');
+  const priceTotal = document.querySelector('.total-price');
   if (arrayItem === null) {
     return;
   }
