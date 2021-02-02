@@ -1,5 +1,5 @@
-window.onload = function onload() { 
-function retrieveMercadoLivreResults(term);
+window.onload = function onload() {
+  retrieveMercadoLivreResults('computador');
 };
 
 async function retrieveMercadoLivreResults(term) {
