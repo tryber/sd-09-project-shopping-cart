@@ -1,6 +1,3 @@
-window.onload = function onload() {
-  fetchInit();
-};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -19,7 +16,7 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
+  
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -65,10 +62,14 @@ async function fetchInit() {
     createItens.appendChild(desc);
   });
   document.querySelectorAll('.item__add')
-    .forEach((button) => {
-      const sku = getSkuFromProductItem(button.parentNode);
-      button.addEventListener('click', () => {
-        adcItem(sku);
-      });
+  .forEach((button) => {
+    const sku = getSkuFromProductItem(button.parentNode);
+    button.addEventListener('click', () => {
+      adcItem(sku);
     });
-  }
+  });
+}
+
+window.onload = function onload() {
+  fetchInit();
+};
