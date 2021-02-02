@@ -1,3 +1,21 @@
+const CalculateTotalPrice = (myCartItems) => {
+  let sum = 0;
+
+  myCartItems.forEach((curr) => {
+    sum += parseFloat(curr.innerText.split('$')[1]);
+  }, 0);
+
+  const roundedSum = (Math.ceil(sum * 100).toFixed(2)) / 100;
+
+  return roundedSum;
+};
+
+const sumTotalItensOnCart = () => {
+  const myCartItems = document.querySelectorAll('.cart__item');
+  const sumOfItemsOnCart = CalculateTotalPrice(myCartItems);
+  const myCartTotal = document.querySelector('.total-price');
+  myCartTotal.innerText = sumOfItemsOnCart;
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -29,62 +47,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const showTotalPrice = async (value) => {
-  const totalDisplayed = await document.querySelector('.total-price');
-  try {
-    if (totalDisplayed !== null) {
-      totalDisplayed.remove();
-    }
-  } catch (error) {
-    console.log(error);
-  }
-
-  const myCart = document.querySelector('.cart');
-  const totalOfItens = document.createElement('span');
-  totalOfItens.classList.toggle('total-price');
-  totalOfItens.innerText = value;
-
-  myCart.appendChild(totalOfItens);
-};
-
-const totalPriceOfItems = (myCartItems) => {
-  let sum = 0;
-
-  myCartItems.forEach((curr) => {
-    sum += parseFloat(curr.innerText.split('$')[1]);
-  }, 0);
-
-  const roundedSum = (Math.ceil(sum * 100).toFixed(2)) / 100;
-
-  return roundedSum;
-};
-
-const sumTotalItensOnCart = async () => {
-  const myCartItems = document.querySelectorAll('.cart__item');
-  const sumOfItemsOnCart = await totalPriceOfItems(myCartItems);
-
-  return showTotalPrice(sumOfItemsOnCart);
-};
-
 const addItemsToLocalStorage = () => {
-  const myCart = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('1', myCart);
+  const myCartItems = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('1', myCartItems);
+  const myCartTotal = document.querySelector('.total-price').innerHTML;
+  localStorage.setItem('2', myCartTotal);
 };
 
 function cartItemClickListener(event) {
-  try {
-    document.querySelector('.total-price').remove();
-  } catch (error) {
-    console.log(error);
-  }
-
   event.target.remove();
-
   localStorage.clear();
-
-  addItemsToLocalStorage();
-
   sumTotalItensOnCart();
+  addItemsToLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -96,6 +70,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const fetchAddToCartStorage = async (event) => {
+  const myCart = document.querySelector('.cart__items');
   const clickedCard = event.target.parentNode;
   const itemId = getSkuFromProductItem(clickedCard);
   const endpointURL = `https://api.mercadolibre.com/items/${itemId}`;
@@ -105,9 +80,8 @@ const fetchAddToCartStorage = async (event) => {
     const itemObject = await queryItem.json();
     const { id: sku, title: name, price: salePrice } = itemObject;
     const cartItem = createCartItemElement({ sku, name, salePrice });
-    const myCart = document.querySelector('.cart__items');
-    myCart.appendChild(cartItem);
 
+    myCart.appendChild(cartItem);
     sumTotalItensOnCart();
   } catch (error) {
     alert(error);
@@ -141,18 +115,19 @@ const fetchApiResultsAddToPage = async () => {
 
 const retrieveCartFromLocalStorage = () => {
   const myCart = document.querySelector('.cart__items');
+  const myCartTotal = document.querySelector('.total-price');
 
   myCart.innerHTML = localStorage.getItem('1');
-  myCart.addEventListener('click', cartItemClickListener);
+  myCartTotal.innerHTML = parseFloat(localStorage.getItem('2'));
 
-  sumTotalItensOnCart();
+  const myCartItems = document.querySelectorAll('.cart__item');
+  myCartItems.forEach(element => element.addEventListener('click', cartItemClickListener));
 };
 
 const emptyShoppingCart = () => {
   document.querySelector('.cart__items').innerHTML = '';
+  document.querySelector('.total-price').innerHTML = 0;
   localStorage.clear();
-
-  sumTotalItensOnCart();
 };
 
 window.onload = function onload() {
