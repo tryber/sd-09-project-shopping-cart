@@ -97,7 +97,7 @@ const getProductsFromAPI = async () => {
   const object = await response.json();
   object.results.forEach((product) => {
     const { id: sku, title: name, thumbnail: image } = product;
-    appendChildElement('.items',createProductItemElement({ sku, name, image }));
+    appendChildElement('.items', createProductItemElement({ sku, name, image }));
   });
 };
 
