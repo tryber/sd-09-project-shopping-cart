@@ -4,18 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Carrinho de compras</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
 
   <body>
     <section class="container">
-      <section class="items"></section>
+      <section class="items">
+        <h1 class="loading">loading...</h1>
+      </section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
         <button class="empty-cart">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
+        <p class="total-price"></p>
       </section>
     </section>
   </body>
