@@ -30,6 +30,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// Crie um botão para limpar carrinho de compras
+
+const clearShoppingCart = () => {
+  const getShoppingCart = document.querySelector('.cart__items');
+  const getTotalPrice = document.querySelector('.total-price');
+  const clearButton = document.querySelector('.empty-cart');
+  clearButton.addEventListener('click', () => {
+    getShoppingCart.innerHTML = '';
+    localStorage.clear();
+    getTotalPrice.innerText = '0';
+  });
+};
+
+// subtrai os precos dos itens removidos
 const priceOfItemRemoved = (event) => {
   const string = event.target.innerText;
   const search = string.indexOf('$');
@@ -133,4 +147,5 @@ window.onload = () => {
   fetchMLB();
   getSkuFromProduct();
   getLocalStorage();
+  clearShoppingCart();
 };
