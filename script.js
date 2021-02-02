@@ -31,9 +31,13 @@ function getSkuFromProductItem(item) {
 
 const showTotalPrice = async (value) => {
   const totalDisplayed = await document.querySelector('.total-price');
-
-  if (totalDisplayed !== null) {
-    totalDisplayed.remove();
+  try {
+    if (totalDisplayed !== null) {
+      totalDisplayed.remove();
+    }
+    
+  } catch (error) {
+    console.log(error)
   }
 
   const myCart = document.querySelector('.cart');
@@ -69,7 +73,12 @@ const addItemsToLocalStorage = () => {
 };
 
 function cartItemClickListener(event) {
-  document.querySelector('.total-price').remove();
+  try {
+    document.querySelector('.total-price').remove();
+
+  } catch(error) {
+    console.log(error)
+  }
 
   event.target.remove();
 
