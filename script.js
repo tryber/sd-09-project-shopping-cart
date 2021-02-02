@@ -29,6 +29,16 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const lessPrice = (event) => {
+  const totalPrice = document.querySelector('.total_price');
+  element = targetElement(event);
+  const arrayItems = element.parentNode.childNodes;
+  const itemIndex = Object.values(arrayItems).findIndex(item => item === element);
+  priceArray.splice(itemIndex, 1);
+  const sumTotal = priceArray.length > 0 ? priceArray.reduce((a, b) => a + b): 0;
+  totalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
+};
+
 function cartItemClickListener(event) {
   lessPrice(event);
   event.target.remove();
@@ -42,29 +52,18 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-let priceArray = [];
+const priceArray = [];
 
 const targetElement = (event) => {
   const item = event.target;
   return item;
-}
+};
 
 const sumPrices = () => {
-  const sumTotal = priceArray.reduce((a, b) =>  a + b )
+  const sumTotal = priceArray.reduce((a, b) => a + b);
   const tagTotalPrice = document.querySelector('.total_price');
   tagTotalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
 };
-
-const lessPrice = (event) => {
-  const totalPrice = document.querySelector('.total_price');
-  const ol = document.querySelector('.cart__items');
-  element = targetElement(event);
-  let arrayItems = element.parentNode.childNodes;
-  let itemIndex = Object.values(arrayItems).findIndex(item => item === element);
-  priceArray.splice(itemIndex, 1)
-  const sumTotal = priceArray.length > 0? priceArray.reduce((a, b) =>  a + b ): 0;
-  totalPrice.textContent = `Total: R$ ${Math.round(sumTotal * 100) / 100}`;
-}
 
 const addItemOnCart = async (param) => {
   try {
