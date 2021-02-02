@@ -15,7 +15,7 @@ function calcTotalPriceCart(preprice) {
     const item = JSON.parse(localStorage.getItem(elementsLocal[index]));
     price += item.salePrice;
   }
-  p.innerText = `Preço total: $${price}`;
+  p.innerText = `${price}`;
 
   return price;
 }
