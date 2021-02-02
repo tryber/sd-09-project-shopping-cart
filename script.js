@@ -69,7 +69,6 @@ const fetchAddToCartRequest = async (itemId) => {
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
-  emptyCartList();
   setLocalStorage();
 };
 
@@ -107,10 +106,8 @@ function emptyCartList() {
   const ol = document.querySelector('ol');
   const olLength = ol.childElementCount;
   emptyListButton.addEventListener('click', function () {
-    for (let index = 0; index < olLength; index += 1) {
-      ol.lastElementChild.remove();
-    }
-    localStorage.clear();
+    ol.innerHTML = '';
+    localStorage.clear();    
   });
 }
 
