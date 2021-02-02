@@ -1,11 +1,11 @@
 function saveCartStorage() {
-  const cartList = document.querySelector('.cart__items');
-  localStorage.setItem('cart', cartList.innerHTML);
+  const getcart = document.querySelector('.cart__items');
+  localStorage.setItem('cart', getcart.innerHTML);
 }
 
 function loadCartStorage() {
-  const cart = document.querySelector('.cart__items');
-  cart.innerHTML = localStorage.getItem('cart');
+  const getcart = document.querySelector('.cart__items');
+  getcart.innerHTML = localStorage.getItem('cart');
 }
 
 function createProductImageElement(imageSource) {
@@ -94,5 +94,5 @@ async function fetchMercadoLivre(term) {
 window.onload = function onload() {
   fetchMercadoLivre('computador');
   addItemCart();
-  loadCartStorage()
+  loadCartStorage();
 };
