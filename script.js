@@ -60,7 +60,7 @@ function addToCart() {
 }
 
 async function fetchProducts(query) {
-  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`)
+  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
   const object = await response.json();
   object.results.forEach((result) => {
     const { id, title, thumbnail } = result;
@@ -68,7 +68,7 @@ async function fetchProducts(query) {
     document.querySelector('.items').appendChild(item);
   });
   addToCart();
-};
+}
 // function getProductId(event) {
 //   const id = event.target.parentNode.firstChild.innerText;
 //   fetchAddToCartRequest(id);
@@ -76,6 +76,4 @@ async function fetchProducts(query) {
 
 window.onload = function onload() {
   fetchProducts('computador');
-  
-
 };
