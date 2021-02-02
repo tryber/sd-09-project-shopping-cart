@@ -123,8 +123,20 @@ const generateProductList = () => {
   });
 };
 
+function clearCart() {
+  const clearBtn = document.querySelector('.empty-cart');
+  clearBtn.addEventListener('click', function () {
+    localStorage.clear();
+    const node = document.querySelector('ol');
+    while (node.hasChildNodes()) {
+      node.removeChild(node.lastChild);
+    }
+  });
+}
+
 window.onload = function onload() {
   generateProductList();
   loadStorageItems();
   removeFromLocalStorage();
+  clearCart();
 };
