@@ -59,7 +59,7 @@ async function searchItem(sku) {
   loading(true);
 
   await fetch(API_URL)
-    .then(response =>  response.json())
+    .then(response => response.json())
       .then((item) => {
         const objectItem = {};
         objectItem.sku = item.id;
@@ -79,7 +79,7 @@ function makeButtonsListner() {
   });
 }
 
-async function makeItems () {
+async function makeItems() {
   const searchItem = 'computador';
   const API_URL = `https://api.mercadolibre.com/sites/MLB/search?q=${searchItem}`;
   const classItems = document.querySelector('.items');
