@@ -71,7 +71,7 @@ function fetchProducts() {
     const buttons = document.querySelectorAll('.item__add');
     buttons.forEach((elementButton) => {
       elementButton.addEventListener('click', () => {
-        const elementId = document.querySelector('.item__sku');
+       const elementId = elementButton.parentNode.querySelector('.item__sku');
         fetchProductById(elementId.innerText);
       });
     });
@@ -84,5 +84,4 @@ function getSkuFromProductItem(item) {
 
 window.onload = function onload() {
   fetchProducts();
-  fetchProductById();
 };
