@@ -40,7 +40,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchAllProducts = (query) => {
+function fetchAllProducts(query) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
   fetch(endpoint)
     .then(response => response.json())
