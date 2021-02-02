@@ -33,7 +33,7 @@ function updateLocalStorageItems() {
   localStorage.clear();
   const cartItems = document.querySelector('.cart__items');
   let items = '';
-  if (cartItems.childNodes.length !== 0 ) {
+  if (cartItems.childNodes.length !== 0) {
     cartItems.childNodes.forEach((item) => {
       if (items === '') {
         items = `${item.innerText}`;
