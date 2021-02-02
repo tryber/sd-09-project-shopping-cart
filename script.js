@@ -1,5 +1,3 @@
-window.onload = function onload() { getProductListFromAPI('computador')};
-
 function extractProductsData(productData) {
   const sectionItems = document.querySelector('.items');
   productData.forEach((product) => {
@@ -62,3 +60,5 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() { getProductListFromAPI('computador')};
