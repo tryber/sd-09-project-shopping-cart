@@ -3,9 +3,12 @@ const sumSpan = document.querySelector('.total-price');
 const emptyCartButton = document.querySelector('.empty-cart');
 
 async function updateSumOfPrices() {
-  const items = Array.from(document.querySelectorAll('.cart__item--info'));
-  const sum = !items ? 0 : items.map(item => JSON.parse(item.innerText))
-    .reduce((acc, { salePrice }) => acc + salePrice, 0);
+  const items = Array.from(document.querySelectorAll('.cart__item'));
+  const sum = !items ? 0 : items.map(item => {
+    const text = item.innerText;
+    return parseFloat(text.substring(text.indexOf('$') + 1));
+  })
+    .reduce((acc, price) => acc + price, 0);
   sumSpan.innerText = !sum ? 'Seu carrinho está vazio' : `${Math.round(sum * 100) / 100}`;
 }
 
@@ -66,8 +69,11 @@ function getSkuFromProductItem(item) {
 
 
 function cartItemClickListener(event) {
+  const description = event.target.innerText;
   event.target.remove();
   updateSumOfPrices();
+  const keyName = description.substring(5, 18);
+  localStorage.removeItem(keyName);
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -88,9 +94,9 @@ async function addItemToCart(event) {
     const newCartItem = createCartItemElement(productInfo);
 
     const { id, title, price } = productInfo;
-    const resumedProdInfo = JSON.stringify({ sku: id, name: title, salePrice: price });
+    const resumedProdInfo = JSON.stringify({ id, title, price });
+    localStorage.setItem(id, resumedProdInfo);
 
-    newCartItem.appendChild(createCustomElement('span', 'cart__item--info', resumedProdInfo));
     document.querySelector('.cart__items').appendChild(newCartItem);
 
     updateSumOfPrices();
@@ -104,6 +110,14 @@ function removeLoader() {
   loader.parentNode.removeChild(loader);
 }
 
+function loadShoppingCart() {
+  const cart = document.querySelector('.cart__items');
+  Object.values(localStorage).forEach(item => {
+    const newItem = createCartItemElement(JSON.parse(item));
+    cart.appendChild(newItem);
+  });
+}
+
 window.onload = async function onload() {
   updateSumOfPrices();
   const ads = await fetchAds('computador');
@@ -113,5 +127,7 @@ window.onload = async function onload() {
   });
   document.querySelectorAll('.item__add').forEach(item =>
     item.addEventListener('click', addItemToCart));
+  if (localStorage.length) loadShoppingCart();
+  updateSumOfPrices();
   removeLoader();
 };
