@@ -70,7 +70,7 @@ async function asyncUpdatePrice() {
 }
 
 function cartItemClickListener() {
-  const cartItemsOrderedList = document.querySelector('.cart__items');
+  const cartItemsOrderedList = document.querySelector('ol.cart__items');
 
   cartItemsOrderedList.addEventListener('click', (event) => {
     cartItemsOrderedList.removeChild(event.target);
