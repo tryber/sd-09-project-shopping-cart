@@ -1,3 +1,4 @@
+let x = localStorage.length;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -33,7 +34,9 @@ function createProductItemElement({ sku, name, image }) {
 
 function cartItemClickListener(event) {
   const target = event.target;
-  target.remove(target);
+  console.log(target.id);
+  localStorage.removeItem(target.id);
+  target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -52,6 +55,8 @@ const addToCart = async (event) => {
   .then(obj => obj);
   const { id: sku, title: name, price: salePrice } = elementTarget;
   const element = createCartItemElement({ sku, name, salePrice });
+  localStorage.setItem(sku, name);
+  element.id = sku;
   ol.appendChild(element);
 };
 
@@ -74,19 +79,42 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-window.onload = function onload() {
-  putElementsOnScreen();
-
+const clearCart = () => {
   const bntClearCart = document.querySelector('.empty-cart');
   bntClearCart.addEventListener('click', () => {
     const elementsToDelete = document.querySelectorAll('.cart__item');
-
+  
     if (elementsToDelete.length > 0) {
       elementsToDelete.forEach((element) => {
-        console.log(element);
+        localStorage.clear();
         element.remove();
       });
     }
   });
   return 'Tudo Deletado';
+};
+
+const loadingLocalStorage = async () => {
+  const entries = Object.entries(localStorage);
+  console.log(entries);
+  for (let index = 0; index < entries.length; index += 1) {
+    const position = entries[index][0];
+    const endpoint = `https://api.mercadolibre.com/items/${position}`;
+    const elementTarget = await fetch(endpoint)
+      .then(response => response.json())
+      .then(obj => obj);
+    const ol = document.querySelector('.cart__items');
+    const { id: sku, title: name, price: salePrice } = elementTarget;
+    const element = createCartItemElement({ sku, name, salePrice });
+    element.id = sku;
+    ol.appendChild(element);
+  }
+};
+
+window.onload = function onload() {
+  putElementsOnScreen();
+  clearCart();
+  loadingLocalStorage();
+  const li = document.createElement('li');
+  li.addEventListener('click', cartItemClickListener);
 };
