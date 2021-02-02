@@ -102,7 +102,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 const removeAndAddLoading = (string) => {
   const loading = document.querySelector('.loading');
   loading.style.display = string;
-}
+};
 
 const fetchListCart = (id) => {
   const listCartMain = document.querySelector('.cart__items');
