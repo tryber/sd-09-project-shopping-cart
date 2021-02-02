@@ -68,7 +68,7 @@ async function searchItemCart(sku) {
         classCartItems.appendChild(createCartItemElement(objectCart));
       });
   loading(false);
- }
+}
 
 function makeButtonsListner() {
   const buttonAdd = document.querySelectorAll('.item__add');
