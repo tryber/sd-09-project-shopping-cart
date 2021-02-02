@@ -1,3 +1,19 @@
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.loading {
+  align-items: center;
+  background-color: yellow;
+  display: flex;
+  font-size: 5em;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
 .top-bar {
   align-items: center;
   display: flex;
@@ -73,4 +89,8 @@
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
+}
+
+.cart__item--info {
+  display: none;
 }
