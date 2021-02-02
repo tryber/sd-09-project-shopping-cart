@@ -76,9 +76,9 @@ function createCartItemElement({ sku, name, salePrice }) {
     const cartItemsOrderedList = document.querySelector('ol.cart__items');
 
     cartItemsOrderedList.addEventListener('click', (event) => {
-    cartItemsOrderedList.removeChild(event.target);
-    asyncUpdatePrice();
-  });
+      cartItemsOrderedList.removeChild(event.target);
+      asyncUpdatePrice();
+    });
   });
   return li;
 }
