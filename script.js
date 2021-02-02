@@ -19,7 +19,7 @@ const addItemInCart = async (event) => {
     const ol = document.querySelector('.cart__items');
     ol.appendChild(li);
   }));
-}
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -57,7 +57,7 @@ const queryItensInBd = async (params) => {
       const fatherSection = document.querySelector('.items');
       fatherSection.appendChild(section);
       const buttonAdd = document.querySelectorAll('.item__add')[index];
-      buttonAdd.addEventListener('click', addItemInCart)
+      buttonAdd.addEventListener('click', addItemInCart);
       buttonAdd.value = item.id;
       return undefined;
     });
@@ -66,7 +66,6 @@ const queryItensInBd = async (params) => {
 
 window.onload = function onload() {
   queryItensInBd('computador');
-  
 };
 
 function getSkuFromProductItem(item) {
