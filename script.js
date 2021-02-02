@@ -1,4 +1,32 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+fetchElement();
+};
+
+const rescueElements = (term) => {
+  return new Promise((resolve, reject)  => {
+    const param = { headers: {Accept: 'application/json' } };
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?q=computador`, param)
+      .then((response) => {
+        response.json()
+          .then((data) => {
+            const result = data.results;
+            resolve(result);
+          });
+      });
+  });
+};
+
+function fetchElement() {
+  rescueElements()
+    .then((result) => {
+      result.forEach(current => {
+        const {id: sku, title: name, thumbnail: image } = current;
+        const element = createProductItemElement({ sku, name, image });
+        const itemElement = document.querySelector('.items');
+        itemElement.appendChild(element);
+      });
+    });
+  };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
