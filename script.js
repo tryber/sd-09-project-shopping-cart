@@ -44,12 +44,16 @@ async function fetchItemsById(ItemID) {
   return fetchResponse(URL);
 }
 
+function roundNum(number) {
+  return parseFloat((Math.round(number * 100) / 100).toFixed(2))
+}
+
 async function priceSum(itemID) {
   const data = await fetchItemsById(itemID);
   const spanTextPrice = document.querySelector('.total-price');
   let sum = parseFloat(spanTextPrice.innerText);
   sum += data.price;
-  spanTextPrice.innerText = parseFloat((Math.round(sum * 100) / 100).toFixed(2));
+  spanTextPrice.innerText = roundNum(sum);
 }
 
 function currentCartValue() {
@@ -57,7 +61,10 @@ function currentCartValue() {
   spanTextPrice.innerText = 0;
   if (localStorage.length > 0) {
     const actualValue = Object.values(localStorage)
-      .reduce((acc, cur) => acc = acc + JSON.parse(cur).salePrice, 0);
+      .reduce((acc, cur) => {
+        acc += JSON.parse(cur).salePrice;
+        return roundNum(acc);
+      }, 0);
     spanTextPrice.innerText = actualValue;
   }
 }
