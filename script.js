@@ -84,12 +84,21 @@ function clearCart() {
 
 
 const getTotalOrder = async () => {
-
+  
 };
 
 
+function addLoadingElement() {
+  document.querySelector('.cart').appendChild(createCustomElement('span', 'loading', 'loading'));
+}
+
+function removeLoadingElement() {
+  document.querySelector('.cart').lastChild.remove();
+}
+
 const loadPage = async (endpoint) => {
   try {
+    addLoadingElement();
     const response = await fetch(endpoint);
     const productsObject = await response.json();
     const productsArray = Object.entries(productsObject.results);
@@ -103,6 +112,7 @@ const loadPage = async (endpoint) => {
   } catch (error) {
     window.alert(error);
   }
+  removeLoadingElement();
 };
 
 
