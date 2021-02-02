@@ -64,8 +64,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 //   totalPriceSpan.innerText = Math.round(parseTotalPrice * 100) / 100;
 // }
 
-const updatePriceSum = (price) => {
-  return new Promise(function(resolve) {
+function updatePriceSum(price) {
+  return new Promise(function (resolve) {
     const totalPriceSpan = document.querySelector('#total-price');
     let parseTotalPrice = parseFloat(totalPriceSpan.innerText);
 
