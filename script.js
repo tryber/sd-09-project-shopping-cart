@@ -44,10 +44,6 @@ function getRandomInt() {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function rebuildCart() {
-  const stored = localStorage;
-}
-
 function createCartItemElement({ sku, name, salePrice, id }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -57,7 +53,7 @@ function createCartItemElement({ sku, name, salePrice, id }) {
   return li;
 }
 
-let objLocalStorage = [];
+const objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
   const id = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
