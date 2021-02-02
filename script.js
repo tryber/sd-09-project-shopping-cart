@@ -35,7 +35,7 @@ function getSkuFromProductItem(item) {
 const removeLoading = () => {
   const getLoading = document.querySelector('.loading');
   getLoading.remove();
-}
+};
 
 // Crie um botão para limpar carrinho de compras
 
