@@ -49,7 +49,17 @@ async function priceSum(itemID) {
   const spanTextPrice = document.querySelector('.total-price');
   let sum = parseFloat(spanTextPrice.innerText);
   sum += data.price;
-  spanTextPrice.innerText = Math.round(sum * 100) / 100;
+  spanTextPrice.innerText = parseFloat((Math.round(sum * 100) / 100).toFixed(2));
+}
+
+function currentCartValue() {
+  const spanTextPrice = document.querySelector('.total-price');
+  spanTextPrice.innerText = 0;
+  if (localStorage.length > 0) {
+    const actualValue = Object.values(localStorage)
+      .reduce((acc, cur) => acc += JSON.parse(cur).salePrice, 0);
+    spanTextPrice.innerText = actualValue;
+  }
 }
 
 function cartItemClickListener(event) {
@@ -104,15 +114,6 @@ function fillCartLoadItems() {
     const cartObject = { sku: obj.sku, name: obj.name, salePrice: obj.salePrice };
     cartList.appendChild(createCartItemElement(cartObject));
   });
-}
-function currentCartValue() {
-  const spanTextPrice = document.querySelector('.total-price');
-  spanTextPrice.innerText = 0;
-  if (localStorage.length > 0) {
-    const actualValue = Object.values(localStorage)
-      .reduce((acc, cur) => acc += JSON.parse(cur).salePrice, 0);
-    spanTextPrice.innerText = actualValue;
-  }
 }
 
 function clearCart() {
