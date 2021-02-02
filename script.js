@@ -34,6 +34,10 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+const addToCart = () => {
+  console.log('deu certo');
+};
+
 const putElementsOnScreen = () => {
   const responsePromise = fetchElement();
 
@@ -60,10 +64,6 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
-
-const addToCart = () => {
-  console.log('deu certo');
-};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
