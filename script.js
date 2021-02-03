@@ -46,7 +46,7 @@ function addProductToCar(event) {
   fetch(`https://api.mercadolibre.com/items/${idTarget}`)
     .then(response => response.json())
     .then(({ id, title, price }) => {
-      const productCar = createCartItemElement({ sku: id, name: title, salePrice: price })
+      const productCar = createCartItemElement({ sku: id, name: title, salePrice: price });
       ol.appendChild(productCar);
     });
 }
