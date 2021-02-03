@@ -34,8 +34,8 @@ function saveCart() {
 }
 
 function getCart() {
-  const cartList = document.querySelector('.cart__items');
-  cartList.innerHTML = localStorage.getItem('cart');
+  const cart = document.querySelector('.cart__items');
+  cart.innerHTML = localStorage.getItem('cart');
 }
 
 function cartItemClickListener(event) {
@@ -82,6 +82,14 @@ async function fetchProducts(query) {
     document.querySelector('.items').appendChild(item);
   });
   addToCart();
+}
+
+function emptyCart() {
+  emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveCart();
+  });
 }
 
 window.onload = function onload() {
