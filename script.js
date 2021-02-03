@@ -48,8 +48,8 @@ function setLocalStorage() {
 
 function cartItemClickListener(event) {
   const productPrice = parseFloat(event.target.innerText.split('$')[1]);
-  totalPrice -= Math.round(productPrice * 100) / 100;
-  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
+  totalPrice -= (productPrice * 100) / 100;
+  document.querySelector('.total-price').innerText = totalPrice;
   event.target.remove();
   localStorage.clear();
   setLocalStorage();
@@ -84,8 +84,8 @@ async function fetchAddToCartRequest(itemId) {
     const item = createCartItemElement({ sku: id, name: title, salePrice: price });
     const cartItems = document.querySelector('.cart__items');
     cartItems.appendChild(item);
-    totalPrice += Math.round(price * 100) / 100;
-    document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
+    totalPrice += (price * 100) / 100;
+    document.querySelector('.total-price').innerText = totalPrice;
     setLocalStorage();
   } catch (error) {
     window.alert(error);
