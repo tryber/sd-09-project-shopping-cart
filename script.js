@@ -7,7 +7,7 @@ function price() {
   let total = 0;
   document.querySelectorAll('.cart__item')
   .forEach((item) => { total += parseFloat(item.innerHTML.split('$')[1]); });
-  document.querySelector('.total-price').innerHTML = total;
+  document.querySelector('.total-price').innerHTML = Math.round(total * 100) / 100;
 }
 
 function load() {
@@ -94,6 +94,7 @@ function moveToCart() {
         const itemMoved = createCartItemElement(itemToCart);
         document.querySelector('.cart__items').appendChild(itemMoved);
         save();
+        price();
       });
     }
   });
