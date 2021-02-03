@@ -126,7 +126,21 @@ const fetchItensComputers = async () => {
   });
 };
 
+function clearItens() {
+  const listOl = document.querySelector('.cart__items');
+  while (listOl.firstChild) {
+    listOl.removeChild(listOl.firstChild);
+  }
+  localStorage.setItem('MLCart', JSON.stringify([]));
+}
+
+function emptyCart() {
+  const buttonEmptyCart = document.querySelector('.empty-cart');
+  buttonEmptyCart.addEventListener('click', clearItens);
+}
+
 window.onload = function onload() {
   fetchItensComputers();
   rebuildCart();
+  emptyCart()
 };
