@@ -85,7 +85,7 @@ async function fetchAddToCartRequest(itemId) {
     const item = createCartItemElement({ sku: id, name: title, salePrice: price });
     const cartItems = document.querySelector('.cart__items');
     cartItems.appendChild(item);
-    totalPrice += (price * 100) / 100;
+    totalPrice += price;
     document.querySelector('.total-price').innerText = totalPrice;
     setLocalStorage();
   } catch (error) {
