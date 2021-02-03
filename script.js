@@ -6,22 +6,22 @@ const createSectionTotalPriceAssyncAwait = async (totalprice) => {
     span.innerHTML = `Preço Total: $${totalprice}`;
     const sectionOl = await document.querySelector('.cart');
     sectionOl.appendChild(span);
-  }
+    }
   catch (error) {
     window.alert(error);
   }
-}
+};
   // Deleta o texto de preço total
 const deleteSectionTotalPriceAssyncAeait = async () => {
   try {
     const span = await document.querySelector('.total-price');
     const sectionOl = await document.querySelector('.cart');
     sectionOl.removeChild(span);
-  }
+    }
   catch (error) {
     window.alert(error);
   }
-}
+};
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
