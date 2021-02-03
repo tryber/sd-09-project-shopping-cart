@@ -82,6 +82,12 @@ function addProductToCart(product) {
   updateProductsPrice();
 }
 
+// Removes the loading text information after api request is compeleted
+function removeLoadingInformation() {
+  const loading = document.querySelector('.loading');
+  loading.parentNode.removeChild(loading);
+}
+
 // Retrieves the product from Mercado livre API by ID
 function fetchProduct(event) {
   if (event.target.className === 'item__add') {
@@ -101,10 +107,12 @@ function fetchProductList(item) {
   const itemsList = document.querySelector('.items');
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${item}`)
     .then(response => response.json())
-    .then(data => data.results
-      .forEach(({ id: sku, title: name, thumbnail: image }) => {
+    .then(data => {
+      removeLoadingInformation(); 
+      data.results.forEach(({ id: sku, title: name, thumbnail: image }) => {
         itemsList.appendChild(createProductItemElement({ sku, name, image }));
-      }))
+      })
+    })
     .catch(error => alert(error));
 }
 
@@ -146,8 +154,8 @@ function setupEvents() {
 }
 
 window.onload = function onload() {
-  loadCartItemOnLocalSorage();
-  fetchProductList('computador');
+  fetchProductList('computador'); 
   setupEvents();
+  loadCartItemOnLocalSorage();
   updateProductsPrice();
 };
