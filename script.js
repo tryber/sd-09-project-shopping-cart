@@ -102,5 +102,4 @@ const productItemElement = async () => {
 window.onload = function onload() {
   productItemElement();
   getIdByEventListener();
-  storageListSaved();
 };
