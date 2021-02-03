@@ -25,7 +25,12 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  const itemList = document.querySelectorAll('.cart__item');
+  itemList.forEach((cartItem) => {
+    cartItem.addEventListener('click', () => {
+      cartItem.remove();
+    });
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
