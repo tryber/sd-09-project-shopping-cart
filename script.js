@@ -142,5 +142,5 @@ function emptyCart() {
 window.onload = function onload() {
   fetchItensComputers();
   rebuildCart();
-  emptyCart()
+  emptyCart();
 };
