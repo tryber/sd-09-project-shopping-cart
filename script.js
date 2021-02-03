@@ -25,12 +25,8 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function cartItemClickListener(event) {
-  const itemList = document.querySelectorAll('.cart__item');
-  itemList.forEach((cartItem) => {
-    cartItem.addEventListener('click', () => {
-      cartItem.remove();
-    });
-  });
+   event.target.remove();
+
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
