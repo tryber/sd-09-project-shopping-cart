@@ -72,7 +72,7 @@ async function listProduct() {
 
 function saveList() {
   const dadCartList = document.querySelector('.cart__items');
-  dadCartList.setItem('cart', dadCartList.innerHTML);
+  localStorage.setItem('cart', dadCartList.innerHTML);
 }
 
 function LoadingList() {
