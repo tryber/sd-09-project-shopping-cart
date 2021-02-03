@@ -21,14 +21,6 @@ const saveCartToLocalStorage = () => {
   localStorage.setItem('currentCart', getCart);
 };
 
-const initialCart = () => {
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('currentCart');
-};
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
 async function sumPrices() {
   const getCartElements = document.querySelectorAll('.cart__item');
   const getTotalPriceElement = document.querySelector('.total-price');
@@ -40,8 +32,17 @@ async function sumPrices() {
     const object = await response.json();
     const { price } = object;
     totalPrice += price;
-    getTotalPriceElement.innerText = totalPrice;
+    getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100).toFixed(2);
   });
+}
+
+const initialCart = () => {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('currentCart');
+  sumPrices();
+};
+
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
