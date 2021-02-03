@@ -67,7 +67,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const sumPrices = () => {
-  const sumTotal = priceArray.reduce((a, b) => a + b);
+  const sumTotal = priceArray.length > 0 ? priceArray.reduce((a, b) => a + b) : 0;
   const tagTotalPrice = document.querySelector('.total-price');
   tagTotalPrice.textContent = `${Math.round(sumTotal * 100) / 100}`;
 };
@@ -118,6 +118,7 @@ const clearList = () => {
   while (ol.firstChild) { ol.firstChild.remove(); }
   const totalPrice = document.querySelector('.total-price');
   totalPrice.textContent = '0,00';
+  priceArray = [];
   saveOnLocalStorage();
 };
 
@@ -131,7 +132,8 @@ const loadByLocalStorage = () => {
   ol.innerHTML = localStorage.getItem('cart', ol);
   const li = document.querySelectorAll('.cart__item');
   li.forEach((item) => { item.addEventListener('click', cartItemClickListener); });
-  priceArray = JSON.parse(localStorage.getItem('cartPrices'));
+  const pricesTemp = JSON.parse(localStorage.getItem('cartPrices'));
+  priceArray = pricesTemp;
   sumPrices();
 };
 
