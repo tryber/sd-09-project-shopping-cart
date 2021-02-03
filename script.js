@@ -43,7 +43,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function startLoading() {
   const title = document.createElement('h1');
-  title.className = 'title';
+  title.className = 'loading';
   title.innerText = 'Loading...';
   document.body.appendChild(title);
 }
@@ -67,6 +67,7 @@ async function createProductList() {
       const itemsForSale = createProductItemElement({ sku, name, image });
       sectionLocal.append(itemsForSale);
     });
+
   } catch (error) {
     alert('Error');
   }
