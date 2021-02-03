@@ -10,7 +10,7 @@ async function price() {
   aitem.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  tValue.innerHTML = Math.round(total * 100) / 100;
+  tValue.innerHTML = `R$${Math.round(total * 100) / 100}`;
 }
 
 function load() {
