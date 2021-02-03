@@ -30,6 +30,7 @@ function setLocalStorage() {
     const objeto = {
       text: lineItens[index].innerText,
       class: lineItens[index].className,
+      price: lineItens[index].innerText.split('$')[1],
     };
     localStorage.setItem(index, JSON.stringify(objeto));
   }
@@ -39,9 +40,10 @@ let totalPrice = 0;
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  const procuctPrice = parseFloat(event.target.innerText.split('$')[1]);
-  totalPrice -= Math.round(procuctPrice * 100) / 100;
-  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
+  const procuctPrice = event.target.innerText.split('$')[1];
+  // totalPrice -= Math.round(procuctPrice * 100) / 100;
+  totalPrice -= +(procuctPrice);
+  document.querySelector('.total-price').innerText = totalPrice;
   event.target.remove();
   localStorage.clear();
   setLocalStorage();
@@ -62,25 +64,25 @@ function getStorageItems() {
     const objStorage = JSON.parse(localStorage.getItem(index));
     listItem.innerText = objStorage.text;
     listItem.className = objStorage.class;
+    totalPrice += parseFloat(objStorage.price);
     listItem.addEventListener('click', cartItemClickListener);
     ol.appendChild(listItem);
   }
+  document.querySelector('.total-price').innerText = totalPrice;
 }
 
 // document.querySelector('.total-price').innerText = 'oie';
-
 const fetchAddToCartRequest = async (itemId) => {
   const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
   const object = await response.json();
   const { id, title, price } = object;
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
-  totalPrice += Math.round(price * 100) / 100;
-  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
+  totalPrice += price;
+  document.querySelector('.total-price').innerText = totalPrice;
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
   setLocalStorage();
 };
-
 
 function getSkuFromProductItem(item) {
   const id = item.querySelector('span.item__sku').innerText;
