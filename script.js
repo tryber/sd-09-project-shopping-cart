@@ -32,10 +32,10 @@ function totalCart() {
   let cartValue = 0;
   const cartItems = document.querySelectorAll('.cart__item');
   cartItems.forEach((item) => {
-    let text = item.innerText;
-    let value = parseFloat(text.substring(text.lastIndexOf('$') + 1, text.lenght));
+    const text = item.innerText;
+    const value = parseFloat(text.substring(text.lastIndexOf('$') + 1, text.lenght));
     cartValue += value;
-  })
+  });
   let price = document.querySelector('.total-price');
   if (!price) {
     const classCart = document.querySelector('.cart');
