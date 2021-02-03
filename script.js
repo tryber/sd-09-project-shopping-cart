@@ -38,8 +38,8 @@ function saveOnLocalStorage(singleProduct) {
 async function cartSum(value) {
   const priceParagraph = document.querySelector('.total-price');
   const previusValue = parseFloat(priceParagraph.innerText);
-  const sum = Math.round((previusValue + value) * 100) / 100;
-  priceParagraph.innerText = `${sum.toFixed(2)}`;
+  const sum = previusValue + value
+  priceParagraph.innerText = `${sum}`;
 }
 
 function removeFromLocalStorage(event) {
