@@ -166,35 +166,35 @@ function listenToEmptyCartButton() {
   }
 }
 
-function searchProduct() {
-  const itemsSection = document.querySelector('.items');
-  const searchIptInput = document.querySelector('#search-ipt');
+// function searchProduct() {
+//   const itemsSection = document.querySelector('.items');
+//   const searchIptInput = document.querySelector('#search-ipt');
 
-  if (searchIptInput.value) {
-    itemsSection.innerHTML = '';
+//   if (searchIptInput.value) {
+//     itemsSection.innerHTML = '';
 
-    fetchAPI(searchIptInput.value);
-  }
-}
+//     fetchAPI(searchIptInput.value);
+//   }
+// }
 
-function listenToSearchBtn() {
-  const searchBtnButton = document.querySelector('button.search-btn');
+// function listenToSearchBtn() {
+//   const searchBtnButton = document.querySelector('button.search-btn');
 
-  searchBtnButton.addEventListener('click', searchProduct);
-}
+//   searchBtnButton.addEventListener('click', searchProduct);
+// }
 
-function listenToSearchIpt() {
-  const searchIptInput = document.querySelector('#search-ipt');
-  const itemsSection = document.querySelector('.items');
+// function listenToSearchIpt() {
+//   const searchIptInput = document.querySelector('#search-ipt');
+//   const itemsSection = document.querySelector('.items');
 
-  searchIptInput.addEventListener('keypress', (event) => {
-    if (event.keyCode === 13 && searchIptInput.value) {
-      itemsSection.innerHTML = '';
+//   searchIptInput.addEventListener('keypress', (event) => {
+//     if (event.keyCode === 13 && searchIptInput.value) {
+//       itemsSection.innerHTML = '';
 
-      fetchAPI(searchIptInput.value);
-    }
-  });
-}
+//       fetchAPI(searchIptInput.value);
+//     }
+//   });
+// }
 
 function listenToCartItemsOrderedList() {
   const cartItemsOrderedList = document.querySelector('ol.cart__items');
@@ -215,7 +215,7 @@ window.onload = function onload() {
   fetchAPI('computador');
   addItemsClickListener();
   listenToEmptyCartButton();
-  listenToSearchBtn();
-  listenToSearchIpt();
+  // listenToSearchBtn();
+  // listenToSearchIpt();
   listenToCartItemsOrderedList();
 };
