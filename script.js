@@ -1,21 +1,26 @@
-function textLoading(action) {
-  const elementLoading = document.querySelector('.loading');
-  if (action === 'display') {
-    elementLoading.style.display = 'inherit';
-  }
-  elementLoading.style.display = 'none';
+function displayLoadingText() {
+  const father = document.querySelector('.text__container');
+  const displayLoading = document.createElement('div');
+  displayLoading.className = 'loading';
+  displayLoading.innerText = 'LOADING...';
+  father.appendChild(displayLoading);
+}
+
+function hideLoadingText() {
+  const father = document.querySelector('.text__container');
+  father.firstChild.remove();
 }
 
 async function retrieveProductsList() {
   // recupera a lista do mercado livre
-  textLoading('display');
+  displayLoadingText();
   try {
     const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
     const response = await fetch(endpoint);
     const object = await response.json();
     return object.results;
   } finally {
-    textLoading('hide');
+    hideLoadingText();
   }
 }
 
