@@ -32,6 +32,7 @@ function setLocalStorage() {
   const cartList = document.querySelector('.cart__items');
   localStorage.setItem('items', cartList.innerHTML);
 }
+
 const cartItemClickListener = (event) => {
   if (event.target.parentNode) {
     event.target.parentNode.removeChild(event.target);
@@ -39,20 +40,20 @@ const cartItemClickListener = (event) => {
   }
 };
 
-function getLocalStorage() {
-  if (localStorage.getItem('items')) {
-    const carttOl = document.querySelector('.cart__items');
-    carttOl.addEventListener('click', cartItemClickListener);
-    carttOl.innerHTML = localStorage.getItem('items');
-  }
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function getLocalStorage() {
+  if (localStorage.getItem('items')) {
+    const carttOl = document.querySelector('.cart__items');
+    carttOl.addEventListener('click', cartItemClickListener);
+    carttOl.innerHTML = localStorage.getItem('items');
+  }
 }
 
 function emptyCart() {
@@ -86,12 +87,19 @@ const addProductToCart = () => {
   }));
 };
 
-/* const sumValueOfProducts = () => {
+const sumValueOfProducts = async () => {
+  //clearvalues();
   const cartList = document.querySelectorAll('.cart__item');
   const newArr = [];
   cartList.forEach(item => newArr.push(item.innerText.split('$')[1]));
-  console.log(newArr)
-} */
+  const totalPrice = await newArr.reduce((a, v) => (Number(a) + Number(v)).toFixed(2),0);
+  const p = document.createElement('p');
+  p.innerHTML = `Total = ${totalPrice}`;
+  p.className = 'total-price';
+
+  const divPai = document.querySelector('.total');
+  divPai.appendChild(p);
+}
 
 const fetchProducts = (product) => {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
@@ -117,4 +125,5 @@ const fetchProducts = (product) => {
 window.onload = function onload() {
   fetchProducts('computador');
   getLocalStorage();
+  sumValueOfProducts();
 };
