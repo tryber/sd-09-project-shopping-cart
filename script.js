@@ -143,11 +143,11 @@ window.onload = function onload() {
   createSectionTotalPriceAssyncAwait(totalPrice);
   const buttonCleanCart = document.querySelector('.empty-cart');
   buttonCleanCart.addEventListener('click', () => {
-  const allCartLi = document.querySelectorAll('.cart__item');
-  const ol = document.querySelector('.cart__items');
-  allCartLi.forEach((li) => {
-    ol.removeChild(li);
-    });
+    const allCartLi = document.querySelectorAll('.cart__item');
+    const ol = document.querySelector('.cart__items');
+    allCartLi.forEach((li) => {
+      ol.removeChild(li);
+      });
     totalPrice = 0;
     deleteSectionTotalPriceAssyncAeait();
     createSectionTotalPriceAssyncAwait(totalPrice);
