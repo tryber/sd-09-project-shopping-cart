@@ -75,6 +75,10 @@
   text-align: center;
 }
 
+.price-label {
+  align-self: flex-end;
+}
+
 .total-price {
   align-self: flex-end;
 }

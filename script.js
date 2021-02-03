@@ -54,7 +54,7 @@ function updateProductsPrice() {
     priceSum += parseFloat(item.substring(item.indexOf('$') + 1));
     priceSum = parseFloat(priceSum.toFixed(2));
   });
-  priceContainer.innerText = `Soma dos Produtos: ${priceSum}`;
+  priceContainer.innerText = priceSum;
 }
 
 // Remove li element from the cart and local storage
