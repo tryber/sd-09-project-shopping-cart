@@ -28,7 +28,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
   const dadItemsList = document.querySelector('.cart__items');
   dadItemsList.addEventListener('click', (event) => {
     event.target.remove();
