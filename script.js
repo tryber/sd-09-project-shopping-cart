@@ -76,7 +76,16 @@ function addProductCart() {
   });
 }
 
+function buttonRemovelist() {
+  const buttoClear = document.querySelector('.empty-cart');
+  buttoClear.addEventListener('click', () => {
+    const cartDadList = document.querySelector('.cart__items');
+    cartDadList.innerHTML = '';
+  });
+}
+
 window.onload = function onload() {
   listProduct();
   addProductCart();
+  buttonRemovelist();
 };
