@@ -43,7 +43,11 @@ function getProductListFromAPIByQuerySearch(product) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  if (event.target.className) {
+    const cartItems = document.querySelector('.cart__items');
+    cartItems.removeChild(event.target);
+    console.log(event.target);
+  }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
