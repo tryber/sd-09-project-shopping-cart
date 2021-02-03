@@ -66,12 +66,12 @@ const createAndAppendLoading = () => {
   loading.className = 'loading';
   loading.innerText = 'LOADING';
   return loading;
-}
+};
 const deleteLoading = () => {
   const sectionItems = document.querySelector('.items');
   const loading = document.querySelector('.loading');
   sectionItems.removeChild(loading);
-}
+};
 
 const fetchComputers = (endpoint) => {
   fetch(endpoint)
