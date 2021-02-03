@@ -1,23 +1,4 @@
 let itemsArrayLocalStorage = [];
-function getItemsFromLocalStorage() {
-  if (window.localStorage && localStorage.length) {
-    itemsArrayLocalStorage = (localStorage.getItem(0)).split(',');
-    itemsArrayLocalStorage.forEach((id) => {
-      getProductFromAPIByID(id);
-    });
-  }
-}
-
-function saveItemToLocalStorage(itemsArray) {
-  localStorage.setItem(0, itemsArray);
-}
-
-function removeItemFromLocalStorage(itemID) {
-  itemIndex = itemsArrayLocalStorage.indexOf(itemID);
-  itemsArrayLocalStorage.splice(itemIndex, 1);
-  saveItemToLocalStorage(itemsArrayLocalStorage);
-}
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -54,6 +35,26 @@ function extractProductsData(productData) {
   });
 }
 
+function getItemsFromLocalStorage() {
+  if (window.localStorage && localStorage.length) {
+    itemsArrayLocalStorage = (localStorage.getItem(0)).split(',');
+    itemsArrayLocalStorage.forEach((id) => {
+      getProductFromAPIByID(id);
+    });
+  }
+}
+
+function saveItemToLocalStorage(itemsArray) {
+  localStorage.setItem(0, itemsArray);
+}
+
+function removeItemFromLocalStorage(itemID) {
+  itemIndex = itemsArrayLocalStorage.indexOf(itemID);
+  itemsArrayLocalStorage.splice(itemIndex, 1);
+  saveItemToLocalStorage(itemsArrayLocalStorage);
+}
+
+
 function getProductListFromAPIByQuerySearch(product) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   fetch(endPoint)
@@ -64,8 +65,8 @@ function getProductListFromAPIByQuerySearch(product) {
 
 function extractItemID(itemData) {
   const itemDataSplitedArray = (itemData.innerText).split('|');
-    const itemID = (itemDataSplitedArray[0]).split(' ');
-    return itemID[1];
+  const itemID = (itemDataSplitedArray[0]).split(' ');
+  return itemID[1];
 }
 
 function cartItemClickListener(event) {
