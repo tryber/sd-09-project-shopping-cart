@@ -24,12 +24,11 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener() {
   const itemList = document.querySelectorAll('.cart__item');
   itemList.forEach((cartItem) => {
     cartItem.addEventListener('click', () => {
-      const elementItemCarts = cartItem.parentNode.querySelector('.cart__item');
-      elementItemCarts.remove();
+      cartItem.remove();
     });
   });
 }
