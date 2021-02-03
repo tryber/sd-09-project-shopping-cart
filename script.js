@@ -66,7 +66,7 @@ async function sendItemToCart(event) {
   const { id, title, price } = await fetchItemById(productId);
   const cartElement = createCartItemElement({ sku: id, name: title, salePrice: price });
   document.querySelector('.cart__items').appendChild(cartElement);
-  sumAllItemPricesOnCart ();
+  sumAllItemPricesOnCart();
 }
 
 function addItem() {
