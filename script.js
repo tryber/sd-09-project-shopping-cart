@@ -28,11 +28,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-async function cartItemClickListener(event) {
-  event.path[0].remove();
-  await totalCart();
-}
-
 async function totalCart() {
   let cartValue = 0;
   const arrayStorage = [];
@@ -57,6 +52,11 @@ async function totalCart() {
     price.remove();
   }
   localStorage.setItem('sd-09-shopping-cart', JSON.stringify(arrayStorage));
+}
+
+async function cartItemClickListener(event) {
+  event.path[0].remove();
+  await totalCart();
 }
 
 function loadStorage(storage) {
