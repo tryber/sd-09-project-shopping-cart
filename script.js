@@ -46,11 +46,17 @@ const lessPrice = (event) => {
   totalPrice.textContent = `${Math.round(sumTotal * 100) / 100}`;
 };
 
+const saveOnLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  localStorage.setItem('cart', ol.innerHTML);
+  localStorage.setItem('cartPrices', JSON.stringify(priceArray));
+};
+
 function cartItemClickListener(event) {
   lessPrice(event);
   event.target.remove();
   saveOnLocalStorage();
-}
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -120,22 +126,14 @@ const addEvent = () => {
   btnClear.addEventListener('click', clearList);
 };
 
-const saveOnLocalStorage = () => {
-  const ol = document.querySelector('.cart__items');
-  localStorage.setItem('cart', ol.innerHTML);
-  localStorage.setItem('cartPrices', JSON.stringify(priceArray));
-}
-
 const loadByLocalStorage = () => {
   const ol = document.querySelector('.cart__items');
   ol.innerHTML = localStorage.getItem('cart', ol);
   const li = document.querySelectorAll('.cart__item');
-  li.forEach(item => {item.addEventListener('click', cartItemClickListener)})
+  li.forEach((item) => { item.addEventListener('click', cartItemClickListener) });
   priceArray = JSON.parse(localStorage.getItem('cartPrices'));
-  const p = document.querySelector('.total-price');
   sumPrices();
-  console.log(priceArray)
-}
+};
 
 window.onload = function onload() {
   loadByLocalStorage();
