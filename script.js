@@ -66,7 +66,7 @@ function fetchProducts() {
 }
 
 function clearCart() {
-  const listProducts = document.querySelectorAll('.cart__item')
+  const listProducts = document.querySelectorAll('.cart__item');
   listProducts.forEach(product => product.remove());
 }
 
