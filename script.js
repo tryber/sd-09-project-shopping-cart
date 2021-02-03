@@ -114,12 +114,12 @@ function fetchAllProducts(query) {
       allProductsInfo.forEach((object) => {
         const { id, title, thumbnail } = object;
         const item = createProductItemElement({
-          sku: id, name: title, image: thumbnail
+          sku: id, name: title, image: thumbnail,
         });
-          document.querySelector('.items').appendChild(item);
+        document.querySelector('.items').appendChild(item);
       });
       document.body.removeChild(loading);
-    addToCart();
+      addToCart();
     })
     .catch((error) => {
       window.alert(error);
