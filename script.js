@@ -81,7 +81,7 @@ const btnEmptyCart = document.querySelector('.empty-cart');
 btnEmptyCart.addEventListener('click', () => {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = '';
-})
+});
 const btnsAddItemToCart = document.querySelector('.items');
 btnsAddItemToCart.addEventListener('click', (event) => {
   if (event.target.className === 'item__add') {
