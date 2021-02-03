@@ -20,7 +20,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
@@ -48,6 +47,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function removeSection() {
+  const load = document.querySelector('.loading');
+  load.remove();
+}
+
+function esperandoRequisicao() {
+  const cartItem = document.querySelector('.items');
+  const section = document.createElement('section');
+  section.className = 'loading';
+  section.innerText = 'Loading...';
+  cartItem.appendChild(section);
+}
+
 async function addItemCartApi(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   const cartItem = document.querySelector('.cart__items');
@@ -56,6 +68,7 @@ async function addItemCartApi(itemId) {
     const objResponse = await response.json();
     const { id: sku, title: name, price: salePrice } = objResponse;
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
+    saveCartItems({ sku, name, salePrice });
   } catch (error) {
     window.alert(error);
   }
@@ -73,18 +86,24 @@ function addItemCart() {
 
 async function dataSearch(current) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${current}`;
+  esperandoRequisicao();
   try {
     const response = await fetch(endpoint);
     const objResponse = await response.json();
     const results = objResponse.results;
     const item = document.querySelector('.items');
     results.forEach((result) => {
-      const { id: sku, title: name, thumbnail: image } = result;
-      item.appendChild(createProductItemElement({ sku, name, image }));
+      setTimeout(() => {
+        const { id: sku, title: name, thumbnail: image } = result;
+        item.appendChild(createProductItemElement({ sku, name, image }));
+      }, 1500);
     });
   } catch (error) {
     window.alert(error);
   }
+  setTimeout(() => {
+    removeSection();
+  }, 1300);
   addItemCart();
 }
 
