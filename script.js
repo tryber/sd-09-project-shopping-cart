@@ -56,7 +56,7 @@ function cartItemClickListener(event) {
   lessPrice(event);
   event.target.remove();
   saveOnLocalStorage();
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -81,7 +81,7 @@ const addItemOnCart = async (param) => {
     priceArray.push(salePrice);
     sumPrices();
     ol.appendChild(createCartItemElement({ sku, name, salePrice }));
-    saveOnLocalStorage()
+    saveOnLocalStorage();
   } catch (error) {
     console.log(error);
   }
@@ -130,7 +130,7 @@ const loadByLocalStorage = () => {
   const ol = document.querySelector('.cart__items');
   ol.innerHTML = localStorage.getItem('cart', ol);
   const li = document.querySelectorAll('.cart__item');
-  li.forEach((item) => { item.addEventListener('click', cartItemClickListener) });
+  li.forEach((item) => { item.addEventListener('click', cartItemClickListener); });
   priceArray = JSON.parse(localStorage.getItem('cartPrices'));
   sumPrices();
 };
