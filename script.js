@@ -25,15 +25,15 @@ async function sumPrices() {
   const getCartElements = document.querySelectorAll('.cart__item');
   const getTotalPriceElement = document.querySelector('.total-price');
   let totalPrice = 0;
-  getCartElements.forEach(async (element) => {
+  for (const element of getCartElements) {
     const cartElementId = element.innerText.slice(5, 18);
     const endpoint = `https://api.mercadolibre.com/items/${cartElementId}`;
     const response = await fetch(endpoint);
     const object = await response.json();
     const { price } = object;
     totalPrice += price;
-    getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100);
-  });
+  }
+  getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100);
 }
 
 const initialCart = () => {
@@ -58,7 +58,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
 
 const addToCart = async (itemId) => {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
