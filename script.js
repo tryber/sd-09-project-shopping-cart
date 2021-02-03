@@ -70,6 +70,16 @@ async function listProduct() {
   loadingStop();
 }
 
+function saveList() {
+  const dadCartList = document.querySelector('.cart__items');
+  dadCartList.setItem('cart', dadCartList.innerHTML);
+}
+
+function LoadingList() {
+  const cartList = document.querySelector('.cart__items').innerHTML;
+  cartList = localStorage.getItem('cart');
+}
+
 function addProductCart() {
   const sectionButtons = document.querySelector('.items');
   sectionButtons.addEventListener('click', async (event) => {
@@ -85,6 +95,7 @@ function addProductCart() {
     const cartDadList = document.querySelector('.cart__items');
     const productToCart = createCartItemElement(objProduct);
     cartDadList.appendChild(productToCart);
+    saveList();
   });
 }
 
@@ -93,6 +104,7 @@ function buttonRemovelist() {
   buttoClear.addEventListener('click', () => {
     const cartDadList = document.querySelector('.cart__items');
     cartDadList.innerHTML = '';
+    saveList();
   });
 }
 
@@ -100,4 +112,5 @@ window.onload = function onload() {
   listProduct();
   addProductCart();
   buttonRemovelist();
+  LoadingList();
 };
