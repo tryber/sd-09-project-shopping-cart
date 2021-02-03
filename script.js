@@ -35,7 +35,7 @@ function cartItemClickListener(event) {
   const total = document.querySelector('.total-price');
   const priceTarget = Number(event.target.innerText.split('$')[1]);
   if (Number(total.innerText) - priceTarget < 1) {
-    total.innerText = 0;
+    total.innerText = '';
   } else {
     total.innerText = Number(total.innerText) - priceTarget;
   }
@@ -70,11 +70,12 @@ function getSkuFromProductItem(item) {
 }
 
 function buttonsListener(button) {
-  button.addEventListener('click', async () => {
+  button.addEventListener('click', () => {
     fetchListItem(getSkuFromProductItem(button.parentNode))
     .then(obj => obj.json())
     .then(({ id: sku, title: name, price: salePrice }) => {
       totalPrice(salePrice);
+      // return setTimeout(() => addItemToCart({ sku, name, salePrice }), 2000);
       return addItemToCart({ sku, name, salePrice });
     })
     .then((result) => {
@@ -85,7 +86,7 @@ function buttonsListener(button) {
   });
 }
 
-function buttonTest() {
+function addCartButton() {
   const myButtons = document.querySelectorAll('.item__add');
   myButtons.forEach(buttonsListener);
 }
@@ -96,9 +97,10 @@ function createProductsList(item) {
   fetchList(item)
   .then(obj => obj.json())
   .then(({ results }) => {
+    document.querySelector('.loading').remove();
     results.map(({ id: sku, title: name, thumbnail: image }) =>
     items.appendChild(createProductItemElement({ sku, name, image })));
-    buttonTest();
+    addCartButton();
   })
   .catch(() => {
     alert('Deu ruim e eu não sei o que é!');
@@ -127,9 +129,10 @@ function clearCartItems() {
 }
 
 window.onload = function onload() {
+  document.querySelector('.items').appendChild(createCustomElement('span', 'loading', 'Loading'));
+  // setTimeout(createProductsList, 2000, 'computador');
   createProductsList('computador');
   document.querySelector('.cart').appendChild(createCustomElement('span', 'total-price', ''));
   storageItems();
-  buttonTest();
   clearCartItems();
 };
