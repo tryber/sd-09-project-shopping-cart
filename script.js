@@ -68,7 +68,6 @@ async function addItemCartApi(itemId) {
     const objResponse = await response.json();
     const { id: sku, title: name, price: salePrice } = objResponse;
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
-    saveCartItems({ sku, name, salePrice });
   } catch (error) {
     window.alert(error);
   }
@@ -86,24 +85,19 @@ function addItemCart() {
 
 async function dataSearch(current) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${current}`;
-  esperandoRequisicao();
+
   try {
     const response = await fetch(endpoint);
     const objResponse = await response.json();
     const results = objResponse.results;
     const item = document.querySelector('.items');
     results.forEach((result) => {
-      setTimeout(() => {
-        const { id: sku, title: name, thumbnail: image } = result;
-        item.appendChild(createProductItemElement({ sku, name, image }));
-      }, 1500);
+      const { id: sku, title: name, thumbnail: image } = result;
+      item.appendChild(createProductItemElement({ sku, name, image }));
     });
   } catch (error) {
     window.alert(error);
   }
-  setTimeout(() => {
-    removeSection();
-  }, 1300);
   addItemCart();
 }
 
