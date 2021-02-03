@@ -39,7 +39,7 @@ async function sumValueOfProducts() {
   cartList.forEach(item => newArr.push(item.innerText.split('$')[1]));
   const sum = await newArr.reduce((a, v) => (Number(a) + Number(v)).toFixed(2), 0);
   const totalPrice = document.querySelector('.total-price');
-  totalPrice.innerHTML = `Total = ${sum}`;
+  totalPrice.innerHTML = sum;
 }
 
 const cartItemClickListener = (event) => {
