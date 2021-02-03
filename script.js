@@ -61,6 +61,18 @@ const handleWithSearchResults = (object) => {
   });
 };
 
+const createAndAppendLoading = () => {
+  const loading = document.createElement('span');
+  loading.className = 'loading';
+  loading.innerText = 'LOADING';
+  return loading;
+}
+const deleteLoading = () => {
+  const sectionItems = document.querySelector('.items');
+  const loading = document.querySelector('.loading');
+  sectionItems.removeChild(loading);
+}
+
 const fetchComputers = (endpoint) => {
   fetch(endpoint)
     .then(response => response.json())
@@ -69,6 +81,7 @@ const fetchComputers = (endpoint) => {
         error = 'Produto não existe';
         throw new Error(error);
       }
+      deleteLoading();
       handleWithSearchResults(object);
     })
     .catch((error) => {
@@ -77,6 +90,8 @@ const fetchComputers = (endpoint) => {
 };
 function createStoreItens() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+  const sectionItems = document.querySelector('.items');
+  sectionItems.appendChild(createAndAppendLoading());
   fetchComputers(endpoint);
 }
 
