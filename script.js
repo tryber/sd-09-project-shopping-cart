@@ -41,7 +41,7 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
   const procuctPrice = parseFloat(event.target.innerText.split('$')[1]);
   totalPrice -= Math.round(procuctPrice * 100) / 100;
-  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
+  document.querySelector('.total-price').innerText = Math.floor(totalPrice);
   event.target.remove();
   localStorage.clear();
   setLocalStorage();
