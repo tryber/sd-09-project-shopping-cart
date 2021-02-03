@@ -70,8 +70,8 @@ function cartItemClickListener() {
   const cartSelected = document.querySelector('.cart__items');
   cartSelected.addEventListener('click', (event) => {
     event.target.remove();
-    save();
     price();
+    save();
   });
 }
 
