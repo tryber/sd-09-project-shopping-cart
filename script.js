@@ -34,7 +34,7 @@ function includeLocalStorage({ sku, name, salePrice }) {
 }
 
 // Somatório dos Produtos no Carrinho
-function sumPricesCart(price) {
+async function sumPricesCart(price) {
   const total = parseFloat(document.querySelector('.total-price').innerText);
   return Math.round((total + price) * 100) / 100;
 }
@@ -44,7 +44,7 @@ async function rewritingList() {
   localStorage.clear();
   document.querySelector('.total-price').innerText = '0';
 
-  document.querySelectorAll('.cart__item').forEach((item) => {
+  for (const item of document.querySelectorAll('.cart__item')) {
     const arrayItem = item.innerText.split(' | ');
     const sku = arrayItem[0].split(': ')[1];
     const name = arrayItem[1].split(': ')[1];
@@ -52,8 +52,9 @@ async function rewritingList() {
 
     includeLocalStorage({ sku, name, salePrice });
 
-    document.querySelector('.total-price').innerText = sumPricesCart(parseFloat(salePrice));
-  });
+    const sum = await sumPricesCart(parseFloat(salePrice));
+    document.querySelector('.total-price').innerText = sum;
+  };
 }
 
 // Remove item clicado
@@ -74,8 +75,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 async function addListItem({ sku, name, salePrice }) {
   const productCart = createCartItemElement({ sku, name, salePrice });
   document.querySelector('.cart__items').appendChild(productCart);
-
-  document.querySelector('.total-price').innerText = sumPricesCart(parseFloat(salePrice));
 }
 
 // Adicionando produto ao Carrinho de Compras
@@ -88,6 +87,9 @@ const addProductCart = async (event) => {
   const { id, title, price } = json;
   addListItem({ sku: id, name: title, salePrice: price });
   includeLocalStorage({ sku: id, name: title, salePrice: price });
+
+  const sum = await sumPricesCart(parseFloat(price));
+  document.querySelector('.total-price').innerText = sum;
 };
 
 // Limpando Carrinho de Compras e LocalStorage
@@ -120,11 +122,19 @@ const listingProducts = async (QUERY) => {
 };
 
 // Adicionando itens no carrinho, ao carregar a página
-function recoverItemsLocalstorage() {
+async function recoverItemsLocalstorage() {
   if (localStorage.length > 0) {
+    const itemsLocalStorage = [];
+    
     for (let index = 1; index <= localStorage.length; index += 1) {
-      const objectProductStorage = (JSON.parse(localStorage.getItem(`product-${index}`)));
-      addListItem(objectProductStorage);
+      itemsLocalStorage.push(JSON.parse(localStorage.getItem(`product-${index}`)));
+    }
+    
+    for (const item of itemsLocalStorage) {
+      addListItem(item);
+
+      const sum = await sumPricesCart(parseFloat(item.salePrice));
+      document.querySelector('.total-price').innerText = sum;
     }
   }
 }
