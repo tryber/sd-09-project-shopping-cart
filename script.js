@@ -33,16 +33,16 @@ function saveCart() {
   localStorage.setItem('cart', cartList.innerHTML);
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+  saveCart();
+}
+
 function getCart() {
   const cartList = document.querySelector('ol.cart__items');
   cartList.innerHTML = localStorage.getItem('cart');
   const cartItems = document.querySelectorAll('li.cart__item');
   cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
-  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
