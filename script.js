@@ -63,7 +63,6 @@ function loadStorage(storage) {
   if (localStorage.getItem(storage) != null) {
     const arrayStorage = JSON.parse(localStorage.getItem(storage));
     arrayStorage.forEach((item) => {
-      console.log(item);
       const classCartItems = document.querySelector('.cart__items');
       const itemList = document.createElement('li');
       itemList.className = 'cart__item';
