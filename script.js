@@ -1,9 +1,22 @@
+function textLoading(action) {
+  let elementLoading = document.querySelector('.loading');
+  if (action === 'display') {
+    elementLoading.innerText = 'LOADING...';
+  }
+  elementLoading.innerText = '';
+}
+
 async function retrieveProductsList() {
   // recupera a lista do mercado livre
-  const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
-  const response = await fetch(endpoint);
-  const object = await response.json();
-  return object.results;
+  textLoading('display');
+  try {
+    const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+    const response = await fetch(endpoint);
+    const object = await response.json();
+    return object.results;
+  } finally {
+      textLoading('hide');
+  }
 }
 
 function createProductImageElement(imageSource) { // base
