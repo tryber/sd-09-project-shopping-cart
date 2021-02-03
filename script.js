@@ -1,4 +1,5 @@
 let totalPrice = 0;
+const roundToTwoDecimals = num => Math.round( num * 100 + Number.EPSILON ) / 100;
 const createSectionTotalPriceAssyncAwait = async (totalprice) => {
   try {
     const span = await document.createElement('span');
@@ -90,7 +91,7 @@ function cartItemClickListener(event) {
     const itemPrice = parseFloat(event.path[0].id);
     if (liItem.innerText === textOfClickedLi) {
       totalPrice -= itemPrice;
-      totalPrice.toFixed(2);
+      totalPrice = roundToTwoDecimals(totalPrice);
       createSectionTotalPriceAssyncAwait(totalPrice);
       deleteSectionTotalPriceAssyncAeait();
       ol.removeChild(liItem);
