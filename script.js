@@ -47,10 +47,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function removeSection() {
-  const load = document.querySelector('.loading');
-  load.remove();
-}
+// function removeSection() {
+//   const load = document.querySelector('.loading');
+//   load.remove();
+// }
 
 function esperandoRequisicao() {
   const cartItem = document.querySelector('.items');
