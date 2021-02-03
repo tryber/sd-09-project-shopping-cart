@@ -39,6 +39,9 @@ let totalPrice = 0;
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  let procuctPrice = parseFloat(event.target.innerText.split('$')[1]);
+  totalPrice -= Math.round(procuctPrice * 100) / 100;
+  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
   event.target.remove();
   localStorage.clear();
   setLocalStorage();
@@ -58,7 +61,7 @@ function getStorageItems() {
     const listItem = document.createElement('li');
     const objStorage = JSON.parse(localStorage.getItem(index));
     listItem.innerText = objStorage.text;
-    listItem.className = objStorage.class;
+    listItem.className = objStorage.class;    
     listItem.addEventListener('click', cartItemClickListener);
     ol.appendChild(listItem);
   }
@@ -71,8 +74,8 @@ const fetchAddToCartRequest = async (itemId) => {
   const object = await response.json();
   const { id, title, price } = object;
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
-  totalPrice += price;
-  document.querySelector('.total-price').innerText = totalPrice;
+  totalPrice += Math.round(price * 100) / 100;
+  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
   setLocalStorage();
