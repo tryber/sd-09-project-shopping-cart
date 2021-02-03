@@ -81,6 +81,17 @@ async function displayProductList() {
   });
 }
 
+function clearAllShoppingCart() {
+  const buttonClearAll = document.querySelector('.empty-cart');
+  buttonClearAll.addEventListener('click', function () {
+    const itemsCart = document.querySelectorAll('.cart__item');
+    itemsCart.forEach((item) => {
+      item.remove();
+    });
+  });
+}
+
 window.onload = function onload() {
   displayProductList();
+  clearAllShoppingCart();
 };
