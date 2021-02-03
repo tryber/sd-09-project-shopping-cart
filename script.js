@@ -64,8 +64,6 @@ async function getProductListFromAPIByID(id) {
   cartSection.appendChild(cartListItem);
 }
 
-
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
