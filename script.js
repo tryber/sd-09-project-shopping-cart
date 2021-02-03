@@ -60,6 +60,7 @@ const fetchAddToCartRequest = async (itemId) => {
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
+  saveCart();
 };
 
 function getProductId(event) {
@@ -71,7 +72,6 @@ function addToCart() {
   document.querySelectorAll('.item__add').forEach((button) => {
     button.addEventListener('click', getProductId);
   });
-  saveCart();
 }
 
 async function fetchProducts(query) {
