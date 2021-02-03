@@ -67,7 +67,6 @@ async function createProductList() {
       const itemsForSale = createProductItemElement({ sku, name, image });
       sectionLocal.append(itemsForSale);
     });
-
   } catch (error) {
     alert('Error');
   }
