@@ -41,10 +41,13 @@ async function totalCart() {
     const classCart = document.querySelector('.cart');
     price = document.createElement('div');
     price.className = 'total-price';
-    price.innerText = `Preço Total: $${cartValue}`;
+    price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
     classCart.appendChild(price);
   } else {
-    price.innerText = `Preço Total: $${cartValue}`;
+    price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
+  }
+  if (cartValue == 0) {
+    price.remove();
   }
 }
 
