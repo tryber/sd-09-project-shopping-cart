@@ -35,14 +35,25 @@ function saveOnLocalStorage(singleProduct) {
   localStorage.setItem('productsOnCart', JSON.stringify(storageArray));
 }
 
+async function cartSum(value) {
+  const priceParagraph = document.querySelector('.total-price');
+  const previusValue = parseFloat(priceParagraph.innerText.split('$')[1]);
+  const sum = Math.round((previusValue + value) * 100) / 100;
+  priceParagraph.innerText = `Preço tota: $${sum.toFixed(2)}`;
+}
+
 function removeFromLocalStorage(event) {
   const prod = [];
   for (let index = 0; index < storageArray.length; index += 1) {
-    const { sku, name, salePrice } = storageArray;
+    const { sku, name, salePrice } = storageArray[index];
     if (`SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}` === event.path[0].innerText) {
       prod.push(index);
+      prod.push(salePrice);
+      break;
     }
   }
+  const removeValue = prod[1] * -1;
+  cartSum(removeValue);
   storageArray.splice(prod[0], 1);
   localStorage.setItem('productsOnCart', JSON.stringify(storageArray));
 }
@@ -78,6 +89,7 @@ function appendProduct(response) {
     name: response.title,
     salePrice: response.price,
   };
+  cartSum(product.salePrice);
   const cart = document.querySelector('.cart__items');
   saveOnLocalStorage(product);
   cart.appendChild(createCartItemElement(product));
@@ -130,19 +142,18 @@ function clearCart() {
   });
 }
 
-// function cartSum() {
-//   let sum = 0;
-//   const totalPrice = document.querySelector('.total-price');
-//   const cartList = document.querySelector('ol');
-//   cartList.addEventListener('click', function (event) {
-//     const stringValue = event.target.innerText.split('$')[1];
-//     const numberValue = parseFloat(stringValue);
-//     sum -= numberValue;
-//     totalPrice.innerText = `${sum.toFixed(2)}`;
-//   });
-// }
+function loadStorageValue() {
+  if (storageArray.length > 0) {
+    let sum = 0;
+    storageArray.forEach((prod) => {
+      sum += prod.salePrice;
+    });
+    cartSum(sum);
+  }
+}
 
 window.onload = function onload() {
   generateProductList();
   clearCart();
+  loadStorageValue();
 };
