@@ -1,4 +1,4 @@
-const CalculateTotalPrice = (myCartItems) => {
+const CalculateTotalPrice = (myCartItems) => { // refatorar de forma async
   let sum = 0;
 
   myCartItems.forEach((curr) => {
@@ -10,7 +10,7 @@ const CalculateTotalPrice = (myCartItems) => {
   return roundedSum;
 };
 
-const sumTotalItensOnCart = () => {
+const sumTotalItensOnCart = () => { // refatorar de forma async
   const myCartItems = document.querySelectorAll('.cart__item');
   const sumOfItemsOnCart = CalculateTotalPrice(myCartItems);
   const myCartTotal = document.querySelector('.total-price');
