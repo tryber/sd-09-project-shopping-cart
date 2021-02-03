@@ -1,9 +1,9 @@
 function textLoading(action) {
   const elementLoading = document.querySelector('.loading');
   if (action === 'display') {
-    elementLoading.innerText = 'LOADING...';
+    elementLoading.style.display = 'inherit';
   }
-  elementLoading.innerText = '';
+  elementLoading.style.display = 'none';
 }
 
 async function retrieveProductsList() {
