@@ -46,6 +46,8 @@ function setLocalStorage() {
   }
 }
 
+let totalPrice = 0;
+
 function cartItemClickListener(event) {
   const productPrice = parseFloat(event.target.innerText.split('$')[1]);
   totalPrice -= (productPrice * 100) / 100;
@@ -75,7 +77,6 @@ function getStorageItems() {
   }
 }
 
-let totalPrice = 0;
 async function fetchAddToCartRequest(itemId) {
   const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
   try {
