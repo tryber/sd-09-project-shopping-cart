@@ -80,7 +80,16 @@ function addItemToCart() {
   });
 }
 
+function removeAllItems() {
+  const emptyButtonLocal = document.querySelector('.empty-cart');
+  emptyButtonLocal.addEventListener('click', function () {
+    const itemOnCart = document.querySelectorAll('.cart__item');
+    itemOnCart.forEach(element => element.remove());
+  });
+}
+
 window.onload = function onload() {
   createProductList();
   addItemToCart();
+  removeAllItems();
 };
