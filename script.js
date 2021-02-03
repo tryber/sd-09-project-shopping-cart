@@ -50,7 +50,7 @@ async function updatePrice() {
 async function asyncUpdatePrice() {
   try {
     const totalPrice = await updatePrice();
-    const totalPriceSpan = document.querySelector('#total-price');
+    const totalPriceSpan = document.querySelector('.total-price');
 
     if (totalPrice === 0.00) {
       totalPriceSpan.innerText = 0;
@@ -148,7 +148,7 @@ function fetchAPI(term) {
 
 function clearList() {
   const cartItemsList = document.querySelector('.cart__items');
-  const totalPrice = document.querySelector('#total-price');
+  const totalPrice = document.querySelector('.total-price');
 
   cartItemsList.innerHTML = '';
   totalPrice.innerText = 0;
