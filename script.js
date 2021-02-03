@@ -29,8 +29,13 @@ function getSkuFromProductItem(item) {
 }
 
 function saveCart() {
-  const cart = document.querySelector('ol');
-  localStorage.setItem(cart);
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('cart', cartList.innerHTML);
+}
+
+function getCart() {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
 }
 
 function cartItemClickListener(event) {
@@ -44,11 +49,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-function getCart() {
-  const cart = document.querySelector('ol');
-  cart.innerHTML = localStorage.getItem('cart');
 }
 
 const fetchAddToCartRequest = async (itemId) => {
