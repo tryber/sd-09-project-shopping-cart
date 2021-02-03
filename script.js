@@ -56,7 +56,7 @@ function ClearCart() {
 async function sumAllItemPricesOnCart() {
   let sumPrices = 0;
   const allCartItens = document.querySelectorAll('.cart__item');
-  allCartItens.forEach(item => sumPrices += +item.innerText.split('$')[1]);
+  allCartItens.forEach(item => (sumPrices += +item.innerText.split('$')[1]));
   document.querySelector('.total-price').innerText = `Total: $${sumPrices} BRL`;
 }
 
