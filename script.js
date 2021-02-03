@@ -5,6 +5,7 @@ function save() {
 
 function load() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
+  price();
 }
 
 async function price() {
