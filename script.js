@@ -40,14 +40,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   ol.appendChild(li);
-  let array = [];
-  array = document.querySelector('.cart__items').getElementsByTagName('li');
-  let newArray = [];
-  for (let local = 0; local < array.length; local += 1) {
-    newArray.push(array[local].innerText);
-  }
-localStorage.setItem('cartList', JSON.stringify(newArray));
-
 }
 
 const filterIdElement = ({ id, title, price }) => {
@@ -107,20 +99,6 @@ const productItemElement = async () => {
   }
 };
 
-function updateLocalStorage() {
-  const li = document.querySelector('.cart__items');
-  li.addEventListener('click', (event) => {
-    event.target.remove();
-    let list = [];
-    list = document.querySelector('.cart__items').getElementsByTagName('li');
-    const arr = [];
-    for (let index of list) {
-      arr.push(index.innerText);
-    }
-    localStorage.setItem('cartList', JSON.stringify(arr));
-  });
-}
-
 const storageListSaved = () => {
   const ol = document.querySelector('.cart__items');
   const storageList = JSON.parse(localStorage.getItem('cartList'));
@@ -137,5 +115,4 @@ window.onload = function onload() {
   productItemElement();
   getIdByEventListener();
   storageListSaved();
-  storage();
 };
