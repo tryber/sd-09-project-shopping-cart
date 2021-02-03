@@ -29,13 +29,15 @@ function getSkuFromProductItem(item) {
 }
 
 function saveCart() {
-  const cartList = document.querySelector('.cart__items');
+  const cartList = document.querySelector('ol.cart__items');
   localStorage.setItem('cart', cartList.innerHTML);
 }
 
 function getCart() {
-  const cart = document.querySelector('.cart__items');
-  cart.innerHTML = localStorage.getItem('cart');
+  const cartList = document.querySelector('ol.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
+  const cartItems = document.querySelectorAll('li.cart__item');
+  cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
 }
 
 function cartItemClickListener(event) {
