@@ -103,6 +103,7 @@ const itemsList = async (search) => {
     const fetchResponse = await fetch(endpoint);
     const jsonResponse = await fetchResponse.json();
     const sectionItem = document.querySelector('.items');
+    document.querySelector('.loading').remove();
     jsonResponse.results.forEach((element) => {
       const { id: sku, title: name, thumbnail: image } = element;
       sectionItem.appendChild(createProductItemElement({ sku, name, image }));

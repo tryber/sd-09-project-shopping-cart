@@ -75,7 +75,7 @@
   text-align: center;
 }
 
-.total_price {
+.total_price, .loading{
   align-items: center;
   display: flex;
   justify-content: space-around;
