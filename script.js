@@ -63,7 +63,7 @@ function addProductToCar(event) {
       const productCar = createCartItemElement({ sku: id, name: title, salePrice: price });
       ol.appendChild(productCar);
       sumValuesOfProducts();
-    })
+    });
 }
 
 function fetchProducts() {
