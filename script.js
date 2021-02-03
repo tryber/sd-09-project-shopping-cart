@@ -3,7 +3,7 @@ function save() {
   localStorage.setItem('cart', content);
 }
 
-async function price() {
+function price() {
   let total = 0;
   document.querySelectorAll('.cart__item')
   .forEach((item) => { total += parseFloat(item.innerHTML.split('$')[1]); });
