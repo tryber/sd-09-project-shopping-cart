@@ -1,9 +1,9 @@
 let totalPrice = 0;
-const createSectionTotalPriceAssyncAwait = async () => {
+const createSectionTotalPriceAssyncAwait = async (totalprice) => {
   try {
     const span = await document.createElement('span');
     span.className = 'total-price';
-    span.innerHTML = `Preço Total: $${totalPrice}`;
+    span.innerHTML = `Preço Total: $${totalprice}`;
     const sectionOl = await document.querySelector('.cart');
     sectionOl.appendChild(span);
   }
@@ -91,7 +91,7 @@ function cartItemClickListener(event) {
     if (liItem.innerText === textOfClickedLi) {
       totalPrice -= itemPrice;
       totalPrice.toFixed(2);
-      createSectionTotalPriceAssyncAwait();
+      createSectionTotalPriceAssyncAwait(totalPrice);
       deleteSectionTotalPriceAssyncAeait();
       ol.removeChild(liItem);
     }
@@ -101,7 +101,7 @@ function cartItemClickListener(event) {
 function createCartItemElement({ sku, name, salePrice }) {
   deleteSectionTotalPriceAssyncAeait();
   totalPrice += salePrice;
-  createSectionTotalPriceAssyncAwait();
+  createSectionTotalPriceAssyncAwait(totalPrice);
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.id = salePrice;
@@ -141,5 +141,5 @@ window.onload = function onload() {
     const itemId = event.path[1].childNodes[0].innerText;
     fetchItemById(itemId);
   });
-  createSectionTotalPriceAssyncAwait();
+  createSectionTotalPriceAssyncAwait(totalPrice);
 };
