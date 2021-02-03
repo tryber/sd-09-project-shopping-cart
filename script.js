@@ -32,7 +32,7 @@ async function sumPrices() {
     const object = await response.json();
     const { price } = object;
     totalPrice += price;
-    getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100).toFixed(2);
+    getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100);
   });
 }
 
