@@ -46,7 +46,7 @@ async function totalCart() {
   } else {
     price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
   }
-  if (cartValue == 0) {
+  if (cartValue === 0) {
     price.remove();
   }
 }
