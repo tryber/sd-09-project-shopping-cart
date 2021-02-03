@@ -3,11 +3,6 @@ function save() {
   localStorage.setItem('cart', content);
 }
 
-function load() {
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
-  price();
-}
-
 async function price() {
   let total = 0;
   const aitem = document.querySelectorAll('.cart__item');
@@ -16,6 +11,11 @@ async function price() {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
   tValue.innerHTML = Math.round(total * 100) / 100;
+}
+
+function load() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
+  price();
 }
 
 function createProductImageElement(imageSource) {
