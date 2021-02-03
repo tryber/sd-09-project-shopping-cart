@@ -49,8 +49,8 @@ function setLocalStorage() {
 let totalPrice = 0;
 
 function cartItemClickListener(event) {
-  const productPrice = parseFloat(event.target.innerText.split('$')[1]);
-  totalPrice -= (productPrice * 100) / 100;
+  const productPrice = event.target.innerText.split('$')[1];
+  totalPrice -= +(productPrice);
   document.querySelector('.total-price').innerText = totalPrice;
   event.target.remove();
   localStorage.clear();
