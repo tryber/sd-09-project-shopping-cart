@@ -1,5 +1,5 @@
 function textLoading(action) {
-  let elementLoading = document.querySelector('.loading');
+  const elementLoading = document.querySelector('.loading');
   if (action === 'display') {
     elementLoading.innerText = 'LOADING...';
   }
@@ -15,7 +15,7 @@ async function retrieveProductsList() {
     const object = await response.json();
     return object.results;
   } finally {
-      textLoading('hide');
+    textLoading('hide');
   }
 }
 
