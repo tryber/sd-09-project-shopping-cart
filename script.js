@@ -69,7 +69,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 const sumPrices = () => {
   const sumTotal = priceArray.length > 0 ? priceArray.reduce((a, b) => a + b) : 0;
   const tagTotalPrice = document.querySelector('.total-price');
-  tagTotalPrice.textContent = `${Math.round(sumTotal * 100) / 100}`;
+  tagTotalPrice.textContent = (`${(Math.round(sumTotal * 100) / 100).toFixed(2)}`);
 };
 
 const addItemOnCart = async (param) => {
