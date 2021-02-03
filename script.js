@@ -4,7 +4,7 @@ const createSectionTotalPriceAssyncAwait = async (totalprice) => {
   try {
     const span = await document.createElement('span');
     span.className = 'total-price';
-    span.innerHTML = `Preço Total: $${totalprice}`;
+    span.innerHTML = `${totalprice}`;
     const sectionOl = await document.querySelector('.cart');
     sectionOl.appendChild(span);
   } catch (error) {
@@ -141,4 +141,15 @@ window.onload = function onload() {
     fetchItemById(itemId);
   });
   createSectionTotalPriceAssyncAwait(totalPrice);
+  const buttonCleanCart = document.querySelector('.empty-cart');
+  buttonCleanCart.addEventListener('click', () => {
+  const allCartLi = document.querySelectorAll('.cart__item');
+  const ol = document.querySelector('.cart__items');
+  allCartLi.forEach((li) => {
+    ol.removeChild(li);
+    });
+    totalPrice = 0;
+    deleteSectionTotalPriceAssyncAeait();
+    createSectionTotalPriceAssyncAwait(totalPrice);
+  });
 };
