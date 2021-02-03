@@ -36,6 +36,7 @@ function setLocalStorage() {
 const cartItemClickListener = (event) => {
   if (event.target.parentNode) {
     event.target.parentNode.removeChild(event.target);
+    sumValueOfProducts();
     setLocalStorage();
   }
 };
@@ -62,6 +63,7 @@ function emptyCart() {
     const cartList = document.querySelectorAll('.cart__item');
     cartList.forEach(item => (item.parentNode.removeChild(item)));
     setLocalStorage();
+    sumValueOfProducts();
   });
 }
 
@@ -82,22 +84,19 @@ const addProductToCart = () => {
         const item = createCartItemElement({ sku, name, salePrice });
         ol.appendChild(item);
         setLocalStorage();
+        sumValueOfProducts();
       })
       .catch(error => window.alert(error));
   }));
 };
 
-const sumValueOfProducts = async () => {
+async function sumValueOfProducts() {
   const cartList = document.querySelectorAll('.cart__item');
   const newArr = [];
   cartList.forEach(item => newArr.push(item.innerText.split('$')[1]));
-  const totalPrice = await newArr.reduce((a, v) => (Number(a) + Number(v)).toFixed(2), 0);
-  const p = document.createElement('p');
-  p.innerHTML = `Total = ${totalPrice}`;
-  p.className = 'total-price';
-
-  const divPai = document.querySelector('.total');
-  divPai.appendChild(p);
+  const sum = await newArr.reduce((a, v) => (Number(a) + Number(v)).toFixed(2), 0);
+  const totalPrice = document.querySelector('.total-price');
+  totalPrice.innerHTML = `Total = R$ ${sum}`;
 };
 
 const fetchProducts = (product) => {
