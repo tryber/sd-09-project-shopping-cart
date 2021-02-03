@@ -53,12 +53,23 @@ function ClearCart() {
   });
 }
 
+async function sumAllItemPricesOnCart() {
+  let teste = 0
+  const allCartItens = document.querySelectorAll('.cart__item'); // localiza todos itens do carrinho em uma node list
+  // exibe todos valores de price cada LI
+  allCartItens.forEach(item => teste += +item.innerText.split('$')[1]);
+  document.querySelector('.total-price').innerText = `Total: $${teste} BRL`
+}
+
+
+
 async function sendItemToCart(event) {
   const section = event.target.parentNode;
   const productId = getSkuFromProductItem(section);
   const { id, title, price } = await fetchItemById(productId);
   const cartElement = createCartItemElement({ sku: id, name: title, salePrice: price });
   document.querySelector('.cart__items').appendChild(cartElement);
+  sumAllItemPricesOnCart ()
 }
 
 function addItem() {
