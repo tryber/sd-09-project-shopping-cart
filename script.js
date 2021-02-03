@@ -5,12 +5,9 @@ function save() {
 
 async function price() {
   let total = 0;
-  const aitem = document.querySelectorAll('.cart__item');
-  const tValue = document.querySelector('.total-price');
-  aitem.forEach((item) => {
-    total += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  tValue.innerHTML = `R$${Math.round(total * 100) / 100}`;
+  document.querySelectorAll('.cart__item')
+  .forEach((item) => { total += parseFloat(item.innerHTML.split('$')[1]); });
+  document.querySelector('.total-price').innerHTML = total;
 }
 
 function load() {
