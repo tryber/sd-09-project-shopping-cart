@@ -76,7 +76,7 @@ function saveList() {
 }
 
 function LoadingList() {
-  let cartList = document.querySelector('.cart__items');
+  const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = localStorage.getItem('cart');
 }
 
