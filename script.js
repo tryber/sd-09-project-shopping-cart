@@ -66,20 +66,11 @@ async function fetchInit() {
     const sku = getSkuFromProductItem(button.parentNode);
     button.addEventListener('click', () => {
       adcItem(sku);
-
-      let key = sku;
-      localStorage.setItem(key, 'name');
     });
   });
 }
 
-function saveInStorage () {
-  
- //localStorage.getItem('value' ) document.querySelector('.cart_items').innerHTML =
-
-}
-
-function removeItemsCart () {
+function removeItemsCart() {
   const toEmpty = document.querySelector('.cart__items');
   toEmpty.innerText = '';
 }
