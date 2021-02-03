@@ -49,8 +49,8 @@ function ClearCart() {
   const buttomClear = document.querySelector('.empty-cart');
   buttomClear.addEventListener('click', () => {
     document.querySelectorAll('li')
-    .forEach(li => li.remove())
-  })
+    .forEach(li => li.remove());
+  });
 }
 
 async function sendItemToCart(event) {
