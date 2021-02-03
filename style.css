@@ -74,3 +74,11 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.total-price {
+  border: 2px solid blue;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 30px;
+  margin: 5px;
+}
