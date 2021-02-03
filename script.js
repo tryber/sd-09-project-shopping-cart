@@ -111,8 +111,8 @@ const fetchItensComputers = async () => {
     }
     object.results.forEach((item) => {
       const image = item.thumbnail;
-      const name = item.title;
-      const sku = item.id;
+      name = item.title;
+      sku = item.id;
       const eachResult = createProductItemElement({ sku, name, image });
       const itens = document.querySelector('.items');
       itens.appendChild(eachResult);
