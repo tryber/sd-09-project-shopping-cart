@@ -120,11 +120,13 @@ function addItemsClickListener() {
 }
 
 function fetchAPI(term) {
-  const loadingSpan = document.querySelector('.loading');
+  const loadingDiv = document.createElement('div');
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   const itemsSection = document.querySelector('.items');
 
-  loadingSpan.style.display = 'block';
+  loadingDiv.className = 'loading';
+  loadingDiv.innerText = 'loading...';
+  document.body.appendChild(loadingDiv);
 
   fetch(endpoint)
     .then(response => response.json())
@@ -141,7 +143,7 @@ function fetchAPI(term) {
         );
       });
 
-      loadingSpan.style.display = 'none';
+      document.body.removeChild(document.querySelector('.loading'));
     })
     .catch((error) => {
       window.alert(error);
