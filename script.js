@@ -71,7 +71,7 @@ const fetchAddToCartRequest = async (itemId) => {
   const object = await response.json();
   const { id, title, price } = object;
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
-  totalPrice += price
+  totalPrice += price;
   document.querySelector('.total-price').innerText = totalPrice;
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
@@ -99,7 +99,7 @@ async function fetchProducts(query) {
   document.body.appendChild(loadingElement);
   const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${query}`);
   const object = await response.json();
-    object.results.forEach((result) => {
+  object.results.forEach((result) => {
     const { id, title, thumbnail } = result;
     const item = createProductItemElement({ sku: id, name: title, image: thumbnail });
     document.querySelector('.items').appendChild(item);
