@@ -41,6 +41,11 @@ function getProductListFromAPIByQuerySearch(product) {
     .then(data => extractProductsData(data.results))
     .catch(error => console.log(error));
 }
+
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -59,13 +64,6 @@ async function getProductListFromAPIByID(id) {
   cartSection.appendChild(cartListItem);
 }
 
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-  if (event.target.className === 'item__add') {
-    const id = event.target.parentNode.firstChild.innerText;
-    getProductListFromAPIByID(id);
-  }
-}
 
 
 function getSkuFromProductItem(item) {
@@ -78,4 +76,9 @@ window.onload = function onload() {
 };
 
 const btnsAddItemToCart = document.querySelector('.items');
-btnsAddItemToCart.addEventListener('click', cartItemClickListener);
+btnsAddItemToCart.addEventListener('click', (event) => {
+  if (event.target.className === 'item__add') {
+    const id = event.target.parentNode.firstChild.innerText;
+    getProductListFromAPIByID(id);
+  }
+});
