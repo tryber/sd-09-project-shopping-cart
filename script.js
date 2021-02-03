@@ -10,11 +10,11 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function retunPriceToDOM(itemPrice) {
+async function retunPriceToDOM(itemPrice) {
   const totalPriceDOM = document.querySelector('.total-price');
   let totalPriceValue = parseFloat(totalPriceDOM.innerText);
   totalPriceValue += itemPrice;
-  totalPriceDOM.innerText = totalPriceValue.toFixed(2);
+  totalPriceDOM.innerText = totalPriceValue;
 }
 
 const getItemPrice = async (itemId) => {
