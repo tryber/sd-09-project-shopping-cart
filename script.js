@@ -1,5 +1,5 @@
 let totalPrice = 0;
-const roundToTwoDecimals = num => Math.round( num * 100 + Number.EPSILON ) / 100;
+const roundToTwoDecimals = num => Math.round((num * 100) + Number.EPSILON) / 100;
 const createSectionTotalPriceAssyncAwait = async (totalprice) => {
   try {
     const span = await document.createElement('span');
