@@ -33,6 +33,15 @@ function setLocalStorage() {
   localStorage.setItem('items', cartList.innerHTML);
 }
 
+async function sumValueOfProducts() {
+  const cartList = document.querySelectorAll('.cart__item');
+  const newArr = [];
+  cartList.forEach(item => newArr.push(item.innerText.split('$')[1]));
+  const sum = await newArr.reduce((a, v) => (Number(a) + Number(v)).toFixed(2), 0);
+  const totalPrice = document.querySelector('.total-price');
+  totalPrice.innerHTML = `Total = ${sum}`;
+}
+
 const cartItemClickListener = (event) => {
   if (event.target.parentNode) {
     event.target.parentNode.removeChild(event.target);
@@ -88,15 +97,6 @@ const addProductToCart = () => {
       })
       .catch(error => window.alert(error));
   }));
-};
-
-async function sumValueOfProducts() {
-  const cartList = document.querySelectorAll('.cart__item');
-  const newArr = [];
-  cartList.forEach(item => newArr.push(item.innerText.split('$')[1]));
-  const sum = await newArr.reduce((a, v) => (Number(a) + Number(v)).toFixed(2), 0);
-  const totalPrice = document.querySelector('.total-price');
-  totalPrice.innerHTML = `Total = R$ ${sum}`;
 };
 
 const fetchProducts = (product) => {
