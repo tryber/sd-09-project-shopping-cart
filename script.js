@@ -49,8 +49,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function getCart() {
   const cart = document.querySelector('ol');
-  localStorage.getItem(cart);
-  cart.addEventListener('click', cartItemClickListener);
+  cart.innerHTML = localStorage.getItem('cart');
 }
 
 const fetchAddToCartRequest = async (itemId) => {
@@ -88,6 +87,5 @@ async function fetchProducts(query) {
 
 window.onload = function onload() {
   fetchProducts('computador');
-  saveCart();
   getCart();
 };
