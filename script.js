@@ -53,7 +53,6 @@ function saveLocalStorage() {
     const id = child.innerText.substr(5, 13);
     items.push(id);
   });
-  console.log(items);
   localStorage.setItem('carrinho', JSON.stringify(items));
 }
 
@@ -102,7 +101,7 @@ function addItems() {
   });
 }
 
-async function loadLocalStorage() {
+function loadLocalStorage() {
   const cart = JSON.parse(localStorage.getItem('carrinho'));
   cart.forEach((id) => {
     getProduct(id);
@@ -120,7 +119,7 @@ async function getProductList() {
   loading.innerText = 'loading...';
   loading.style.fontSize = '36px';
   sectionItems.appendChild(loading);
-  await loadLocalStorage();
+  loadLocalStorage();
 
   try {
     const response = await fetch(URL);
