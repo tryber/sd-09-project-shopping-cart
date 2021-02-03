@@ -118,7 +118,7 @@ const listingProducts = async (QUERY) => {
     const productItem = createProductItemElement({ sku: id, name: title, image: thumbnail });
     document.querySelector('.items').appendChild(productItem);
   });
-  
+
   document.querySelector('.loading').remove();
 
   const allButtonsAdd = document.querySelectorAll('.item');
