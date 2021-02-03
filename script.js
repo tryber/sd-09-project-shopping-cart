@@ -41,8 +41,7 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
   const procuctPrice = parseFloat(event.target.innerText.split('$')[1]);
   totalPrice -= Math.round(procuctPrice * 100) / 100;
-  totalPrice.toFixed(2)
-  document.querySelector('.total-price').innerText = totalPrice;
+  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
   event.target.remove();
   localStorage.clear();
   setLocalStorage();
@@ -76,8 +75,7 @@ const fetchAddToCartRequest = async (itemId) => {
   const { id, title, price } = object;
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
   totalPrice += Math.round(price * 100) / 100;
-  totalPrice.toFixed(2)
-  document.querySelector('.total-price').innerText = totalPrice;
+  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
   setLocalStorage();
