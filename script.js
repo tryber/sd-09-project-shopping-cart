@@ -9,9 +9,9 @@ function load() {
 
 async function price() {
   let total = 0;
-  const item = document.querySelectorAll('.cart__item');
+  const aitem = document.querySelectorAll('.cart__item');
   const tValue = document.querySelector('.total-price');
-  item.forEach((item) => {
+  aitem.forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
   tValue.innerHTML = Math.round(total * 100) / 100;
