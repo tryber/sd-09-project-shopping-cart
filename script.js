@@ -45,18 +45,19 @@ async function updatePrice() {
     currentPrice += parseFloat(product.id);
   });
 
-  return (Math.round(currentPrice * 100) / 100).toFixed(2);
+  return (Math.round(currentPrice * 100) / 100).toFixed(2)
 }
 async function asyncUpdatePrice() {
   try {
     const totalPrice = await updatePrice();
     const totalPriceSpan = document.querySelector('.total-price');
 
-    if (totalPrice === 0.00) {
-      totalPriceSpan.innerText = 0;
-    } else {
-      totalPriceSpan.innerText = totalPrice;
+    if (totalPrice === '0.00') {
+      totalPrice = '0'
+      console.log(totalPrice)
     }
+
+    totalPriceSpan.innerText = totalPrice;
   } catch (error) {
     window.alert(error);
   }
