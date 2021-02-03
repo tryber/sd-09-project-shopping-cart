@@ -50,12 +50,26 @@ function updateProductsPrice() {
   const cartItems = document.querySelectorAll('.cart__item');
   const priceContainer = document.querySelector('.total-price');
   let priceSum = 0;
-  cartItems.forEach(({innerText: item}) => {
+  cartItems.forEach(({ innerText: item }) => {
     priceSum += parseFloat(item.substring(item.indexOf('$') + 1));
     priceSum = parseFloat(priceSum.toFixed(2));
-    
   });
   priceContainer.innerText = `Soma dos Produtos: ${priceSum}`;
+}
+
+// Remove li element from the cart and local storage
+function cartItemClickListener(event) {
+  event.target.parentNode.removeChild(event.target);
+  updateLocalStorageItems();
+  updateProductsPrice();
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
 
 // Add the product to the 'cart items' HTML ol
@@ -82,13 +96,6 @@ function fetchProduct(event) {
   }
 }
 
-// Remove li element from the cart and local storage
-function cartItemClickListener(event) {
-  event.target.parentNode.removeChild(event.target);
-  updateLocalStorageItems();
-  updateProductsPrice();
-}
-
 // Retrieves the list of products from Mercado livre API and loads in 'items' section on HTML
 function fetchProductList(item) {
   const itemsList = document.querySelector('.items');
@@ -99,14 +106,6 @@ function fetchProductList(item) {
         itemsList.appendChild(createProductItemElement({ sku, name, image }));
       }))
     .catch(error => alert(error));
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
 
 // Loads on page all cart items saved on local storage
@@ -132,7 +131,6 @@ function loadCartItemOnLocalSorage() {
 function setupEvents() {
   const items = document.querySelector('.items');
   items.addEventListener('click', fetchProduct);
-  //items.addEventListener('click', updateProductsPrice);
 }
 
 window.onload = function onload() {
