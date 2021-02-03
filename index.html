@@ -4,18 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Shopping Cart</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
 
   <body>
     <section class="container">
-      <section class="items"></section>
+      <!-- <span class="loading">loading...</span> -->
+      <section class="items">
+      </section>
       <section class="cart">
+        <!-- <div class="search-container">
+          <input id="search-ipt"  type="text" placeholder="Buscar produtos">
+          <button id="search-btn">Pesquisar</button>
+        </div> -->
         <span class="cart__title">Carrinho de compras</span>
         <button class="empty-cart">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
+        <span>Preço total: $<span class="total-price">0</span></span>
       </section>
     </section>
   </body>
