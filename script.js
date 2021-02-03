@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const priceArray = [];
+let priceArray = [];
 
 const targetElement = (event) => {
   const item = event.target;
@@ -49,6 +49,7 @@ const lessPrice = (event) => {
 function cartItemClickListener(event) {
   lessPrice(event);
   event.target.remove();
+  saveOnLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -74,6 +75,7 @@ const addItemOnCart = async (param) => {
     priceArray.push(salePrice);
     sumPrices();
     ol.appendChild(createCartItemElement({ sku, name, salePrice }));
+    saveOnLocalStorage()
   } catch (error) {
     console.log(error);
   }
@@ -110,6 +112,7 @@ const clearList = () => {
   while (ol.firstChild) { ol.firstChild.remove(); }
   const totalPrice = document.querySelector('.total-price');
   totalPrice.textContent = '0,00';
+  saveOnLocalStorage();
 };
 
 const addEvent = () => {
@@ -117,7 +120,25 @@ const addEvent = () => {
   btnClear.addEventListener('click', clearList);
 };
 
+const saveOnLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  localStorage.setItem('cart', ol.innerHTML);
+  localStorage.setItem('cartPrices', JSON.stringify(priceArray));
+}
+
+const loadByLocalStorage = () => {
+  const ol = document.querySelector('.cart__items');
+  ol.innerHTML = localStorage.getItem('cart', ol);
+  const li = document.querySelectorAll('.cart__item');
+  li.forEach(item => {item.addEventListener('click', cartItemClickListener)})
+  priceArray = JSON.parse(localStorage.getItem('cartPrices'));
+  const p = document.querySelector('.total-price');
+  sumPrices();
+  console.log(priceArray)
+}
+
 window.onload = function onload() {
+  loadByLocalStorage();
   itemsList('computador');
   addEvent();
 };
