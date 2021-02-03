@@ -77,6 +77,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+async function sumCart(price) {
+  const localTotal = document.querySelector('.total');
+  let sum = Number(localTotal.innerText);
+  if (sum) {
+    sum += price;
+    localTotal.innerText = sum;
+  } else {
+    localTotal.innerText = price;
+  }
+}
+
 async function addProductToShoppingCart(event) {
   const selectItem = event.target.parentNode.firstElementChild.innerText;
   const endpoint = `https://api.mercadolibre.com/items/${selectItem}`;
@@ -86,6 +97,7 @@ async function addProductToShoppingCart(event) {
   father = document.querySelector('.cart__items');
   father.appendChild(createCartItemElement({ sku, name, salePrice }));
   saveLocalStorage();
+  sumCart(salePrice);
 }
 
 function addEventListenerToButton() {
