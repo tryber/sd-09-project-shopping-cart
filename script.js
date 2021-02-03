@@ -37,26 +37,22 @@ function saveAtTheLocalStorage() {
   localStorage.setItem('cart', stringfiedCart);
 }
 
-function updatePrice() {
-  return new Promise(function (resolve) {
-    const totalPriceSpan = document.querySelector('#total-price');
-    const cartProductsNodeList = document.querySelectorAll('li');
-    let currentPrice = 0;
+async function updatePrice() {
+  const totalPriceSpan = document.querySelector('#total-price');
+  const cartProductsNodeList = document.querySelectorAll('li');
+  let currentPrice = 0;
 
-    cartProductsNodeList.forEach((product) => {
-      currentPrice += parseFloat(product.id);
-    });
-
-    const priceToBeDisplayed = (Math.round(currentPrice * 100) / 100).toFixed(2);
-
-    if (currentPrice === 0.00) {
-      totalPriceSpan.innerText = 0;
-    } else {
-      totalPriceSpan.innerText = priceToBeDisplayed;
-    }
-
-    resolve();
+  cartProductsNodeList.forEach((product) => {
+    currentPrice += parseFloat(product.id);
   });
+
+  const priceToBeDisplayed = (Math.round(currentPrice * 100) / 100).toFixed(2);
+
+  if (currentPrice === 0.00) {
+    totalPriceSpan.innerText = 0;
+  } else {
+    totalPriceSpan.innerText = priceToBeDisplayed;
+  }
 }
 async function asyncUpdatePrice() {
   try {
