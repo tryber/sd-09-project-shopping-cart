@@ -127,10 +127,22 @@ function loadCartItemOnLocalSorage() {
   }
 }
 
+// Deletes all items from the shopping cart
+function deleteItemsFromCart() {
+  const cartItems = document.querySelector('.cart__items');
+  while(cartItems.firstChild) {
+    cartItems.removeChild(cartItems.lastChild);
+  }
+  updateLocalStorageItems();
+  updateProductsPrice();
+}
+
 // Event Listeners
 function setupEvents() {
   const items = document.querySelector('.items');
+  const buttonEmptyCart = document.querySelector('.empty-cart');
   items.addEventListener('click', fetchProduct);
+  buttonEmptyCart.addEventListener('click', deleteItemsFromCart);
 }
 
 window.onload = function onload() {
