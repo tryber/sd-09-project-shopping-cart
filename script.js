@@ -75,7 +75,7 @@ const fetchAddToCartRequest = async (itemId) => {
   const { id, title, price } = object;
   const item = createCartItemElement({ sku: id, name: title, salePrice: price });
   totalPrice += Math.round(price * 100) / 100;
-  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
+  document.querySelector('.total-price').innerText = Math.floor(totalPrice);
   const cartItems = document.querySelector('.cart__items');
   cartItems.appendChild(item);
   setLocalStorage();
