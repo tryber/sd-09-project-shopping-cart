@@ -28,7 +28,8 @@ function cartItemClickListener(event) {
   const itemList = document.querySelectorAll('.cart__item');
   itemList.forEach((cartItem) => {
     cartItem.addEventListener('click', () => {
-      cartItem.remove();
+      const elementItemCarts = cartItem.parentNode.querySelector('.cart__item');
+      elementItemCarts.remove();
     });
   });
 }
