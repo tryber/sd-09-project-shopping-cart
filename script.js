@@ -54,7 +54,11 @@ async function asyncUpdatePrice() {
     const totalPrice = await updatePrice();
     const totalPriceSpan = document.querySelector('.total-price');
 
-    totalPriceSpan.innerText = totalPrice;
+    if (parseFloat(totalPrice) === Math.round(parseFloat(totalPrice))) {
+      totalPriceSpan.innerText = Math.round(parseFloat(totalPrice));
+    } else {
+      totalPriceSpan.innerText = totalPrice;
+    }    
   } catch (error) {
     window.alert(error);
   }
