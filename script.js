@@ -129,11 +129,12 @@ const addEvent = () => {
 
 const loadByLocalStorage = () => {
   const ol = document.querySelector('.cart__items');
-  ol.innerHTML = localStorage.getItem('cart', ol);
+  ol.innerHTML = localStorage.getItem('cart', ol) || '';
+  console.log(typeof ol.innerHTML)
   const li = document.querySelectorAll('.cart__item');
   li.forEach((item) => { item.addEventListener('click', cartItemClickListener); });
   const pricesTemp = JSON.parse(localStorage.getItem('cartPrices'));
-  priceArray = pricesTemp;
+  priceArray = pricesTemp || [];
   sumPrices();
 };
 
