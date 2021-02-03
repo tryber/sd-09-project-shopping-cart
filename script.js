@@ -78,7 +78,7 @@ function fetchProducts() {
         section.addEventListener('click', addProductToCar);
       });
     })
-    .catch('Erro');
+    .catch('Err');
 }
 
 function clearCart() {
