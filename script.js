@@ -61,7 +61,7 @@ async function addItemCartApi(itemId) {
     const response = await fetch(endpoint);
     const objResponse = await response.json();
     const { id: sku, title: name, price: salePrice } = objResponse;
-    sumSalePrice(salePrice);
+    await sumSalePrice(salePrice);
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
   } catch (error) {
     window.alert(error);
