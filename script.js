@@ -58,7 +58,7 @@ async function asyncUpdatePrice() {
       totalPriceSpan.innerText = Math.round(parseFloat(totalPrice));
     } else {
       totalPriceSpan.innerText = totalPrice;
-    }    
+    }
   } catch (error) {
     window.alert(error);
   }
