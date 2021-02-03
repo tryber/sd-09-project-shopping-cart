@@ -33,7 +33,7 @@ async function sumPrices() {
     const { price } = object;
     totalPrice += price;
   }
-  getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100);
+  getTotalPriceElement.innerText = (Math.round(totalPrice * 100) / 100)
 }
 
 const initialCart = () => {
@@ -58,6 +58,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
 
 const addToCart = async (itemId) => {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
