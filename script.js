@@ -10,7 +10,13 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-/*
+function retunPriceToDOM(itemPrice) {
+  const totalPriceDOM = document.querySelector('.total-price');
+  let totalPriceValue = parseFloat(totalPriceDOM.innerText);
+  totalPriceValue += itemPrice;
+  totalPriceDOM.innerText = totalPriceValue.toFixed(2);
+}
+
 const getItemPrice = async (itemId) => {
   try {
     const productDetails = `https://api.mercadolibre.com/items/${itemId}`;
@@ -18,20 +24,21 @@ const getItemPrice = async (itemId) => {
       .then(response => response.json())
       .then((object) => {
         const itemPrice = object.price;
-        return itemPrice;
+        retunPriceToDOM(itemPrice);
       });
   } catch (error) {
     console.log(`Ocorreu um erro: ${error}`);
   }
-}; */
+};
 
 async function refreshTotalPrice() {
+  document.querySelector('.total-price').innerText = 0;
   const listItems = document.querySelectorAll('.cart__item');
   let totalPrice = 0;
+  document.querySelector('.total-price').innerText = totalPrice;
   listItems.forEach((item) => {
-    totalPrice += parseFloat(item.innerHTML.split('$')[1]);
+    totalPrice += getItemPrice(item.id);
   });
-  document.querySelector('.total-price').innerText = totalPrice.toFixed(2);
 }
 
 function emptyCart() {
@@ -75,8 +82,8 @@ const cartItemClickListener = async (itemID) => {
       .then((object) => {
         const newProduct = createCartItemElement(object);
         document.querySelector('.cart__items').appendChild(newProduct);
-        saveListOnStorage();
         refreshTotalPrice();
+        saveListOnStorage();
       });
   } catch (error) {
     console.log(`Ocorreu um erro: ${error}`);
@@ -106,10 +113,6 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
-/* function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-} */
-
 const fetchItems = async (product) => {
   try {
     const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
@@ -132,7 +135,7 @@ const setupEvents = () => {
 
 window.onload = function onload() {
   setupEvents();
+  refreshTotalPrice();
   restoreCart();
   emptyCart();
-  refreshTotalPrice();
 };
