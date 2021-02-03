@@ -103,9 +103,11 @@ function addItems() {
 
 function loadLocalStorage() {
   const cart = JSON.parse(localStorage.getItem('carrinho'));
-  cart.forEach((id) => {
-    getProduct(id);
-  });
+  if (cart.length !== 0) {
+    cart.forEach((id) => {
+      getProduct(id);
+    });
+  }
 }
 
 async function getProductList() {
