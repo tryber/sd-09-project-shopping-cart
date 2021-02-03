@@ -35,7 +35,6 @@ function saveCart() {
 
 function cartItemClickListener(event) {
   event.target.remove();
-  localStorage.clear();
   saveCart();
 }
 
