@@ -41,15 +41,6 @@ function getProductListFromAPIByQuerySearch(product) {
     .then(data => extractProductsData(data.results))
     .catch(error => console.log(error));
 }
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-  if (event.target.className === 'item__add') {
-    const id = event.target.parentNode.firstChild.innerText;
-    getProductListFromAPIByID(id);
-  }
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -68,12 +59,21 @@ async function getProductListFromAPIByID(id) {
   cartSection.appendChild(cartListItem);
 }
 
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+  if (event.target.className === 'item__add') {
+    const id = event.target.parentNode.firstChild.innerText;
+    getProductListFromAPIByID(id);
+  }
+}
+
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 
-window.onload = function onload() { 
+window.onload = function onload() {
   getProductListFromAPIByQuerySearch('computador');
 };
 
