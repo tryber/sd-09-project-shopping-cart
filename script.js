@@ -99,6 +99,14 @@ const productItemElement = async () => {
   }
 };
 
+const removeAllItems = () => {
+  const ol = document.querySelector('.cart__items');
+  ol.innerText = '';
+};
+
+const button = document.querySelector('.empty-cart');
+button.addEventListener('click', removeAllItems);
+
 window.onload = function onload() {
   productItemElement();
   getIdByEventListener();
