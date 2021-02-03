@@ -11,11 +11,13 @@
 
   <body>
     <section class="container">
+      <h1 class="loading">Loading...</h1>
       <section class="items"></section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
-        <button class="empty-cart">Esvaziar carrinho</button>
+        <button class="empty-cart" onclick="clearCart()">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
+        <p class="total-price"></p>
       </section>
     </section>
   </body>
