@@ -87,8 +87,6 @@ function getItemsFromLocalStorage() {
   }
 }
 
-
-
 function getProductListFromAPIByQuerySearch(product) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   fetch(endPoint)
@@ -97,12 +95,9 @@ function getProductListFromAPIByQuerySearch(product) {
     .catch(error => console.log(error));
 }
 
-
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
 
 window.onload = function onload() {
   getProductListFromAPIByQuerySearch('computador');
