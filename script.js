@@ -7,8 +7,7 @@ const createSectionTotalPriceAssyncAwait = async (totalprice) => {
     span.innerHTML = `Preço Total: $${totalprice}`;
     const sectionOl = await document.querySelector('.cart');
     sectionOl.appendChild(span);
-    }
-  catch (error) {
+  } catch (error) {
     window.alert(error);
   }
 };
@@ -18,8 +17,7 @@ const deleteSectionTotalPriceAssyncAeait = async () => {
     const span = await document.querySelector('.total-price');
     const sectionOl = await document.querySelector('.cart');
     sectionOl.removeChild(span);
-    }
-  catch (error) {
+  } catch (error) {
     window.alert(error);
   }
 };
