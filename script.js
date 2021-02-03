@@ -38,7 +38,6 @@ function saveAtTheLocalStorage() {
 }
 
 async function updatePrice() {
-  const totalPriceSpan = document.querySelector('#total-price');
   const cartProductsNodeList = document.querySelectorAll('li');
   let currentPrice = 0;
 
@@ -46,17 +45,18 @@ async function updatePrice() {
     currentPrice += parseFloat(product.id);
   });
 
-  const priceToBeDisplayed = (Math.round(currentPrice * 100) / 100).toFixed(2);
-
-  if (currentPrice === 0.00) {
-    totalPriceSpan.innerText = 0;
-  } else {
-    totalPriceSpan.innerText = priceToBeDisplayed;
-  }
+  return (Math.round(currentPrice * 100) / 100).toFixed(2);
 }
 async function asyncUpdatePrice() {
   try {
-    await updatePrice();
+    const totalPrice = await updatePrice();
+    const totalPriceSpan = document.querySelector('#total-price');
+
+    if (totalPrice === 0.00) {
+      totalPriceSpan.innerText = 0;
+    } else {
+      totalPriceSpan.innerText = totalPrice;
+    }
   } catch (error) {
     window.alert(error);
   }
