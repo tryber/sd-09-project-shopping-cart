@@ -45,10 +45,48 @@ function updateLocalStorageItems() {
   }
 }
 
+// Adds and subtracts the price of products in the shopping cart
+function updateProductsPrice() {
+  const cartItems = document.querySelectorAll('.cart__item');
+  const priceContainer = document.querySelector('.total-price');
+  let priceSum = 0;
+  cartItems.forEach(({innerText: item}) => {
+    priceSum += parseFloat(item.substring(item.indexOf('$') + 1));
+    priceSum = parseFloat(priceSum.toFixed(2));
+    
+  });
+  priceContainer.innerText = `Soma dos Produtos: ${priceSum}`;
+}
+
+// Add the product to the 'cart items' HTML ol
+function addProductToCart(product) {
+  const shoppingCart = document.querySelector('.cart__items');
+  const { id: sku, title: name, price: salePrice } = product;
+  const cartItem = createCartItemElement({ sku, name, salePrice });
+  shoppingCart.appendChild(cartItem);
+  updateLocalStorageItems();
+  updateProductsPrice();
+}
+
+// Retrieves the product from Mercado livre API by ID
+function fetchProduct(event) {
+  if (event.target.className === 'item__add') {
+    const productId = event.target.parentNode.firstChild.innerText;
+    fetch(`https://api.mercadolibre.com/items/${productId}`)
+      .then((response) => {
+        if (response.error) throw new Error(response.error);
+        return response.json();
+      })
+      .then(data => addProductToCart(data))
+      .catch(error => alert(error));
+  }
+}
+
 // Remove li element from the cart and local storage
 function cartItemClickListener(event) {
   event.target.parentNode.removeChild(event.target);
   updateLocalStorageItems();
+  updateProductsPrice();
 }
 
 // Retrieves the list of products from Mercado livre API and loads in 'items' section on HTML
@@ -90,37 +128,16 @@ function loadCartItemOnLocalSorage() {
   }
 }
 
-// Add the product to the 'cart items' HTML ol
-function addProductToCart(product) {
-  const shoppingCart = document.querySelector('.cart__items');
-  const { id: sku, title: name, price: salePrice } = product;
-  const cartItem = createCartItemElement({ sku, name, salePrice });
-  shoppingCart.appendChild(cartItem);
-  updateLocalStorageItems();
-}
-
-// Retrieves the product from Mercado livre API by ID
-function fetchProduct(event) {
-  if (event.target.className === 'item__add') {
-    const productId = event.target.parentNode.firstChild.innerText;
-    fetch(`https://api.mercadolibre.com/items/${productId}`)
-      .then((response) => {
-        if (response.error) throw new Error(response.error);
-        return response.json();
-      })
-      .then(data => addProductToCart(data))
-      .catch(error => alert(error));
-  }
-}
-
 // Event Listeners
 function setupEvents() {
   const items = document.querySelector('.items');
   items.addEventListener('click', fetchProduct);
+  //items.addEventListener('click', updateProductsPrice);
 }
 
 window.onload = function onload() {
   loadCartItemOnLocalSorage();
   fetchProductList('computador');
   setupEvents();
+  updateProductsPrice();
 };
