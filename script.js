@@ -30,6 +30,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  sumValuesOfProducts()
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -48,6 +49,7 @@ function addProductToCar(event) {
     .then(({ id, title, price }) => {
       const productCar = createCartItemElement({ sku: id, name: title, salePrice: price });
       ol.appendChild(productCar);
+      sumValuesOfProducts()
     });
 }
 
@@ -68,6 +70,21 @@ function fetchProducts() {
 function clearCart() {
   const listProducts = document.querySelectorAll('.cart__item');
   listProducts.forEach(product => product.remove());
+  sumValuesOfProducts();
+}
+
+function sumValuesOfProducts() {
+  const valueOfProducts = [];
+  const valueOfAllProducts = document.querySelector('.total-price');
+  const listProducts = document.querySelectorAll('.cart__item');
+  if (listProducts.length > 0) {
+    listProducts.forEach((product) => {
+      valueOfProducts.push(product.innerText.split('$')[1]);
+    });
+  }
+  console.log(valueOfProducts);
+  const totalValue = valueOfProducts.reduce((acc, crv) => parseFloat(acc) + parseFloat(crv), 0);
+  valueOfAllProducts.innerText = totalValue;
 }
 
 window.onload = function onload() {
