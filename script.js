@@ -1,4 +1,27 @@
 let totalPrice = 0;
+const createSectionTotalPriceAssyncAwait = async () => {
+  try {
+    const span = await document.createElement('span');
+    span.className = 'total-price';
+    span.innerHTML = `Preço Total: $${totalPrice}`;
+    const sectionOl = await document.querySelector('.cart');
+    sectionOl.appendChild(span);
+  }
+  catch (error) {
+    window.alert(error);
+  }
+}
+  // Deleta o texto de preço total
+const deleteSectionTotalPriceAssyncAeait = async () => {
+  try {
+    const span = await document.querySelector('.total-price');
+    const sectionOl = await document.querySelector('.cart');
+    sectionOl.removeChild(span);
+  }
+  catch (error) {
+    window.alert(error);
+  }
+}
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -109,29 +132,6 @@ const fetchItemById = (id) => {
     window.alert(error);
   });
 };
-const createSectionTotalPriceAssyncAwait = async () => {
-  try {
-    const span = await document.createElement('span');
-    span.className = 'total-price';
-    span. innerHTML =  `Preço Total: $${totalPrice}`;
-    const sectionOl = await document.querySelector('.cart');
-    sectionOl.appendChild(span);
-  }
-  catch(error) {
-    window.alert(error);
-  }
-}
-  // Deleta o texto de preço total
-const deleteSectionTotalPriceAssyncAeait = async () => {
-  try {
-    const span = await document.querySelector('.total-price');
-    const sectionOl = await document.querySelector('.cart');
-    sectionOl.removeChild(span);
-  }
-  catch(error) {
-    window.alert(error);
-  }
-}
 
 window.onload = function onload() {
   // Chamada de funções e recuperação de variáveis
