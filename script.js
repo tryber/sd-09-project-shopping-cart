@@ -45,7 +45,7 @@ async function updatePrice() {
     currentPrice += parseFloat(product.id);
   });
 
-  const result = (Math.round(currentPrice * 100) / 100).toFixed(2);
+  const result = (Math.round(currentPrice * 100) / 100).toFixed(1);
 
   return result === '0.00' ? '0' : result;
 }
