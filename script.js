@@ -67,7 +67,7 @@ function getStorageItems() {
   }
 }
 
-// document.querySelector('.total-price').innerText = 'oie';
+// document.querySelector('.total-price').innerText = 'oi';
 
 const fetchAddToCartRequest = async (itemId) => {
   const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
