@@ -147,7 +147,7 @@ window.onload = function onload() {
     const ol = document.querySelector('.cart__items');
     allCartLi.forEach((li) => {
       ol.removeChild(li);
-      });
+    });
     totalPrice = 0;
     deleteSectionTotalPriceAssyncAeait();
     createSectionTotalPriceAssyncAwait(totalPrice);
