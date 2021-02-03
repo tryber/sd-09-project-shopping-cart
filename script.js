@@ -63,7 +63,7 @@ function addProductToCar(event) {
       const productCar = createCartItemElement({ sku: id, name: title, salePrice: price });
       ol.appendChild(productCar);
       sumValuesOfProducts();
-    });
+    })
 }
 
 function fetchProducts() {
@@ -72,6 +72,7 @@ function fetchProducts() {
   fetch(url)
     .then(response => response.json())
     .then((object) => {
+      document.getElementsByClassName('loading')[0].remove();
       object.results.forEach(({ id, title, thumbnail }) => {
         section.appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
         section.addEventListener('click', addProductToCar);
