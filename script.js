@@ -38,31 +38,6 @@ function cartItemClickListener(event) {
   localStorage.setItem('MLCart', JSON.stringify(newStorage));
 }
 
-function rebuildCart() {
-  const localStorageItens = JSON.parse(localStorage.getItem('MLCart'));
-  if (localStorageItens === null) {
-    return;
-  }
-  localStorageItens.forEach((ite) => {
-    const storSku = ite.sku;
-    const storName = ite.name;
-    const storSalePrice = ite.salePrice;
-    const storId = ite.id;
-    const storReturn = rebuildCartItemElement({ storSku, storName, storSalePrice, storId });
-    const storCartItens = document.querySelector('.cart__items');
-    storCartItens.appendChild(storReturn);
-  });
-}
-
-function rebuildCartItemElement({ storSku, storName, storSalePrice, storId }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.id = storId;
-  li.innerText = `SKU: ${storSku} | NAME: ${storName} | PRICE: $${storSalePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
-
 function getRandomInt() {
   min = Math.ceil(1);
   max = Math.floor(8000);
@@ -78,6 +53,10 @@ function createCartItemElement({ sku, name, salePrice, id }) {
   return li;
 }
 
+let salePrice = '';
+let name = '';
+let sku = '';
+let id = 0;
 const objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
   const api = getSkuFromProductItem(event.target.parentNode);
@@ -90,10 +69,10 @@ const fetchSelectedItem = async (event) => {
     if (object.error) {
       throw new Error(object.error);
     }
-    const salePrice = object.price;
-    const name = object.title;
-    const sku = object.id;
-    const id = getRandomInt();
+    salePrice = object.price;
+    name = object.title;
+    sku = object.id;
+    id = getRandomInt();
     const result = createCartItemElement({ sku, name, salePrice, id });
     const cartItens = document.querySelector('.cart__items');
     cartItens.appendChild(result);
@@ -103,6 +82,22 @@ const fetchSelectedItem = async (event) => {
     window.alert(error);
   }
 };
+
+function rebuildCart() {
+  const localStorageItens = JSON.parse(localStorage.getItem('MLCart'));
+  if (localStorageItens === null) {
+    return;
+  }
+  localStorageItens.forEach((ite) => {
+    sku = ite.sku;
+    name = ite.name;
+    salePrice = ite.salePrice;
+    id = ite.id;
+    const storReturn = createCartItemElement({ sku, name, salePrice, id });
+    const storCartItens = document.querySelector('.cart__items');
+    storCartItens.appendChild(storReturn);
+  });
+}
 
 const fetchItensComputers = async () => {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
