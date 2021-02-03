@@ -130,7 +130,7 @@ function loadCartItemOnLocalSorage() {
 // Deletes all items from the shopping cart
 function deleteItemsFromCart() {
   const cartItems = document.querySelector('.cart__items');
-  while(cartItems.firstChild) {
+  while (cartItems.firstChild) {
     cartItems.removeChild(cartItems.lastChild);
   }
   updateLocalStorageItems();
