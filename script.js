@@ -82,6 +82,38 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function emptyCart() {
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', () => {
+    let list = document.querySelectorAll('.cart__item');
+    if (list !== undefined) {
+      list.forEach((item) => {
+        item.remove('li');
+      });
+    }
+  });
+}
+emptyCart();
+/*
+function saveShoppingCart() {
+  const listItem = document.querySelectorAll('.cart__items');
+
+  let arr = [];
+
+  listItem.forEach((item, param) => {
+
+    let obj = {
+      text: item[param].textContent,
+      class: item[param].className,
+    }
+
+    arr.push(obj);
+  })
+
+  localStorage.setItem('List', JSON.stringify(arr));
+}
+*/
 window.onload = function onload() {
   fetchProducts();
+
 };
