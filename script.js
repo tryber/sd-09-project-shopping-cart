@@ -88,9 +88,11 @@ const fetchListApi = async () => {
 const localStorageCart = () => {
   const cartStorage = document.querySelector('.cart__items');
   const storageItem = JSON.parse(localStorage.getItem('products'));
-  storageItem.forEach(item => cartStorage
-    .appendChild(createCartItemElement(item)),
-  );
+  if (localStorage) {
+    storageItem.forEach(item =>
+      cartStorage.appendChild(createCartItemElement(item))
+    );
+  }
 };
 
 window.onload = function onload() {
