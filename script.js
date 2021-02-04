@@ -1,10 +1,3 @@
-window.onload = function onload() {
-  const cleanButton = document.querySelector('.empty-cart');
-  cleanButton.addEventListener('click', () => {
-    const itemsList = document.querySelector('.cart__items');
-    itemsList.innerHTML = '';
-  });
-};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -45,10 +38,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-const addProductsInfo = async () => {
-  await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then(promise => promise.json())
+async function addProductsInfo() {
+  const result = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then(promise => promise.json())
     .then((result) => {
       const parentItem = document.querySelector('.items');
       const apiResponse = result.results;
@@ -59,22 +50,41 @@ const addProductsInfo = async () => {
     });
 };
 
-const addCardsAndClickButtons = (async () => {
+function addInfoToLocalStorage(cardList) {
+  localStorage.products = cardList.innerHTML;
+}
+
+function loadLists() {
+  const cartItemsList = document.querySelector('.cart__items');
+  cartItemsList.innerHTML = localStorage.products;
+}
+
+async function addCardsAndClickButtons() {
   await addProductsInfo();
   const buttons = document.querySelectorAll('.item__add');
   buttons.forEach(button => button.addEventListener('click', (e) => {
     const clickedId = e.target.parentNode.firstChild.innerText;
-    fetch(`https://api.mercadolibre.com/items/${clickedId}`)
-      .then(promise => promise.json())
+    fetch(`https://api.mercadolibre.com/items/${clickedId}`).then(promise => promise.json())
       .then((response) => {
         const { id, title, price } = response;
         const parentProductCart = document.querySelector('.cart__items');
         const newProduct = createCartItemElement({ sku: id, name: title, salePrice: price });
         parentProductCart.appendChild(newProduct);
+        addInfoToLocalStorage(parentProductCart)
       });
+
   }));
   const cartItem = document.querySelectorAll('.cart__item');
-  cartItem.forEach(item => item.addEventListener('click', cartItemClickListener(e)));
-});
+  cartItem.forEach(item => item.addEventListener('click', cartItemClickListener));
+};
 
 addCardsAndClickButtons();
+
+window.onload = function onload() {
+  const cleanButton = document.querySelector('.empty-cart');
+  cleanButton.addEventListener('click', () => {
+    const itemsList = document.querySelector('.cart__items');
+    itemsList.innerHTML = '';
+  });
+  loadLists();
+};
