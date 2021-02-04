@@ -31,7 +31,7 @@ async function sumSalePrice() {
   let sum = 0;
   const salePrice = document.querySelector('.total-price');
   const ol = document.querySelector('.cart__items').childNodes;
-  ol.forEach(item => sum += +item.innerText.split('$')[1]);
+  ol.forEach(item => {sum += +item.innerText.split('$')[1]});
   salePrice.innerText = sum;
 }
 
