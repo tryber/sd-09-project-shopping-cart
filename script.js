@@ -42,6 +42,7 @@ async function sumAllItemPricesOnCart() {
 function cartItemClickListener(event) {
   event.target.remove();
   sumAllItemPricesOnCart();
+  storageCart();
 }
 function clearCart() {
   const buttomClear = document.querySelector('.empty-cart');
@@ -49,6 +50,7 @@ function clearCart() {
     document.querySelectorAll('li')
     .forEach(li => li.remove());
     sumAllItemPricesOnCart();
+    storageCart();
   });
 }
 
@@ -67,6 +69,7 @@ async function sendItemToCart(event) {
   const cartElement = createCartItemElement({ sku: id, name: title, salePrice: price });
   document.querySelector('.cart__items').appendChild(cartElement);
   sumAllItemPricesOnCart();
+  storageCart();
 }
 
 function addItem() {
@@ -74,6 +77,21 @@ function addItem() {
   buttonAdd.forEach((button) => {
     button.addEventListener('click', sendItemToCart);
   });
+}
+
+function storageCart() {
+  const allProductsDetails = document.querySelectorAll('ol.cart__items');
+  allProductsDetails.forEach((product) => {
+    localStorage.setItem('cartProducts', product.innerHTML);
+  });
+  sumAllItemPricesOnCart();
+}
+
+function loadStorageCart() {
+  document.querySelector('ol.cart__items').innerHTML = localStorage.getItem('cartProducts');
+  document.querySelectorAll('li.cart__item')
+  .forEach(li => li.addEventListener('click', cartItemClickListener))
+  sumAllItemPricesOnCart();
 }
 
 async function fetchAllProducts(productType) {
@@ -92,4 +110,5 @@ async function fetchAllProducts(productType) {
 window.onload = function onload() {
   fetchAllProducts('computador');
   clearCart();
+  loadStorageCart();
 };
