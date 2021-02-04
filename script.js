@@ -16,7 +16,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function toLocalStorage(sku, name, salePrice) {
+function toLocalStorage({ sku, name, salePrice }) {
   localStorage.setItem(sku, JSON.stringify({ sku, name, salePrice }));
 }
 
@@ -55,15 +55,16 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 async function getSingleItem(item) {
   const endpoint = `https://api.mercadolibre.com/items/${item}`;
-  await fetch(endpoint).then(response => response.json())
-    .then((data) => {
-      const { id: sku, title: name, base_price: salePrice } = data;
-      const newItem = createCartItemElement({ sku, name, salePrice });
-      document.querySelector('.cart__items').appendChild(newItem);
-      toLocalStorage(sku, name, salePrice);
-      sumCartPrices();
-    })
-    .catch(reason => console.log(reason));
+  try {
+    const { id: sku, title: name, base_price: salePrice } = await fetch(endpoint)
+      .then(response => response.json());
+    const newItem = createCartItemElement({ sku, name, salePrice });
+    document.querySelector('.cart__items').appendChild(newItem);
+    toLocalStorage({ sku, name, salePrice });
+    sumCartPrices();
+  } catch (reason) {
+    console.log(reason);
+  }
 }
 
 async function retrieveLocalStorage() {
