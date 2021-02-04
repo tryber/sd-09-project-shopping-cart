@@ -31,13 +31,12 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(events) {
-  const storageItems = JSON.parse(localStorage.getItem('products'));
   events.target.remove();
   const idSku = events.target.innerText.split(' ')[1];
   storageCartItems = storageCartItems
-    .filter((storageItem) => idSku !== storageItem.sku);
+    .filter(storageItem => idSku !== storageItem.sku);
   localStorage.setItem('products', JSON.stringify(storageCartItems));
-}
+};
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -45,7 +44,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
+};
 
 const fetchIdItem = async (event) => {
   const cartItems = document.querySelector('.cart__items');
@@ -58,18 +57,18 @@ const fetchIdItem = async (event) => {
     const itemCart = createCartItemElement({ sku, name, salePrice });
     cartItems.appendChild(itemCart);
     storageCartItems.push({ sku, name, salePrice });
-    localStorage.setItem('products', JSON.stringify(storageCartItems))
+    localStorage.setItem('products', JSON.stringify(storageCartItems));
   } catch (error) {
     window.alert(error);
-  }
-}
+  };
+};
 
 const cartClickAddItem = () => {
   const itemAdd = document.querySelectorAll('.item__add');
   itemAdd.forEach((element) => {
     element.addEventListener('click', fetchIdItem);
   });
-}
+};
 
 const fetchListApi = async () => {
   const apiUrl = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
@@ -83,18 +82,18 @@ const fetchListApi = async () => {
       appendItem.appendChild(element);
     });
     cartClickAddItem();
-  } catch (error) { window.alert(error); }
-}
+  } catch (error) { window.alert(error); };
+};
 
 const localStorageCart = () => {
   const cartStorage = document.querySelector('.cart__items');
   const storageItem = JSON.parse(localStorage.getItem('products'));
-  storageItem.forEach((item) =>
+  storageItem.forEach(item =>
     cartStorage.appendChild(createCartItemElement(item))
   );
-}
+};
 
 window.onload = function onload() {
   fetchListApi();
-  // localStorageCart()
-}
+  localStorageCart()
+};
