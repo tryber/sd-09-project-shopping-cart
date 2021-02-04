@@ -3,7 +3,7 @@ let itemsArrayLocalStorage = [];
 function updateTotalPrice(itemPrice) {
   const priceElement = document.getElementById('price');
   const currentTotalPrice = priceElement.innerText ? parseFloat(priceElement.innerText) : 0;
-  const newTotalPrice = (currentTotalPrice + parseFloat(itemPrice)).toFixed(2);
+  const newTotalPrice = currentTotalPrice + parseFloat(itemPrice);
   priceElement.innerText = newTotalPrice;
 }
 
@@ -91,7 +91,7 @@ async function getProductFromAPIByID(id) {
   const productFormated = { sku: data.id, name: data.title, salePrice: data.price };
   itemsArrayLocalStorage.push(productFormated);
   saveItemToLocalStorage(JSON.stringify(itemsArrayLocalStorage));
-  await updateTotalPrice(productFormated.salePrice);
+  updateTotalPrice(productFormated.salePrice);
   const cartListItem = createCartItemElement(productFormated);
   const cartSection = document.querySelector('.cart__items');
   cartSection.appendChild(cartListItem);
