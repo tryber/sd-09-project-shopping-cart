@@ -28,6 +28,7 @@ function getSkuFromProductItem(item) {
 
 const cartItemClickListener = (event) => {
   event.target.remove();
+  saveLocalStorage();
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -45,6 +46,7 @@ const retrieveItems = async (target) => {
     const response = await promise.json();
     const { id: sku, title: name, price: salePrice } = response;
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
+    saveLocalStorage();
   } catch (error) { window.alert(error); }
 };
 
@@ -80,10 +82,36 @@ const removeItemsFromTheShoppingCart = () => {
     while (cartItems.firstChild) {
       cartItems.removeChild(cartItems.firstChild);
     }
+    saveLocalStorage();
   });
 };
 
+const saveLocalStorage = () => {
+  const arrayLocal = [];
+
+  const listCart = document.querySelectorAll('.cart__item');
+  console.log(listCart);
+
+  listCart.forEach((item) => {
+    arrayLocal.push(item.innerText);
+  });
+  localStorage.setItem('cartShopping', JSON.stringify(arrayLocal));
+
+};
+
+const loadLocalStorage = () => {
+  const arrayLocal = JSON.parse(localStorage.getItem('cartShopping'));
+  arrayLocal.forEach((item) => {
+    const li = document.createElement('li');
+    li.innerText = item;
+    li.className = 'cart__item';
+    document.querySelector('.cart__items').appendChild(li);
+  });
+};
+
+
 window.onload = function onload() {
   retriveMercadoLivreApi();
+  loadLocalStorage();
   removeItemsFromTheShoppingCart();
 };
