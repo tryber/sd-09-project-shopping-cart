@@ -49,7 +49,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.id = `${sku}`;
-  li.addEventListener('click', cartItemClickListener);  
+  li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
