@@ -73,6 +73,8 @@ async function getProductFromAPIByID(id) {
   const response = await fetch(endPoint);
   const data = await response.json();
   const productFormated = { sku: data.id, name: data.title, salePrice: data.price };
+  itemsArrayLocalStorage.push(productFormated);
+  saveItemToLocalStorage(JSON.stringify(itemsArrayLocalStorage));
   const cartListItem = createCartItemElement(productFormated);
   const cartSection = document.querySelector('.cart__items');
   cartSection.appendChild(cartListItem);
@@ -80,9 +82,11 @@ async function getProductFromAPIByID(id) {
 
 function getItemsFromLocalStorage() {
   if (window.localStorage && localStorage.length) {
-    itemsArrayLocalStorage = (localStorage.getItem(0)).split(',');
-    itemsArrayLocalStorage.forEach((id) => {
-      getProductFromAPIByID(id);
+    itemsArrayLocalStorage = (JSON.parse(localStorage.getItem(0)));
+    itemsArrayLocalStorage.forEach((product) => {
+      const cartListItem = createCartItemElement(product);
+      const cartSection = document.querySelector('.cart__items');
+      cartSection.appendChild(cartListItem);
     });
   }
 }
@@ -116,7 +120,5 @@ btnsAddItemToCart.addEventListener('click', (event) => {
   if (event.target.className === 'item__add') {
     const id = event.target.parentNode.firstChild.innerText;
     getProductFromAPIByID(id);
-    itemsArrayLocalStorage.push(id);
-    saveItemToLocalStorage(itemsArrayLocalStorage);
   }
 });
