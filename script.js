@@ -61,11 +61,11 @@ function saveToStorage({ sku, name, salePrice }) {
 }
 
 let total = 0;
-function totalPrice(resultRequisicao, conta) {
+async function totalPrice (resultRequisicao, conta) {
   const cart = document.querySelector('.cart');
   const totalPriceP = document.querySelector('.total-price');
   if (conta === 'soma') {
-    total += resultRequisicao.price;
+    total += await resultRequisicao.price;
   }
 
   totalPriceP.innerText = total;
