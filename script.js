@@ -73,7 +73,7 @@ function addToCar() {
           };
           const ol = document.querySelector('.cart__items');
           ol.appendChild(createCartItemElement(objResult));
-          saveToStorage(objResult);
+          // saveToStorage(objResult);
         });
     });
   });
@@ -105,5 +105,5 @@ function getSkuFromProductItem(item) {
 
 window.onload = function onload() {
   createListing('computador');
-  reloadPag();
+  // reloadPag();
 };
