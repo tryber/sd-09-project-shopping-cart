@@ -27,6 +27,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function sumSalePrice() {
+  let sum = 0;
+  const salePrice = document.querySelector('.total-price');
+  const ol = document.querySelector('.cart__items').childNodes;
+  ol.forEach(item => sum += +item.innerText.split('$')[1]);
+  salePrice.innerText = sum;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   sumSalePrice();
@@ -47,14 +55,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-async function sumSalePrice() {
-  let sum = 0;
-  const salePrice = document.querySelector('.total-price');
-  const ol = document.querySelector('.cart__items').childNodes;
-  ol.forEach((item) => sum += +item.innerText.split('$')[1]);
-  salePrice.innerText = sum;
 }
 
 async function addItemCartApi(itemId) {
