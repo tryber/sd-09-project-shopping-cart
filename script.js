@@ -35,7 +35,7 @@ async function sumItems() {
   const findInLi = document.querySelectorAll('.cart__item');
   findInLi.forEach(priceItem =>
     (sum += +priceItem.innerText.split('$')[1]));
-    totalPrice.innerText = sum;
+  totalPrice.innerText = sum;
 }
 
 function saveInStorage(elemento) {
