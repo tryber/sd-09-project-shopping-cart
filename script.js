@@ -111,7 +111,10 @@ function msgLoading(param) {
   }
 
   if (param === 'finish') {
-    document.querySelector('.loading').innerText = '';
+    setTimeout(() => {
+      document.querySelector('.loading').innerText = '';
+      document.querySelector('.loading').remove();
+    }, 3000);
   }
 }
 
