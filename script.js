@@ -1,3 +1,5 @@
+let totalPrice = 0;
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -45,8 +47,6 @@ function setLocalStorage() {
     localStorage.setItem(index, JSON.stringify(object));
   }
 }
-
-let totalPrice = 0;
 
 function cartItemClickListener(event) {
   const productPrice = event.target.innerText.split('$')[1];
