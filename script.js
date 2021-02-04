@@ -53,14 +53,6 @@ window.onload = function onload() {
   retriveMercadoLivreResults('computador');
 };
 
-async function retriveItem(itemSelect) {
-
-}
-
-function buttonAtion(){
-
-}
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
