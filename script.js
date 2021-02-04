@@ -90,8 +90,7 @@ const localStorageCart = () => {
   const storageItem = JSON.parse(localStorage.getItem('products'));
   if (localStorage) {
     storageItem.forEach(item =>
-      cartStorage.appendChild(createCartItemElement(item))
-    );
+      cartStorage.appendChild(createCartItemElement(item)));
   }
 };
 
