@@ -1,9 +1,3 @@
-let salePrice = '';
-let name = '';
-let sku = '';
-let id = 0;
-const objLocalStorage = [];
-
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -71,6 +65,11 @@ function stopLoadingText() {
   load.remove();
 }
 
+let salePrice = '';
+let name = '';
+let sku = '';
+let id = 0;
+const objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
   const api = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${api}`;
