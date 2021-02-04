@@ -1,3 +1,11 @@
+function displayOn() {
+document.querySelector('.loading').style.display = 'block';
+}
+
+function displayOff() {
+document.querySelector('.loading').style.display = 'none';
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -27,8 +35,10 @@ function getSkuFromProductItem(item) {
 }
 
 async function fetchItemById(itemId) {
+  displayOn()
   const endPoint = `https://api.mercadolibre.com/items/${itemId}`;
   const response = await fetch(endPoint);
+  displayOff()
   return response.json();
 }
 
@@ -95,9 +105,11 @@ function loadStorageCart() {
 }
 
 async function fetchAllProducts(productType) {
+  displayOn()
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${productType}`;
   const response = await fetch(endPoint);
   const object = await response.json();
+  displayOff()
   const results = object.results;
   results.forEach((result) => {
     const { id, title, thumbnail } = result;
