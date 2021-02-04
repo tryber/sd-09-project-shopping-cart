@@ -3,23 +3,21 @@ window.onload = () => onload() {
   retrieveMercadoLivre('computador');
  };*/
  retrieveMercadoLivre = (term) => {
+  const itensMercado = document.querySelector('.item');
   const param = { headers: {Accept: 'application/json'}};
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
  .then((response) => {
    response.json()
     .then((data) => {
-    console.log(data);
-    const resultados = data.results.forEach((result1) => {
+      console.log(data);
+      data.results.forEach((result1) => {
       const {id: sku, title: name, thumbnail:image} = result1;
-      return createProductItemElement(sku, name , image)});
-      
-    
-    
+      const element = createProductItemElement({sku, name, image});
+      console.log(sku, name, image );
+      itensMercado.appendChild(element);
+    });    
     //console.log(data.results[0].title);
- });
- 
-    
-   
+    });   
   })
 }
  retrieveMercadoLivre('computador');
