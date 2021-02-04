@@ -1,4 +1,3 @@
-let totalPrice = 0;
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -29,9 +28,33 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const getPrice = (item) => {
+  const index = item.indexOf('$');
+  const price = item.slice(index + 1);
+  return Number(price);
+};
+
+const calculateTotalPrice = async () => {
+  const listItems = document.querySelectorAll('.cart__item');
+  const descriptionList = [];
+  listItems.forEach(item => descriptionList.push(item.innerText));
+  const totalPrice = descriptionList.reduce((accumulator, currentValue) => {
+    const price = getPrice(currentValue);
+    return accumulator + price;
+  }, 0);
+  return totalPrice;
+};
+
+const displayTotalPrice = async () => {
+  const result = await calculateTotalPrice();
+  const totalPriceElement = document.querySelector('.total-price p span');
+  totalPriceElement.innerText = result.toFixed(2);
+};
+
 function cartItemClickListener(event) {
   const parent = event.target.parentNode;
   parent.removeChild(event.target);
+  displayTotalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -42,15 +65,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const calculateTotalPrice = async (price) => {
-  totalPrice = totalPrice + price;
-  return totalPrice;
-};
-/* const calculateTotalPrice = async (price) => {
-  totalPrice = totalPrice + price;
-  return totalPrice;
-}; */
-
 const fetchSingleProduct = async (id) => {
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
 
@@ -58,14 +72,10 @@ const fetchSingleProduct = async (id) => {
     const response = await fetch(endpoint);
     const searchResult = await response.json();
     const { id: sku, title: name, price: salePrice } = searchResult;
-
     const listItem = createCartItemElement({ sku, name, salePrice });
     const cartItemsList = document.querySelector('.cart__items');
     cartItemsList.appendChild(listItem);
-    const result = await calculateTotalPrice(salePrice);
-    const totalPriceElement = document.querySelector('.total-price p span');
-    totalPriceElement.innerText = result.toFixed(2);
-    console.log(result);
+    displayTotalPrice();
     if (searchResult.error) {
       throw new Error(searchResult.error);
     }
