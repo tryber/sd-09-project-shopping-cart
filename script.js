@@ -1,7 +1,6 @@
 // Brenno Calado Project
 
 let resultList = [];
-let cartPrice = 0;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -23,19 +22,21 @@ function toLocalStorage(sku, name, salePrice) {
   localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
 }
 
-async function sumCartPrices(item) {
-  cartPrice += item;
+async function sumCartPrices() {
+  let cartPrice = 0;
+  const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
+  Object.entries(cartStorage).forEach((entry) => {
+    cartPrice += entry[1].salePrice;
+  });
   document.querySelector('.total-price').innerText = `${Math.round(cartPrice * 100) / 100}`;
 }
 
-async function removeFromLocalStorage(evt) {
+function removeFromLocalStorage(evt) {
   const id = evt.target.id;
   const cartStorage = JSON.parse(localStorage.getItem('cartProducts'));
-  const clickedCartItem = Object.entries(cartStorage)
-    .find(entry => entry[0] === id)[1].salePrice;
-  await sumCartPrices(-(clickedCartItem));
   delete cartStorage[`${id}`];
   localStorage.setItem('cartProducts', JSON.stringify(cartStorage));
+  sumCartPrices();
 }
 
 function emptyCart() {
@@ -66,7 +67,7 @@ async function getSingleItem(item) {
     .then((data) => {
       const { id: sku, title: name, base_price: salePrice } = data;
       createCartItemElement({ sku, name, salePrice });
-      sumCartPrices(salePrice);
+      sumCartPrices();
     })
     .catch(reason => console.log(reason));
 }
@@ -126,7 +127,7 @@ async function getProductList(productName) {
     .then(response => response.json().then((data) => {
       resultList = data.results;
       productsToItemsSection(resultList);
-      document.querySelector('.loading').style.display = 'none';
+      document.querySelector('.loading').remove();
     }))
     .catch(reason => console.log(reason));
 }
@@ -143,7 +144,7 @@ function inputListeners() {
   document.querySelector('.empty-cart').addEventListener('click', emptyCart);
 }
 
-window.onload = () => {
+window.onload = async function onload() {
   inputListeners();
   getProductList('computador');
   retrieveLocalStorage();
