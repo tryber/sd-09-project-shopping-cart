@@ -46,7 +46,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function apiCart(productId) {
-
   const endpoint = `https://api.mercadolibre.com/items/${productId}`;
   try {
     const response = await fetch(endpoint);
@@ -64,7 +63,7 @@ async function apiCart(productId) {
   }
 }
 
- // capturando o botão
+// capturando o botão
 // Selecionar o produto
 // Enviá-lo para o carrinho
 function addEventCart() {
