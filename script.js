@@ -29,6 +29,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function saveInStorage(elemento) {
+  localStorage.teste = elemento.innerHTML;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   const priceElement = document.querySelector('.cart__items');
@@ -53,9 +57,6 @@ async function adcItem(id) {
   saveInStorage(priceElement);
 }
 
-function saveInStorage(elemento) {
-  localStorage.teste = elemento.innerHTML;
-}
 
 async function fetchInit() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
