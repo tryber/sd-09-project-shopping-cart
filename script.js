@@ -50,7 +50,7 @@ function extractItemID(itemData) {
 }
 
 function saveItemToLocalStorage(itemsArray) {
-  itemsArrayLocalStorage.length ? localStorage.setItem(0, itemsArray) : localStorage.clear();
+  localStorage.setItem(0, itemsArray);
 }
 
 function removeItemFromLocalStorage(itemID) {
@@ -60,7 +60,11 @@ function removeItemFromLocalStorage(itemID) {
       itemsArrayLocalStorage.splice(index, 1);
     }
   });
-  saveItemToLocalStorage(itemsArrayLocalStorage);
+  if (itemsArrayLocalStorage.length) {
+    saveItemToLocalStorage(itemsArrayLocalStorage);
+  } else {
+    localStorage.clear();
+  }
 }
 
 function cartItemClickListener(event) {
