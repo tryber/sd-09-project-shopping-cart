@@ -28,17 +28,17 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function removeFromStorage(idToRemove) {
+  const getStorageArray = JSON.parse(localStorage.getItem('id'));
+  const newArray = getStorageArray.filter(element => element !== idToRemove);
+  localStorage.setItem('id', JSON.stringify(newArray));
+}
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   const idToRemove = event.target.classList[1];
   removeFromStorage(idToRemove);
   event.target.remove();
-};
-
-function removeFromStorage(idToRemove) {
-  const getStorageArray = JSON.parse(localStorage.getItem('id'));
-  const newArray = getStorageArray.filter(element => element !== idToRemove);
-  localStorage.setItem('id', JSON.stringify(newArray));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -92,17 +92,6 @@ async function addIdToEndpoint(clickedId) {
   cartItemsLocal.appendChild(itemOnList);
 }
 
-function addItemToCart() {
-  document.addEventListener('click', function (event) {
-    if (event.target.className === 'item__add') {
-      const parentName = event.target.parentElement;
-      const clickedId = parentName.firstChild.innerText;
-      saveOnStorage(clickedId); 
-      addIdToEndpoint(clickedId);
-    }
-  });
-}
-
 function saveOnStorage(clickedId) {
   if (localStorage.length === 0) {
     const arrayIds = [];
@@ -113,6 +102,17 @@ function saveOnStorage(clickedId) {
     arrayIds.push(clickedId);
     localStorage.setItem('id', JSON.stringify(arrayIds));
   }
+}
+
+function addItemToCart() {
+  document.addEventListener('click', function (event) {
+    if (event.target.className === 'item__add') {
+      const parentName = event.target.parentElement;
+      const clickedId = parentName.firstChild.innerText;
+      saveOnStorage(clickedId);
+      addIdToEndpoint(clickedId);
+    }
+  });
 }
 
 function onLoadPush() {
