@@ -83,10 +83,8 @@ async function sumCart(price) {
   if (sum) {
     sum += price;
     localTotal.innerText = sum.toFixed(0);
-    console.log(localTotal)
   } else {
     localTotal.innerText = price.toFixed(0);
-    console.log(localTotal)
   }
 }
 
