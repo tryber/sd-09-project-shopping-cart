@@ -82,9 +82,9 @@ async function sumCart(price) {
   let sum = Number(localTotal.innerText);
   if (sum) {
     sum += price;
-    localTotal.innerText = sum.toFixed(2);
+    localTotal.innerText = (sum.toFixed(2) * 100) / 100;
   } else {
-    localTotal.innerText = price.toFixed(2);
+    localTotal.innerText = (price.toFixed(2) * 100) / 100;
   }
 }
 
