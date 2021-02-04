@@ -25,8 +25,8 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function carregaLoading() {
-  spanLoading = document.querySelector('.loading');
   spanLoading.innerText = 'loadin';
+  spanLoading = document.querySelector('.loading');
   setTimeout(() => {
     spanLoading.innerText = ' ';
   }, 500);
