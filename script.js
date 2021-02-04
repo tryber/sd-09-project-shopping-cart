@@ -46,6 +46,7 @@ function reloadPag() {
   if (localStorage.length > 0) {
     valueOfStorage.forEach(product => ol.appendChild(createCartItemElement(product)));
   }
+  
 }
 
 const arrayObj = [];
@@ -76,6 +77,7 @@ function addToCar() {
           const ol = document.querySelector('.cart__items');
           ol.appendChild(createCartItemElement(objResult));
           saveToStorage(objResult);
+          totalPrice(response, 'soma');
         });
     });
   });
@@ -104,7 +106,17 @@ function createListing(search) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
+let total = 0;
+function totalPrice(resultRequisicao, conta) {  
+  const cart = document.querySelector('.cart');
+  const totalPriceP = document.querySelector('.total-price');
+  if (conta === 'soma') {
+    total = total + resultRequisicao.price;
+  }
 
+  totalPriceP.innerText = total;
+  
+}
 window.onload = function onload() {
   createListing('computador');
   reloadPag();
