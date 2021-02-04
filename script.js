@@ -28,38 +28,43 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function totalCart() {
+async function totalCart() {
   let cartValue = 0;
   const arrayStorage = [];
   const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach((item) => {
-    const text = item.innerText;
-    const value = parseFloat(text.substring(text.lastIndexOf('$') + 1, text.lenght));
-    cartValue += value;
-    arrayStorage.push(text);
-  });
-  let price = document.querySelector('.total-price');
-  if (!price) {
-    const classCart = document.querySelector('.cart');
-    price = document.createElement('div');
-    price.className = 'total-price';
-    price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
-    classCart.appendChild(price);
-  } else {
-    price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
+  try {
+    await cartItems.forEach((item) => {
+      const text = item.innerText;
+      const value = parseFloat(text.substring(text.lastIndexOf('$') + 1, text.lenght));
+      cartValue += value;
+      arrayStorage.push(text);
+    });
+    let price = document.querySelector('.total-price');
+    if (!price) {
+      const classCart = document.querySelector('.cart');
+      price = document.createElement('div');
+      price.className = 'total-price';
+      price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
+      classCart.appendChild(price);
+    } else {
+      price.innerText = `Preço Total: $${cartValue.toFixed(2)}`;
+    }
+    if (cartValue === 0) {
+      price.remove();
+    }
+    localStorage.setItem('sd-09-shopping-cart', JSON.stringify(arrayStorage));
+  } catch (error) {
+
   }
-  if (cartValue === 0) {
-    price.remove();
-  }
-  localStorage.setItem('sd-09-shopping-cart', JSON.stringify(arrayStorage));
+ 
 }
 
-async function cartItemClickListener(event) {
+function cartItemClickListener(event) {
   event.path[0].remove();
-  await totalCart();
+  totalCart();
 }
 
-async function loadStorage(storage) {
+function loadStorage(storage) {
   if (localStorage.getItem(storage) != null) {
     const arrayStorage = JSON.parse(localStorage.getItem(storage));
     arrayStorage.forEach((item) => {
@@ -72,7 +77,7 @@ async function loadStorage(storage) {
         cartItemClickListener(event);
       });
     });
-    await totalCart();
+    totalCart();
   }
 }
 
@@ -116,7 +121,7 @@ async function searchItemCart(sku) {
     });
   });
   loading(false);
-  await totalCart();
+  totalCart();
 }
 
 function makeButtonsListner() {
