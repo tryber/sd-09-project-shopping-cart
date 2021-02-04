@@ -108,11 +108,11 @@ function msgLoading(param) {
     paragrafLoading.className = 'loading';
     paragrafLoading.innerText = 'Loading...';
     document.body.appendChild(paragrafLoading);
-  };
+  }
 
   if (param === 'finish') {
     document.querySelector('.loading').remove();
-  };
+  }
 }
 
 function createListing(search) {
@@ -134,7 +134,7 @@ function createListing(search) {
       // Chamar a função reuisito 2
       addToCar();
     });
-    msgLoading('finish')
+  msgLoading('finish');
 }
 
 function getSkuFromProductItem(item) {
