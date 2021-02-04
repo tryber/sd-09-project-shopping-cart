@@ -54,7 +54,7 @@ async function LoadProducts() {
     createdproduct.childNodes[3].addEventListener('click', async () => {
       const cart = document.getElementsByClassName('cart__items')[0];
       const fetchedProduct = await (await fetch(`https://api.mercadolibre.com/items/${sku}`)).json();
-      const { base_price: salePrice } = fetchedProduct;
+      const { price: salePrice } = fetchedProduct;
       cart.appendChild(createCartItemElement({ sku, name, salePrice }));
     });
   });
