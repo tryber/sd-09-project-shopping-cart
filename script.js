@@ -43,10 +43,10 @@ function totalCart() {
     const classCart = document.querySelector('.cart');
     price = document.createElement('div');
     price.className = 'total-price';
-    price.innerText = `Preço Total: $${cartValue}`;
+    price.innerText = `${cartValue}`;
     classCart.appendChild(price);
   } else {
-    price.innerText = `Preço Total: $${cartValue}`;
+    price.innerText = `${cartValue}`;
   }
   if (cartValue === 0) {
     price.remove();
