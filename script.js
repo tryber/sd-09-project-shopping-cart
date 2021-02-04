@@ -1,4 +1,12 @@
 let itemsArrayLocalStorage = [];
+
+async function updateTotalPrice(itemPrice) {
+  const priceElement = document.getElementById('price');
+  const currentTotalPrice = priceElement.innerText ? parseFloat(priceElement.innerText) : 0;
+  const newTotalPrice = (currentTotalPrice + parseFloat(itemPrice)).toFixed(2);
+  priceElement.innerText = newTotalPrice;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -42,12 +50,16 @@ function extractItemID(itemData) {
 }
 
 function saveItemToLocalStorage(itemsArray) {
-  localStorage.setItem(0, itemsArray);
+  itemsArrayLocalStorage.length ? localStorage.setItem(0, itemsArray) : localStorage.clear();
 }
 
 function removeItemFromLocalStorage(itemID) {
-  itemIndex = itemsArrayLocalStorage.indexOf(itemID);
-  itemsArrayLocalStorage.splice(itemIndex, 1);
+  itemsArrayLocalStorage.forEach((product, index) => {
+    if (product.sku === itemID) {
+      updateTotalPrice(parseFloat(product.salePrice) * -1);
+      itemsArrayLocalStorage.splice(index, 1);
+    }
+  });
   saveItemToLocalStorage(itemsArrayLocalStorage);
 }
 
@@ -75,6 +87,7 @@ async function getProductFromAPIByID(id) {
   const productFormated = { sku: data.id, name: data.title, salePrice: data.price };
   itemsArrayLocalStorage.push(productFormated);
   saveItemToLocalStorage(JSON.stringify(itemsArrayLocalStorage));
+  updateTotalPrice(productFormated.salePrice);
   const cartListItem = createCartItemElement(productFormated);
   const cartSection = document.querySelector('.cart__items');
   cartSection.appendChild(cartListItem);
@@ -84,10 +97,13 @@ function getItemsFromLocalStorage() {
   if (window.localStorage && localStorage.length) {
     itemsArrayLocalStorage = (JSON.parse(localStorage.getItem(0)));
     itemsArrayLocalStorage.forEach((product) => {
+      updateTotalPrice(product.salePrice);
       const cartListItem = createCartItemElement(product);
       const cartSection = document.querySelector('.cart__items');
       cartSection.appendChild(cartListItem);
     });
+  } else {
+    updateTotalPrice(0);
   }
 }
 
