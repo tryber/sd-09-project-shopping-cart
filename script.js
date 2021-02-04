@@ -51,11 +51,15 @@ async function apiCart(productId) {
   try {
     const response = await fetch(endpoint);
     const product = await response.json();
+    const loading = document.createElement('class');
+    window.alert(loading.innerHTML = 'loading');
+    console.log(loading)
     // console.log(object);
     const itemsElement = document.querySelector('.cart__items');
     const { id: sku, title: name, price: salePrice } = product;
     const element = createCartItemElement({ sku, name, salePrice });
     itemsElement.appendChild(element);
+
     // itemsElement é equivalente ao carrinho
   } catch (error) {
     window.alert(error);
