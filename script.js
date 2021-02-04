@@ -36,15 +36,15 @@ function cartItemClickListener(event) {
 const saveLocalStorage = () => {
   const nodeList = document.querySelectorAll('.cart__item');
   const list = [...nodeList];
-  const text = list.map(item => item.innerText)
+  const text = list.map(item => item.innerText);
   localStorage.setItem('cartList', JSON.stringify(text));
-}
+};
 
-const items = document.querySelector('.items');
-items.addEventListener('click', saveLocalStorage)
+const itemsCart = document.querySelector('.items');
+itemsCart.addEventListener('click', saveLocalStorage);
 
-const ol = document.querySelector('.cart__items');
-ol.addEventListener('click', saveLocalStorage);
+const olList = document.querySelector('.cart__items');
+olList.addEventListener('click', saveLocalStorage);
 
 function updateLocalStorage() {
   const li = document.querySelector('.cart__items');
@@ -65,7 +65,7 @@ const storageListSaved = () => {
       ol.appendChild(li);
       updateLocalStorage();
     });
-  };
+  }
 };
 
 storageListSaved();
