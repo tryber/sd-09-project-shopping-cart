@@ -2,7 +2,7 @@
 window.onload = () => onload() {
   retrieveMercadoLivre('computador');
  };*/
-retrieveMercadoLivre = (term) => {
+ retrieveMercadoLivre = (term) => {
   const param = { headers: {Accept: 'application/json'}};
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
  .then((response) => {
@@ -10,13 +10,14 @@ retrieveMercadoLivre = (term) => {
     .then((data) => {
     console.log(data);
     const resultados = data.results.forEach((result1) => {
-      const {id: sku, title: name, thumbnail:image, price } = result1;
-      console.log(sku, name , image, price )});
+      const {id: sku, title: name, thumbnail:image} = result1;
+      return createProductItemElement(sku, name , image)});
+      
     
     
     //console.log(data.results[0].title);
  });
-    
+ 
     
    
   })
