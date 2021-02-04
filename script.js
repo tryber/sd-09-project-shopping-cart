@@ -127,7 +127,7 @@ window.onload = function onload() {
   const loadingMessage = document.createElement('span');
   loadingMessage.className = 'loading';
   loadingMessage.innerText = 'loading...';
-  const itemsElement =  document.querySelector('.items');
+  const itemsElement = document.querySelector('.items');
   itemsElement.appendChild(loadingMessage);
   getProductListFromAPIByQuerySearch('computador');
   itemsElement.removeChild(loadingMessage);
