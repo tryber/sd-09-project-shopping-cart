@@ -75,3 +75,7 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.total-price {
+  align-self: center;
+}

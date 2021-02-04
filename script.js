@@ -1,4 +1,3 @@
-let sum = 0;
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -30,6 +29,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  sumSalePrice();
 }
 
 function removeItens() {
@@ -37,6 +37,7 @@ function removeItens() {
   const ol = document.querySelector('.cart__items');
   btnRemove.addEventListener('click', function () {
     ol.innerHTML = '';
+    sumSalePrice();
   });
 }
 
@@ -48,9 +49,11 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function sumSalePrice(price) {
+async function sumSalePrice() {
+  let sum = 0;
   const salePrice = document.querySelector('.total-price');
-  sum += price;
+  const ol = document.querySelector('.cart__items').childNodes;
+  ol.forEach((item) => sum += +item.innerText.split('$')[1]);
   salePrice.innerText = sum;
 }
 
@@ -61,8 +64,8 @@ async function addItemCartApi(itemId) {
     const response = await fetch(endpoint);
     const objResponse = await response.json();
     const { id: sku, title: name, price: salePrice } = objResponse;
-    await sumSalePrice(salePrice);
     cartItem.appendChild(createCartItemElement({ sku, name, salePrice }));
+    sumSalePrice();
   } catch (error) {
     window.alert(error);
   }
