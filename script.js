@@ -109,7 +109,7 @@ function buildListFetch() {
 
 function recoverElementFromLocalStorage() {
   const shoppingBasketRecovered = document.querySelector('.cart__items');
-  for ( contRecover = 0; contRecover < localStorage.length; contRecover=+1 ) {
+  for (contRecover = 0; contRecover < localStorage.length; contRecover =+ 1) {
     const li = document.createElement('li');
     li.className = 'cart__item';
     li.innerText = localStorage.getItem(`${contRecover}.item`);
