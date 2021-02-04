@@ -25,6 +25,14 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
+const saveLocalStorage = () => {
+  const arrayLocal = [];
+  const listCart = document.querySelectorAll('.cart__item');
+  listCart.forEach((item) => {
+    arrayLocal.push(item.innerText);
+  });
+  localStorage.setItem('cartShopping', JSON.stringify(arrayLocal));
+};
 
 const cartItemClickListener = (event) => {
   event.target.remove();
@@ -86,19 +94,6 @@ const removeItemsFromTheShoppingCart = () => {
   });
 };
 
-const saveLocalStorage = () => {
-  const arrayLocal = [];
-
-  const listCart = document.querySelectorAll('.cart__item');
-  console.log(listCart);
-
-  listCart.forEach((item) => {
-    arrayLocal.push(item.innerText);
-  });
-  localStorage.setItem('cartShopping', JSON.stringify(arrayLocal));
-
-};
-
 const loadLocalStorage = () => {
   const arrayLocal = JSON.parse(localStorage.getItem('cartShopping'));
   arrayLocal.forEach((item) => {
@@ -108,7 +103,6 @@ const loadLocalStorage = () => {
     document.querySelector('.cart__items').appendChild(li);
   });
 };
-
 
 window.onload = function onload() {
   retriveMercadoLivreApi();
