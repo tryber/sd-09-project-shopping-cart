@@ -23,7 +23,7 @@ function toLocalStorage(sku, name, salePrice) {
 async function sumCartPrices() {
   let cartPrice = 0;
   await Object.values(localStorage).forEach((product) => {
-    cartPrice += JSON.parse(product).salePrice
+    cartPrice += JSON.parse(product).salePrice;
   });
   document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
 }
