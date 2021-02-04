@@ -32,6 +32,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+
 function cartItemClickListener(event) {
   event.target.remove();
   // excluíndo os itens do carrinho
@@ -73,6 +74,16 @@ function addEventCart() {
       apiCart(productId);
     }
   });
+
+}
+
+function removeAllProduct() {
+  const buttonCart= document.querySelector('.empty-cart');
+  buttonCart.addEventListener('click', function (event) {
+  const removeItems = document.querySelector('.cart__items');
+  removeItems.innerHTML = '';
+
+  });
 }
 
 async function apiAdd() {
@@ -97,4 +108,5 @@ async function apiAdd() {
 window.onload = function onload() {
   apiAdd();
   addEventCart();
+  removeAllProduct()
 };
