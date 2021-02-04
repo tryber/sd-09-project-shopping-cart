@@ -57,7 +57,7 @@ function createCartItemElement({ sku, name, salePrice, id }) {
 function createLoadingText() {
   const loading = document.createElement('p');
   loading.className = 'loading';
-  loading.innerText = 'loading...'
+  loading.innerText = 'loading...';
 }
 
 function stopLoadingText() {
