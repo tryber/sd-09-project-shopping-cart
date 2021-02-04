@@ -88,11 +88,19 @@ const fetchListApi = async () => {
 const localStorageCart = () => {
   const cartStorage = document.querySelector('.cart__items');
   const storageItem = JSON.parse(localStorage.getItem('products'));
-  if (localStorage) {
+  if (storageItem === null) {
+    localStorage.setItem('products', JSON.stringify([]))
+  } else {
     storageItem.forEach(item =>
       cartStorage.appendChild(createCartItemElement(item)));
   }
+
 };
+
+const emptyCart = () => {
+  const buttonEmptyCart = document.querySelector('.empty-cart');
+  buttonEmptyCart.addEventListener('click', emptyCart)
+}
 
 window.onload = function onload() {
   fetchListApi();
