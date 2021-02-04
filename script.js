@@ -22,26 +22,26 @@ function toLocalStorage(sku, name, salePrice) {
 
 async function sumCartPrices() {
   let cartPrice = 0;
-  await Object.values(localStorage).forEach((product) => {
+  Object.values(localStorage).forEach((product) => {
     cartPrice += JSON.parse(product).salePrice;
   });
-  document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
-}
-
-function removeFromLocalStorage(evt) {
-  localStorage.removeItem(evt.target.id);
-  sumCartPrices();
+  if (cartPrice === 0) {
+    document.querySelector('.total-price').innerHTML = 'Carrinho vazio';
+  } else {
+    document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
+  }
 }
 
 function emptyCart() {
   localStorage.clear();
-  document.querySelector('.cart__items').innerText = '';
-  document.querySelector('.total-price').innerText = '';
+  document.querySelector('.cart__items').innerHTML = '';
+  sumCartPrices();
 }
 
 function cartItemClickListener(evt) {
-  evt.target.parentNode.removeChild(evt.target);
-  removeFromLocalStorage(evt);
+  evt.target.remove();
+  localStorage.removeItem(evt.target.id);
+  sumCartPrices();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -49,9 +49,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.id = `${sku}`;
-  li.addEventListener('click', cartItemClickListener);
-  toLocalStorage(sku, name, salePrice);
-  document.querySelector('.cart__items').appendChild(li);
+  li.addEventListener('click', cartItemClickListener);  
   return li;
 }
 
@@ -60,7 +58,9 @@ async function getSingleItem(item) {
   await fetch(endpoint).then(response => response.json())
     .then((data) => {
       const { id: sku, title: name, base_price: salePrice } = data;
-      createCartItemElement({ sku, name, salePrice });
+      const newItem = createCartItemElement({ sku, name, salePrice });
+      document.querySelector('.cart__items').appendChild(newItem);
+      toLocalStorage(sku, name, salePrice);
       sumCartPrices();
     })
     .catch(reason => console.log(reason));
