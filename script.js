@@ -127,9 +127,10 @@ window.onload = function onload() {
   const loadingMessage = document.createElement('span');
   loadingMessage.className = 'loading';
   loadingMessage.innerText = 'loading...';
-  document.querySelector('.items').appendChild(loadingMessage);
+  const itemsElement =  document.querySelector('.items');
+  itemsElement.appendChild(loadingMessage);
   getProductListFromAPIByQuerySearch('computador');
-  loadingMessage.innerText = '';
+  itemsElement.removeChild(loadingMessage);
   getItemsFromLocalStorage();
 };
 
