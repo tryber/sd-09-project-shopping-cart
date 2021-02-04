@@ -53,7 +53,6 @@ async function apiCart(productId) {
     const product = await response.json();
     const loading = document.createElement('class');
     window.alert(loading.innerHTML = 'loading');
-    console.log(loading)
     // console.log(object);
     const itemsElement = document.querySelector('.cart__items');
     const { id: sku, title: name, price: salePrice } = product;
