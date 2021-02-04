@@ -38,6 +38,7 @@ function totalCart() {
     cartValue += value;
     arrayStorage.push(text);
   });
+  
   let price = document.querySelector('.total-price');
   if (!price) {
     const classCart = document.querySelector('.cart');
