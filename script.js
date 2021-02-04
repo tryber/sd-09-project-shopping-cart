@@ -56,7 +56,7 @@ async function fetchAPIMercadoLivre(search) {
       throw new Error(promisseObject.error);
     }
   } catch (error) {
-      window.alert(error);
+    window.alert(error);
   }
 }
 
