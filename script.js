@@ -46,8 +46,8 @@ function reloadPag() {
   if (localStorage.length > 0) {
     valueOfStorage.forEach(product => ol.appendChild(createCartItemElement(product)));
   }
-  let totalToStart = localStorage.getItem('Total')
-  document.querySelector('.total-price').innerText = totalToStart
+  const totalToStart = localStorage.getItem('Total');
+  document.querySelector('.total-price').innerText = totalToStart;
 }
 
 const arrayObj = [];
@@ -58,15 +58,14 @@ function saveToStorage({ sku, name, salePrice }) {
     name,
     salePrice,
   };
-  if (localStorage.length <= 1){
+  if (localStorage.length <= 1) {
     arrayObj.push(objToAdd);
     localStorage.setItem(key, JSON.stringify(arrayObj));
   } else {
-    let arrayQueTaLa = JSON.parse(localStorage.getItem('ArrayOfObjts'));
-    arrayQueTaLa.push(objToAdd);
-    localStorage.setItem(key, JSON.stringify(arrayQueTaLa));
+    const arrayStorage = JSON.parse(localStorage.getItem('ArrayOfObjts'));
+    arrayStorage.push(objToAdd);
+    localStorage.setItem(key, JSON.stringify(arrayStorage));
   }
-
 }
 
 let total = 0;
@@ -76,9 +75,9 @@ async function totalPrice(resultRequisicao, conta) {
   if (conta === 'soma') {
     total += await resultRequisicao.price;
   }
-  
+
   totalPriceP.innerText = total;
-  localStorage.setItem('Total', total)
+  localStorage.setItem('Total', total);
 }
 
 function addToCar() {
@@ -132,10 +131,10 @@ function removeToCar() {
   // localStorage.clear()
   buttunClear.addEventListener('click', () => {
     const li = document.querySelectorAll('.cart__item');
-    document.querySelector('p').innerText = "";
+    document.querySelector('p').innerText = '';
     li.forEach((listItem) => {
       listItem.remove('li');
-    })
+    });
   });
 }
 
@@ -143,4 +142,4 @@ window.onload = function onload() {
   createListing('computador');
   reloadPag();
   removeToCar();
-}
+};
