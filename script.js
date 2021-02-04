@@ -36,6 +36,10 @@ function addItems(objectApi) {
   });
 }
 
+function cartItemClickListener(event) {
+
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -72,7 +76,7 @@ function callApi(item) {
   fetch(endpoint)
   .then(response => response.json())
   .then((objects) => {
-    addItems(objects.results)
+    addItems(objects.results);
     selectIdElement();
   })
   .catch(() => alert('erro'));
@@ -80,10 +84,6 @@ function callApi(item) {
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-
 }
 
 window.onload = function onload() {
