@@ -54,9 +54,9 @@ function totalCart() {
   localStorage.setItem('sd-09-shopping-cart', JSON.stringify(arrayStorage));
 }
 
-async function cartItemClickListener(event) {
+function cartItemClickListener(event) {
   event.path[0].remove();
-  await totalCart();
+  totalCart();
 }
 
 async function loadStorage(storage) {
@@ -72,7 +72,7 @@ async function loadStorage(storage) {
         cartItemClickListener(event);
       });
     });
-    await totalCart();
+    totalCart();
   }
 }
 
@@ -116,7 +116,7 @@ async function searchItemCart(sku) {
     });
   });
   loading(false);
-  await totalCart();
+  totalCart();
 }
 
 function makeButtonsListner() {
