@@ -1,3 +1,10 @@
+let salePrice = '';
+let name = '';
+let sku = '';
+let id = 0;
+const objLocalStorage = [];
+
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -53,19 +60,12 @@ function createCartItemElement({ sku, name, salePrice, id }) {
   return li;
 }
 
-let salePrice = '';
-let name = '';
-let sku = '';
-let id = 0;
-const objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
   const api = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${api}`;
-
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
-
     if (object.error) {
       throw new Error(object.error);
     }
@@ -101,7 +101,6 @@ function rebuildCart() {
 
 const fetchItensComputers = async () => {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
-
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
