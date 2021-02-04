@@ -33,6 +33,44 @@ function cartItemClickListener(event) {
   return event.target.remove();
 }
 
+const saveLocalStorage = () => {
+  const nodeList = document.querySelectorAll('.cart__item');
+  const list = [...nodeList];
+  const text = list.map(item => item.innerText)
+  localStorage.setItem('cartList', JSON.stringify(text));
+}
+
+const items = document.querySelector('.items');
+items.addEventListener('click', saveLocalStorage)
+
+const ol = document.querySelector('.cart__items');
+ol.addEventListener('click', saveLocalStorage);
+
+function updateLocalStorage() {
+  const li = document.querySelector('.cart__items');
+  li.addEventListener('click', (event) => {
+    saveLocalStorage();
+    return event.target.remove();
+  });
+}
+
+const storageListSaved = () => {
+  const ol = document.querySelector('.cart__items');
+  const storageList = JSON.parse(localStorage.getItem('cartList'));
+  if (storageList) {
+    storageList.forEach((item) => {
+      const li = document.createElement('li');
+      li.className = 'cart__item';
+      li.innerText = item;
+      ol.appendChild(li);
+      updateLocalStorage();
+    });
+  };
+};
+
+storageListSaved();
+
+
 function createCartItemElement({ sku, name, salePrice }) {
   const ol = document.querySelector('.cart__items');
   const li = document.createElement('li');
@@ -40,6 +78,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   ol.appendChild(li);
+  saveLocalStorage();
 }
 
 const filterIdElement = ({ id, title, price }) => {
