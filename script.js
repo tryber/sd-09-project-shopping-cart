@@ -112,10 +112,16 @@ function getItemsFromLocalStorage() {
 }
 
 function getProductListFromAPIByQuerySearch(product) {
+  const loadingMessage = document.createElement('span');
+  loadingMessage.className = 'loading';
+  loadingMessage.innerText = 'loading...';
+  const itemsElement = document.querySelector('.items');
+  itemsElement.appendChild(loadingMessage);
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${product}`;
   fetch(endPoint)
     .then(response => response.json())
     .then(data => extractProductsData(data.results))
+    .then(()=> itemsElement.removeChild(loadingMessage))
     .catch(error => console.log(error));
 }
 
@@ -124,13 +130,7 @@ function getSkuFromProductItem(item) {
 }
 
 window.onload = function onload() {
-  const loadingMessage = document.createElement('span');
-  loadingMessage.className = 'loading';
-  loadingMessage.innerText = 'loading...';
-  const itemsElement = document.querySelector('.items');
-  itemsElement.appendChild(loadingMessage);
   getProductListFromAPIByQuerySearch('computador');
-  itemsElement.removeChild(loadingMessage);
   getItemsFromLocalStorage();
 };
 
