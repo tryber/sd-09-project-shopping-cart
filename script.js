@@ -58,6 +58,7 @@ function createLoadingText() {
   const loading = document.createElement('p');
   loading.className = 'loading';
   loading.innerText = 'loading...';
+  document.body.appendChild(loading);
 }
 
 function stopLoadingText() {
@@ -73,7 +74,6 @@ const objLocalStorage = [];
 const fetchSelectedItem = async (event) => {
   const api = getSkuFromProductItem(event.target.parentNode);
   const endpoint = `https://api.mercadolibre.com/items/${api}`;
-  createLoadingText();
   try {
     const response = await fetch(endpoint);
     const object = await response.json();
@@ -92,7 +92,6 @@ const fetchSelectedItem = async (event) => {
   } catch (error) {
     window.alert(error);
   }
-  stopLoadingText();
 };
 
 function rebuildCart() {
