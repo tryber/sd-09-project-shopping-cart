@@ -117,4 +117,4 @@ window.onload = function onload() {
   addToCart();
   emptyCart();
   loadCart();
- };
+};
