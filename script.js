@@ -46,6 +46,8 @@ function reloadPag() {
   if (localStorage.length > 0) {
     valueOfStorage.forEach(product => ol.appendChild(createCartItemElement(product)));
   }
+  let totalToStart = localStorage.getItem('Total')
+  document.querySelector('.total-price').innerText = totalToStart
 }
 
 const arrayObj = [];
@@ -56,19 +58,27 @@ function saveToStorage({ sku, name, salePrice }) {
     name,
     salePrice,
   };
-  arrayObj.push(objToAdd);
-  localStorage.setItem(key, JSON.stringify(arrayObj));
+  if (localStorage.length <= 1){
+    arrayObj.push(objToAdd);
+    localStorage.setItem(key, JSON.stringify(arrayObj));
+  } else {
+    let arrayQueTaLa = JSON.parse(localStorage.getItem('ArrayOfObjts'));
+    arrayQueTaLa.push(objToAdd);
+    localStorage.setItem(key, JSON.stringify(arrayQueTaLa));
+  }
+
 }
 
 let total = 0;
 async function totalPrice(resultRequisicao, conta) {
-  const cart = document.querySelector('.cart');
+  // const cart = document.querySelector('.cart');
   const totalPriceP = document.querySelector('.total-price');
   if (conta === 'soma') {
     total += await resultRequisicao.price;
   }
-
+  
   totalPriceP.innerText = total;
+  localStorage.setItem('Total', total)
 }
 
 function addToCar() {
@@ -117,7 +127,20 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function removeToCar() {
+  const buttunClear = document.querySelector('.empty-cart');
+  // localStorage.clear()
+  buttunClear.addEventListener('click', () => {
+    const li = document.querySelectorAll('.cart__item');
+    document.querySelector('p').innerText = "";
+    li.forEach((listItem) => {
+      listItem.remove('li');
+    })
+  });
+}
+
 window.onload = function onload() {
   createListing('computador');
   reloadPag();
-};
+  removeToCar();
+}
