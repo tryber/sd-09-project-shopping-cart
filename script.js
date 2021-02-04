@@ -85,7 +85,7 @@ function getSkuFromProductItem(item) {
 function emptyCart() {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
-    let list = document.querySelectorAll('.cart__item');
+    const list = document.querySelectorAll('.cart__item');
     if (list !== undefined) {
       list.forEach((item) => {
         item.remove('li');
@@ -115,5 +115,4 @@ function saveShoppingCart() {
 */
 window.onload = function onload() {
   fetchProducts();
-
 };
