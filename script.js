@@ -1,6 +1,4 @@
-window.onload = async function onload() {
-  await cartItemClickListener();
-};
+
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -50,3 +48,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+window.onload = async function onload() {
+  await cartItemClickListener();
+};
