@@ -121,7 +121,7 @@ function getProductListFromAPIByQuerySearch(product) {
   fetch(endPoint)
     .then(response => response.json())
     .then(data => extractProductsData(data.results))
-    .then(()=> itemsElement.removeChild(loadingMessage))
+    .then(() => itemsElement.removeChild(loadingMessage))
     .catch(error => console.log(error));
 }
 
