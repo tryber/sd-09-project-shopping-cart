@@ -78,13 +78,15 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function sumCart(price) {
-  const localTotal = document.querySelector('.total');
+  const localTotal = document.querySelector('.total-price');
   let sum = Number(localTotal.innerText);
   if (sum) {
     sum += price;
-    localTotal.innerHTML = sum.toFixed(0);
+    localTotal.innerText = sum.toFixed(0);
+    console.log(localTotal)
   } else {
-    localTotal.innerHTML = price.toFixed(0);
+    localTotal.innerText = price.toFixed(0);
+    console.log(localTotal)
   }
 }
 
