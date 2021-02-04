@@ -109,5 +109,5 @@ const emptyCart = () => {
 window.onload = function onload() {
   fetchListApi();
   localStorageCart();
-  emptyCart()
+  emptyCart();
 };
