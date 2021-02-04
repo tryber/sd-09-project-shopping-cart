@@ -39,14 +39,14 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 async function addProductsInfo() {
-  const promise = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    const object = await promise.json();
-    const result = object.results;
-    result.forEach(({ id: sku, title: name, thumbnail: image }) => {
-      const item = createProductItemElement({ sku, name, image });
-      const parentItem = document.querySelector('.items');
-      parentItem.appendChild(item);
-    });
+  const promise = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
+  const object = await promise.json();
+  const result = object.results;
+  result.forEach(({ id: sku, title: name, thumbnail: image }) => {
+    const item = createProductItemElement({ sku, name, image });
+    const parentItem = document.querySelector('.items');
+    parentItem.appendChild(item);
+  });
 }
 
 function addInfoToLocalStorage(cardList) {
@@ -64,17 +64,17 @@ async function addCardsAndClickButtons() {
   buttons.forEach(button => button.addEventListener('click', (e) => {
     const clickedId = e.target.parentNode.firstChild.innerText;
     fetch(`https://api.mercadolibre.com/items/${clickedId}`).then(promise => promise.json())
-      .then((response) => {
-        const { id, title, price } = response;
-        const parentProductCart = document.querySelector('.cart__items');
-        const newProduct = createCartItemElement({ sku: id, name: title, salePrice: price });
-        parentProductCart.appendChild(newProduct);
-        addInfoToLocalStorage(parentProductCart);
-      });
-}));
+    .then((response) => {
+      const { id, title, price } = response;
+      const parentProductCart = document.querySelector('.cart__items');
+      const newProduct = createCartItemElement({ sku: id, name: title, salePrice: price });
+      parentProductCart.appendChild(newProduct);
+      addInfoToLocalStorage(parentProductCart);
+    });
+  }));
   const cartItem = document.querySelectorAll('.cart__item');
   cartItem.forEach(item => item.addEventListener('click', cartItemClickListener));
-};
+}
 
 addCardsAndClickButtons();
 
