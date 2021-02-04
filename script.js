@@ -131,6 +131,19 @@ async function fetchProducts() {
   }
 }
 
+function handleClickClearButton() {
+  const orderedList = document.querySelector('.cart__items');
+  const listItems = document.querySelectorAll('.cart__item');
+  listItems.forEach(item => orderedList.removeChild(item));
+  displayTotalPrice();
+}
+
+const clearShoppingCart = () => {
+  const clearButton = document.querySelector('.empty-cart');
+  clearButton.addEventListener('click', handleClickClearButton);
+};
+
 window.onload = function onload() {
   fetchProducts();
+  clearShoppingCart();
 };
