@@ -102,8 +102,22 @@ function addToCar() {
   });
 }
 
+function msgLoading(param) {
+  if (param === 'start') {
+    const paragrafLoading = document.createElement('h1');
+    paragrafLoading.className = 'loading';
+    paragrafLoading.innerText = 'Loading...';
+    document.body.appendChild(paragrafLoading);
+  };
+
+  if (param === 'finish') {
+    document.querySelector('.loading').remove();
+  };
+}
+
 function createListing(search) {
   const sectionItems = document.querySelector('.items');
+  msgLoading('start');
   const promiseAPI = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${search}`)
     .then(response => response.json());
   const arrayResults = promiseAPI.then(response => response.results);
@@ -120,6 +134,7 @@ function createListing(search) {
       // Chamar a função reuisito 2
       addToCar();
     });
+    msgLoading('finish')
 }
 
 function getSkuFromProductItem(item) {
@@ -128,10 +143,11 @@ function getSkuFromProductItem(item) {
 
 function removeToCar() {
   const buttunClear = document.querySelector('.empty-cart');
-  // localStorage.clear()
+
   buttunClear.addEventListener('click', () => {
     const li = document.querySelectorAll('.cart__item');
     document.querySelector('p').innerText = '';
+    localStorage.clear();
     li.forEach((listItem) => {
       listItem.remove('li');
     });
