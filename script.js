@@ -1,4 +1,4 @@
-let totalPrice = 0;
+// let totalPrice = 0;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
