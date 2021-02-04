@@ -96,12 +96,18 @@ const localStorageCart = () => {
   }
 };
 
+const cleaningCart = (events) => {
+  document.querySelector('.cart__items').innerHTML = '';
+  localStorage.removeItem('products');
+};
+
 const emptyCart = () => {
-  const buttonEmptyCart = document.querySelector('.empty-cart');
-  buttonEmptyCart.addEventListener('click', emptyCart);
-}
-  ;
+  const buttonCleaningCart = document.querySelector('.empty-cart');
+  buttonCleaningCart.addEventListener('click', cleaningCart);
+};
+
 window.onload = function onload() {
   fetchListApi();
   localStorageCart();
+  emptyCart()
 };
