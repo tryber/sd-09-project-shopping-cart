@@ -74,15 +74,13 @@ function addEventCart() {
       apiCart(productId);
     }
   });
-
 }
 
 function removeAllProduct() {
-  const buttonCart= document.querySelector('.empty-cart');
+  const buttonCart = document.querySelector('.empty-cart');
   buttonCart.addEventListener('click', function (event) {
-  const removeItems = document.querySelector('.cart__items');
-  removeItems.innerHTML = '';
-
+    const removeItems = document.querySelector('.cart__items');
+    removeItems.innerHTML = '';
   });
 }
 
@@ -108,5 +106,5 @@ async function apiAdd() {
 window.onload = function onload() {
   apiAdd();
   addEventCart();
-  removeAllProduct()
+  removeAllProduct();
 };
