@@ -1,40 +1,3 @@
-/*
-window.onload = () => onload() {
-  retrieveMercadoLivre('computador');
- };*/
- retrieveMercadoLivre = (term) => {
-  const itensMercado = document.querySelector('.item');
-  const param = { headers: {Accept: 'application/json'}};
-  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
- .then((response) => {
-   response.json()
-    .then((data) => {
-      console.log(data);
-      data.results.forEach((result1) => {
-      const {id: sku, title: name, thumbnail:image} = result1;
-      const element = createProductItemElement({sku, name, image});
-      console.log(sku, name, image );
-      itensMercado.appendChild(element);
-    });    
-    //console.log(data.results[0].title);
-    });   
-  })
-}
- retrieveMercadoLivre('computador');
-/*
-retrieveMercadoLivre('computador');
- async function retrieveMercadoLivre() {
-   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
- 
- const response = await fetch(endpoint);
- const object = await response.json();
- const results = object.results;
-
- results.forEach((result => 
-  const {id:sku, title: name, thumbnail:image} = result;
-  const element = createProductItemElement ({skul, name, image});)
-  }*/
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -76,3 +39,23 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+retrieveMercadoLivre = (term) => {
+  const param = { headers: { Accept: 'application/json' } };
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
+  .then(response => response.json())
+    .then((data) => {
+      const itensMercado = document.querySelector('.items');
+      console.log(data);
+      data.results.forEach((result) => {
+        const { id: sku, title: name, thumbnail: image } = result;
+        const element = createProductItemElement({ sku, name, image });
+        console.log(sku, name, image);
+        itensMercado.appendChild(element);
+      });
+    });
+};
+
+window.onload = function onload() {
+  retrieveMercadoLivre('computador');
+};
