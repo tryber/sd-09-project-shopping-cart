@@ -38,7 +38,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
+/*
 function reloadPag() {
   const ol = document.querySelector('.cart__items');
   const valueOfStorage = JSON.parse(localStorage.getItem('ArrayOfObjts'));
@@ -57,7 +57,7 @@ function saveToStorage({ sku, name, salePrice }) {
   arrayObj.push(objToAdd);
   localStorage.setItem(key, JSON.stringify(arrayObj));
 }
-
+*/
 function addToCar() {
   const buttonItemList = document.querySelectorAll('.item__add');
   buttonItemList.forEach((specifcButton) => {
