@@ -74,3 +74,8 @@
   font-size: 16pt;
   text-align: center;
 }
+
+hr {
+  border-bottom: 1px solid black;
+  width: 100%;
+}
