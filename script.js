@@ -54,7 +54,6 @@ async function totalCart() {
     }
     localStorage.setItem('sd-09-shopping-cart', JSON.stringify(arrayStorage));
   } catch (error) {
-
   }
  
 }
