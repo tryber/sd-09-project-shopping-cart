@@ -42,9 +42,9 @@ function fetchProduct() {
         eachSection.appendChild(newList);
       });
     });
-  }
+}
 
-  function cartItemClickListener(event) {
+function cartItemClickListener(event) {
     // coloque seu código aqui
 }
 
