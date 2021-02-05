@@ -93,7 +93,7 @@ async function fetchInit() {
     button.addEventListener('click', () => {
       adcItem(sku);
     });
-  })
+  });
 }
 
 function loadingInStorage() {
