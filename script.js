@@ -1,3 +1,17 @@
+function saveList() {
+  const dadCartList = document.querySelector('.cart__items');
+  const totalPrices = document.querySelector('.total-price');
+  localStorage.setItem('some', totalPrices.innerHTML);
+  localStorage.setItem('cart', dadCartList.innerHTML);
+}
+
+function LoadingList() {
+  const cartList = document.querySelector('.cart__items');
+  const totalPrices = document.querySelector('.total-price');
+  totalPrices.innerHTML = localStorage.getItem('some');
+  cartList.innerHTML = localStorage.getItem('cart');
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -28,10 +42,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+let somaValue = 0;
+function valueOfProduct(salePrice) {
+  const total = document.querySelector('.total-price');
+  somaValue += salePrice;
+  total.innerText = somaValue;
+}
+
 function cartItemClickListener() {
   const dadItemsList = document.querySelector('.cart__items');
   dadItemsList.addEventListener('click', (event) => {
     event.target.remove();
+    saveList();
   });
 }
 
@@ -40,6 +62,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  valueOfProduct(salePrice);
   return li;
 }
 
@@ -70,16 +93,6 @@ async function listProduct() {
   loadingStop();
 }
 
-function saveList() {
-  const dadCartList = document.querySelector('.cart__items');
-  localStorage.setItem('cart', dadCartList.innerHTML);
-}
-
-function LoadingList() {
-  const cartList = document.querySelector('.cart__items');
-  cartList.innerHTML = localStorage.getItem('cart');
-}
-
 function addProductCart() {
   const sectionButtons = document.querySelector('.items');
   sectionButtons.addEventListener('click', async (event) => {
@@ -103,6 +116,8 @@ function buttonRemovelist() {
   const buttoClear = document.querySelector('.empty-cart');
   buttoClear.addEventListener('click', () => {
     const cartDadList = document.querySelector('.cart__items');
+    const totalPrices = document.querySelector('.total-price');
+    totalPrices.innerText = '';
     cartDadList.innerHTML = '';
     saveList();
   });
