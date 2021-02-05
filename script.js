@@ -1,5 +1,17 @@
 const itensArray = [];
 
+const clearCar = () => {
+  if (itensArray.length !== 0) {
+    const ol = document.querySelector('.cart__items');
+    const len = ol.children.length;
+    for (let index = 0; index < len; index += 1) {
+      ol.removeChild(ol.children[0]);
+    }
+    itensArray.splice(0, itensArray.length);
+    saveItens();
+  }
+}
+
 const saveItens = () => {
   localStorage.setItem('itens', JSON.stringify(itensArray));
 };
@@ -92,9 +104,15 @@ const queryItensInBd = async (params) => {
   }));
 };
 
+const setClearButton = () => {
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', clearCar);
+}
+
 window.onload = function onload() {
   queryItensInBd('computador');
   loadItens();
+  setClearButton();
 };
 
 function getSkuFromProductItem(item) {
