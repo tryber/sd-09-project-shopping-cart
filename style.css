@@ -41,7 +41,7 @@
   width: 200px;
 }
 
-.item .item__sku {
+.item .item__sku, .item_price {
   display: none;
 }
 
