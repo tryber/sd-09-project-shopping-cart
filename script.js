@@ -45,12 +45,12 @@ function createProducts() {
   .then(response => response.json())
   .then((data) => {
     data.results.forEach((element) => {
-      const obj = {
+      const objProducts = {
         sku: element.id,
         name: element.title,
         image: element.thumbnail,
       };
-      document.querySelector('.items').appendChild(createProductItemElement(obj));
+      document.querySelector('.items').appendChild(createProductItemElement(objProducts));
     });
   });
 }
