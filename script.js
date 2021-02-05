@@ -2,9 +2,8 @@ let storageCartItems = [];
 
 const totalPrice = async () => {
   const obj = JSON.parse(localStorage.getItem('products'));
-  const cartPrice = await obj.reduce((acumulator, current) => {
-    return acumulator + current.salePrice;
-  }, 0);
+  const cartPrice = await obj
+    .reduce((acumulator, current) => acumulator + current.salePrice, 0);
   document.querySelector('.total-price').innerText = cartPrice;
 };
 
