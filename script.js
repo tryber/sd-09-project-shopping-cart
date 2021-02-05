@@ -24,10 +24,20 @@ function localStorageUpdate() {
   localStorage.setItem('cart', myCart);
 }
 
+async function priceCalculator() {
+  const cartItems = document.querySelector('ol.cart__items').childNodes;
+  const totalDisplay = document.querySelector('.total-price');
+  let total = 0;
+  await cartItems.forEach(item =>
+    total += parseFloat(item.innerText.slice(item.innerText.indexOf('$') + 1)));
+  totalDisplay.innerText = `Preço Total: R$ ${total.toFixed(2)}`;
+}
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.parentElement.removeChild(event.target);
   localStorageUpdate();
+  priceCalculator();
 }
 
 function savedCartFetch() {
@@ -39,6 +49,7 @@ function savedCartFetch() {
     li.addEventListener('click', cartItemClickListener);
     cart.appendChild(li);
   });
+  priceCalculator();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -58,7 +69,8 @@ function addToCart(event) {
     .then(({ id: sku, title: name, price: salePrice }) =>
       createCartItemElement({ sku, name, salePrice }))
     .then(cartItem => cart.appendChild(cartItem))
-    .then(() => localStorageUpdate());
+    .then(() => localStorageUpdate())
+    .then(() => priceCalculator());
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -90,6 +102,7 @@ function deleteCart() {
   const cartItems = document.querySelector('ol.cart__items').childNodes;
   while (cartItems.length) cart.removeChild(cartItems[cartItems.length - 1]);
   localStorageUpdate();
+  priceCalculator();
 }
 
 window.onload = function onload() {
