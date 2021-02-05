@@ -49,7 +49,7 @@ itemsCart.addEventListener('click', saveLocalStorage);
 const olList = document.querySelector('.cart__items');
 olList.addEventListener('click', saveLocalStorage);
 
-//itemsCart.addEventListener('click', totalPrice);
+// itemsCart.addEventListener('click', totalPrice);
 
 function updateLocalStorage() {
   const li = document.querySelector('.cart__items');
