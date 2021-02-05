@@ -56,7 +56,7 @@ async function addItemsToCart(sku, name, container) {
   setTimeout(() => {
 
     container.removeChild(loadingElement);
-  },20)
+  }, 20);
   cart.appendChild(createCartItemElement({ sku, name, salePrice }));
 }
 
