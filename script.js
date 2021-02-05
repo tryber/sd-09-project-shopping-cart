@@ -28,6 +28,11 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function saveOnLocalStorage() {
+  const shoppingCart = document.querySelector('.cart__items');
+  localStorage.setItem('carrinhoDeCompras', shoppingCart.innerHTML);
+}
+
 function removeAllItemsCart() {
   const removeButton = document.querySelector('.empty-cart');
   removeButton.addEventListener('click', () => {
@@ -47,11 +52,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
-
-function saveOnLocalStorage() {
-  const shoppingCart = document.querySelector('.cart__items');
-  localStorage.setItem('carrinhoDeCompras', shoppingCart.innerHTML);
 }
 
 async function clickToAddButton() {
@@ -97,6 +97,11 @@ function recoverTheLocaStorage() {
   shoppingCart.innerHTML = localStorage.getItem('carrinhoDeCompras');
   const recoveryLi = document.querySelectorAll('.cart__item');
   recoveryLi.forEach(item => item.addEventListener('click', cartItemClickListener));
+}
+
+function calculateTotalPrice() {
+  // Criar um elemento com a classe total-price
+  // Criar um elemento filho desse elemento, contendo o valor total dos produtos
 }
 
 window.onload = function onload() {
