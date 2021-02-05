@@ -48,8 +48,8 @@ function createProducts() {
       const obj = {
         sku: element.id,
         name: element.title,
-        image: element.thumbnail
-      }
+        image: element.thumbnail,
+      };
       document.querySelector('.items').appendChild(createProductItemElement(obj));
     });
   });
@@ -58,4 +58,4 @@ function createProducts() {
 
 window.onload = function onload() {
   createProducts();
- };
+};
