@@ -78,9 +78,7 @@ async function fetchProducts() {
       };
       const section = createProductItemElement(itemObj)
       htmlElement.appendChild(section);
-
       const btn = section.lastChild;
-
       btn.addEventListener('click', () => {
         const elementId = btn.parentNode.querySelector('.item__sku');
         fetchProductById(elementId.innerText);
