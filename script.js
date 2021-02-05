@@ -11,7 +11,7 @@ async function getOrderPrice() {
   orderPrice.innerText = 0;
   document.querySelector('.cart').appendChild(orderPrice);
   const cartItems = JSON.parse(localStorage.getItem('MLCartItems'));
-  const finalPrice = cartItems.reduce((acc, curr) => acc + curr.salePrice, 0)
+  const finalPrice = cartItems.reduce((acc, curr) => acc + curr.salePrice, 0);
   console.log(finalPrice);
   orderPrice.innerText = finalPrice;
 }
