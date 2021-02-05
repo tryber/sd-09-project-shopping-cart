@@ -81,7 +81,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   ol.appendChild(li);
-  ol.appendChild(createCustomElement('span', 'item_price', salePrice));
   saveLocalStorage();
 }
 
