@@ -1,3 +1,8 @@
+function setShoppingCar() {
+  const shoppingCart = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', shoppingCart);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -78,12 +83,6 @@ function fetchMercadoLivre(term) {
           btnShoppingCar();
         });
     });
-}
-
-
-function setShoppingCar() {
-  const shoppingCart = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', shoppingCart);
 }
 
 function getItem() {
