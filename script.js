@@ -53,8 +53,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   const results = obj.results;  
   const itemsElement = document.querySelector('.items');
 
-  results.forEach((results) => {
-    const { id: sku, title: name, thumbnail: image,} = results;
+  results.forEach((result) => {
+    const { id: sku, title: name, thumbnail: image} = result;
     const element = createProductItemElement({sku, name, image});
     itemsElement.appendChild(element)
 
