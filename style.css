@@ -102,14 +102,14 @@
 }
 
 body {
-  background-color: rgb(240, 240, 240);
+  background-color: rgb( 240, 240, 240 );
   margin: 0;
   padding: 0;
 }
 
 header {
   align-items: center;
-  background-color: #fff159;
+  background-color: rgb( 255, 241, 89 );
   display: flex;
   height: 5em;
   justify-content: center;

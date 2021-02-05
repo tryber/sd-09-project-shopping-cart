@@ -91,7 +91,7 @@ function createProductItemElement({ sku, name, image }) {
 function loadShoppingItems(search) {
   const api = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
   const shelf = document.querySelector('section.items');
-  
+
   const shelfItems = shelf.childNodes;
   while (shelfItems.length) shelf.removeChild(shelfItems[shelfItems.length - 1]);
 
