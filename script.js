@@ -59,7 +59,6 @@ function startLoading() {
   const container = document.querySelector('.container');
   const loadingText = createCustomElement('span', 'loading', 'loading...');
   container.appendChild(loadingText);
-  console.log(loadingText)
 }
 
 function endLoading() {
@@ -121,6 +120,4 @@ window.onload = function onload() {
 
   const emptyCart = document.querySelector('.empty-cart');
   emptyCart.addEventListener('click', removeCartItemElements);
-
-
 };
