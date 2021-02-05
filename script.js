@@ -33,6 +33,12 @@ function cartItemClickListener(event) {
   return event.target.remove();
 }
 
+const totalPrice = () => {
+  const arrayNode = document.querySelectorAll('.item_price');
+  const priceList = [...arrayNode];
+  console.log(priceList);
+}
+
 const saveLocalStorage = () => {
   const nodeList = document.querySelectorAll('.cart__item');
   const list = [...nodeList];
@@ -46,6 +52,7 @@ itemsCart.addEventListener('click', saveLocalStorage);
 const olList = document.querySelector('.cart__items');
 olList.addEventListener('click', saveLocalStorage);
 
+itemsCart.addEventListener('click', totalPrice);
 function updateLocalStorage() {
   const li = document.querySelector('.cart__items');
   li.addEventListener('click', (event) => {
@@ -139,7 +146,7 @@ const productItemElement = async () => {
     if (object.results.length === 0) {
       throw new Error('Busca inválida');
     }
-    items.removeChild(span);
+    span.innerText = '';
     objectFilterElement(object);
   } catch (error) {
     alert(error);
