@@ -47,7 +47,7 @@ function getItemsStoraged() {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
   const cartItems = document.querySelectorAll('.cart__item');
   [...cartItems].forEach((item) => {
-    item.addEventListener('click', cartItemClickListener)
+    item.addEventListener('click', cartItemClickListener);
   });
 }
 
