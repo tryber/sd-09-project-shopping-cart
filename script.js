@@ -99,11 +99,6 @@ function recoverTheLocaStorage() {
   recoveryLi.forEach(item => item.addEventListener('click', cartItemClickListener));
 }
 
-function calculateTotalPrice() {
-  // Criar um elemento com a classe total-price
-  // Criar um elemento filho desse elemento, contendo o valor total dos produtos
-}
-
 window.onload = function onload() {
   fetchAPIMercadoLivre('computador');
   removeAllItemsCart();
