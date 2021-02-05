@@ -22,7 +22,7 @@ function toLocalStorage({ sku, name, salePrice }) {
   return storage;
 }
 
-async function sumCartPrices() {
+function sumCartPrices() {
   let cartPrice = 0;
   Object.values(localStorage).forEach((product) => {
     cartPrice += JSON.parse(product).salePrice;
