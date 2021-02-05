@@ -2,7 +2,7 @@ let storageCartItems = [];
 
 const totalPrice = async () => {
   const obj = JSON.parse(localStorage.getItem('products'));
-  const cartPrice = await obj.reduce((acc, current) => acc += current.salePrice, 0);
+  const cartPrice = await obj.reduce((acc, current) => { acc += current.salePrice }, 0);
   document.querySelector('.total-price').innerText = cartPrice;
 };
 
@@ -80,6 +80,7 @@ const cartClickAddItem = () => {
 
 const fetchListApi = async () => {
   const apiUrl = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+
   try {
     const response = await fetch(apiUrl);
     const object = await response.json();
