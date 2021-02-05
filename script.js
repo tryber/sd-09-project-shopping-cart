@@ -2,12 +2,9 @@ let storageCartItems = [];
 
 const totalPrice = async () => {
   const obj = JSON.parse(localStorage.getItem('products'));
-  const cartPrice = await obj.reduce((acc, current) => {
-    acc += current.salePrice
-    return acc
-  }, 0);
+  const cartPrice = await obj.reduce((acc, current) => acc += current.salePrice, 0);
   document.querySelector('.total-price').innerText = cartPrice;
-}
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
