@@ -109,13 +109,11 @@ const fetchProducts = async (product) => {
 
     if (object.error) throw new Error(object.error);
 
-    object.results.map((result) => section.
-      appendChild(createProductItemElement(
-        ({ sku: result.id, name: result.title, image: result.thumbnail }))));
+    object.results.map(result => section.appendChild(createProductItemElement(
+        { sku: result.id, name: result.title, image: result.thumbnail })));
     addProductToCart();
     emptyCart();
-  } 
-  catch(error) {
+  } catch (error) {
     window.alert(error);
   }
 };
