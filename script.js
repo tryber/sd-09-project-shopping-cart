@@ -29,7 +29,8 @@ async function priceCalculator() {
   const totalDisplay = document.querySelector('.total-price');
   let total = 0;
   await cartItems.forEach((item) => {
-    total += parseFloat(item.innerText.slice(item.innerText.indexOf('$') + 1))});
+    total += parseFloat(item.innerText.slice(item.innerText.indexOf('$') + 1))
+  });
   totalDisplay.innerText = `Preço Total: R$ ${total.toFixed(2)}`;
 }
 
