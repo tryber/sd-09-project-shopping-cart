@@ -76,26 +76,29 @@ async function fetchProducts() {
         name: element.title,
         image: element.thumbnail,
       };
-      const section = createProductItemElement(itemObj)
+      const section = createProductItemElement(itemObj);
       htmlElement.appendChild(section);
       const btn = section.lastChild;
       btn.addEventListener('click', () => {
         const elementId = btn.parentNode.querySelector('.item__sku');
         fetchProductById(elementId.innerText);
-        let storage = localStorage.getItem('List');
-        let parseItem = JSON.parse(storage);
-        if (parseItem == null) {
-          let arr = [];
-          arr.push(itemObj);
-          localStorage.setItem('List', JSON.stringify(arr));
-        } else {
-          parseItem.push(itemObj);
-          localStorage.setItem('List', JSON.stringify(parseItem));
-        }
+        saveOnLocalStorage(itemObj);
       });
-    });
-    removeLoad();
+    });removeLoad();
   });
+}
+
+function saveOnLocalStorage(itemObj) {
+const storage = localStorage.getItem('List');
+  const parseItem = JSON.parse(storage);
+    if (parseItem == null) {
+        const arr = [];
+        arr.push(itemObj);
+        localStorage.setItem('List', JSON.stringify(arr));
+    } else {
+        parseItem.push(itemObj);
+        localStorage.setItem('List', JSON.stringify(parseItem));
+   }
 }
 
 function getSkuFromProductItem(item) {
@@ -114,25 +117,7 @@ function emptyCart() {
   });
 }
 emptyCart();
-/*
-function saveShoppingCart() {
-  const listItem = document.querySelectorAll('.cart__items');
 
-  let arr = [];
-
-  listItem.forEach((item, param) => {
-
-    let obj = {
-      text: item[param].textContent,
-      class: item[param].className,
-    }
-
-    arr.push(obj);
-  })
-
-  localStorage.setItem('List', JSON.stringify(arr));
-}
-*/
 window.onload = function onload() {
   fetchProducts();
 };
