@@ -75,7 +75,7 @@ async function addItemsCart(tagHtml) {
   const filhoSection = document.querySelector('.cart__items');
 
   filhoSection.appendChild(createCartItemElement(
-    { sku: results.id,name: results.title,salePrice: results.price, }
+    { name: results.title, salePrice: results.price, sku: results.id }
   ));
 }
 
