@@ -50,6 +50,9 @@ async function addItemsToCart(sku, name, container) {
     container.appendChild(loading);
   }
   const fetchedProduct = await fetch(`https://api.mercadolibre.com/items/${sku}`);
+  if (!jsonifyProduct.salePrice) {
+    container.appendChild(loading);
+  }
   jsonifyProduct = await fetchedProduct.json();
   const { price: salePrice } = jsonifyProduct;
   const loadingElement = document.getElementsByClassName('loading')[0];
