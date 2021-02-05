@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Project 8 | Shopping Cart</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
-
   <body>
+    <header>
+      <img src="./mercado-livre.jpg" alt="Ícone Mercado Livre" class="logo">
+      <input type="text" class="search-bar" name="search" placeholder="Buscar produtos, marcas e muito mais...">
+      <button class="search-btn">
+        <img src="./inspect.png" alt="Lupa" class="looking-glass">
+      </button>
+    </header>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
         <button class="empty-cart">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
+        <span class="total-price"></span>
       </section>
     </section>
   </body>
