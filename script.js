@@ -85,9 +85,9 @@ function callApi(item) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-function  clearCart() {
-  document.querySelector('button.empty-cart').
-  addEventListener('click', () => {
+function clearCart() {
+  document.querySelector('button.empty-cart')
+  .addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
   });
 }
