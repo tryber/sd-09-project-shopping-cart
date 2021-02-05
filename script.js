@@ -1,8 +1,44 @@
-const itensInMemory = [];
+const itensArray = [];
+
+const addItemInCart = async (event) => {
+  const endPoint = `https://api.mercadolibre.com/items/${event.target.value}`;
+  const result = fetch(endPoint);
+  await result.then(resp => resp.json().then((res) => {
+    const { id: sku, title: name, price: salePrice } = res;
+    const li = createCartItemElement({ sku, name, salePrice });
+    li.id = sku;
+    itensArray.push(sku);
+    const ol = document.querySelector('.cart__items');
+    ol.appendChild(li);
+  }));
+  saveItens();
+};
+
+const loadItens = () => {
+  const itens = JSON.parse(localStorage.getItem('itens'));
+  if (itens !== null) {
+    if (itens.length !== 0) {
+      itens.forEach((item) => {
+        let itemFormated = {
+          target: {
+            value: item
+          }
+        }
+        addItemInCart(itemFormated);
+      });
+    }
+  }
+}
+
+const saveItens = () => {
+  localStorage.setItem('itens', JSON.stringify(itensArray));
+}
 
 function cartItemClickListener(event) {
   const ol = document.querySelector('.cart__items');
   ol.removeChild(event.target);
+  itensArray.splice(itensArray.indexOf(event.target.id), 1);
+  saveItens();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -12,18 +48,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-const addItemInCart = async (event) => {
-  const endPoint = `https://api.mercadolibre.com/items/${event.target.value}`;
-  const result = fetch(endPoint);
-  await result.then(resp => resp.json().then((res) => {
-    const { id: sku, title: name, price: salePrice } = res;
-    const li = createCartItemElement({ sku, name, salePrice });
-    const ol = document.querySelector('.cart__items');
-    ol.appendChild(li);
-    itensInMemory.push(res);
-  }));
-};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -70,6 +94,7 @@ const queryItensInBd = async (params) => {
 
 window.onload = function onload() {
   queryItensInBd('computador');
+  loadItens();
 };
 
 function getSkuFromProductItem(item) {
