@@ -47,7 +47,6 @@ async function addItemsToCart(sku, name, loading, loadingElement) {
   const fetchedProduct = await fetch(`https://api.mercadolibre.com/items/${sku}`);
   let jsonifyProduct = {};
   if (!jsonifyProduct.salePrice) {
-    console.log(loading)
     jsonifyProduct = await fetchedProduct.json();
   }
   const { price: salePrice } = jsonifyProduct;
