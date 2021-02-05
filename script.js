@@ -57,18 +57,19 @@ async function loadAPI(find = 'computador') {
 function addAttributesScripts() {
   let button;
   const promise = () => new Promise((resolve) => {
-      try {
-        setTimeout(() => {
-          button = document.querySelectorAll('section.item');
-          for (let i = 0; i < button.length; i += 1) {
-            document.querySelectorAll('section.item')[i].setAttribute('onclick','addItemsCart(this)');
-          };
-        }, 5000)
-        resolve('carregado');
-      } catch (error) {
-        throw new Error(error);
-      };
-    });
+    try {
+      setTimeout(() => {
+        button = document.querySelectorAll('section.item');
+        for (let i = 0; i < button.length; i += 1) {
+          document.querySelectorAll('section.item')[i].setAttribute('onclick', 'addItemsCart(this)');
+        }
+      }, 5000);
+      resolve('carregado');
+
+    } catch (error) {
+      throw new Error(error)
+    };
+  });
 
   promise();
 }
@@ -79,13 +80,11 @@ async function addItemsCart(tagHtml) {
   const results = responseJSON;
   const filhoSection = document.querySelector('.cart__items');
 
-  filhoSection.appendChild(createCartItemElement(
-    {
+  filhoSection.appendChild(createCartItemElement({
       sku: results.id,
       name: results.title,
-      salePrice: results.price
-    }
-  ));
+      salePrice: results.price,
+    }));
 }
 
 window.onload = function onload() {
@@ -95,25 +94,22 @@ window.onload = function onload() {
 };
 
 /**
-    Listagem de produtos
-      ✓ Listagem de produtos (428ms)
-    Adicione o produto ao carrinho de compras
-      1) Adicione o produto ao carrinho de compras
-    Remova o item do carrinho de compras ao clicar nele
-      2) Remova o item do carrinho de compras ao clicar nele
-    Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
-      3) Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
-    Some o valor total dos itens do carrinho de compras de forma assíncrona
-      4) Some o valor total dos itens do carrinho de compras de forma assíncrona
-    Botão para limpar carrinho de compras
-      5) Botão para limpar carrinho de compras
-    Adicionar um texto de "loading" durante uma requisição à API
-      6) Adicionar um texto de "loading" durante uma requisição à API
-
-
-    AssertionError: Timed out retrying: Expected to find element: ``, 
-    but never found it. Queried from element: <ol.cart__items>
-
-    AssertionError: Timed out retrying: Expected to find element: `.total-price`, but never found it.
-    AssertionError: Timed out retrying: Expected to find element: `.loading`, but never found it.
+Listagem de produtos
+  ✓ Listagem de produtos (428ms)
+Adicione o produto ao carrinho de compras
+  1) Adicione o produto ao carrinho de compras
+Remova o item do carrinho de compras ao clicar nele
+  2) Remova o item do carrinho de compras ao clicar nele
+Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
+  3) Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
+Some o valor total dos itens do carrinho de compras de forma assíncrona
+  4) Some o valor total dos itens do carrinho de compras de forma assíncrona
+Botão para limpar carrinho de compras
+  5) Botão para limpar carrinho de compras
+Adicionar um texto de "loading" durante uma requisição à API
+  6) Adicionar um texto de "loading" durante uma requisição à API
+AssertionError: Timed out retrying: Expected to find element: ``, 
+but never found it. Queried from element: <ol.cart__items>
+AssertionError: Timed out retrying: Expected to find element: `.total-price`, but never found it.
+AssertionError: Timed out retrying: Expected to find element: `.loading`, but never found it.
  */
