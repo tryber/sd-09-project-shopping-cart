@@ -1,6 +1,6 @@
 function setShoppingCar() {
   const shoppingCart = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', shoppingCart);
+  localStorage.setItem('cartSaved', shoppingCart);
 }
 
 function createProductImageElement(imageSource) {
@@ -87,12 +87,21 @@ function fetchMercadoLivre(term) {
 
 function getItem() {
   const shoppingCart = document.querySelector('.cart__items');
-  shoppingCart.innerHTML = localStorage.getItem('cart');
+  shoppingCart.innerHTML = localStorage.getItem('cartSaved');
   const li = document.querySelectorAll('.cart__item');
   li.forEach(element => element.addEventListener('click', cartItemClickListener));
+}
+
+function cleanCart() {
+  const btnClean = document.querySelector('.empty-cart');
+  const ol = document.querySelector('.cart__items');
+  btnClean.addEventListener('click', () => {
+    ol.innerHTML = '';
+  });
 }
 
 window.onload = function onload() {
   fetchMercadoLivre('computador');
   getItem();
+  cleanCart();
 };
