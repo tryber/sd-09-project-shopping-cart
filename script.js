@@ -1,3 +1,5 @@
+let localStorageCart = [];
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -31,25 +33,61 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-
-function saveCart() {
-  localStorage.clear();
-  localStorage.cartItems = document.querySelector('ol').innerHTML;
+function saveLocalStorage() {
+  const customerCart = document.querySelector('.cart__items');
+  const retrievedLocalStorage = JSON.parse(localStorage.getItem('MLCartItems'));
+  if (retrievedLocalStorage === null) {
+    localStorage.setItem('MLCartItems', JSON.stringify([]));
+  } else {
+    retrievedLocalStorage.forEach(item => customerCart.appendChild(createCartItemElement(item)));
+  }
 }
+
+function saveCartInLocalStorageCartArray(param) {
+  localStorageCart.push(param)
+}
+
+
+// function removeFromLocalStorage(item) {
+//   const itemToRemoveSKu = item.innerText.split('|')[0].replace('SKU: ', '');
+//   const localStorage = JSON.parse(localStorage.getItem('MLCartItem'));
+//   const itemToRemove = localStorage.find((cartList) => {
+//      return cartList.sku === itemToRemoveSKu;
+//   })
+//   console.log(itemToRemove)
+ 
+// }
+
+// function restoreFromLocalStorage() {
+//   const restoredItems = JSON.parse(localStorage.getItem('MLCartItem'))
+//   restoredItems.forEach((item) => {
+//     const { sku, name, salePrice } = item;
+//     document.querySelector('ol')
+//     .appendChild(createCartItemElement({sku, name, salePrice}));
+//   })
+// }
+
+// function saveCart() {
+//   localStorage.cartItems = document.querySelector('ol').innerHTML;
+// }
 
 
 function cartItemClickListener(event) {
   document.querySelector('.cart__items').removeChild(event.target);
-  saveCart();
+  const itemToRemoveSku = event.target.innerText.split(' ')[1];
+  localStorageCart = localStorageCart.filter(cartItem => cartItem.sku !== itemToRemoveSku );
+  localStorage.setItem('MLCartItems', JSON.stringify(localStorageCart));
+  // removeFromLocalStorage(event.target);
+  // saveCart();
 }
 
 
-function restoreCart() {
-  if (localStorage.length !== 0) {
-    document.querySelector('ol').innerHTML = localStorage.getItem('cartItems');
-  }
-  document.querySelectorAll('li').forEach(item => item.addEventListener('click', cartItemClickListener));
-}
+// function restoreCart() {
+//   if (localStorage.length !== 0) {
+//     document.querySelector('ol').innerHTML = localStorage.getItem('cartItems');
+//   }
+//   document.querySelectorAll('li').forEach(item => item.addEventListener('click', cartItemClickListener));
+// }
 
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -70,7 +108,10 @@ function addItemToCart(event) {
       const param = { sku: object.id, name: object.title, salePrice: object.price };
       document.querySelector('.cart__items')
       .appendChild(createCartItemElement(param));
-      saveCart();
+      localStorageCart.push(param);
+      localStorage.setItem('MLCartItems', JSON.stringify(localStorageCart));
+      // saveCart();
+      // saveCartInLocalStorage(param);
     });
 }
 
@@ -80,11 +121,12 @@ function clearCart() {
   cartItems.forEach((item) => {
     document.querySelector('.cart__items').removeChild(item);
   });
+  localStorage.removeItem('MLCartItems');
 }
 
 
 const getTotalOrder = async () => {
-// a fazer
+
 };
 
 
@@ -120,5 +162,8 @@ window.onload = function onload() {
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   loadPage(endpoint);
-  restoreCart();
+  saveLocalStorage();
+  // restoreCart();
+  // restoreFromLocalStorage();
+
 };
