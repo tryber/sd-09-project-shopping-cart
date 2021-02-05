@@ -1,9 +1,11 @@
-const bottonAdd = document.querySelector('.item__add');
-buttonAdd.addEventListener('click',() => {
-  const bottontext = document.querySelector('.item__add').innerText;
+ const buttonAdd = document.querySelector('.item__add');
+buttonAdd.addEventListener('click',adicionar => {
+  const buttonText = document.querySelector('.item__add').innerText;
   const cartItens = document.querySelector('.cart-title');
-  const itensAdded = createElement('li')
-
+  const itensAdded = document.createElement('li')
+  itensAdded.innerText = buttonText;
+  cartItens = appendChild(itensAdded);
+  
 })
 
 function createProductImageElement(imageSource) {
