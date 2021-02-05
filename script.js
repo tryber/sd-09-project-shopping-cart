@@ -58,9 +58,9 @@ const interactionItems = (element, cart) => {
     localStorage.setItem('total', totalCart);
     if (document.querySelector('.cart').children.length === 3) {
       await document.querySelector('.cart')
-        .appendChild(createCustomElement('span', 'total-price', `Valor total:${totalCart}`));
+        .appendChild(createCustomElement('span', 'total-price', totalCart));
     } else {
-      document.querySelector('.total-price').innerText = `Valor total:${totalCart}`;
+      document.querySelector('.total-price').innerText = totalCart}`;
     }
   });
 };
