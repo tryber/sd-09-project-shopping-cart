@@ -49,6 +49,11 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function saveOnLocalStorage() {
+  const shoppingCart = document.querySelector('.cart__items');
+  localStorage.setItem('carrinhoDeCompras', shoppingCart.innerHTML);
+}
+
 async function clickToAddButton() {
   const itemList = document.querySelector('.cart__items');
   const itemButtonAdd = document.querySelectorAll('.item__add');
@@ -85,11 +90,6 @@ async function fetchAPIMercadoLivre(search) {
   } catch (error) {
     window.alert(error);
   }
-}
-
-function saveOnLocalStorage() {
-  const shoppingCart = document.querySelector('.cart__items');
-  localStorage.setItem('carrinhoDeCompras', shoppingCart.innerHTML);
 }
 
 function recoverTheLocaStorage() {
