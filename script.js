@@ -114,9 +114,16 @@ function deleteCart() {
   priceCalculator();
 }
 
+function newSearch() {
+  const text = document.querySelector('input.search-bar').value;
+  loadShoppingItems(text);
+}
+
 window.onload = function onload() {
   loadShoppingItems('computador');
   if (localStorage.length) savedCartFetch();
   const emptyCartBtn = document.querySelector('button.empty-cart');
   emptyCartBtn.addEventListener('click', deleteCart);
+  const searchBtn = document.querySelector('button.search-btn');
+  searchBtn.addEventListener('click', newSearch);
 };
