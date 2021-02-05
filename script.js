@@ -53,7 +53,7 @@ const interactionItems = (element, cart) => {
     cart.appendChild(cartItem);
     localStorage.setItem('cart', cart.innerHTML);
     localStorage.setItem('total', totalCart);
-    totalCart += product.price;
+    totalCart += await product.price;
     localStorage.removeItem('total');
     localStorage.setItem('total', totalCart);
     if (document.querySelector('.cart').children.length === 3) {
