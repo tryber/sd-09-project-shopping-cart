@@ -56,7 +56,7 @@ function addCart(objectApiCart) {
     salePrice: objectApiCart.price,
   };
   ol.appendChild(createCartItemElement(objeto));
-  localStorage.setItem()
+  localStorage.setItem();
 }
 
 async function callApiCart(idProduct) {
