@@ -1,5 +1,21 @@
 let localStorageCart = [];
 
+
+async function getOrderPrice() {
+  // criar elemento html que vai receber o valor do itens
+  // recuperar as chaves salePrice dos elementos dentro do carrinho
+  // somar os preços
+  // manter o preço atualizado quando itens são incluídos e removidos do Carrinho
+
+  const orderPrice = document.querySelector('.total-price');
+  orderPrice.innerText = 0;
+  document.querySelector('.cart').appendChild(orderPrice);
+  const cartItems = JSON.parse(localStorage.getItem('MLCartItems'));
+  const finalPrice = cartItems.reduce((acc, curr) => acc + curr.salePrice, 0)
+  console.log(finalPrice);
+  orderPrice.innerText = finalPrice;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -33,14 +49,16 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+
 function cartItemClickListener(event) {
   document.querySelector('.cart__items').removeChild(event.target);
   const itemToRemoveSku = event.target.innerText.split(' ')[1];
   localStorageCart = localStorageCart.filter(cartItem => cartItem.sku !== itemToRemoveSku);
   localStorage.setItem('MLCartItems', JSON.stringify(localStorageCart));
-  // removeFromLocalStorage(event.target);
-  // saveCart();
+  getOrderPrice();
 }
+
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -48,6 +66,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+
 function saveLocalStorage() {
   const customerCart = document.querySelector('.cart__items');
   const retrievedLocalStorage = JSON.parse(localStorage.getItem('MLCartItems'));
@@ -57,29 +77,6 @@ function saveLocalStorage() {
     retrievedLocalStorage.forEach(item => customerCart.appendChild(createCartItemElement(item)));
   }
 }
-
-// function removeFromLocalStorage(item) {
-//   const itemToRemoveSKu = item.innerText.split('|')[0].replace('SKU: ', '');
-//   const localStorage = JSON.parse(localStorage.getItem('MLCartItem'));
-//   const itemToRemove = localStorage.find((cartList) => {
-//      return cartList.sku === itemToRemoveSKu;
-//   })
-//   console.log(itemToRemove)
-
-// }
-
-// function restoreFromLocalStorage() {
-//   const restoredItems = JSON.parse(localStorage.getItem('MLCartItem'))
-//   restoredItems.forEach((item) => {
-//     const { sku, name, salePrice } = item;
-//     document.querySelector('ol')
-//     .appendChild(createCartItemElement({sku, name, salePrice}));
-//   })
-// }
-
-// function saveCart() {
-//   localStorage.cartItems = document.querySelector('ol').innerHTML;
-// }
 
 
 function addItemToCart(event) {
@@ -93,8 +90,7 @@ function addItemToCart(event) {
       .appendChild(createCartItemElement(param));
       localStorageCart.push(param);
       localStorage.setItem('MLCartItems', JSON.stringify(localStorageCart));
-      // saveCart();
-      // saveCartInLocalStorage(param);
+      getOrderPrice();
     });
 }
 
@@ -105,12 +101,8 @@ function clearCart() {
     document.querySelector('.cart__items').removeChild(item);
   });
   localStorage.removeItem('MLCartItems');
+  getOrderPrice();
 }
-
-
-const getTotalOrder = async () => {
-
-};
 
 
 function addLoadingElement() {
@@ -118,7 +110,7 @@ function addLoadingElement() {
 }
 
 function removeLoadingElement() {
-  document.querySelector('.cart').lastChild.remove();
+  document.querySelector('.loading').remove();
 }
 
 const loadPage = async (endpoint) => {
@@ -146,6 +138,5 @@ window.onload = function onload() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   loadPage(endpoint);
   saveLocalStorage();
-  // restoreCart();
-  // restoreFromLocalStorage();
+  getOrderPrice();
 };
