@@ -48,6 +48,10 @@ async function addItemsToCart(sku, name, loading, loadingElement, container) {
   let jsonifyProduct = {};
   if (!jsonifyProduct.salePrice) {
     container.appendChild(loading);
+    container.appendChild(loading);
+    container.appendChild(loading);
+    container.appendChild(loading);
+    container.appendChild(loading);
     jsonifyProduct = await fetchedProduct.json();
   }
   const { price: salePrice } = jsonifyProduct;
