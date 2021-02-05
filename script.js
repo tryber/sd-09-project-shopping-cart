@@ -2,7 +2,7 @@ const itensArray = [];
 
 const saveItens = () => {
   localStorage.setItem('itens', JSON.stringify(itensArray));
-}
+};
 
 function cartItemClickListener(event) {
   const ol = document.querySelector('.cart__items');
@@ -47,7 +47,7 @@ const loadItens = () => {
       });
     }
   }
-}
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
