@@ -31,7 +31,7 @@ async function priceCalculator() {
   await cartItems.forEach((item) => {
     total += parseFloat(item.innerText.slice(item.innerText.indexOf('$') + 1));
   });
-  totalDisplay.innerText = `Preço Total: R$ ${total.toFixed(2)}`;
+  totalDisplay.innerText = total;
 }
 
 function cartItemClickListener(event) {
