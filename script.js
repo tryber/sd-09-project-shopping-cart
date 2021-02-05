@@ -10,7 +10,7 @@ const setTotal = () => {
   div.appendChild(p);
   const section = document.querySelector('.cart');
   if (oldDiv !== null) {
-    section.removeChild(oldDiv)
+    section.removeChild(oldDiv);
   }
   section.appendChild(div);
 };
@@ -25,6 +25,7 @@ const queryElement = async () => {
         if (other === item.id) {
           total += item.price;
         }
+        return undefined;
       });
       return undefined;
     });
