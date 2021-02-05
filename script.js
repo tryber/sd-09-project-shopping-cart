@@ -1,3 +1,11 @@
+const bottonAdd = document.querySelector('.item__add');
+buttonAdd.addEventListener('click',() => {
+  const bottontext = document.querySelector('.item__add').innerText;
+  const cartItens = document.querySelector('.cart-title');
+  const itensAdded = createElement('li')
+
+})
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
