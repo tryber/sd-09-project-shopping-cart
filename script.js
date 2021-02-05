@@ -28,6 +28,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function sumPrices() {
+  let sum = 0;
+  const totalPrice = document.querySelector('.total-price');
+  const li = document.querySelectorAll('.cart__item');
+  li.forEach(item => (sum += +item.innerText.split('$')[1]));
+  totalPrice.innerText = sum;
+}
+
 function saveToLocalStorage(element) {
   localStorage.savedItems = element.innerHTML;
 }
@@ -36,14 +44,6 @@ function loadFromLocalStorage() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = localStorage.savedItems;
   sumPrices();
-}
-
-async function sumPrices() {
-  let sum = 0;
-  const totalPrice = document.querySelector('.total-price');
-  const li = document.querySelectorAll('.cart__item');
-  li.forEach(item => (sum += +item.innerText.split('$')[1]));
-  totalPrice.innerText = sum;
 }
 
 function cartItemClickListener(event) {
@@ -78,7 +78,7 @@ async function fetchProductList(QUERY) {
   const response = await fetch(endpoint);
   const object = await response.json();
   const productObj = object.results;
-  document.querySelector('.loading').remove()
+  document.querySelector('.loading').remove();
 
   productObj.forEach(({ id: sku, title: name, thumbnail: image }) => {
     const item = createProductItemElement({ sku, name, image });
