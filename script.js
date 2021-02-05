@@ -86,7 +86,7 @@ async function addProductToCart() {
     addInfoToLocalStorage(parentProductCart);
     productsPrices(price);
   }));
-};
+}
 
 async function addCardsAndClickButtons() {
   await addProductsInfo();
