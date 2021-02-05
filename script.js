@@ -1,5 +1,9 @@
 const itensArray = [];
 
+const saveItens = () => {
+  localStorage.setItem('itens', JSON.stringify(itensArray));
+};
+
 const clearCar = () => {
   if (itensArray.length !== 0) {
     const ol = document.querySelector('.cart__items');
@@ -10,10 +14,6 @@ const clearCar = () => {
     itensArray.splice(0, itensArray.length);
     saveItens();
   }
-}
-
-const saveItens = () => {
-  localStorage.setItem('itens', JSON.stringify(itensArray));
 };
 
 function cartItemClickListener(event) {
@@ -107,7 +107,7 @@ const queryItensInBd = async (params) => {
 const setClearButton = () => {
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', clearCar);
-}
+};
 
 window.onload = function onload() {
   queryItensInBd('computador');
