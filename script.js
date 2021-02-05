@@ -55,20 +55,14 @@ async function loadAPI(find = 'computador') {
 }
 
 function addAttributesScripts() {
-  let button;
   const promise = () => new Promise((resolve) => {
-    try {
       setTimeout(() => {
-        button = document.querySelectorAll('section.item');
+        const button = document.querySelectorAll('section.item');
         for (let i = 0; i < button.length; i += 1) {
           document.querySelectorAll('section.item')[i].setAttribute('onclick', 'addItemsCart(this)');
         }
       }, 5000);
-      resolve('carregado');
-
-    } catch (error) {
-      throw new Error(error)
-    };
+      return resolve('carregado');
   });
 
   promise();
@@ -80,11 +74,9 @@ async function addItemsCart(tagHtml) {
   const results = responseJSON;
   const filhoSection = document.querySelector('.cart__items');
 
-  filhoSection.appendChild(createCartItemElement({
-      sku: results.id,
-      name: results.title,
-      salePrice: results.price,
-    }));
+  filhoSection.appendChild(createCartItemElement(
+    {sku: results.id,name: results.title,salePrice: results.price}
+  ));
 }
 
 window.onload = function onload() {
@@ -108,7 +100,7 @@ Botão para limpar carrinho de compras
   5) Botão para limpar carrinho de compras
 Adicionar um texto de "loading" durante uma requisição à API
   6) Adicionar um texto de "loading" durante uma requisição à API
-AssertionError: Timed out retrying: Expected to find element: ``, 
+AssertionError: Timed out retrying: Expected to find element: ``,
 but never found it. Queried from element: <ol.cart__items>
 AssertionError: Timed out retrying: Expected to find element: `.total-price`, but never found it.
 AssertionError: Timed out retrying: Expected to find element: `.loading`, but never found it.
