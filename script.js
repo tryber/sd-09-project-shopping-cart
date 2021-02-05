@@ -85,7 +85,16 @@ function loadShoppingItems() {
         shelf.appendChild(createProductItemElement({ sku, name, image }))));
 }
 
+function deleteCart() {
+  const cart = document.querySelector('ol.cart__items');
+  const cartItems = document.querySelector('ol.cart__items').childNodes;
+  while (cartItems.length) cart.removeChild(cartItems[cartItems.length - 1]);
+  localStorageUpdate();
+}
+
 window.onload = function onload() {
   loadShoppingItems();
   if (localStorage.length) savedCartFetch();
+  const emptyCartBtn = document.querySelector('button.empty-cart');
+  emptyCartBtn.addEventListener('click', deleteCart);
 };
