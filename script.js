@@ -17,7 +17,9 @@ function createCustomElement(element, className, innerText) {
 }
 
 function toLocalStorage({ sku, name, salePrice }) {
+  const storage = localStorage.getItem(sku);
   localStorage.setItem(sku, JSON.stringify({ sku, name, salePrice }));
+  return storage;
 }
 
 async function sumCartPrices() {
@@ -30,6 +32,7 @@ async function sumCartPrices() {
   } else {
     document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
   }
+  return cartPrice;
 }
 
 function emptyCart() {
@@ -50,6 +53,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.id = `${sku}`;
   li.addEventListener('click', cartItemClickListener);
+  document.querySelector('.cart__items').appendChild(li);
+  toLocalStorage({ sku, name, salePrice });
+  sumCartPrices();
   return li;
 }
 
@@ -58,10 +64,7 @@ async function getSingleItem(item) {
   try {
     const { id: sku, title: name, base_price: salePrice } = await fetch(endpoint)
       .then(response => response.json());
-    const newItem = createCartItemElement({ sku, name, salePrice });
-    document.querySelector('.cart__items').appendChild(newItem);
-    toLocalStorage({ sku, name, salePrice });
-    sumCartPrices();
+    createCartItemElement({ sku, name, salePrice });
   } catch (reason) {
     console.log(reason);
   }
