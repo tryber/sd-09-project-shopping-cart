@@ -70,7 +70,6 @@ const storageListSaved = () => {
 
 storageListSaved();
 
-
 function createCartItemElement({ sku, name, salePrice }) {
   const ol = document.querySelector('.cart__items');
   const li = document.createElement('li');
@@ -91,16 +90,16 @@ const filterIdElement = ({ id, title, price }) => {
 };
 const cartItemElement = async (idElement) => {
   const productId = `https://api.mercadolibre.com/items/${idElement}`;
-  try {
-    const response = await fetch(productId);
-    const object = await response.json();
-    if (object.message) {
-      throw new Error(object.message);
-    }
-    filterIdElement(object);
-  } catch (error) {
-    alert(error);
-  }
+    try {
+      const response = await fetch(productId);
+      const object = await response.json();
+      if (object.message) {
+        throw new Error(object.message);
+      }
+      filterIdElement(object);
+    } catch (error) {
+      alert(error);
+    } 
 };
 function getIdByEventListener() {
   const items = document.querySelector('.items');
@@ -126,12 +125,19 @@ const objectFilterElement = (productsDatas) => {
 
 const productItemElement = async () => {
   const productChoise = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+
   try {
+    const items = document.querySelector('.items');
+    const span = document.createElement('span');
+    span.className = 'loading';
+    span.innerText = 'loading';
+    items.appendChild(span);
     const response = await fetch(productChoise);
     const object = await response.json();
     if (object.results.length === 0) {
       throw new Error('Busca inválida');
     }
+    span.innerText = '';
     objectFilterElement(object);
   } catch (error) {
     alert(error);
@@ -141,6 +147,7 @@ const productItemElement = async () => {
 const removeAllItems = () => {
   const ol = document.querySelector('.cart__items');
   ol.innerText = '';
+  localStorage.clear();
 };
 
 const button = document.querySelector('.empty-cart');
