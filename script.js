@@ -53,8 +53,7 @@ async function addItemsToCart(sku, name, container) {
   }
   const { price: salePrice } = jsonifyProduct;
   const loadingElement = document.getElementsByClassName('loading')[0];
-  setTimeout(async e => {
-
+  setTimeout(async (e) => {
     container.removeChild(loadingElement);
   }, 20);
   cart.appendChild(createCartItemElement({ sku, name, salePrice }));
