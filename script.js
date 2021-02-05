@@ -85,8 +85,7 @@ async function addProductToCart() {
     parentProductCart.appendChild(newProduct);
     addInfoToLocalStorage(parentProductCart);
     productsPrices(price);
-  })
-  );
+  }));
 };
 
 async function addCardsAndClickButtons() {
