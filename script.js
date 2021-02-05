@@ -39,6 +39,7 @@ function descarregaLoading() {
 }
 
 async function retriveMercadoLivreResults(term) {
+  carregaLoading();
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
   const response = await fetch(endpoint);
@@ -47,7 +48,6 @@ async function retriveMercadoLivreResults(term) {
   const results = object.results;
   const itemsElement = document.querySelector('.items');
 
-  carregaLoading();
   results.forEach((result) => {
     const { id: sku, title: name, thumbnail: image } = result;
     const element = createProductItemElement({ sku, name, image });
