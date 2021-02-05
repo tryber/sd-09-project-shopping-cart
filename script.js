@@ -82,8 +82,6 @@ function saveLocalStorage() {
 // }
 
 
-
-
 function addItemToCart(event) {
   const productSKU = ((event.target).parentNode).firstChild.innerText;
   const endpoint = `https://api.mercadolibre.com/items/${productSKU}`;
