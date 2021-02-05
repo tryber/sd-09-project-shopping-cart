@@ -64,14 +64,14 @@ function fetchProductById(itemId) {
 
 function saveOnLocalStorage(itemObj) {
   const storage = localStorage.getItem('List');
-    const parseItem = JSON.parse(storage);
+  const parseItem = JSON.parse(storage);
   if (parseItem == null) {
     const arr = [];
-      arr.push(itemObj);
-      localStorage.setItem('List', JSON.stringify(arr));
-    } else {
-      parseItem.push(itemObj);
-      localStorage.setItem('List', JSON.stringify(parseItem));
+    arr.push(itemObj);
+    localStorage.setItem('List', JSON.stringify(arr));
+  } else {
+    parseItem.push(itemObj);
+    localStorage.setItem('List', JSON.stringify(parseItem));
   }
 }
 
