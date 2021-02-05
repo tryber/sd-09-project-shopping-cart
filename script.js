@@ -43,7 +43,7 @@ function getSkuFromProductItem(item) {
 }
 
 let somaValue = 0;
-function valueOfProduct(salePrice) {
+async function valueOfProduct(salePrice) {
   const total = document.querySelector('.total-price');
   somaValue += salePrice;
   total.innerText = somaValue;
