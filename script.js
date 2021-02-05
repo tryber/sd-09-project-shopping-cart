@@ -25,11 +25,17 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function carregaLoading() {
-  spanLoading = document.querySelector('.loading');
+  sectionSpan = document.querySelector('.cart');
+  spanLoading = document.createElement('span');
+  spanLoading.className = 'loading';
+  sectionSpan.appendChild(spanLoading);
   spanLoading.innerText = 'loading';
-  setTimeout(() => {
-    spanLoading.innerText = ' ';
-  }, 500);
+}
+
+function descarregaLoading() {
+  sectionSpan = document.querySelector('.cart');
+  spanLoading = document.querySelector('.loading');
+  sectionSpan.removeChild(spanLoading);
 }
 
 async function retriveMercadoLivreResults(term) {
@@ -47,6 +53,7 @@ async function retriveMercadoLivreResults(term) {
     const element = createProductItemElement({ sku, name, image });
     itemsElement.appendChild(element);
   });
+  descarregaLoading();
 }
 
 window.onload = function onload() {
