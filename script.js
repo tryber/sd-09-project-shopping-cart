@@ -56,13 +56,13 @@ async function loadAPI(find = 'computador') {
 
 function addAttributesScripts() {
   const promise = () => new Promise((resolve) => {
-      setTimeout(() => {
-        const button = document.querySelectorAll('section.item');
-        for (let i = 0; i < button.length; i += 1) {
-          document.querySelectorAll('section.item')[i].setAttribute('onclick', 'addItemsCart(this)');
-        }
-      }, 5000);
-      return resolve('carregado');
+    setTimeout(() => {
+      const button = document.querySelectorAll('section.item');
+      for (let i = 0; i < button.length; i += 1) {
+        document.querySelectorAll('section.item')[i].setAttribute('onclick', 'addItemsCart(this)');
+      }
+    }, 5000);
+    return resolve('carregado');
   });
 
   promise();
@@ -75,14 +75,13 @@ async function addItemsCart(tagHtml) {
   const filhoSection = document.querySelector('.cart__items');
 
   filhoSection.appendChild(createCartItemElement(
-    {sku: results.id,name: results.title,salePrice: results.price}
+    { sku: results.id,name: results.title,salePrice: results.price, }
   ));
 }
 
 window.onload = function onload() {
   loadAPI();
   addAttributesScripts();
-
 };
 
 /**
