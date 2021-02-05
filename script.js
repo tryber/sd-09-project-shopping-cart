@@ -60,7 +60,7 @@ const interactionItems = (element, cart) => {
       await document.querySelector('.cart')
         .appendChild(createCustomElement('span', 'total-price', totalCart));
     } else {
-      document.querySelector('.total-price').innerText = totalCart}`;
+      document.querySelector('.total-price').innerText = totalCart;
     }
   });
 };
