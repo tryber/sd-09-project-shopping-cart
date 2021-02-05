@@ -41,7 +41,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 async function mercadoLivreResults(term) {
-   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
 
   const response = await fetch(endpoint);
   const obj = await response.json();
