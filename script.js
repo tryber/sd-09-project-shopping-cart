@@ -71,11 +71,18 @@ const captureTargetItem = () => {
   });
 };
 
+const load = document.createElement('p');
+const loading = () => {
+  load.innerText = 'Loading...';
+  document.getElementsByTagName('body').appendChild(load);
+};
+
 const retriveMercadoLivreApi = async () => {
   try {
     const items = document.querySelector('.items');
     const promise = await fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador');
     const response = await promise.json();
+    load.remove();
     response.results.forEach((result) => {
       const { id: sku, title: name, thumbnail: image } = result;
       items.appendChild(createProductItemElement({ sku, name, image }));
