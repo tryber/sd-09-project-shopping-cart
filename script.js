@@ -67,7 +67,10 @@ const interactionItems = (element, cart) => {
 
 const appendProducts = async () => {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+  const load = createCustomElement('div', 'loading', 'loading');
+  document.querySelector('.items').appendChild(load);
   const response = await (await fetch(endpoint)).json();
+  document.querySelector('.items').removeChild(load);
   const results = response.results;
   const itens = document.querySelector('.items');
   const cart = document.querySelector('.cart__items');
