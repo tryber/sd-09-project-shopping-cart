@@ -90,16 +90,16 @@ const filterIdElement = ({ id, title, price }) => {
 };
 const cartItemElement = async (idElement) => {
   const productId = `https://api.mercadolibre.com/items/${idElement}`;
-    try {
-      const response = await fetch(productId);
-      const object = await response.json();
-      if (object.message) {
-        throw new Error(object.message);
-      }
-      filterIdElement(object);
-    } catch (error) {
-      alert(error);
-    } 
+  try {
+    const response = await fetch(productId);
+    const object = await response.json();
+    if (object.message) {
+      throw new Error(object.message);
+    }
+    filterIdElement(object);
+  } catch (error) {
+    alert(error);
+  }
 };
 function getIdByEventListener() {
   const items = document.querySelector('.items');
