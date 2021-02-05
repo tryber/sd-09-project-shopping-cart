@@ -37,7 +37,7 @@ const totalPrice = () => {
   const arrayNode = document.querySelectorAll('.item_price');
   const priceList = [...arrayNode];
   console.log(priceList);
-}
+};
 
 const saveLocalStorage = () => {
   const nodeList = document.querySelectorAll('.cart__item');
