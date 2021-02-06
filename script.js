@@ -1,4 +1,6 @@
-window.onload = function onload() { };
+
+
+
 
 // projeto jlfagundes
 function createProductImageElement(imageSource) {
@@ -33,6 +35,9 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  event.target.remove();
+  sumPrices();
+  saveCartToLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
