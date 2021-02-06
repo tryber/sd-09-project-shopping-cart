@@ -23,13 +23,13 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
+
 function addInfoToLocalStorage() {
   const cartItemsList = document.querySelector('.cart__items');
   localStorage.products = cartItemsList.innerHTML;
-}
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
 }
 
 async function productsPrices() {
@@ -115,9 +115,9 @@ window.onload = function onload() {
   cleanButton.addEventListener('click', () => {
     const itemsList = document.querySelector('.cart__items');
     itemsList.innerHTML = '';
-    const price = document.querySelector('.total-price-maintainer');
+    const price = document.querySelector('.total-price');
     console.log(price);
-    price.innerHTML = '';
+    price.innerHTML = ' ';
   });
   loadLists();
   productsPrices();
