@@ -37,6 +37,10 @@ function addProductsOnList(productsList) {
   });
 }
 
+function cartItemClickListener(event) {
+  console.log(event);
+}
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -58,11 +62,6 @@ const fetchProductByID = (id) => {
     cartList.appendChild(productElement);
   });
 };
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
-
 
 function addProductOnCart(event) {
   const itemClicked = event.target.parentNode;
