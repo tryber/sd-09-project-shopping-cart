@@ -27,6 +27,11 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function saveOnStorage(cartHTML) {
+  JSON.parse(localStorage.getItem('id'));
+  localStorage.setItem('id', JSON.stringify(cartHTML));
+}
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
@@ -85,11 +90,6 @@ async function addIdToEndpoint(clickedId) {
   const { id: sku, title: name, price: salePrice } = objectJsonId;
   const itemOnList = createCartItemElement({ sku, name, salePrice });
   cartItemsLocal.appendChild(itemOnList);
-}
-
-function saveOnStorage(cartHTML) {
-  JSON.parse(localStorage.getItem('id'));
-  localStorage.setItem('id', JSON.stringify(cartHTML));
 }
 
 function getInnerHtml() {
