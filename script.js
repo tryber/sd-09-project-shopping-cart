@@ -1,14 +1,14 @@
 function saveList() {
   const dadCartList = document.querySelector('.cart__items');
   const totalPrices = document.querySelector('.total-price');
-  localStorage.setItem('some', totalPrices.innerHTML);
+  localStorage.setItem('sum', totalPrices.innerHTML);
   localStorage.setItem('cart', dadCartList.innerHTML);
 }
 
 function LoadingList() {
   const cartList = document.querySelector('.cart__items');
   const totalPrices = document.querySelector('.total-price');
-  totalPrices.innerHTML = localStorage.getItem('some');
+  totalPrices.innerHTML = localStorage.getItem('sum');
   cartList.innerHTML = localStorage.getItem('cart');
 }
 
@@ -119,6 +119,7 @@ function buttonRemovelist() {
     const totalPrices = document.querySelector('.total-price');
     totalPrices.innerText = '';
     cartDadList.innerHTML = '';
+    somaValue = 0;
     saveList();
   });
 }
