@@ -1,3 +1,11 @@
+function buttonClear() {
+  const buttonEmpty = document.querySelector('.empty-cart');
+  buttonEmpty.addEventListener('click', () => {
+    const itensCart = document.querySelector('.cart__items');
+    itensCart.innerHTML = '';
+  });
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -72,4 +80,5 @@ function getSkuFromProductItem(item) {
 
 window.onload = function onload() {
   recuperaObjApi('computador');
+  buttonClear();
 };
