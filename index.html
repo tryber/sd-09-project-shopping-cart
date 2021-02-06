@@ -4,18 +4,24 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <title>Mercado Libre Pirata</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="mlp.svg" sizes="any" type="image/svg+xml">
     <script src="script.js"></script>
   </head>
 
   <body>
+    <section class="search">
+      <input id="search-input" size="50" type="text" value="computador">
+      <button id="search-button">Buscar</button>
+    </section>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
         <button class="empty-cart">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
+        <span class="total-price">Carrinho vazio</span>
       </section>
     </section>
   </body>

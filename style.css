@@ -74,3 +74,12 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.cart__item {
+  border: 2px solid blue;
+}
+
+.loading {
+  height: 100px;
+  width: 100px;
+}
