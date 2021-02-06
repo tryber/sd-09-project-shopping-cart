@@ -6,6 +6,14 @@ function createProductImageElement(imageSource) {
   img.src = imageSource;
   return img;
 }
+
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
+
 // Função que insere a tag no html
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -19,12 +27,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
 // Recebe um parametro e retorna texto no formato html
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
