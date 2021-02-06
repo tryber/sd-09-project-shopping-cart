@@ -71,6 +71,7 @@ function localStorageSave() {
       cartItems.appendChild(createCartItemElement(item));
     });
   }
+  sumSalePrice();
 }
 
 async function addItemCartApi(itemId) {
