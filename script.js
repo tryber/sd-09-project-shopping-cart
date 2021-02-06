@@ -167,4 +167,3 @@ window.onload = function onload() {
   createTotalPriceElement();
   loadLocalStorage();
 };
-
