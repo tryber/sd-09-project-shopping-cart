@@ -50,7 +50,7 @@ function createItems(items) {
   const item = document.querySelector('.items');
   items.foreach((element) => {
     const { id: sku, title: name, thumbnail: image } = element;
-    item.appendChild(createProductItemElement({ sku, name, image}));
+    item.appendChild(createProductItemElement({ sku, name, image }));
   });
 }
 
