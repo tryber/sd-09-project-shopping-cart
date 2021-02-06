@@ -12,12 +12,6 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function createProductItemElementParameter(product) {
-  const { id: sku, title: name, thumbnail: image } = product;
-  const parameter = { sku, name, image };
-  return parameter;
-}
-
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -36,8 +30,8 @@ function getSkuFromProductItem(item) {
 
 function addProductsOnList(productsList) {
   productsList.forEach((product) => {
-    const parameter = createProductItemElementParameter(product);
-    const productElement = createProductItemElement(parameter);
+    const { id: sku, title: name, thumbnail: image } = product;
+    const productElement = createProductItemElement({ sku, name, image });
     const listOfProducts = document.querySelector('.items');
     listOfProducts.appendChild(productElement);
   });
@@ -65,9 +59,9 @@ const fetchProductByID = (id) => {
   });
 };
 
-// function cartItemClickListener(event) {
-//   // coloque seu código aqui
-// }
+function cartItemClickListener(event) {
+  // coloque seu código aqui
+}
 
 
 function addProductOnCart(event) {
