@@ -1,7 +1,5 @@
 // Brenno Calado Project
 
-let resultList = [];
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -24,13 +22,14 @@ function toLocalStorage({ sku, name, salePrice }) {
 
 function sumCartPrices() {
   let cartPrice = 0;
-  Object.values(localStorage).forEach((product) => {
-    cartPrice += JSON.parse(product).salePrice;
-  });
-  if (cartPrice === 0) {
-    document.querySelector('.total-price').innerHTML = 'Carrinho vazio';
+  if (localStorage.length) {
+    const storageObjects = Object.keys(localStorage);
+    storageObjects.forEach((key) => {
+      cartPrice += JSON.parse(localStorage.getItem(key)).salePrice;
+    });
+    document.querySelector('.total-price').innerText = `${Math.round(cartPrice * 100) / 100}`;
   } else {
-    document.querySelector('.total-price').innerHTML = `${Math.round(cartPrice * 100) / 100}`;
+    document.querySelector('.total-price').innerText = 'Carrinho vazio';
   }
   return cartPrice;
 }
@@ -72,8 +71,9 @@ async function getSingleItem(item) {
 
 function retrieveLocalStorage() {
   if (localStorage.length) {
-    Object.entries(localStorage).forEach((id) => {
-      const { sku, name, salePrice } = JSON.parse(id[1]);
+    storageObjects = Object.keys(localStorage);
+    storageObjects.forEach((key) => {
+      const { sku, name, salePrice } = JSON.parse(localStorage.getItem(key));
       createCartItemElement({ sku, name, salePrice });
     });
   }
@@ -90,17 +90,19 @@ function loader() {
   document.querySelector('.items').appendChild(load);
 }
 
-function addToCart(evt) {
+async function addToCart(evt) {
   const parentNode = evt.target.parentNode;
-  getSingleItem(getSkuFromProductItem(parentNode));
+  await getSingleItem(getSkuFromProductItem(parentNode));
 }
 
-function createProductItemElement({ sku, name, image }) {
+function createProductItemElement({ sku, name, image, price }) {
   const section = document.createElement('section');
   section.className = 'item';
 
+  priceText = `R$ ${price}`;
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
+  section.appendChild(createCustomElement('span', 'item__title', priceText));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'))
     .addEventListener('click', addToCart);
@@ -111,26 +113,27 @@ function createProductItemElement({ sku, name, image }) {
 function productsToItemsSection(marketList) {
   const itemsSection = document.querySelector('section .items');
   marketList.forEach((product) => {
-    const { id, title, thumbnail } = product;
-    itemsSection.appendChild(createProductItemElement({ sku: id, name: title, image: thumbnail }));
+    const { id, title, thumbnail, price } = product;
+    itemsSection.appendChild(createProductItemElement({
+      sku: id, name: title, image: thumbnail, price,
+    }));
   });
 }
 
 async function getProductList(productName) {
-  document.querySelector('section .items').innerHTML = '';
-  loader();
-  await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${productName}`)
-    .then(response => response.json().then((data) => {
-      resultList = data.results;
-      productsToItemsSection(resultList);
-      document.querySelector('.loading').remove();
-    }))
+  return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${productName}`)
+    .then(response => response.json())
+    .then(data => data.results)
     .catch(reason => console.log(reason));
 }
 
-function searchAPI(evt) {
-  if (evt.keyCode === 13 || evt.type === 'click') {
-    getProductList(document.querySelector('#search-input').value);
+async function searchAPI(evt) {
+  if (evt === 'computador' || evt.keyCode === 13 || evt.type === 'click') {
+    document.querySelector('section .items').innerHTML = '';
+    loader();
+    const productList = await getProductList(document.querySelector('#search-input').value);
+    productsToItemsSection(productList);
+    document.querySelector('.loading').remove();
   }
 }
 
@@ -141,7 +144,7 @@ function inputListeners() {
 }
 
 window.onload = function onload() {
-  getProductList('computador');
+  searchAPI('computador');
   retrieveLocalStorage();
   inputListeners();
 };
