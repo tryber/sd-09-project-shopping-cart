@@ -15,7 +15,7 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
+  
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
@@ -32,6 +32,23 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+//  add carrinho
+async function addCartShopp(idItem) {
+  const recuperaId = idItem.target.parentNode.querySelector('.item__sku').innerText;
+
+  const endPoint = `https://api.mercadolibre.com/items/${recuperaId}`;
+  const response = await fetch(endPoint);
+  const obj = await response.json();
+  const { id: sku, title: name, price: salePrice } = obj;
+  const ol = document.querySelector('.cart__items');
+  const li = createCartItemElement({ sku, name, salePrice });
+  ol.appendChild(li);
+}
+function addElementCart() {
+  const buttonsList = document.querySelectorAll('.item__add');
+  buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
+}
+
 //  recupera elementos API
 async function recuperaObjApi(search) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
@@ -44,31 +61,17 @@ async function recuperaObjApi(search) {
     const { id: sku, title: name, thumbnail: image } = resultado;
     const creatProduct = createProductItemElement({ sku, name, image });
     itens.appendChild(creatProduct);
-    const buttonsList = document.querySelectorAll('.item__add');
-    buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
+    addElementCart()
   });
 }
 
-//  add carrinho
-async function addCartShopp(idItem) {
-  const recuperaId = idItem.target.parentNode.querySelector('.item__sku').innerText;
 
-  const endPoint = `https://api.mercadolibre.com/items/${recuperaId}`;
-  const response = await fetch(endPoint);
-  const obj = await response.json();
-  const { id: sku, title: name, price: salePrice } = obj;
-  const ol = document.querySelector('.cart__items');
-  const li = createCartItemElement({ sku, name, salePrice });
-
-  ol.appendChild(li);
+function cartItemClickListener(event) {
+  // coloque seu código aqui
 }
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
 }
 
 window.onload = function onload() {
