@@ -25,7 +25,7 @@ function sumCartPrices() {
   if (localStorage.length) {
     const storageObjects = Object.keys(localStorage);
     storageObjects.forEach((key) => {
-      cartPrice += JSON.parse(localStorage.getItem(key)).salePrice;
+      cartPrice += parseFloat(JSON.parse(localStorage.getItem(key)).salePrice);
     });
     document.querySelector('.total-price').innerText = `${Math.round(cartPrice * 100) / 100}`;
   } else {
