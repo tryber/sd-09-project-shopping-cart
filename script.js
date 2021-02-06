@@ -29,6 +29,8 @@ function getSkuFromProductItem(item) {
 }
 
 function addProductsOnList(productsList) {
+  const mainBody = document.querySelector('.items');
+  mainBody.innerHTML = '';
   productsList.forEach((product) => {
     const { id: sku, title: name, thumbnail: image } = product;
     const productElement = createProductItemElement({ sku, name, image });
@@ -69,12 +71,26 @@ function addProductOnCart(event) {
   fetchProductByID(itemSku);
 }
 
+function startLoadingInformation() {
+  const loading = document.createElement('h2');
+  loading.innerText = 'loading...';
+  loading.classList.add('loading');
+  document.body.appendChild(loading);
+}
+
+function stopLoadingInformation() {
+  document.querySelector('.loading').remove();
+}
+
 const fetchProducts = (ProductToSearched) => {
   const url = `https://api.mercadolibre.com/sites/MLB/search?q=${ProductToSearched}`;
+
+  startLoadingInformation();
 
   fetch(url)
   .then(response => response.json())
   .then((siteResponse) => {
+    stopLoadingInformation();
     const productsList = siteResponse.results;
     addProductsOnList(productsList);
     const buttons = document.querySelectorAll('.item__add');
