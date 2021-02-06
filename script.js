@@ -45,7 +45,7 @@ function fetchProduct() {
 }
 
 function cartItemClickListener(event) {
-  event.target.parentElement.innerHTML = '';
+  event.target.innerHTML = '';
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
