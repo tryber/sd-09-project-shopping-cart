@@ -32,15 +32,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function salveLocalStorage() {
+  const cartItems = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('.cart__items', cartItems);
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   // excluíndo os itens do carrinho
   salveLocalStorage();
-}
-
-function salveLocalStorage() {
-  const cartItems = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('.cart__items', cartItems);
 }
 
 function loadLocalStorage() {
