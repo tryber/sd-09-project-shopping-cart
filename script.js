@@ -56,18 +56,6 @@ async function retriveMercadoLivreResults(term) {
   descarregaLoading();
 }
 
-
-async function findApi(id) {
-  const endpoint = `https://api.mercadolibre.com/items/$${id}`;
-
-  try {
-    const response = await fetch(endpoint);
-    const object = await response.json();
-  } catch(error) {
-    console.error(error);
-  }
-}
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
