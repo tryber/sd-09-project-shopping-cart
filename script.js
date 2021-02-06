@@ -40,7 +40,7 @@ function cartItemClickListener(event) {
   event.target.remove();
   sumSalePrice();
   const idDoEvento = event.target.innerText.split(' ')[1];
-  array = array.filter((item) => item.sku !== idDoEvento);
+  array = array.filter(item => item.sku !== idDoEvento);
   localStorage.setItem('products', JSON.stringify(array));
 }
 
@@ -51,7 +51,6 @@ function removeItems() {
     ol.innerHTML = '';
     sumSalePrice();
   });
-
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
