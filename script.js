@@ -1,5 +1,3 @@
-
-// Função que recebe um parametro monta a estrutura html
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -14,7 +12,6 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-// Função que insere a tag no html
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -27,7 +24,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-// Recebe um parametro e retorna texto no formato html
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -35,7 +31,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
-//Função que adiciona produto ao carrinho mediante a parametros no formato
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -44,15 +40,13 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-
-
 async function getPost() {
   try {
   const endpoints = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
   const responseApi = await fetch(endpoints);
   const reponseJson = await responseApi.json();
   const results = reponseJson.results;
-  results.forEach(({ id, title, thumbnail }) => { 
+  results.forEach(({ id, title, thumbnail }) => {
   const createItems = createProductItemElement({ sku: id, name: title, image: thumbnail });
   const elementItems = document.querySelector('.items');
   elementItems.appendChild(createItems);
@@ -62,6 +56,6 @@ async function getPost() {
   };
 };
 
-window.onload = function onload() { 
+window.onload = function onload() {
   getPost();
 };
