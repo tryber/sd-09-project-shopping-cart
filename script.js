@@ -1,4 +1,4 @@
-// window.onload = function onload() { 
+// window.onload = function onload() {
 //   console.log(x);
 // };
 
