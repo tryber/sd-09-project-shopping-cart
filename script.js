@@ -41,19 +41,19 @@ function loadLocalStorage() {
   const itemLocalStorage = localStorage.getItem('.cart__items');
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = itemLocalStorage;
-  // trazer os itens do localStorage para a tela
+  // Trazer os itens do localStorage para a tela
 
   const cartItem = document.querySelectorAll('.cart__item');
   cartItem.forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
     // Conseguir excluir as coisas após carregar a página;
-  })
+  });
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
   // excluíndo os itens do carrinho
-  salveLocalStorage()
+  salveLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -75,9 +75,10 @@ async function apiCart(productId) {
     const { id: sku, title: name, price: salePrice } = product;
     const element = createCartItemElement({ sku, name, salePrice });
     itemsElement.appendChild(element);
-    localStorage.setItem('.cart__items', document.querySelector('.cart__items').innerHTML);
-
+    localStorage.setItem('.cart__items',
+      document.querySelector('.cart__items').innerHTML);
     // itemsElement é equivalente ao carrinho
+
   } catch (error) {
     window.alert(error);
   }
@@ -103,9 +104,10 @@ function removeAllProduct() {
   buttonCart.addEventListener('click', function (event) {
     const removeItems = document.querySelector('.cart__items');
     removeItems.innerHTML = '';
-    localStorage.clear('.cart__items', removeItems)
+    localStorage.clear('.cart__items', removeItems);
   });
 }
+
 function createLoading() {
   const loading = document.createElement('spam');
   loading.innerText = 'loading...';
@@ -114,6 +116,7 @@ function createLoading() {
   loading.style.color = 'red';
   document.querySelector('.items').appendChild(loading);
 }
+
 function deleteLoading() {
   const loading = document.querySelector('.loading');
   loading.remove();
@@ -144,5 +147,5 @@ window.onload = function onload() {
   apiAdd();
   addEventCart();
   removeAllProduct();
-  loadLocalStorage()
+  loadLocalStorage();
 };
