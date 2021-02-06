@@ -1,7 +1,3 @@
-
-
-
-
 // projeto jlfagundes
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
