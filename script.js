@@ -34,7 +34,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function cartItemClickListener(event) {
-  event.target.remove();
+  event.target.remove(localStorage.clear());
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -114,10 +114,30 @@ function emptyCart() {
         item.remove('li');
       });
     }
+    localStorage.clear();
   });
 }
 emptyCart();
 
+function showListOnLoad() {
+  // 1° selecionar o local onde está a lista de itens (carrinho);
+  const cart = document.querySelector('.cart__items');
+  // 2° acessar o local storage e converter a informação salva;
+  const list = JSON.parse(localStorage.getItem('List'));
+  console.log(list)
+  // 3° verificar se o local storage está vazio;
+  if (list !== null) {
+    // 4° se não estiver vazio trazer as informações para o html;
+    list.forEach((item) => {
+      const element = document.createElement('li');
+      element.textContent = item.name
+      element.className = 'cart__item';
+      cart.appendChild(element);
+    });
+  }
+}
+
 window.onload = function onload() {
   fetchProducts();
+  showListOnLoad();
 };
