@@ -58,7 +58,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function addProductInTheCart(parentId) {
   fetch(`https://api.mercadolibre.com/items/${parentId}`)
-  .then((response) => response.json())
+  .then(response => response.json())
     .then((product) => {
       const list = document.querySelector('.cart__items');
       const { id: sku, title: name, price: salePrice } = product;
