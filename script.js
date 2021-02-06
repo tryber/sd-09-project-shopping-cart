@@ -47,11 +47,11 @@ async function getPost() {
     const reponseJson = await responseApi.json();
     const results = reponseJson.results;
     results.forEach(({ id, title, thumbnail }) => {
-    const createItems = createProductItemElement({ sku: id, name: title, image: thumbnail });
-    const elementItems = document.querySelector('.items');
-    elementItems.appendChild(createItems);
-  });
-    } catch (error){
+      const createItems = createProductItemElement({ sku: id, name: title, image: thumbnail });
+      const elementItems = document.querySelector('.items');
+      elementItems.appendChild(createItems);
+    });
+  } catch (error) {
     window.alert(error);
   }
 }
