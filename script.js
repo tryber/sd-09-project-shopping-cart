@@ -37,7 +37,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 //  add carrinho
 async function addCartShopp(idItem) {
   const recuperaId = idItem.target.parentNode.querySelector('.item__sku').innerText;
-  
   const endPoint = `https://api.mercadolibre.com/items/${recuperaId}`;
   const response = await fetch(endPoint);
   const obj = await response.json();
@@ -50,13 +49,11 @@ async function addCartShopp(idItem) {
 function addElementCart() {
   const buttonsList = document.querySelectorAll('.item__add');
   buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
-  
 }
 
 //  recupera elementos API
 async function recuperaObjApi(search) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
-  
   const response = await fetch(endPoint);// trata o endpoint retornando uma response
   const objeto = await response.json();// a response é tratada retornado uma objeto
   const resultados = objeto.results;// retorna um o campo resultes dos objetos
