@@ -1,18 +1,13 @@
+
+// Função que recebe um parametro monta a estrutura html
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
 }
-
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
-
-function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
+// Função que insere a tag no html
+function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -24,6 +19,13 @@ function createProductItemElement({ id: sku, title: name, thumbnail: image }) {
   return section;
 }
 
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
+// Recebe um parametro e retorna texto no formato html
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -31,7 +33,7 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
-
+//Função que adiciona produto ao carrinho mediante a parametros no formato
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -40,26 +42,26 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const getPosts = () => {
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
-  .then(response => response.json())
-  .then(returnResults => returnResults.results.forEach((item) => {
-    const elementItems = createProductItemElement(item);
-    document.querySelector('.items').appendChild(elementItems);
-  }))
-  .catch((error) => {
-    alert('Erro inesperado: Tempo para acessoa ao servidor esgotado');
+
+
+async function getPost() {
+  try {
+  const endpoints = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
+  const responseApi = await fetch(endpoints);
+  const reponseJson = await responseApi.json();
+  const results = reponseJson.results
+ // console.log(results)
+  results.forEach(({ id, title, thumbnail }) => { 
+  const createItems = createProductItemElement({sku: id, name: title, image: thumbnail})
+  const elementItems = document.querySelector('.items')
+  console.log(elementItems)
+  elementItems.appendChild(createItems)
   });
+  } catch (error){
+    window.alert(error);
+  };
 };
 
-window.onload = function onload() {
-  getPosts();
+window.onload = function onload() { 
+  getPost();
 };
-// Linha 43 variavel que recebeuma função
-// linha 44 endpont da api com o parametro computador para pesquisa
-// linha 45 acessando o resolve e retornando arquivo no formato json
-// linha 46 acessando o objeto desejado e percorrendo cada item do array
-// Linha 47 criando uma variavel que, recebe uma função enviando como parametro
-// cada item percorrido do array
-// linha 48 acessando o documento e selecionando a classe itens que vai receber
-// como elemento filho a variavel que criou a estrutura html
