@@ -109,24 +109,6 @@ const fetchListCart = (id) => {
 
 const createItemList = event => fetchListCart(getSkuFromProductItem(event.path[1]));
 
-const fetchMercadorLivre = (id) => {
-  const sectionMain = document.querySelector('.items');
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=$${id}`;
-
-  fetch(endpoint)
-    .then(response => response.json())
-    .then((object) => {
-      if (object.error) {
-        throw new Error(object.error);
-      }
-      object.results.forEach((element) => {
-        sectionMain.appendChild(createProductItemElement(newObject(element)));
-        loopButtons('.item__add', createItemList);
-      });
-    })
-    .catch(() => console.log('ERRO'));
-};
-
 window.onload = function onload() {
   retriveMercadoLivreResults('computador');
 };
