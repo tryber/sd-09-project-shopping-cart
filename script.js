@@ -141,7 +141,7 @@ window.onload = function onload() {
   setTimeout(() => {
     dataSearch('computador');
   }, 1000);
-  localStorageSave();
   sumSalePrice();
   removeItems();
+  localStorageSave();
 };
