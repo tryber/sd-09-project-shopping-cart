@@ -1,21 +1,3 @@
-window.onload = function onload() {
-  recuperaObjApi('computador');
-};
-async function recuperaObjApi(search) {
-  const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`
-
-  const response = await fetch(endPoint);// trata o endpoint retornando uma response
-  const objeto = await response.json();// a response é tratada retornado uma objeto
-  const resultados = objeto.results;// retorna um o campo resultes dos objetos
-  const itens = document.querySelector('.items');// recupera o element com a class  'items'
-  resultados.forEach(resultado => {// forEach para percorrer todos os objetos dos resultado
-    const { id: sku, title: name, thumbnail: image } = resultado;
-    const creatProduct = createProductItemElement({sku, name, image});
-    itens.appendChild(creatProduct);
-    const buttonsList = document.querySelectorAll('.item__add');
-    buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
-  });
-}
 //  testando se o git commit esta funcionando
 async function addCartShopp(idItem) {
   const recuperaId = idItem.target.parentNode.querySelector('.item__sku').innerText;
@@ -56,6 +38,22 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+async function recuperaObjApi(search) {
+  const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
+
+  const response = await fetch(endPoint);// trata o endpoint retornando uma response
+  const objeto = await response.json();// a response é tratada retornado uma objeto
+  const resultados = objeto.results;// retorna um o campo resultes dos objetos
+  const itens = document.querySelector('.items');// recupera o element com a class  'items'
+  resultados.forEach((resultado) => { // forEach para percorrer todos os objetos dos resultado
+    const { id: sku, title: name, thumbnail: image } = resultado;
+    const creatProduct = createProductItemElement({ sku, name, image });
+    itens.appendChild(creatProduct);
+    const buttonsList = document.querySelectorAll('.item__add');
+    buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
+  });
+}
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
@@ -71,3 +69,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() {
+  recuperaObjApi('computador');
+};
