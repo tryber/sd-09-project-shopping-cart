@@ -20,7 +20,8 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(
-    createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+    createCustomElement('button', 'item__add', 'Adicionar ao carrinho!')
+  );
   return section;
 }
 
@@ -29,16 +30,17 @@ function getSkuFromProductItem(item) {
 }
 
 function removeFromStorage(idToRemove) {
-  const getStorageArray = JSON.parse(localStorage.getItem('id'));
-  const newArray = getStorageArray.filter(element => element !== idToRemove);
+  const getStorage = JSON.parse(localStorage.getItem('id'));
+  const newArray = getStorage.filter(element => element !== idToRemove);
   localStorage.setItem('id', JSON.stringify(newArray));
 }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  const idToRemove = event.target.classList[1];
-  removeFromStorage(idToRemove);
   event.target.remove();
+  const cartLocal = document.querySelector('.cart__items');
+  const cartHTML = cartLocal.innerHTML;
+  saveOnStorage(cartHTML);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -69,6 +71,7 @@ async function createProductList() {
     const response = await fetch(endpoint);
     const objectJson = await response.json();
     const objectJsonResults = objectJson.results;
+    console.log(objectJson);
     const sectionLocal = document.querySelector('.items');
 
     objectJsonResults.forEach((element) => {
@@ -92,25 +95,24 @@ async function addIdToEndpoint(clickedId) {
   cartItemsLocal.appendChild(itemOnList);
 }
 
-function saveOnStorage(clickedId) {
-  if (localStorage.length === 0) {
-    const arrayIds = [];
-    arrayIds.push(clickedId);
-    localStorage.setItem('id', JSON.stringify(arrayIds));
-  } else if (localStorage.length >= 1) {
-    const arrayIds = JSON.parse(localStorage.getItem('id'));
-    arrayIds.push(clickedId);
-    localStorage.setItem('id', JSON.stringify(arrayIds));
-  }
+function saveOnStorage(cartHTML) {
+  JSON.parse(localStorage.getItem('id'));
+  localStorage.setItem('id', JSON.stringify(cartHTML));
+}
+
+function getInnerHtml() {
+  const cartLocal = document.querySelector('.cart__items');
+  const cartHTML = cartLocal.innerHTML;
+  saveOnStorage(cartHTML);
 }
 
 function addItemToCart() {
-  document.addEventListener('click', function (event) {
+  document.addEventListener('click', async function (event) {
     if (event.target.className === 'item__add') {
       const parentName = event.target.parentElement;
       const clickedId = parentName.firstChild.innerText;
-      saveOnStorage(clickedId);
-      addIdToEndpoint(clickedId);
+      await addIdToEndpoint(clickedId);
+      getInnerHtml();
     }
   });
 }
@@ -118,13 +120,19 @@ function addItemToCart() {
 function onLoadPush() {
   if (localStorage.length > 0) {
     const getStorage = JSON.parse(localStorage.getItem('id'));
-    getStorage.forEach(element => addIdToEndpoint(element));
+    const cartLocal = document.querySelector('.cart__items');
+    cartLocal.innerHTML = getStorage;
+    const cartLocalItems = document.querySelectorAll('.cart__item');
+    for (let index = 0; index < cartLocalItems.length; index += 1) {
+      cartLocalItems[index].addEventListener('click', cartItemClickListener);
+    }
   }
 }
 
 function removeAllItems() {
   const emptyButtonLocal = document.querySelector('.empty-cart');
   emptyButtonLocal.addEventListener('click', function () {
+    localStorage.clear();
     const itemOnCart = document.querySelectorAll('.cart__item');
     itemOnCart.forEach(element => element.remove());
   });
