@@ -124,13 +124,12 @@ function showListOnLoad() {
   const cart = document.querySelector('.cart__items');
   // 2° acessar o local storage e converter a informação salva;
   const list = JSON.parse(localStorage.getItem('List'));
-  console.log(list)
   // 3° verificar se o local storage está vazio;
   if (list !== null) {
     // 4° se não estiver vazio trazer as informações para o html;
     list.forEach((item) => {
       const element = document.createElement('li');
-      element.textContent = item.name
+      element.textContent = item.name;
       element.className = 'cart__item';
       cart.appendChild(element);
     });
