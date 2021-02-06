@@ -82,7 +82,7 @@ function loader() {
   document.querySelector('.items').appendChild(load);
 }
 
-function (evt) {
+function addToCart(evt) {
   const parentNode = evt.target.parentNode;
   const { sku, name, salePrice } = getInfoFromProductItem(parentNode);
   createCartItemElement({ sku, name, salePrice });
