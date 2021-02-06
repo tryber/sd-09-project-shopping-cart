@@ -49,13 +49,11 @@ async function getPost() {
   const endpoints = 'https://api.mercadolibre.com/sites/MLB/search?q=$computador';
   const responseApi = await fetch(endpoints);
   const reponseJson = await responseApi.json();
-  const results = reponseJson.results
- // console.log(results)
+  const results = reponseJson.results;
   results.forEach(({ id, title, thumbnail }) => { 
-  const createItems = createProductItemElement({sku: id, name: title, image: thumbnail})
-  const elementItems = document.querySelector('.items')
-  console.log(elementItems)
-  elementItems.appendChild(createItems)
+  const createItems = createProductItemElement({ sku: id, name: title, image: thumbnail });
+  const elementItems = document.querySelector('.items');
+  elementItems.appendChild(createItems);
   });
   } catch (error){
     window.alert(error);
