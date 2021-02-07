@@ -30,8 +30,22 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const calculateCartTotal = async (price, operator) => {
+  const priceField = document.querySelector('span.total-price');
+  if (operator === '+') {
+    priceField.innerText = Math.round((parseFloat(priceField.innerText) + price) * 100) / 100;
+  } else {
+    priceField.innerText = Math.round((parseFloat(priceField.innerText) - price) * 100) / 100;
+  }
+};
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  event.target.remove();
+  const takePrice = itemTitle =>
+    paserFloat(item.itemTitle.split('PRICE: $')[1]);
+  calculateCartTotal(takePrice(event.target.innerText), '-');
+  saveCartInLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
