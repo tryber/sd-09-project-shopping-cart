@@ -42,6 +42,7 @@ function saveToLocalStorage(element) {
 
 function loadFromLocalStorage() {
   const cartItems = document.querySelector('.cart__items');
+  if (localStorage.savedItems)
   cartItems.innerHTML = localStorage.savedItems;
   sumPrices();
 }
