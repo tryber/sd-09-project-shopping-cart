@@ -64,7 +64,7 @@ async function addCartShopp(idItem) {
   const ol = document.querySelector('.cart__items');
   const li = createCartItemElement({ sku, name, salePrice });
   ol.appendChild(li);
-  localStorag ();
+  localStorag();
 }
 
 function addElementCart() {
