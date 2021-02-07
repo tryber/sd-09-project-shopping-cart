@@ -1,3 +1,11 @@
+window.onload = async function onload() {
+  const items = await responseFetch();
+  document.querySelector('.loading').remove();
+  createItems(items);
+  addItems();
+  sum();
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -97,11 +105,3 @@ function addItems() {
     }
   });
 }
-
-window.onload = async function onload() {
-  const items = await responseFetch();
-  document.querySelector('.loading').remove();
-  createItems(items);
-  addItems();
-  sum();
-};
