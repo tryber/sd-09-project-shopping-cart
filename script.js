@@ -98,4 +98,3 @@ window.onload = function onload() {
   createProducts();
   addItemCart();
 };
-  
