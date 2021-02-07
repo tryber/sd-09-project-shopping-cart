@@ -66,7 +66,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addToCart() {
+function addCart() {
   const items = document.querySelector('.items');
   items.addEventListener('click', async (event) => {
     const mySku = getSkuFromProductItem(event.target.parentNode);
@@ -117,6 +117,5 @@ window.onload = () => {
   addCart();
   getResults();
   emptyCart();
-  loadCart();
-  
+  loadCart(); 
 };
