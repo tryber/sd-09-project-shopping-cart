@@ -24,6 +24,20 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function carregaLoading() {
+  sectionSpan = document.querySelector('.cart');
+  spanLoading = document.createElement('span');
+  spanLoading.className = 'loading';
+  sectionSpan.appendChild(spanLoading);
+  spanLoading.innerText = 'loading';
+}
+
+function descarregaLoading() {
+  sectionSpan = document.querySelector('.cart');
+  spanLoading = document.querySelector('.loading');
+  sectionSpan.removeChild(spanLoading);
+}
+
 async function retriveMercadoLivreResults(term) {
   carregaLoading();
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
@@ -42,24 +56,16 @@ async function retriveMercadoLivreResults(term) {
   descarregaLoading();
 }
 
-function carregaLoading() {
-  sectionSpan = document.querySelector('.cart');
-  spanLoading = document.createElement('span');
-  spanLoading.className = 'loading';
-  sectionSpan.appendChild(spanLoading);
-  spanLoading.innerText = 'loading';
-}
+window.onload = function onload() {
+  retriveMercadoLivreResults('computador');
+};
 
-function descarregaLoading() {
-  sectionSpan = document.querySelector('.cart');
-  spanLoading = document.querySelector('.loading');
-  sectionSpan.removeChild(spanLoading);
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  document.querySelector('.cart__items').removeChild(event.target);
-  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -69,28 +75,3 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
-function saveCart() {
-  localStorage.setItem('cartItems', document.querySelectorAll('.cart__item'));
-}
-
-async function apiId(itemId) {
-  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
-
-  const response = await fetch(endpoint);
-  const object = await response.json();
-
-  const param = { sku: object.id, name: object.title, salePrice: object.price };
-  document.querySelector('.cart_items')
-  .appendChild(createCartItemElement(param));
-  saveCart();
-}
-
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
-window.onload = function onload() {
-  retriveMercadoLivreResults('computador');
-  apiId(itemId)
-};
