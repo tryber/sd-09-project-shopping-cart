@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui e seja feliz
+  // coloque seu código e seja feliz
   event.target.remove();
   saveCart();
 }
