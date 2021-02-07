@@ -60,13 +60,13 @@ async function retriveMercadoLivreResults(term) {
   localStorage.setItem('cartItems', document.querySelectorAll('.cart__item'));
 } */
 
-function createCartItemElement({ sku, name, salePrice }) {
+/* function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
-}
+} */
 
 /* async function apiId(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
