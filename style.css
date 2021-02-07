@@ -10,7 +10,7 @@ img {
 input {
   border: none;
   border-radius: 3px;
-  box-shadow: 0 1px 6px #000000;
+  box-shadow: 0 1px 6px black;
   padding: 12px;
 }
 
@@ -20,7 +20,7 @@ p {
 }
 
 .price {
-  background-color: #1abc9c;
+  background-color: rgb( 26, 188, 156 );
   border: none;
   border-radius: 2px;
   color: white;
@@ -28,7 +28,7 @@ p {
 }
 
 .cart__items {
-  background-color: #1abc9c;
+  background-color: rgb( 26, 188, 156 );
   border: none;
   border-radius: 2px;
   color: white;
@@ -61,10 +61,10 @@ p {
 }
 
 .search-container button {
-  background: #1abc9c;
+  background: rgb( 26, 188, 156 );
   border: none;
   border-radius: 3px;
-  box-shadow: 0 1px 6px #000000;
+  box-shadow: 0 1px 6px black;
   font-size: 17px;
   cursor: pointer;
   padding: 10px;
@@ -77,7 +77,7 @@ p {
 
 .empty-cart {
   align-self: center;
-  background-color: #1abc9c;
+  background-color: rgb( 26, 188, 156 );
   border: none;
   border-radius: 3px;
   color: aliceblue;
@@ -86,7 +86,7 @@ p {
 
 .logo-content {
   display: flex;
-  text-shadow: 0 2px 4px #000000;
+  text-shadow: 0 2px 4px black;
   font-size: 24px;
 }
 
@@ -125,7 +125,7 @@ p {
 
 .item {
   background-color: white;
-  box-shadow: 0 0 6px #1abc9c;
+  box-shadow: 0 0 6px rgb( 26, 188, 156 );
   border-radius: 3px;
   box-sizing: border-box;
   display: flex;
@@ -150,7 +150,7 @@ p {
 }
 
 .item .item__add {
-  background-color: #1abc9c;
+  background-color: rgb( 26, 188, 156 );
   border-radius: 0 0 3px 3px;
   border: 0;
   color: aliceblue;
@@ -166,7 +166,7 @@ p {
 }
 
 .cart .cart__title {
-  background-color: #1abc9c;
+  background-color: rgb( 26, 188, 156 );
   border-radius: 3px;
   color: white;
   flex-basis: 1;
@@ -189,8 +189,8 @@ p {
 }
 
 .header-content {
-  box-shadow: 2px 2px 6px #000000;
-  background: #1abc9c;
+  box-shadow: 2px 2px 6px black;
+  background: rgb( 26, 188, 156 );
   color: white;
   display: flex;
   justify-content: space-around;
