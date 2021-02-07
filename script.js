@@ -58,8 +58,9 @@ function createCartItemElement({ sku, name, salePrice }) {
 function startLoading() {
   const body = document.querySelector('body');
   const p = document.createElement('p');
+  body.appendChild(p);
   p.className = 'loading';
-  return p.innerHTML = 'loading...';
+  p.innerHTML = 'loading...';
 }
 
 function stopLoading() {
@@ -85,7 +86,7 @@ async function fetchApi() {
         });
       });
     });
-    stopLoading();
+  stopLoading();
 }
 
 function fetchItemById(itemId) {
