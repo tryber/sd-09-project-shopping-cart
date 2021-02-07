@@ -83,7 +83,6 @@ function addItemCart() {
 }
 
 function loadItems() {
-  
   const itensStorage = localStorage.getItem('productsCart');
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = itensStorage;
