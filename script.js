@@ -14,16 +14,16 @@ function createCustomElement(element, className, innerText) {
 
 const appendChild = (father, element) => {
   document.querySelector(father).appendChild(element);
-}
+};
 
 const saveCartToLocalStorage = () => {
   const getCart = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('currentCart', getCart);
-}
+};
 
 const initialCart = () => {
   document.querySelector('.cart__items').innerHTML = localStorage.getItem('currentCart');
-}
+};
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
