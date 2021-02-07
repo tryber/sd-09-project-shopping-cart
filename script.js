@@ -7,7 +7,6 @@ function removeProductCarOnLocalStrorage(sku) {
 function cartItemClickListener(event) {
   let sku = event.target.innerText;
   sku = sku.substring(5, 18);
-  console.log(sku);
   event.target.remove();
   removeProductCarOnLocalStrorage(sku);
 }
@@ -127,6 +126,7 @@ const fetchProducts = (ProductToSearched) => {
 
 function clearCart() {
   document.querySelectorAll('.cart__item').forEach(item => item.remove());
+  localStorage.setItem('CartList', JSON.stringify([]));
 }
 
 window.onload = function onload() {
