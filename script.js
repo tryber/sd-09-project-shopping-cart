@@ -93,8 +93,17 @@ function loadItems() {
   });
 }
 
+function clearCart() {
+  const buttonClear = document.querySelector('.empty-cart');
+  buttonClear.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    saveItems();
+  });
+}
+
 window.onload = function onload() {
   loadItems();
   createProducts();
   addItemCart();
+  clearCart();
 };
