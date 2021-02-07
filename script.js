@@ -34,7 +34,7 @@ async function sumSalePrice() {
   const salePrice = document.querySelector('.total-price');
   const ol = document.querySelector('.cart__items').childNodes;
   ol.forEach((item) => { sum += +item.innerText.split('$')[1]; });
-  salePrice.innerText = sum.toFixed(2);
+  salePrice.innerText = sum;
 }
 
 function cartItemClickListener(event) {
