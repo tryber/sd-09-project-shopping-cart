@@ -97,7 +97,7 @@ const getPromise = (position) => {
   const elementTarget = fetch(endpoint)
     .then(response => response.json())
     .then(obj => Promise.resolve(obj));
-  elementTarget.then((response)=>{
+  elementTarget.then((response) => {
     const { id: sku, title: name, price: salePrice } = response;
     const element = createCartItemElement({ sku, name, salePrice });
     element.id = sku;
