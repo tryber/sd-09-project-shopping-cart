@@ -106,5 +106,3 @@ window.onload = function onload() {
   emptyCart();
   loadCart();
 };
-
-
