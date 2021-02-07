@@ -1,25 +1,25 @@
 window.onload = function onload() {};
 
-function createLoading() {
-  const createLoadingText = document.createElement('p');
-  createLoadingText.className = 'loading';
-  createLoadingText.innerTEXT = 'loading...';
-  document.body.appendChild(createLoadingText);
+function saveCart() {
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('cart', cartList.innerHTML);
 }
 
 function loadCart() {
-  const cart = document.getElementsByClassName('cart_items');
+  const cart = document.querySelector('.cart__items');
   cart.innerHTML = localStorage.getItem('cart');
 }
 
-function saveCart() {
-  const getCartList = document.getElementsByClassName('cart_items');
-  localStorage.setItem('cart', getCartList.innerHTML);
+function createLoading() {
+  const loadingText = document.createElement('p');
+  loadingText.className = 'loading';
+  loadingText.innerText = 'loading...';
+  document.body.appendChild(loadingText);
 }
 
 function stopLoading() {
-  const getLoading = document.getElementsByClassName('loading');
-  getLoading.remove();
+  const loading = document.querySelector('.loading');
+  loading.remove();
 }
 
 function createProductImageElement(imageSource) {
