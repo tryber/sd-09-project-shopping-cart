@@ -66,31 +66,32 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addCart() {
-  const items = document.getElementsByClassName('items');
+function addToCart() {
+  const items = document.querySelector('.items');
   items.addEventListener('click', async (event) => {
-    const getSku = getSkuFromProductItem(event.target.parentNode);
+    const mySku = getSkuFromProductItem(event.target.parentNode);
     const endpoint = `https://api.mercadolibre.com/items/${mySku}`;
-    const response = await fetch(endpoint).then(respo => respo.json());
+    const response = await fetch(endpoint)
+    .then(res => res.json());
     const item = {
-      sku: getSku,
+      sku: mySku,
       name: response.title,
       salePrice: response.price,
     };
-    const cartItems = document.getElementsByClassName('cart_items');
-    const createCartItem = createCartItemElement(item);
-    cartItems.appendChild(createCartItem);
+    const cartItems = document.querySelector('.cart__items');
+    const cartItem = createCartItemElement(item);
+    cartItems.appendChild(cartItem);
     saveCart();
   });
 }
 
-async function getResults() {
+async function getMLResults() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   createLoading();
   const response = await fetch(endpoint);
   const object = await response.json();
   const results = object.results;
-  const itemsElement = document.getElementsByClassName('items');
+  const itemsElement = document.querySelector('.items');
 
   results.forEach((result) => {
     const obj = {
@@ -117,7 +118,5 @@ window.onload = () => {
   getResults();
   emptyCart();
   loadCart();
-  createProductItemElement();
-  getSkuFromProductItem();
-  createCartItemElement();
+  
 };
