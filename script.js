@@ -1,6 +1,6 @@
 window.onload = function onload() {
-  fetchApiResultsAddToPage('computador');
- };
+  //  fetchApiResultsAddToPage('computador');
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
