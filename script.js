@@ -104,9 +104,9 @@ function removeCartItemElements() {
 }
 
 function startLoading() {
-  const container = document.querySelector('.container');
+  const items = document.querySelector('.items');
   const loadingText = createCustomElement('span', 'loading', 'loading...');
-  container.appendChild(loadingText);
+  items.appendChild(loadingText);
 }
 
 window.onload = function onload() {

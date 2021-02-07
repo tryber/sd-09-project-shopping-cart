@@ -1,19 +1,8 @@
 body {
-  background-image: linear-gradient( to bottom, whitesmoke, gainsboro, whitesmoke );
+  background-image: linear-gradient(45deg, whitesmoke, gainsboro, whitesmoke );
   font-family: monospace;
   font-weight: 600;
   min-height: 100vh;
-}
-
-.title-container {
-  background-color: white;
-  border: 1px solid gray;
-  height: 60px;
-  margin: 20px auto;
-  padding: 6px;
-  opacity: 0.9;
-  text-align: center;
-  width: 60%;
 }
 
 .cart {
@@ -116,6 +105,23 @@ body {
   flex-basis: 70%;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.search-input {
+  border: 1px solid gray;
+  border-radius: 5px;
+  box-shadow: 1px 1px 5px gray;
+  display: block;
+  margin: 20px auto;
+  opacity: 0.9;
+  padding: 10px;
+  transition: 0.3s;
+  width: 80%;
+}
+
+.search-input:hover {
+  box-shadow: 1px 1px 5px black;
+  opacity: 1;
 }
 
 .top-bar {
