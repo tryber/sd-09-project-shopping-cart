@@ -44,7 +44,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(
-    createCustomElement('button', 'item__add', 'Adicionar ao carrinho!')
+    createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   );
 
   return section;
@@ -74,7 +74,7 @@ function addCart() {
   items.addEventListener('click', async (event) => {
     const getSku = getSkuFromProductItem(event.target.parentNode);
     const endpoint = `https://api.mercadolibre.com/items/${mySku}`;
-    const response = await fetch(endpoint).then((respo) => respo.json());
+    const response = await fetch(endpoint).then(respo => respo.json());
     const item = {
       sku: getSku,
       name: response.title,
