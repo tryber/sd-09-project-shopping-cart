@@ -8,8 +8,8 @@ body {
 }
 
 header {
-  background-color: rgba(220, 220, 220, 0.7);
-  backdrop-filter: blur(4px);
+  background-color: rgba( 220, 220, 220, 0.7 );
+  backdrop-filter: blur( 4px );
   box-shadow: 0 1px 5px gray;
   position: fixed;
   top: 0;
