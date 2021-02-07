@@ -115,7 +115,7 @@ function emptyCart() {
 
 window.onload = function onload() {
   getResults();
-  addToCart();
+  addCart();
   emptyCart();
   loadCart();
 };
