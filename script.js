@@ -18,7 +18,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// REQ 5: Summing up cart's total
 const calculateCartTotal = async (price, operator) => {
   const priceField = document.querySelector('span.total-price');
   if (operator === '+') {
@@ -27,7 +26,6 @@ const calculateCartTotal = async (price, operator) => {
     priceField.innerText = Math.round((parseFloat(priceField.innerText) - price) * 100) / 100;
   }
 };
-// ------------------------------------------------
 
 const saveCartInLocalStorage = () => {
   const cartItems = document.querySelector('ol.cart__items');
@@ -63,7 +61,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-// REQ 2: Adding listener to Fetch product's info and append it to the cart list
 const addToCartListener = (event) => {
   const cartItems = document.querySelector('ol.cart__items');
   const itemId = getSkuFromProductItem(event.target.parentElement);
@@ -80,7 +77,6 @@ const addToCartListener = (event) => {
       saveCartInLocalStorage();
     });
 };
-// --------------------------------------------------------------------------
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -100,7 +96,6 @@ const removeLoading = () => {
   loading.remove();
 };
 
-// REQ 1: Fetching products and appending them to the page
 const createProductsList = (product) => {
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
@@ -118,7 +113,7 @@ const createProductsList = (product) => {
     },
     );
 };
-// ------------------------------------------------------
+
 const emptyCartListener = () => {
   const emptyCart = () => {
     const cartItems = document.querySelector('ol.cart__items');
