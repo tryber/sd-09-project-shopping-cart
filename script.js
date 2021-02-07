@@ -100,9 +100,21 @@ function addItemToCart() {
   });
 }
 
+function removeAllItems() {
+  const emptyCart = document.querySelector('.empty-cart');
+  emptyCart.addEventListener('click', () => {
+    const list = document.querySelectorAll('li');
+    list.forEach(element => {
+     element.remove();
+    });
+    setLocalStorage();
+  });
+}
+
 window.onload = function onload() {
   fetchApi();
   addItemToCart();
   cartItemClickListener('click');
   getLocalStorageToCart();
+  removeAllItems();
 };
