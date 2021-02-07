@@ -85,7 +85,7 @@ function addCart() {
   });
 }
 
-async function getResults() {
+async function getMLResults() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   createLoading();
   const response = await fetch(endpoint);
@@ -114,7 +114,7 @@ function emptyCart() {
 }
 
 window.onload = function onload() {
-  getResults();
+  getMLResults();
   addCart();
   emptyCart();
   loadCart();
