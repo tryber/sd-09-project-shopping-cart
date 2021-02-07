@@ -109,10 +109,23 @@ function startLoading() {
   items.appendChild(loadingText);
 }
 
+function searchBoxEvent(event) {
+  const searchBox = document.querySelector('.search-box');
+  listItems = document.querySelector('.items');
+  if (event.keyCode === 13 && searchBox.value.length > 0) {
+    listItems.innerHTML = '';
+    startLoading();
+    fetchProductList(searchBox.value);
+  }
+}
+
 window.onload = function onload() {
   startLoading();
   fetchProductList('computador');
   loadFromLocalStorage();
+
+  const searchBox = document.querySelector('.search-box');
+  searchBox.addEventListener('keyup', event => searchBoxEvent(event));
 
   const li = document.querySelectorAll('.cart__item');
   li.forEach(el => el.addEventListener('click', cartItemClickListener));

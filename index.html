@@ -9,14 +9,18 @@
   </head>
 
   <body>
-    <input class="search-input" type="text">
+    <header>
+      <input class="search-box" type="text" placeholder="digite aqui a sua busca">
+    </header>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
-        <span class="cart__title">Carrinho de compras</span>
-        <span class="total-price"></span>
-        <button class="empty-cart">Esvaziar carrinho</button>
-        <ol class="cart__items"></ol>
+        <div class="cart-container">
+          <span class="cart__title">Carrinho de compras</span>
+          <span class="cart-total">Total: $<span class="total-price"></span></span>
+          <button class="empty-cart">Esvaziar carrinho</button>
+          <ol class="cart__items"></ol>
+        </div>
       </section>
     </section>
     <script src="script.js"></script>
