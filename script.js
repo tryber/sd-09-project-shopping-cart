@@ -43,7 +43,7 @@ function cartItemClickListener(event) {
   const cart = document.querySelector('.cart__items');
   cart.addEventListener(event, (cartItem) => {
     cartItem.target.remove();
-    setLocalStorage()
+    setLocalStorage();
   });
 }
 
