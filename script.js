@@ -9,7 +9,7 @@ const stopRequesting = () => {
 
 const requesting = () => {
   const loading = document.createElement('h1');
-  loading.innerText = 'loading';
+  loading.innerText = 'loading...';
   loading.className = 'loading';
   const itemSection = document.querySelector('.items');
   itemSection.appendChild(loading);
