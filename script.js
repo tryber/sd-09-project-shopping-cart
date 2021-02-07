@@ -1,6 +1,3 @@
-window.onload = function onload() {
-}
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -12,6 +9,7 @@ function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
+  if (element === 'button') e.addEventListener('click', btnAddItem);
   return e;
 }
 
@@ -32,10 +30,10 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({ id: sku, title: name, price: salePrice  }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
@@ -43,24 +41,36 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function btnAddItem(event) {
+  const product = event.target.parentNode.firstChild.innerText;
+  fetch(`https://api.mercadolibre.com/items/${product}`)
+  .then((response) => {
+    response.json()
+    .then((object) => {
+      const li = createCartItemElement(object);
+      document.querySelector('.cart__items').appendChild(li);
+    });
+  });
+}
+
 function createItems(object) {
   const section = document.querySelector('.items');
   object.results.forEach((element) => {
     const { id: sku, title: name, thumbnail: image } = element;
-    const item = createProductItemElement({ sku, name, image });
-    section.appendChild(item);
+    section.appendChild(createProductItemElement({ sku, name, image }));
   });
 }
 
 function requestMercadoLivre() {
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=$computador')
-    .then((response) => {
-      response.json()
-      .then((object) => {
-        console.log(object);
-        createItems(object);
-      });
+  .then((response) => {
+    response.json()
+    .then((object) => {
+      createItems(object);
     });
+  });
 }
 
-requestMercadoLivre();
+window.onload = function onload() {
+  requestMercadoLivre();
+};
