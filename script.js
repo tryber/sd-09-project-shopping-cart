@@ -1,9 +1,3 @@
-window.onload = function onload() {
-  fetchProduct();
-  cleanCart();
-  initialCart();
-};
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -59,7 +53,7 @@ const addToCart = async (itemId) => {
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
-  const createButton = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  const createButton = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   section.className = 'item';
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
@@ -95,3 +89,9 @@ function cleanCart() {
     saveCartToLocalStorage();
   });
 }
+
+window.onload = function onload() {
+  fetchProduct();
+  cleanCart();
+  initialCart();
+};
