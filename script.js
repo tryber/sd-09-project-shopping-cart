@@ -1,3 +1,17 @@
+function removeProductCarOnLocalStrorage(sku) {
+  let cartList = JSON.parse(localStorage.getItem('CartList'));
+  cartList = cartList.filter(item => item !== sku);
+  localStorage.setItem('CartList', JSON.stringify(cartList));
+}
+
+function cartItemClickListener(event) {
+  let sku = event.target.innerText;
+  sku = sku.substring(5, 18);
+  console.log(sku);
+  event.target.remove();
+  removeProductCarOnLocalStrorage(sku);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -39,9 +53,6 @@ function addProductsOnList(productsList) {
   });
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -65,10 +76,20 @@ const fetchProductByID = (id) => {
   });
 };
 
+function addProducCartOnLocalStorage(sku) {
+  const cartList = localStorage.getItem('CartList') ? JSON.parse(localStorage.getItem('CartList')) : [];
+  console.log(cartList);
+  cartList.push(sku);
+  console.log(cartList);
+  localStorage.setItem('CartList', JSON.stringify(cartList));
+}
+
 function addProductOnCart(event) {
   const itemClicked = event.target.parentNode;
   const itemSku = getSkuFromProductItem(itemClicked);
   fetchProductByID(itemSku);
+  const sku = event.target.parentNode.querySelector('.item__sku').innerText;
+  addProducCartOnLocalStorage(sku);
 }
 
 function startLoadingInformation() {
@@ -80,6 +101,11 @@ function startLoadingInformation() {
 
 function stopLoadingInformation() {
   document.querySelector('.loading').remove();
+}
+
+function loadCartFromLocalStorage() {
+  const storage = JSON.parse(localStorage.getItem('CartList'));
+  storage.forEach(sku => fetchProductByID(sku));
 }
 
 const fetchProducts = (ProductToSearched) => {
@@ -95,6 +121,7 @@ const fetchProducts = (ProductToSearched) => {
     addProductsOnList(productsList);
     const buttons = document.querySelectorAll('.item__add');
     buttons.forEach(button => button.addEventListener('click', addProductOnCart));
+    loadCartFromLocalStorage();
   });
 };
 
@@ -106,3 +133,7 @@ window.onload = function onload() {
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
   fetchProducts('computador');
 };
+
+//  To do
+//    Se um item for adicionado mais de uma vez, quando ele for deletado, todos os itens com teste
+//    SKU, vai ser removido; msm que eu queria remover apenas 1 deste no carrinho de compras.
