@@ -23,8 +23,6 @@ function stopLoading() {
   getLoading.remove();
 }
 
-
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -89,13 +87,16 @@ async function getResults() {
   const response = await fetch(endpoint);
   const object = await response.json();
   const results = object.results;
-  const getItems = document.getElementsByClassName('items');
+  const itemsElement = document.getElementsByClassName('items');
 
   results.forEach((result) => {
-    const obj = { sku: result.id, name: result.title, image: result.thumbnail };
-
-    const createElement = createProductItemElement(obj);
-    getItems.appendChild(createElement);
+    const obj = {
+      sku: result.id,
+      name: result.title,
+      image: result.thumbnail,
+    };
+    const element = createProductItemElement(obj);
+    itemsElement.appendChild(element);
   });
   stopLoading();
 }
@@ -105,13 +106,12 @@ function emptyCart() {
   clearButton.addEventListener('click', () => {
     document.getElementsByClassName('cart_items').innerHTML = '';
     saveCart();
-  })
+  });
 }
 
 window.onload = () => {
   addCart();
   getResults();
-  emptyCart()
-  loadCart()
+  emptyCart();
+  loadCart();
 };
-
