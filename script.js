@@ -40,7 +40,7 @@ function addProductsOnList(productsList) {
 }
 
 function cartItemClickListener(event) {
-  console.log(event);
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
