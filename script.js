@@ -56,9 +56,9 @@ async function retriveMercadoLivreResults(term) {
   descarregaLoading();
 }
 
-function saveCart() {
+/* function saveCart() {
   localStorage.setItem('cartItems', document.querySelectorAll('.cart__item'));
-}
+} */
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -92,4 +92,3 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
 }
-
