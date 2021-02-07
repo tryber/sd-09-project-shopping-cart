@@ -1,5 +1,3 @@
-const itemsArrayLocalStorage = [];
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -58,16 +56,6 @@ async function retriveMercadoLivreResults(term) {
   descarregaLoading();
 }
 
-function saveItemToLocalStorage(itemsArray) {
-  localStorage.setItem(0, itemsArray);
-}
-
-function removeItemFromLocalStorage(itemID) {
-  itemIndex = itemsArrayLocalStorage.indexOf(itemID);
-  itemsArrayLocalStorage.splice(itemIndex, 1);
-  saveItemToLocalStorage(itemsArrayLocalStorage);
-}
-
 function cartItemClickListener(event) {
   // coloque seu código aqui
   if (event.target.className) {
@@ -78,11 +66,39 @@ function cartItemClickListener(event) {
   }
 }
 
+function btnsAddItemToCartList(){
+  const btnsAddItemToCart = document.querySelector('.items');
+  btnsAddItemToCart.addEventListener('click', (event) => {
+    if (event.target.className === 'item__add') {
+      const id = event.target.parentNode.firstChild.innerText;
+      getProductListFromAPIByID(id);
+    }
+  });
+}
+
+async function getProductListFromAPIByID(id) {
+  const endPoint = `https://api.mercadolibre.com/items/${id}`;
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  const productFormated = { sku: data.id, name: data.title, salePrice: data.price };
+  const cartListItem = createCartItemElement(productFormated);
+  const cartSection = document.querySelector('.cart__items');
+  cartSection.appendChild(cartListItem);
+}
+
 window.onload = function onload() {
   retriveMercadoLivreResults('computador');
-  // apiId(itemId);
+  btnsAddItemToCartList();
 };
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
