@@ -1,6 +1,5 @@
 body {
-  /* background-color: whitesmoke; */
-  background-image: linear-gradient(to bottom, whitesmoke, gainsboro, whitesmoke);
+  background-image: linear-gradient( to bottom, whitesmoke, gainsboro, whitesmoke );
   font-family: monospace;
   font-weight: 600;
   min-height: 100vh;
@@ -30,7 +29,7 @@ body {
 }
 
 .cart .empty-cart {
-  background-color:forestgreen;
+  background-color: forestgreen;
   border: none;
   border-radius: 6px;
   box-shadow: 1px 1px 5px gray;
