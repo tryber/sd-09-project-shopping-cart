@@ -45,7 +45,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   
-
   return section;
 }
 
@@ -119,4 +118,7 @@ window.onload = () => {
   getResults();
   emptyCart();
   loadCart();
+  createProductItemElement();
+  getSkuFromProductItem();
+  createCartItemElement();
 };
