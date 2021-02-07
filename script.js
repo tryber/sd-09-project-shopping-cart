@@ -91,21 +91,28 @@ const clearCart = () => {
   return 'Tudo Deletado';
 };
 
-const loadingLocalStorage = async () => {
-  const entries = Object.entries(localStorage);
-  console.log(entries);
-  for (let index = 0; index < entries.length; index += 1) {
-    const position = entries[index][0];
-    const endpoint = `https://api.mercadolibre.com/items/${position}`;
-    const elementTarget = await fetch(endpoint)
-      .then(response => response.json())
-      .then(obj => obj);
-    const ol = document.querySelector('.cart__items');
-    const { id: sku, title: name, price: salePrice } = elementTarget;
+const getPromise = (position) => {
+  const ol = document.querySelector('.cart__items');
+  const endpoint = `https://api.mercadolibre.com/items/${position}`;
+  const elementTarget = fetch(endpoint)
+    .then(response => response.json())
+    .then(obj => Promise.resolve(obj));
+  elementTarget.then((response)=>{
+    const { id: sku, title: name, price: salePrice } = response;
     const element = createCartItemElement({ sku, name, salePrice });
     element.id = sku;
     ol.appendChild(element);
+  });
+  return ol;
+};
+
+const loadingLocalStorage = () => {
+  const entries = Object.entries(localStorage);
+  for (let index = 0; index < entries.length; index += 1) {
+    const position = entries[index][0];
+    getPromise(position);
   }
+  return 'Passed';
 };
 
 window.onload = function onload() {
