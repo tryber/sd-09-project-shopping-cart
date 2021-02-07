@@ -1,3 +1,52 @@
+body {
+  background-color: ghostwhite;
+  margin: 0;
+}
+
+img {
+  width: 70px;
+}
+
+input {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 6px #000000;
+  padding: 12px;
+}
+
+p {
+  border: white;
+  border-radius: 4px;
+}
+
+.price {
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  padding: 7px;
+}
+
+.cart__items {
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 2px;
+  color: white;
+  margin: 5px;
+  padding: 15px 40px;
+}
+
+.cart__item {
+  border: 1px solid white;
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.icon-search {
+  color: white;
+}
+
 .top-bar {
   align-items: center;
   display: flex;
@@ -5,6 +54,48 @@
   justify-content: space-around;
   margin-bottom: 10px;
   width: 100%;
+}
+
+.search-container {
+  align-self: center;
+}
+
+.search-container button {
+  background: #1abc9c;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 1px 6px #000000;
+  font-size: 17px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.items-content {
+  display: flex;
+  justify-content: space-around;
+}
+
+.empty-cart {
+  align-self: center;
+  background-color: #1abc9c;
+  border: none;
+  border-radius: 3px;
+  color: aliceblue;
+  padding: 7px;
+}
+
+.logo-content {
+  display: flex;
+  text-shadow: 0 2px 4px #000000;
+  font-size: 24px;
+}
+
+.search-container button:hover {
+  background: rgb(250, 250, 250);
+}
+
+.icon-search:hover {
+  color: black;
 }
 
 .top-bar .input-name-group {
@@ -24,15 +115,18 @@
 }
 
 .items {
+  border-radius: 3px;
   display: flex;
   flex-basis: 70%;
   flex-wrap: wrap;
   justify-content: center;
+  margin: 0 5px;
 }
 
 .item {
-  border: 2px solid blue;
-  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 0 6px #1abc9c;
+  border-radius: 3px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -56,7 +150,8 @@
 }
 
 .item .item__add {
-  background-color: green;
+  background-color: #1abc9c;
+  border-radius: 0 0 3px 3px;
   border: 0;
   color: aliceblue;
   cursor: pointer;
@@ -71,6 +166,9 @@
 }
 
 .cart .cart__title {
+  background-color: #1abc9c;
+  border-radius: 3px;
+  color: white;
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
@@ -88,6 +186,17 @@
   width: 50px;
   height: 50px;
   animation: spin 1s linear infinite;
+}
+
+.header-content {
+  box-shadow: 2px 2px 6px #000000;
+  background: #1abc9c;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  padding: 20px;
+  text-align: center;
 }
 
 @keyframes spin {
