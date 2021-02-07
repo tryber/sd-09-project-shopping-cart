@@ -90,12 +90,12 @@ function addItems() {
       const id = getSkuFromProductItem(parent);
       const { id: sku, title: name, price: salePrice } = await takeItem(id);
       const cartItems = document.querySelector('.cart__items');
-      cartItems.appendChild(createCartItemElement({ sku, name, salePrice}));
+      cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
       sum();
       removeItems();
       salveCart();
     }
-  })
+  });
 }
 
 window.onload = async function onload() {
@@ -103,5 +103,5 @@ window.onload = async function onload() {
   document.querySelector('.loading').remove();
   createItems(items);
   addItems();
-  sum(); 
+  sum();
 };
