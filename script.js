@@ -45,6 +45,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 function addProductShopping(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   return new Promise((resolve, reject) => {
+    const loadingMessage = document.querySelector('.loading');
+    loadingMessage.innerText = "loading";
     fetch(endpoint)
       .then(response => response.json())
       .then((object) => {
@@ -63,6 +65,7 @@ function addProductShopping(itemId) {
         });
         shoppingBasket.appendChild(element);
         resolve();
+        loading.innerText = ''
       })
       .catch((error) => {
         window.alert(error);
@@ -88,6 +91,8 @@ function buildListFetch() {
     fetch(endpoint)
     .then(response => response.json())
     .then((object) => {
+      const loadingMessage = document.querySelector('.loading');
+      loadingMessage.innerText = "loading";
       if (object.error) {
         throw new Error(object.error);
       }
@@ -99,6 +104,7 @@ function buildListFetch() {
         list.appendChild(element);
         button.addEventListener('click', () => addProductShopping(sku));
         resolve();
+        loadingMessage.innerText = ''
       });
     })
     .catch((error) => {
