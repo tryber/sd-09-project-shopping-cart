@@ -50,10 +50,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+let jsonifyProduct = {};
 async function addItemsToCart(sku, name, container) {
   const cart = document.getElementsByClassName('cart__items')[0];
   const loading = createCustomElement('div', 'loading', 'loading...');
-  let jsonifyProduct = {};
   if (!jsonifyProduct.salePrice) {
     container.appendChild(loading);
   }
@@ -71,7 +71,9 @@ async function addItemsToCart(sku, name, container) {
   cart.appendChild(item);
   const myCart = localStorage.getItem('myCart');
   const myCartJson = JSON.parse(myCart);
-  console.log(myCartJson.products);
+  if (myCartJson.products === '') {
+    myCart.products = [];
+  }
   myCartJson.products.push(item.textContent);
   const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
@@ -118,7 +120,7 @@ async function LoadCartFromLocalStorage() {
 
 window.onload = async function onload() {
   const myCart = {
-    products: [],
+    products: '',
   };
   myCartString = JSON.stringify(myCart);
   const verifycCart = localStorage.getItem('myCart');
