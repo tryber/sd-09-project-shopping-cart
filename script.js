@@ -39,7 +39,7 @@ const updateCartPrice = async () => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
   }).reduce((acc, cur) => acc + cur, 0);
-  span.innerText = !result ? 'Carrinho vazio' : Math.min((result * 100) / 100).toFixed(2);
+  span.innerText = !result ? 'Carrinho vazio' : Math.round((result * 100) / 100);
 };
 
 const saveLocalStorage = () => {
@@ -107,6 +107,7 @@ const cartItemElement = async (idElement) => {
       throw new Error(object.message);
     }
     filterIdElement(object);
+    updateCartPrice();
   } catch (error) {
     alert(error);
   }
