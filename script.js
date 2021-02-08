@@ -33,7 +33,7 @@ function getSkuFromProductItem(item) {
 async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
   const myCart = localStorage.getItem('myCart');
-  let myCartJson = await JSON.parse(myCart);
+  const myCartJson = await JSON.parse(myCart);
   const newArray = await myCartJson.products.filter(product => product !== `${event.target.textContent}`);
   myCartJson.products = await newArray;
   const MyCartString = JSON.stringify(myCartJson);
