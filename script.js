@@ -41,6 +41,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+const populateStorage = (name, value) => {
+  localStorage[name] = value;
+}
+
 const addToCart = async (event) => {
   const itemId = event.target.parentNode.firstChild.innerHTML;
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
@@ -50,11 +54,9 @@ const addToCart = async (event) => {
     const { id: sku, title: name, price: salePrice } = item;
     const cartItem = createCartItemElement({ sku, name, salePrice });
     document.querySelector('.cart__items').appendChild(cartItem);
-    
-    // Salva no localStorage
+
     const cartItemText = cartItem.innerHTML;
     populateStorage(itemId, cartItemText);
-
   } catch (error) {
     console.log(error);
   }
@@ -70,7 +72,7 @@ const fetchProducts = async (query) => {
       const eachResult = createProductItemElement({ sku, name, image });
       document.querySelector('.items').appendChild(eachResult);
     });
-    
+
     document.querySelectorAll('.item__add')
       .forEach(element => element.addEventListener('click', addToCart));
   } catch (error) {
@@ -78,14 +80,10 @@ const fetchProducts = async (query) => {
   }
 };
 
-const populateStorage = (name, value) => {
-  localStorage[name] = value;
-}
-
 const loadCartItemsFromStorage = () => {
   const values = Object.values(localStorage);
   console.log(values);
-  return values.forEach(item => {
+  return values.forEach((item) => {
     const li = document.createElement('li');
     li.className = 'cart__item';
     li.innerText = `${item}`;
