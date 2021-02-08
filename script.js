@@ -3,7 +3,7 @@ function setShoppingCar() {
   localStorage.setItem('cartSaved', shoppingCart);
 }
 
-function sumPrince() {
+async function sumPrince() {
   let result = 0;
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelectorAll('.cart__item');
