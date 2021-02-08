@@ -33,6 +33,8 @@ function createProductItemElement({ sku, name, image }) {
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
+  const item = `<li class="cart__item">${event.target.innerHTML}</li>`;
+  localStorage.Items = localStorage.Items.replace(item, '');
 }
 
 // Cria elementos li
@@ -42,6 +44,15 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+// Recupera localStorage
+function getItemsStorage() {
+  const cart = document.querySelector('.cart__items');
+  if (localStorage.Items) {
+    cart.innerHTML = localStorage.Items;
+    cart.addEventListener('click', cartItemClickListener);
+  }
 }
 
 // Recupera dados dos produtos e acrescenta ao carrinho
@@ -58,7 +69,9 @@ function dataItems() {
         salePrice: result.price,
       };
       const object = createCartItemElement(newObject);
-      document.querySelector('.cart__items').appendChild(object);
+      const cart = document.querySelector('.cart__items');
+      cart.appendChild(object);
+      localStorage.Items = cart.innerHTML;
     });
   }));
 }
@@ -81,4 +94,5 @@ async function dataMercadoLivre(term) {
 // Inicia as funções após o carregamento da página
 window.onload = function onload() {
   dataMercadoLivre('computador');
+  getItemsStorage();
 };
