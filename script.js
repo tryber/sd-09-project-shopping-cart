@@ -32,18 +32,14 @@ function getSkuFromProductItem(item) {
 
 async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
-  var nodes = Array.from( cart.children );
-  const indexRemove = nodes.indexOf(event.target)
   let myCart = localStorage.getItem('myCart');
-  let myCartJson = JSON.parse(myCart);
-  let newArray = await myCartJson.products.filter(product => product !== `${event.target.textContent}`)
-  console.log(newArray)
-  myCartJson.products = newArray
-  let MyCartString = JSON.stringify(myCartJson);
+  const myCartJson = JSON.parse(myCart);
+  const newArray = await myCartJson.products.filter(product => product !== `${event.target.textContent}`);
+  myCartJson.products = newArray;
+  const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
   cart.removeChild(event.target);
   myCart = localStorage.getItem('myCart');
-  console.log(myCart)
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -68,16 +64,16 @@ async function addItemsToCart(sku, name, container) {
   jsonifyProduct = await fetchedProduct.json();
   const { price: salePrice } = jsonifyProduct;
   const loadingElement = document.getElementsByClassName('loading')[0];
-  setTimeout(async (e) => {
+  setTimeout(async () => {
     container.removeChild(loadingElement);
   }, 20);
-  const item = createCartItemElement({ sku, name, salePrice })
+  const item = createCartItemElement({ sku, name, salePrice });
   cart.appendChild(item);
-  let myCart = localStorage.getItem('myCart');
-  let myCartJson = JSON.parse(myCart);
+  const myCart = localStorage.getItem('myCart');
+  const myCartJson = JSON.parse(myCart);
   console.log(myCartJson.products);
-  myCartJson.products.push(item.textContent)
-  let MyCartString = JSON.stringify(myCartJson);
+  myCartJson.products.push(item.textContent);
+  const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
 }
 
@@ -106,27 +102,27 @@ async function LoadProducts() {
 }
 
 async function LoadCartFromLocalStorage() {
-  const cacheCart = localStorage.getItem('myCart')
-  const productsCache = JSON.parse(cacheCart)
+  const cacheCart = localStorage.getItem('myCart');
+  const productsCache = JSON.parse(cacheCart);
   if (productsCache.products.length > 0) {
-    productsCache.products.forEach( product => {
+    productsCçache.products.forEach((product) => {
       const li = document.createElement('li');
       li.className = 'cart__item';
       li.innerText = `$${product}`;
       li.addEventListener('click', cartItemClickListener);
       const cartItems = document.getElementsByClassName('cart__items')[0];
       cartItems.appendChild(li);
-    })
+    });
   }
 }
 
 window.onload = async function onload() {
-  let myCart = {
-    products: []
-  }
+  const myCart = {
+    products: [],
+  };
   myCartString = JSON.stringify(myCart);
-  let verifycCart = localStorage.getItem('myCart');
-  if(!verifycCart) {
+  const verifycCart = localStorage.getItem('myCart');
+  if (!verifycCart) {
     localStorage.setItem('myCart', myCartString);
   } else {
     await LoadCartFromLocalStorage();
