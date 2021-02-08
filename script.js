@@ -46,7 +46,7 @@ function addProductShopping(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   return new Promise((resolve, reject) => {
     const loadingMessage = document.querySelector('.loading');
-    loadingMessage.innerText = 'loading';
+    loadingMessage.innerText = 'loading...';
     fetch(endpoint)
       .then(response => response.json())
       .then((object) => {
@@ -86,7 +86,7 @@ function buildListFetch() {
     .then(response => response.json())
     .then((object) => {
       const loadingMessage = document.querySelector('.loading');
-      loadingMessage.innerText = 'loading';
+      loadingMessage.innerText = 'loading...';
       if (object.error) {
         throw new Error(object.error);
       }
