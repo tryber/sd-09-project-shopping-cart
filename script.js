@@ -31,11 +31,16 @@ function cartItemClickListener(event) {
   return event.target.remove();
 }
 
-// const totalPrice = () => {
-//   const arrayNode = document.querySelectorAll('.item_price');
-//   const priceList = [...arrayNode];
-//   console.log(priceList);
-// }
+const updateCartPrice = async () => {
+  const span = document.querySelector('.price');
+  const items = document.querySelectorAll('.cart__item');
+  const list = [...items];
+  const result = list.map(item => {
+    const text = item.innerText;
+    return parseFloat(text.substring(text.indexOf('$') + 1));
+  }).reduce((acc, cur) => acc + cur, 0);
+  span.innerText = !result ? 'Carrinho vazio' : Math.round(result * 100) / 100;
+}
 
 const saveLocalStorage = () => {
   const nodeList = document.querySelectorAll('.cart__item');
@@ -49,12 +54,11 @@ itemsCart.addEventListener('click', saveLocalStorage);
 const olList = document.querySelector('.cart__items');
 olList.addEventListener('click', saveLocalStorage);
 
-// itemsCart.addEventListener('click', totalPrice);
-
 function updateLocalStorage() {
   const li = document.querySelector('.cart__items');
   li.addEventListener('click', (event) => {
     saveLocalStorage();
+    updateCartPrice();
     return event.target.remove();
   });
 }
@@ -82,6 +86,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   ol.appendChild(li);
   saveLocalStorage();
+  updateCartPrice();
 }
 
 const filterIdElement = ({ id, title, price }) => {
@@ -151,6 +156,7 @@ const productItemElement = async () => {
 const removeAllItems = () => {
   const ol = document.querySelector('.cart__items');
   ol.innerText = '';
+  updateCartPrice();
   localStorage.clear();
 };
 
@@ -159,4 +165,5 @@ button.addEventListener('click', removeAllItems);
 window.onload = function onload() {
   productItemElement();
   getIdByEventListener();
+  updateCartPrice();
 };
