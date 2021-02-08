@@ -113,6 +113,9 @@ const fetchSingleProduct = async (productId) => {
       name: title,
       salePrice: price,
     });
+    saveAtLocalStorage();
+    displayProducts();
+    console.log('cartProducts:', cartProducts);
     if (searchResult.error) {
       throw new Error(searchResult.error);
     }
@@ -126,8 +129,6 @@ function handleClickAddToCart(event) {
   const sku = getSkuFromProductItem(sectionItem);
   fetchSingleProduct(sku);
   // console.log('cartProducts:', cartProducts);
-  saveAtLocalStorage();
-  displayProducts();
 }
 
 function addEventInAddToCartButton() {
