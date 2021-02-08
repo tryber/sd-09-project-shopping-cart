@@ -40,14 +40,14 @@ async function totalCart() {
     console.log('O resultado não pôde sere obtido.');
   }
 
-  return totalCartItems.toFixed(2);
+  return totalCartItems;
 }
 
 async function showTotalCart() {
   const totalPrice = document.querySelector('.total-price');
   totalPrice.innerText = '';
   const total = document.createElement('p');
-  total.innerText = `Total: R$ ${await totalCart()}`;
+  total.innerText = `${await totalCart()}`;
   totalPrice.appendChild(total);
 }
 
@@ -129,11 +129,13 @@ const clearCart = () => {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     localStorage.removeItem('saveLocal');
     document.querySelector('.cart__items').innerText = '';
+    showTotalCart();
   });
 };
 
 window.onload = function onload() {
   fetchProducts('computador');
   restoreLocal();
+  clearCart();
   showTotalCart();
 };
