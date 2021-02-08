@@ -35,9 +35,9 @@ const updateCartPrice = async () => {
   const span = document.querySelector('.price');
   const items = document.querySelectorAll('.cart__item');
   const list = [...items];
-    const result = list.map((item) => {
-      const text = item.innerText;
-      return parseFloat(text.substring(text.indexOf('$') + 1));
+  const result = list.map((item) => {
+    const text = item.innerText;
+    return parseFloat(text.substring(text.indexOf('$') + 1));
     }).reduce((acc, cur) => acc + cur, 0);
     span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * 100) / 100;
 };
