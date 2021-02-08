@@ -100,10 +100,6 @@ function buildListFetch() {
         resolve();
         loadingMessage.innerText = '';
       });
-    })
-    .catch((error) => {
-      window.alert(error);
-      reject();
     });
   });
 }
