@@ -24,7 +24,12 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function cartItemClickListener(event) { }
+function cartItemClickListener() {
+  const cartList = document.querySelector('.cart__items');
+  cartList.addEventListener('click', (event) => {
+    event.target.remove();
+  })
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -42,7 +47,6 @@ function addCart() {
     const response = await fetch(endPoint);
     const object = await response.json();
     const objectInf = { sku: object.id, name: object.title, salePrice: object.price };
-    console.log(objectInf);
     const cartList = document.querySelector('.cart__items');
     cartList.appendChild(createCartItemElement(objectInf));
   }));
