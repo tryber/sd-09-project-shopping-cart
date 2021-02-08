@@ -35,8 +35,7 @@ const updateCartPrice = async () => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
   }).reduce((acc, cur) => acc + cur, 0);
-  const pow = 10 ** 2;
-  span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * pow) / pow;
+  span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * 100) / 100;
 };
 
 const saveLocalStorage = () => {
@@ -45,11 +44,6 @@ const saveLocalStorage = () => {
   const text = list.map(item => item.innerText);
   localStorage.setItem('cartList', JSON.stringify(text));
 };
-
-const itemsCart = document.querySelector('.items');
-itemsCart.addEventListener('click', saveLocalStorage);
-const olList = document.querySelector('.cart__items');
-olList.addEventListener('click', saveLocalStorage);
 
 function updateLocalStorage() {
   const li = document.querySelector('.cart__items');
@@ -74,7 +68,6 @@ const storageListSaved = () => {
   }
 };
 
-storageListSaved();
 function createCartItemElement({ sku, name, salePrice }) {
   const ol = document.querySelector('.cart__items');
   const li = document.createElement('li');
@@ -159,9 +152,14 @@ const removeAllItems = () => {
   localStorage.clear();
 };
 
-const button = document.querySelector('.empty-cart');
-button.addEventListener('click', removeAllItems);
 window.onload = function onload() {
+  const itemsCart = document.querySelector('.items');
+  itemsCart.addEventListener('click', saveLocalStorage);
+  const olList = document.querySelector('.cart__items');
+  olList.addEventListener('click', saveLocalStorage);
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', removeAllItems);
+  storageListSaved();
   productItemElement();
   getIdByEventListener();
   updateCartPrice();
