@@ -35,7 +35,7 @@ const updateCartPrice = async () => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
   }).reduce((acc, cur) => acc + cur, 0);
-  const pow = Math.pow(10, 2);
+  const pow = 10 ** 2;
   span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * pow) / pow;
 };
 
