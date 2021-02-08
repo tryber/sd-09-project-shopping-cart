@@ -76,7 +76,6 @@ function addElementCart() {
 
 function loading() {
   const spam = document.createElement('span');
-  const sectionItems = document.querySelector('.items');
   spam.className = 'loading';
   spam.innerText = 'loading...';
   document.body.appendChild(spam);
