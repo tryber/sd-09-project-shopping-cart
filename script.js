@@ -1,3 +1,8 @@
+const loadingMessage = () => {
+  const localOfMessage = document.querySelector('.items');
+  localOfMessage.innerText = "loading...";
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
 }
@@ -74,6 +79,7 @@ const returnOfAPIList = async (computador) => {
     .then(object => object.results)
     .catch(error => console.log(error));
 
+  document.querySelector('.items').innerText = ''
   retrieveOfAPI.forEach((element) => {
     const objectItems = {
       sku: element.id,
@@ -90,4 +96,5 @@ const returnOfAPIList = async (computador) => {
 
 window.onload = function onload() {
   returnOfAPIList('computador');
+  loadingMessage();
 };
