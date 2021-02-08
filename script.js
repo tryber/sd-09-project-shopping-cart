@@ -82,10 +82,10 @@ function addElementCart() {
   sectionItems.appendChild(spam);
 }*/
 
-function stopLoad() {
+/*function stopLoad() {
   const load = document.querySelector('.loading');
   load.remove();
-}
+}*/
 
 //  recupera elementos API
 async function recuperaObjApi(search) {
