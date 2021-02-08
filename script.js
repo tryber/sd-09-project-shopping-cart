@@ -37,7 +37,7 @@ async function calculateTotalCost() {
   }, 0).toFixed(2);
 
   const totalPriceSpan = document.querySelector('span.total-price');
-  totalPriceSpan.innerText = `Total a pagar: R$${totalCost}`;
+  totalPriceSpan.innerText = totalCost;
 }
 
 function updateCartListStorage(cartList) {
@@ -119,6 +119,7 @@ function loadCart() {
   cartList.innerHTML = localStorage.getItem('savedItems');
   const storedItems = document.querySelectorAll('li.cart__item');
   storedItems.forEach(currentItem => currentItem.addEventListener('click', cartItemClickListener));
+  calculateTotalCost();
 }
 
 window.onload = function onload() {
