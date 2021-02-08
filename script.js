@@ -46,7 +46,7 @@ function addProductShopping(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   return new Promise((resolve, reject) => {
     const loadingMessage = document.querySelector('.loading');
-    loadingMessage.innerText = 'loading...';
+    loadingMessage.innerText = 'Loading...';
     fetch(endpoint)
       .then(response => response.json())
       .then((object) => {
@@ -83,7 +83,7 @@ function buildListFetch() {
   const product = 'computador';
   return new Promise((resolve) => {
     const loadingMessage = document.querySelector('.loading');
-    loadingMessage.innerText = 'loading...';
+    loadingMessage.innerText = 'Loading...';
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
     .then((object) => {
