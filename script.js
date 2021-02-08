@@ -74,18 +74,18 @@ function addElementCart() {
   buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
 }
 
-/*function loading() {
+/*  function loading() {
   const spam = document.createElement('span');
   const sectionItems = document.querySelector('.items');
   spam.className = 'loading';
   spam.innerText = 'loading...';
   sectionItems.appendChild(spam);
-}*/
+} */
 
-/*function stopLoad() {
+/*  function stopLoad() {
   const load = document.querySelector('.loading');
   load.remove();
-}*/
+} */
 
 //  recupera elementos API
 async function recuperaObjApi(search) {
