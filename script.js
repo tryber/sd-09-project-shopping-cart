@@ -10,10 +10,7 @@ function sumItems() {
   let totalPrice = 0;
 
   if (price.length > 0) {
-    totalPrice = price.reduce((prev, cur) => {
-      prev + cur;
-      return prev;
-    });
+    totalPrice = price.reduce((prev, cur) => prev + cur);
   }
   document.querySelector('.total-price').innerText = totalPrice;
 }
