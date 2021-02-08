@@ -30,7 +30,8 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-/*eslint no-param-reassign: ["error", { "props": true, "ignorePropertyModificationsFor": ["bar"] }]*/
+/* eslint no-param-reassign: ["error", {
+  "props": true, "ignorePropertyModificationsFor": ["bar"] }] */
 async function setPrice(element, price) {
   const check = price.split('.');
   if (check[1] === '00') {
