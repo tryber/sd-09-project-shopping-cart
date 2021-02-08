@@ -38,7 +38,6 @@ const getPrice = (item) => {
 
 const calculateTotalPrice = () => {
   const listItems = document.querySelectorAll('.cart__item');
-  // console.log('list calculateTotalPrice:', listItems.length);
   const descriptionList = [];
   listItems.forEach(item => descriptionList.push(item.innerText));
   const totalPrice = descriptionList.reduce((accumulator, currentValue) => {
@@ -53,28 +52,6 @@ const displayTotalPrice = async () => {
   const totalPriceElement = document.querySelector('.total-price p span');
   totalPriceElement.innerText = result.toFixed(2);
 };
-
-function cartItemClickListener({ target }) {
-  const description = target.innerText;
-  const id = description.slice(4, 18);
-  let productIndex;
-  cartProducts.forEach((product, index) => {
-    if (product.sku === id) {
-      productIndex = index;
-    }
-  });
-  cartProducts.splice(productIndex, 1);
-  saveAtLocalStorage();
-  displayProducts();
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
 
 const saveAtLocalStorage = () => {
   if (typeof (Storage) !== 'undefined') {
@@ -101,8 +78,8 @@ const displayProducts = () => {
   }
 };
 
-const fetchSingleProduct = async (id) => {
-  const endpoint = `https://api.mercadolibre.com/items/${id}`;
+const fetchSingleProduct = async (productId) => {
+  const endpoint = `https://api.mercadolibre.com/items/${productId}`;
   try {
     const response = await fetch(endpoint);
     const searchResult = await response.json();
@@ -183,6 +160,28 @@ async function fetchProducts() {
     console.log(error);
   }
   removeLoading();
+}
+
+function cartItemClickListener({ target }) {
+  const description = target.innerText;
+  const id = description.slice(4, 18);
+  let productIndex;
+  cartProducts.forEach((product, index) => {
+    if (product.sku === id) {
+      productIndex = index;
+    }
+  });
+  cartProducts.splice(productIndex, 1);
+  saveAtLocalStorage();
+  displayProducts();
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
 
 function handleClickClearButton() {
