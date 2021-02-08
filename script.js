@@ -33,7 +33,7 @@ function getSkuFromProductItem(item) {
 async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
   let myCart = localStorage.getItem('myCart');
-  const myCartJson = JSON.parse(myCart);
+  let myCartJson = JSON.parse(myCart);
   const newArray = await myCartJson.filter(product => product !== `${event.target.textContent}`);
   myCartJson = newArray;
   const MyCartString = JSON.stringify(myCartJson);
@@ -70,7 +70,7 @@ async function addItemsToCart(sku, name, container) {
   const item = createCartItemElement({ sku, name, salePrice });
   cart.appendChild(item);
   const myCart = localStorage.getItem('myCart');
-  const myCartJson = JSON.parse(myCart);
+  let myCartJson = JSON.parse(myCart);
   if (myCartJson === '') {
     myCartJson = [];
   }
