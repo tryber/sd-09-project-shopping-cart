@@ -82,11 +82,11 @@ function clearShoppingBasket() {
 function buildListFetch() {
   const product = 'computador';
   return new Promise((resolve) => {
+    const loadingMessage = document.querySelector('.loading');
+    loadingMessage.innerText = 'loading...';
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
     .then((object) => {
-      const loadingMessage = document.querySelector('.loading');
-      loadingMessage.innerText = 'loading...';
       if (object.error) {
         throw new Error(object.error);
       }
