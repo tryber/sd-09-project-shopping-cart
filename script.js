@@ -30,8 +30,22 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+async function totalPrice(operator, price) {
+  const priceElement = document.getElementsByClassName('total-price')[0];
+  const actualPrice = parseFloat(priceElement.textContent) || 0;
+  if (operator === 'sum') {
+    const total = actualPrice + parseFloat(price);
+    priceElement.innerHTML = `${total.toFixed(2)}`;
+    return;
+  }
+  const total = actualPrice - parseFloat(price);
+  priceElement.innerHTML = `${total.toFixed(2)}`;
+}
+
+async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
+  const priceRemove = parseFloat(event.target.textContent.split('$')[1]);
+  await totalPrice('minus', priceRemove);
   cart.removeChild(event.target);
 }
 
@@ -42,6 +56,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
 
 async function addItemsToCart(sku, name, container) {
   const cart = document.getElementsByClassName('cart__items')[0];
@@ -57,9 +72,10 @@ async function addItemsToCart(sku, name, container) {
   jsonifyProduct = await fetchedProduct.json();
   const { price: salePrice } = jsonifyProduct;
   const loadingElement = document.getElementsByClassName('loading')[0];
-  setTimeout(async (e) => {
+  setTimeout(async () => {
     container.removeChild(loadingElement);
   }, 20);
+  await totalPrice('sum', salePrice);
   cart.appendChild(createCartItemElement({ sku, name, salePrice }));
 }
 
