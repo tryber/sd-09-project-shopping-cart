@@ -31,7 +31,7 @@ function getSkuFromProductItem(item) {
 let pricesArray = [];
 
 async function totalPrice(prices) {
-  const sumPrices = prices.reduce((total, price) => 
+  const sumPrices = prices.reduce((total, price) =>
     Math.round(((Math.round(total * 100) / 100)
     + (Math.round(price * 100) / 100)) * 100) / 100, 0);
   document.querySelector('.total-price').innerText = `Preço total: $${sumPrices}`;
