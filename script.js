@@ -37,17 +37,19 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-function getProduct() {
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then(response => response.json())
-    .then((object) => {
-      const product = object.results;
-      product.forEach((element) => {
-        const { id: sku, title: name, thumbnail: image } = element;
-        createProductItemElement({ sku, name, image });
-      });
-    }).catch(error => window.alert(error));
+async function mercadoLivreResults(term) {
+ const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
+ const response = await fetch(endpoint);
+ const obj = await response.json();
+ const results = obj.results;
+ const itemsElement = document.querySelector('.items');
+ results.forEach((result) => {
+   const { id: sku, title: name, thumbnail: image } = result;
+   const element = createProductItemElement({ sku, name, image });
+   itemsElement.appendChild(element);
+ });
 }
+
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
@@ -81,7 +83,7 @@ function removeItemList() {
   // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky 
 
 window.onload = function onload() {
-  getProduct();
+  mercadoLivreResults('computador');
   addList();
   removeItemList();
 };
