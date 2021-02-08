@@ -74,13 +74,13 @@ function addElementCart() {
   buttonsList.forEach(button => button.addEventListener('click', addCartShopp));
 }
 
-function loading() {
+/*function loading() {
   const spam = document.createElement('span');
   const sectionItems = document.querySelector('.items');
   spam.className = 'loading';
   spam.innerText = 'loading...';
   sectionItems.appendChild(spam);
-}
+}*/
 
 function stopLoad() {
   const load = document.querySelector('.loading');
@@ -90,7 +90,7 @@ function stopLoad() {
 //  recupera elementos API
 async function recuperaObjApi(search) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${search}`;
-  loading();
+  //  loading();
   const response = await fetch(endPoint);// trata o endpoint retornando uma response
   const objeto = await response.json();// a response é tratada retornado uma objeto
   const resultados = objeto.results;// retorna um o campo resultes dos objetos
@@ -99,7 +99,7 @@ async function recuperaObjApi(search) {
     const { id: sku, title: name, thumbnail: image } = resultado;
     const creatProduct = createProductItemElement({ sku, name, image });
     itens.appendChild(creatProduct);
-    stopLoad();
+    //  stopLoad();
     addElementCart();
   });
 }
