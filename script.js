@@ -129,7 +129,6 @@ const loadingLocalStorage = () => {
 };
 
 window.onload = function onload() {
-
   putElementsOnScreen();
   clearCart();
   loadingLocalStorage();
