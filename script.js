@@ -41,8 +41,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-
-
 function addProductShopping(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   return new Promise((resolve, reject) => {
@@ -113,7 +111,6 @@ function buildListFetch() {
 function recoverElementFromLocalStorage() {
   const shoppingBasketRecovered = document.querySelector('.cart__items');
   Object.keys(localStorage).forEach((item) => {
-    console.log (`${localStorage[item]}`);
     const li = document.createElement('li');
     li.innerText = `${localStorage[item]}`;
     li.addEventListener('click', cartItemClickListener);
