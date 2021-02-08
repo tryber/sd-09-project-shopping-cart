@@ -39,7 +39,7 @@ async function setPrice(price) {
   }
   const newCheck = check[1].split('');
   if (newCheck[1] === '0') {
-    priceElement.innerHTML = check[0] + '.' + newCheck[0];
+    priceElement.innerHTML = `${check[0]}.${newCheck[0]}`;
     return;
   }
   priceElement.innerHTML = price;
