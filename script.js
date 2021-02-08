@@ -90,7 +90,7 @@ function getItemsById(itemId) {
 
 function buttonAddClickListener() {
   const listItems = document.querySelector('.items');
-  listItems.addEventListener('click', (element => {
+  listItems.addEventListener('click', (element) => {
     if (element.target.className === 'item__add') {
       const idOnFocus = element.target.parentNode;
       const itemId = getSkuFromProductItem(idOnFocus);
