@@ -116,12 +116,20 @@ function checkLocalStorage() {
   }
 }
 
+function emptyCartList() {
+  document.querySelector('.cart__items').innerHTML = ''
+  pricesArray = [];
+  totalPrice(pricesArray);
+  localStorage.removeItem('savedCartList');
+  localStorage.removeItem('pricesList');
+}
+
 window.onload = function onload() {
   fetchQuery('computador');
   pricesArray = [];
   checkLocalStorage();
   totalPrice(pricesArray);
-  // fetchQuery('computador');
   addToCartButtons();
   cartListListeners();
+  document.querySelector('.empty-cart').addEventListener('click', emptyCartList);
 };
