@@ -53,13 +53,12 @@ function AddItemToCart() {
         name: responseApiJson.title,
         salePrice: responseApiJson.price,
       };
-      console.log(createCartItemElement(addItemCart));
+      createCartItemElement(addItemCart);
       const addSalesCart = document.querySelector('.cart__items');
-      console.log(addSalesCart);
       addSalesCart.appendChild(createCartItemElement(addItemCart));
-    })
+    });
   });
-};
+}
 
 async function getPost() {
   try {
