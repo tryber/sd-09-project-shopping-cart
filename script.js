@@ -24,9 +24,7 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function cartItemClickListener(event) {
-  
-}
+function cartItemClickListener(event) { }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -36,7 +34,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addCart () {
+function addCart() {
   const addButton = document.querySelectorAll('.item__add');
   addButton.forEach(btn => btn.addEventListener('click', async () => {
     const skuSelected = btn.parentNode.querySelector('.item__sku').innerText;
