@@ -34,7 +34,7 @@ async function calculateTotalCost() {
   const totalCost = Array.from(cartItems).reduce((total, cartItem) => {
     const priceIndex = cartItem.innerText.lastIndexOf('PRICE: ') + 8;
     return (total + Number(cartItem.innerText.substr(priceIndex)));
-  }, 0).toFixed(2);
+  }, 0);
 
   const totalPriceSpan = document.querySelector('span.total-price');
   totalPriceSpan.innerText = totalCost;
