@@ -1,3 +1,5 @@
+let cartProducts = [];
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -34,14 +36,16 @@ const getPrice = (item) => {
   return Number(price);
 };
 
-const calculateTotalPrice = async () => {
+const calculateTotalPrice = () => {
   const listItems = document.querySelectorAll('.cart__item');
+  console.log('list calculateTotalPrice:', listItems.length);
   const descriptionList = [];
   listItems.forEach(item => descriptionList.push(item.innerText));
   const totalPrice = descriptionList.reduce((accumulator, currentValue) => {
     const price = getPrice(currentValue);
     return accumulator + price;
   }, 0);
+  console.log('calculando preco!');
   return totalPrice;
 };
 
@@ -51,10 +55,18 @@ const displayTotalPrice = async () => {
   totalPriceElement.innerText = result.toFixed(2);
 };
 
-function cartItemClickListener(event) {
-  const parent = event.target.parentNode;
-  parent.removeChild(event.target);
-  displayTotalPrice();
+function cartItemClickListener({ target }) {
+  const description = target.innerText;
+  const id = description.slice(4, 18);
+  let productIndex;
+  cartProducts.forEach((product, index) => {
+    if (product.sku === id) {
+      productIndex = index;
+    }
+  });
+  cartProducts.splice(productIndex, 1);
+  saveAtLocalStorage();
+  displayProducts();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -66,16 +78,27 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 const saveAtLocalStorage = () => {
-  const descriptionArray = [];
   if (typeof (Storage) !== 'undefined') {
     localStorage.clear();
-    const listItems = document.querySelectorAll('.cart__item');
-    listItems.forEach(item => descriptionArray.push(item.innerText));
-    console.log(descriptionArray);
-    localStorage.setItem('listItems', JSON.stringify(descriptionArray));
-  //displayTotalPrice();
+    console.log('list save localstorage:', cartProducts.length);
+    localStorage.setItem('listItems', JSON.stringify(cartProducts));
   } else {
     alert('Sorry! No Web Storage support..');
+  }
+};
+
+const displayProducts = () => {
+  if (localStorage.length !== 0) {
+    console.log('list load localstorage:', localStorage.length);
+    cartProducts = JSON.parse(localStorage.getItem('listItems'));
+    const cartItemsList = document.querySelector('.cart__items');
+    cartItemsList.innerHTML = '';
+    cartProducts.forEach((item) => {
+      const { sku, name, salePrice } = item;
+      const listItem = createCartItemElement({ sku, name, salePrice });
+      cartItemsList.appendChild(listItem);
+    });
+    displayTotalPrice();
   }
 };
 
@@ -85,12 +108,13 @@ const fetchSingleProduct = async (id) => {
   try {
     const response = await fetch(endpoint);
     const searchResult = await response.json();
-    const { id: sku, title: name, price: salePrice } = searchResult;
-    const listItem = createCartItemElement({ sku, name, salePrice });
-    const cartItemsList = document.querySelector('.cart__items');
-    cartItemsList.appendChild(listItem);
-    saveAtLocalStorage();
-    displayTotalPrice();
+    const { id, title, price } = searchResult;
+
+    cartProducts.push({
+      sku: id,
+      name: title,
+      salePrice: price,
+    });
     if (searchResult.error) {
       throw new Error(searchResult.error);
     }
@@ -103,6 +127,8 @@ function handleClickAddToCart(event) {
   const sectionItem = event.target.parentNode;
   const sku = getSkuFromProductItem(sectionItem);
   fetchSingleProduct(sku);
+  saveAtLocalStorage();
+  displayProducts();
 }
 
 function addEventInAddToCartButton() {
@@ -147,10 +173,9 @@ async function fetchProducts() {
 }
 
 function handleClickClearButton() {
-  const orderedList = document.querySelector('.cart__items');
-  const listItems = document.querySelectorAll('.cart__item');
-  listItems.forEach(item => orderedList.removeChild(item));
-  displayTotalPrice();
+  cartProducts = [];
+  saveAtLocalStorage();
+  displayProducts();
 }
 
 const clearShoppingCart = () => {
@@ -160,5 +185,6 @@ const clearShoppingCart = () => {
 
 window.onload = function onload() {
   fetchProducts();
+  displayProducts();
   clearShoppingCart();
 };
