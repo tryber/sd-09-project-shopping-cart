@@ -28,13 +28,9 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-const removeFromStorage = (event) => {
-  localStorage.removeItem(/SKU: (MLB\d{10}) .*/.exec(event.target.innerText)[1]);
-};
-
 function cartItemClickListener(event) {
   event.target.remove();
-  removeFromStorage(event);
+  localStorage.removeItem(localStorage.key(event));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
