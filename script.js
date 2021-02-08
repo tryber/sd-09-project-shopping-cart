@@ -103,5 +103,5 @@ async function LoadProducts() {
 
 window.onload = async function onload() {
   await LoadProducts();
-  emptyCart()
+  emptyCart();
 };
