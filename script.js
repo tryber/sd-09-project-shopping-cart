@@ -18,6 +18,7 @@ function createProductImageElement(imageSource) {
 }
 
 function createCustomElement(element, className, innerText) {
+  // teste
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
