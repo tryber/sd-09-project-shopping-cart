@@ -63,18 +63,18 @@ const fetchProductByID = async (id) => {
   const url = `https://api.mercadolibre.com/items/${id}`;
   const response = await fetch(url);
   await response.json().then((productData) => {
-    const { id: sku, title: name } = productData;
-    let { price: salePrice } = productData;
-    switch (salePrice) {
-      case 'MLB687124927':
-        salePrice = '14.6';
-        break;
-      case 'MLB973817175':
-        salePrice = '18';
-        break;
-      default:
-        break;
-    }
+    const { id: sku, title: name, price: salePrice } = productData;
+    // let { price: salePrice } = productData;
+    // switch (salePrice) {
+    //   case 'MLB687124927':
+    //     salePrice = '14.6';
+    //     break;
+    //   case 'MLB973817175':
+    //     salePrice = '18';
+    //     break;
+    //   default:
+    //     break;
+    // }
     const productParameter = { sku, name, salePrice };
     const productElement = createCartItemElement(productParameter);
     const cartList = document.querySelector('.cart__items');
