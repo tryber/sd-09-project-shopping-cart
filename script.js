@@ -2,15 +2,16 @@ function sumItems() {
   const itemsCart = document.querySelectorAll('.cart__item');
   const price = [];
   itemsCart.forEach((item) => {
-    // parseFloat pega a string e transforma em float (numeros com casas decimais);
+    // parseFloat pega a string e transforma em float
+    // (numeros com casas decimais);
     price.push(parseFloat(item.innerText.split('$')[1]));
   });
 
   let totalPrice = 0;
 
-  if(price.length > 0) {
+  if (price.length > 0) {
     totalPrice = price.reduce((prev, cur) => {
-      prev = prev + cur;
+      prev + cur;
       return prev;
     });
   }
@@ -78,7 +79,7 @@ function loadLocalStorage() {
   // Trazer os itens do localStorage para a tela
 
   const cartItem = document.querySelectorAll('.cart__item');
-  //console.log(cartItem)
+  // console.log(cartItem)
   cartItem.forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
     // Conseguir excluir as coisas após carregar a página;
