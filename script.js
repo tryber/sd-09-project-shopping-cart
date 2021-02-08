@@ -31,6 +31,7 @@ function getSkuFromProductItem(item) {
 // My Function
 function updateCartListStorage(cartList) {
   localStorage.setItem('savedItems', cartList.innerHTML);
+  calculateTotalCost()
 }
 
 // Project Functions
@@ -38,6 +39,7 @@ function cartItemClickListener(event) {
   const cartList = event.target.parentNode;
   event.target.remove();
   updateCartListStorage(cartList);
+  calculateTotalCost();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -60,7 +62,7 @@ async function fetchItemId(itemID) {
 }
 
 async function addItemToCart(clickedItem) {
-  const clickedItemId = clickedItem.target.parentNode.firstChild.innerText;
+  const clickedItemId = getSkuFromProductItem(clickedItem.target.parentNode);
   const clickedItemInfo = await fetchItemId(clickedItemId);
   const cartList = document.querySelector('ol.cart__items');
   const output = {
@@ -71,10 +73,12 @@ async function addItemToCart(clickedItem) {
 
   cartList.appendChild(createCartItemElement(output));
   updateCartListStorage(cartList);
+  calculateTotalCost();
 }
 
 function clearCartEvent() {
   document.querySelector('ol.cart__items').innerHTML = '';
+  document.querySelector('span.total-price').innerText = '';
   localStorage.clear();
 }
 
@@ -97,6 +101,17 @@ async function generateProductList() {
 
   const clearCartButton = document.querySelector('button.empty-cart');
   clearCartButton.addEventListener('click', clearCartEvent);
+}
+
+async function calculateTotalCost() {
+  const cartItems = document.querySelectorAll('li.cart__item');
+  const totalCost = Array.from(cartItems).reduce((total, cartItem) => {
+    const priceIndex = cartItem.innerText.lastIndexOf('PRICE: ') + 8;
+    return (total + Number(cartItem.innerText.substr(priceIndex)));
+  }, 0).toFixed(2);
+
+  const totalPriceSpan = document.querySelector('span.total-price');
+  totalPriceSpan.innerText = `Total a pagar: R$${totalCost}`;
 }
 
 function loadCart() {
