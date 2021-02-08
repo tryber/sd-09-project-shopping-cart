@@ -1,16 +1,3 @@
-function removeProductCarOnLocalStrorage(sku) {
-  let cartList = JSON.parse(localStorage.getItem('CartList'));
-  cartList = cartList.filter(item => item !== sku);
-  localStorage.setItem('CartList', JSON.stringify(cartList));
-}
-
-function cartItemClickListener(event) {
-  let sku = event.target.innerText;
-  sku = sku.substring(5, 18);
-  event.target.remove();
-  removeProductCarOnLocalStrorage(sku);
-}
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -84,20 +71,23 @@ const fetchProductByID = async (id) => {
   });
 };
 
-function addProducCartOnLocalStorage(sku) {
-  const cartList = localStorage.getItem('CartList') ? JSON.parse(localStorage.getItem('CartList')) : [];
-  console.log(cartList);
-  cartList.push(sku);
-  console.log(cartList);
+function updateLocalStorageCartList() {
+  const cartList = document.querySelector('.cart__items').innerHTML;
+  console.log(cartList)
   localStorage.setItem('CartList', JSON.stringify(cartList));
 }
 
-function addProductOnCart(event) {
+function cartItemClickListener(event) {
+  console.log(event.target);
+  event.target.remove();
+  updateLocalStorageCartList();
+}
+
+async function addProductOnCart(event) {
   const itemClicked = event.target.parentNode;
   const itemSku = getSkuFromProductItem(itemClicked);
-  fetchProductByID(itemSku);
-  const sku = event.target.parentNode.querySelector('.item__sku').innerText;
-  addProducCartOnLocalStorage(sku);
+  await fetchProductByID(itemSku);
+  updateLocalStorageCartList();
 }
 
 function startLoadingInformation() {
@@ -112,11 +102,9 @@ function stopLoadingInformation() {
 }
 
 async function loadCartFromLocalStorage() {
-  const storage = JSON.parse(localStorage.getItem('CartList'));
-  console.log(storage.length);
-  for (let index = 0; index < storage.length; index += 1) {
-    await fetchProductByID(storage[index]);
-  }
+  const cartList = document.querySelector('.cart__items');
+  const cartListOnLocalStorage = JSON.parse(localStorage.getItem('CartList'));
+  cartList.innerHTML = cartListOnLocalStorage;
 }
 
 const fetchProducts = (ProductToSearched) => {
@@ -143,6 +131,7 @@ function clearCart() {
 
 window.onload = function onload() {
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
+  document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
   fetchProducts('computador');
 };
 
