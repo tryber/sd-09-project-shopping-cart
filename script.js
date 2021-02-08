@@ -32,14 +32,13 @@ function getSkuFromProductItem(item) {
 
 async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
-  let myCart = localStorage.getItem('myCart');
-  let myCartJson = JSON.parse(myCart);
-  const newArray = await myCartJson.filter(product => product !== `${event.target.textContent}`);
-  myCartJson = newArray;
+  const myCart = localStorage.getItem('myCart');
+  let myCartJson = await JSON.parse(myCart);
+  const newArray = await myCartJson.products.filter(product => product !== `${event.target.textContent}`);
+  myCartJson.products = await newArray;
   const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
   cart.removeChild(event.target);
-  myCart = localStorage.getItem('myCart');
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -50,10 +49,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-let jsonifyProduct = {};
 async function addItemsToCart(sku, name, container) {
   const cart = document.getElementsByClassName('cart__items')[0];
   const loading = createCustomElement('div', 'loading', 'loading...');
+  let jsonifyProduct = {};
   if (!jsonifyProduct.salePrice) {
     container.appendChild(loading);
   }
@@ -70,11 +69,8 @@ async function addItemsToCart(sku, name, container) {
   const item = createCartItemElement({ sku, name, salePrice });
   cart.appendChild(item);
   const myCart = localStorage.getItem('myCart');
-  let myCartJson = JSON.parse(myCart);
-  if (myCartJson === '') {
-    myCartJson = [];
-  }
-  myCartJson.push(item.textContent);
+  const myCartJson = await JSON.parse(myCart);
+  myCartJson.products.push(item.textContent);
   const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
 }
@@ -105,9 +101,9 @@ async function LoadProducts() {
 
 async function LoadCartFromLocalStorage() {
   const cacheCart = localStorage.getItem('myCart');
-  const productsCache = JSON.parse(cacheCart);
+  const productsCache = await JSON.parse(cacheCart);
   if (productsCache.products.length > 0) {
-    productsCçache.products.forEach((product) => {
+    productsCache.products.forEach((product) => {
       const li = document.createElement('li');
       li.className = 'cart__item';
       li.innerText = `$${product}`;
@@ -119,8 +115,10 @@ async function LoadCartFromLocalStorage() {
 }
 
 window.onload = async function onload() {
-  const myCart = '';
-  const myCartString = JSON.stringify(myCart);
+  const myCart = {
+    products: [],
+  };
+  myCartString = JSON.stringify(myCart);
   const verifycCart = localStorage.getItem('myCart');
   if (!verifycCart) {
     localStorage.setItem('myCart', myCartString);
