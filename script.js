@@ -1,3 +1,21 @@
+const createTotalPrice = () => {
+  const whereTotalPrice = document.querySelector('.cart');
+
+  if (document.querySelectorAll('.total-price').length === 0) {
+    const totalPrice = document.createElement('span');
+    totalPrice.classList.add('total-price');
+    totalPrice.innerText = '0';
+
+    whereTotalPrice.appendChild(totalPrice);
+  }
+};
+
+const updatePrice = (price) => {
+  const whereTotalPrice = document.querySelector('.total-price');
+
+  whereTotalPrice.innerText = Number(whereTotalPrice.innerText) + price;
+};
+
 const loadingMessage = () => {
   const localOfMessage = document.querySelector('.items');
 
@@ -53,6 +71,8 @@ const returnOfAPIItem = async (idItem) => {
     .then(obj => obj.json())
     .then(({ id: sku, title: name, price: salePrice }) => {
       const shoppingCart = document.querySelector('.cart__items');
+      createTotalPrice();
+      updatePrice(salePrice);
       return (shoppingCart.appendChild(createCartItemElement({ sku, name, salePrice })));
     });
 };
