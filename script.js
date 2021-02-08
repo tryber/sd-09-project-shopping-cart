@@ -33,15 +33,8 @@ const updateCartPrice = async () => {
   const list = [...items];
   const result = list.map((item) => {
     const text = item.innerText;
-    console.log('linha 36: ' + text)
     return parseFloat(text.substring(text.indexOf('$') + 1));
-  }).reduce((acc, cur) => {
-    console.log('acc: ' + acc);
-    console.log('curr: ' + cur);
-    const sum = acc + cur;
-    console.log('soma: ' + sum);
-    return acc + cur
-  }, 0);
+  }).reduce((acc, cur) => acc + cur, 0);
   span.innerText = !result ? 'Carrinho vazio!' : Math.round(result * 100) / 100;
 };
 
