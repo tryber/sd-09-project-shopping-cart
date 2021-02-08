@@ -45,7 +45,7 @@ const calculateTotalPrice = async () => {
     return accumulator + price;
   }, 0);
   const totalPriceElement = document.querySelector('.total-price');
-  totalPriceElement.innerText = totalPrice.toFixed(2);
+  totalPriceElement.innerText = totalPrice;
 };
 
 const saveAtLocalStorage = () => {
