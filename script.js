@@ -38,8 +38,8 @@ const updateCartPrice = async () => {
   const result = list.map((item) => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
-    }).reduce((acc, cur) => acc + cur, 0);
-    span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * 100) / 100;
+  }).reduce((acc, cur) => acc + cur, 0);
+  span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * 100) / 100;
 };
 
 const saveLocalStorage = () => {
