@@ -61,12 +61,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-const fetchProductByID = (id) => {
+const fetchProductByID = async (id) => {
   const url = `https://api.mercadolibre.com/items/${id}`;
-
-  fetch(url)
-  .then(response => response.json())
-  .then((productData) => {
+  const response = await fetch(url);
+  await response.json().then((productData) => {
     const { id: sku, title: name } = productData;
     let { price: salePrice } = productData;
     switch (salePrice) {
@@ -113,9 +111,12 @@ function stopLoadingInformation() {
   document.querySelector('.loading').remove();
 }
 
-function loadCartFromLocalStorage() {
+async function loadCartFromLocalStorage() {
   const storage = JSON.parse(localStorage.getItem('CartList'));
-  storage.forEach(sku => fetchProductByID(sku));
+  console.log(storage.length)
+  for(let index = 0; index < storage.length; index += 1){
+    await fetchProductByID(storage[index]);
+  }
 }
 
 const fetchProducts = (ProductToSearched) => {
@@ -144,16 +145,6 @@ window.onload = function onload() {
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
   fetchProducts('computador');
 };
-
-const teste = () => {
-  const url = 'https://api.mercadolibre.com/items/MLB687124927';
-
-  fetch(url)
-  .then(response => response.json())
-  .then(productData => console.log(productData));
-};
-
-teste();
 
 //  To do
 //    Se um item for adicionado mais de uma vez, quando ele for deletado, todos os itens com teste
