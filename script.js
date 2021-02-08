@@ -134,6 +134,16 @@ window.onload = function onload() {
   fetchProducts('computador');
 };
 
+const teste = () => {
+  const url = `https://api.mercadolibre.com/items/MLB687124927`;
+
+  fetch(url)
+  .then(response => response.json())
+  .then((productData) => console.log(productData));
+}
+
+teste();
+
 //  To do
 //    Se um item for adicionado mais de uma vez, quando ele for deletado, todos os itens com teste
 //    SKU, vai ser removido; msm que eu queria remover apenas 1 deste no carrinho de compras.
