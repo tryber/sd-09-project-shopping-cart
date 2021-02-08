@@ -23,10 +23,6 @@ function createProductItemElement({ sku, name, image }) {
   items.appendChild(section);
 }
 
-function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText;
-}
-
 function cartItemClickListener(event) {
   return event.target.remove();
 }
@@ -39,7 +35,8 @@ const updateCartPrice = async () => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
   }).reduce((acc, cur) => acc + cur, 0);
-  span.innerText = !result ? 'Carrinho vazio' : Math.round((result * 100) / 100);
+  const pow = Math.pow(10, 2);
+  span.innerText = !result ? 'Carrinho vazio' : Math.floor(result * pow) / pow;
 };
 
 const saveLocalStorage = () => {
