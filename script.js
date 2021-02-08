@@ -1,3 +1,29 @@
+function sumItems() {
+  const itemsCart = document.querySelectorAll('.cart__item');
+  const price = [];
+  itemsCart.forEach((item) => {
+    // parseFloat pega a string e transforma em float (numeros com casas decimais);
+    price.push(parseFloat(item.innerText.split('$')[1]));
+  });
+
+  let totalPrice = 0;
+
+  if(price.length > 0) {
+    totalPrice = price.reduce((prev, cur) => {
+      prev = prev + cur;
+      return prev;
+    });
+  }
+  document.querySelector('.total-price').innerText = totalPrice;
+}
+
+function createTotalPrice() {
+  const price = document.createElement('spam');
+  price.className = 'total-price';
+  price.innerText = 0;
+  document.querySelector('.cart').appendChild(price);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -37,10 +63,12 @@ function salveLocalStorage() {
   localStorage.setItem('.cart__items', cartItems);
 }
 
+
 function cartItemClickListener(event) {
   event.target.remove();
   // excluíndo os itens do carrinho
   salveLocalStorage();
+  sumItems();
 }
 
 function loadLocalStorage() {
@@ -50,6 +78,7 @@ function loadLocalStorage() {
   // Trazer os itens do localStorage para a tela
 
   const cartItem = document.querySelectorAll('.cart__item');
+  //console.log(cartItem)
   cartItem.forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
     // Conseguir excluir as coisas após carregar a página;
@@ -78,6 +107,7 @@ async function apiCart(productId) {
     localStorage.setItem('.cart__items',
       document.querySelector('.cart__items').innerHTML);
     // itemsElement é equivalente ao carrinho
+    sumItems();
   } catch (error) {
     window.alert(error);
   }
@@ -104,6 +134,7 @@ function removeAllProduct() {
     const removeItems = document.querySelector('.cart__items');
     removeItems.innerHTML = '';
     localStorage.clear('.cart__items', removeItems);
+    sumItems();
   });
 }
 
@@ -146,5 +177,6 @@ window.onload = function onload() {
   apiAdd();
   addEventCart();
   removeAllProduct();
+  createTotalPrice();
   loadLocalStorage();
 };
