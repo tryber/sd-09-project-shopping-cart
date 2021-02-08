@@ -30,29 +30,27 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-/* eslint no-param-reassign: ["error", {
-  "props": true, "ignorePropertyModificationsFor": ["bar"] }] */
-async function setPrice(element, price) {
+async function setPrice(price) {
+  const priceElement = document.getElementsByClassName('total-price')[0];
   const check = price.split('.');
   if (check[1] === '00') {
-    element.innerHTML = check[0];
+    priceElement.innerHTML = check[0];
     return;
   }
-  element.innerHTML = price;
+  priceElement.innerHTML = price;
 }
 
 async function totalPrice(operator, price) {
-  const priceElement = document.getElementsByClassName('total-price')[0];
   const actualPrice = parseFloat(priceElement.textContent) || 0;
   if (operator === 'sum') {
     const total = actualPrice + parseFloat(price);
     const priceAC = `${total.toFixed(2)}`;
-    await setPrice(priceElement, priceAC);
+    await setPrice(priceAC);
     return;
   }
   const total = actualPrice - parseFloat(price);
   const priceAC = `${total.toFixed(2)}`;
-  await setPrice(priceElement, priceAC);
+  await setPrice(priceAC);
 }
 
 async function cartItemClickListener(event) {
