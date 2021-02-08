@@ -38,14 +38,13 @@ const getPrice = (item) => {
 
 const calculateTotalPrice = () => {
   const listItems = document.querySelectorAll('.cart__item');
-  console.log('list calculateTotalPrice:', listItems.length);
+  // console.log('list calculateTotalPrice:', listItems.length);
   const descriptionList = [];
   listItems.forEach(item => descriptionList.push(item.innerText));
   const totalPrice = descriptionList.reduce((accumulator, currentValue) => {
     const price = getPrice(currentValue);
     return accumulator + price;
   }, 0);
-  console.log('calculando preco!');
   return totalPrice;
 };
 
@@ -89,7 +88,7 @@ const saveAtLocalStorage = () => {
 
 const displayProducts = () => {
   if (localStorage.length !== 0) {
-    console.log('list load localstorage:', localStorage.length);
+    // console.log('list load localstorage:', localStorage.length);
     cartProducts = JSON.parse(localStorage.getItem('listItems'));
     const cartItemsList = document.querySelector('.cart__items');
     cartItemsList.innerHTML = '';
@@ -104,12 +103,10 @@ const displayProducts = () => {
 
 const fetchSingleProduct = async (id) => {
   const endpoint = `https://api.mercadolibre.com/items/${id}`;
-
   try {
     const response = await fetch(endpoint);
     const searchResult = await response.json();
     const { id, title, price } = searchResult;
-
     cartProducts.push({
       sku: id,
       name: title,
@@ -158,9 +155,24 @@ const getfetchProductsResult = ({ results }) => {
   addEventInAddToCartButton();
 };
 
+const addLoading = () => {
+  const body = document.querySelector('body');
+  const p = document.createElement('p');
+  p.id = 'loading';
+  p.innerText = 'loading...';
+  body.appendChild(p);
+};
+
+const removeLoading = () => {
+  const loading = document.querySelector('#loading');
+  loadingParent = loading.parentNode;
+  loadingParent.removeChild(loading);
+};
+
 async function fetchProducts() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
   try {
+    addLoading();
     const response = await fetch(endpoint);
     const searchResult = await response.json();
     if (searchResult.results.length === 0) {
@@ -170,6 +182,7 @@ async function fetchProducts() {
   } catch (error) {
     console.log(error);
   }
+  removeLoading();
 }
 
 function handleClickClearButton() {
