@@ -27,6 +27,13 @@ const loadingMessage = () => {
 };
 
 function cartItemClickListener(event) {
+  const whereTotalPrice = document.querySelector('.total-price');
+  const clickedItem = event.target.innerText;
+
+  // Como extrair final texto foi retirado do link abaixo.
+  // https://www.devmedia.com.br/javascript-substring-selecionando-parte-de-uma-string/39232
+  whereTotalPrice.innerText = `${Number(whereTotalPrice.innerText) - Number(clickedItem.substring(clickedItem.indexOf('$') + 1))}`;
+
   event.target.remove();
 }
 
@@ -93,6 +100,7 @@ const clearShoppingCartButton = () => {
 
   buttonEmptCart.addEventListener('click', () => {
     listOfItemsOfCart.innerHTML = '';
+    document.querySelector('.total-price').remove();
   });
 };
 
