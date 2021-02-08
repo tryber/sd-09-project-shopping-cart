@@ -77,7 +77,30 @@ function getItemIdToFetch() {
   });
 }
 
+function saveCartList() {
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('cartList', cartList);
+}
+
+function cartCleanButton() {
+  const cleanButton = document.querySelector('.empty-cart');
+  cleanButton.addEventListener('click', () => {
+    const cartList = document.querySelector('.cart__items');
+    cartList.innerHTML = '';
+  });
+}
+
+// function getCartListRefreshingPage() {
+//   const cartList = document.querySelectorAll('.cart__item');
+//   for (let index = 0; index < cartList.length; index += 1) {
+//     cartList[index].innerHTML = localStorage.getItem('cartList');
+//   }
+// }
+
 window.onload = function onload() {
   fetchProduct();
   getItemIdToFetch();
+  saveCartList();
+  cartCleanButton();
+  // getCartListRefreshingPage();
 };
