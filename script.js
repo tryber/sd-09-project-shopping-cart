@@ -63,6 +63,19 @@ async function addItemsToCart(sku, name, container) {
   cart.appendChild(createCartItemElement({ sku, name, salePrice }));
 }
 
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+  }
+}
+
+const emptyCart = () => {
+  const emptyCart = document.getElementsByClassName('empty-cart');
+  emptyCart[0].addEventListener('click', () => {
+    const cartItems = document.getElementsByClassName('cart__items')[0];
+    removeAllChildNodes(cartItems);
+  })
+}
 
 async function LoadProducts() {
   let jsonify = [];
@@ -90,4 +103,5 @@ async function LoadProducts() {
 
 window.onload = async function onload() {
   await LoadProducts();
+  emptyCart()
 };
