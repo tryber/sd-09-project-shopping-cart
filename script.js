@@ -38,16 +38,16 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 async function mercadoLivreResults(term) {
- const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
- const response = await fetch(endpoint);
- const obj = await response.json();
- const results = obj.results;
- const itemsElement = document.querySelector('.items');
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
+  const response = await fetch(endpoint);
+  const obj = await response.json();
+  const results = obj.results;
+  const itemsElement = document.querySelector('.items');
  results.forEach((result) => {
-   const { id: sku, title: name, thumbnail: image } = result;
-   const element = createProductItemElement({ sku, name, image });
-   itemsElement.appendChild(element);
- });
+    const { id: sku, title: name, thumbnail: image } = result;
+    const element = createProductItemElement({ sku, name, image });
+    itemsElement.appendChild(element);
+  });
 }
 
 function createCartListItem(itemList) {
@@ -80,7 +80,7 @@ function removeItemList() {
   listCarts.addEventListener('click', cartItemClickListener);
 }
 
-  // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky 
+  // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
