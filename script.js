@@ -46,15 +46,15 @@ function createElement(term) {
       response.json()
       .then((data) => {
         console.log(data);
-        //data.results.map(result => {
-          const { id: sku, title: name, price: salePrice } = data.results;
-          const ol = document.querySelector('.cart__items');
-          createCartItemElement({ sku, name, salePrice });
-          const cartItemsList = document.querySelector('.cart__items');
-          ol.appendChild(cartItemsList);
-          return result;
-        });
-     // });
+        // data.results.map(result => {
+        const { id: sku, title: name, price: salePrice } = data.results;
+        const ol = document.querySelector('.cart__items');
+        createCartItemElement({ sku, name, salePrice });
+        const cartItemsList = document.querySelector('.cart__items');
+        ol.appendChild(cartItemsList);
+        return result;
+      });
+      // });
     });
 }
 
