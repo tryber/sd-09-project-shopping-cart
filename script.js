@@ -30,6 +30,9 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
+  // const cartItemsList = document.querySelector('.cart__items');
+  // const indexOfCartItem = Array.prototype.indexOf.call(cartItemsList.children, event.target);
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -74,12 +77,19 @@ function addToCartButtons() {
             salePrice: price,
           };
           cartList.appendChild(createCartItemElement(itemInfos));
+          cartListListeners();
         });
     });
   });
 }
 
+function cartListListeners() {
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach(cartItem => cartItem.addEventListener('click', cartItemClickListener));
+}
+
 window.onload = function onload() {
   fetchQuery('computador');
+  // let pricesArray = [];
   addToCartButtons();
 };
