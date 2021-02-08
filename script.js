@@ -1,4 +1,22 @@
-window.onload = function onload() { };
+// "https://api.mercadolibre.com/sites/MLB/search?q=$QUERY"
+// computador
+// array results
+// Você deve utilizar a função createProductItemElement(product) para criar os componentes HTML referentes a um produto.
+// Adicione o elemento retornado da função createProductItemElement(product) como filho do elemento <section class="items">.
+// Obs: as variáveis sku, no código fornecido, se referem aos campos id retornados pela API.
+
+window.onload = function onload() {
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador').then((response) => {
+    response.json().then((data) => {
+      data.results.forEach(({ id: sku, title: name, thumbnail: image }) => {
+        const productItem = createProductItemElement({ sku, name, image });
+        console.log(productItem);
+        const items = document.querySelector('section .items');
+        items.appendChild(productItem);
+      })
+    })
+  })
+};
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
