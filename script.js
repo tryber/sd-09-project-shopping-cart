@@ -39,6 +39,17 @@ function addProductsOnList(productsList) {
   });
 }
 
+function updateLocalStorageCartList() {
+  const cartList = document.querySelector('.cart__items').innerHTML;
+  console.log(cartList);
+  localStorage.setItem('CartList', JSON.stringify(cartList));
+}
+
+function cartItemClickListener(event) {
+  console.log(event.target);
+  event.target.remove();
+  updateLocalStorageCartList();
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -70,18 +81,6 @@ const fetchProductByID = async (id) => {
     cartList.appendChild(productElement);
   });
 };
-
-function updateLocalStorageCartList() {
-  const cartList = document.querySelector('.cart__items').innerHTML;
-  console.log(cartList)
-  localStorage.setItem('CartList', JSON.stringify(cartList));
-}
-
-function cartItemClickListener(event) {
-  console.log(event.target);
-  event.target.remove();
-  updateLocalStorageCartList();
-}
 
 async function addProductOnCart(event) {
   const itemClicked = event.target.parentNode;
@@ -134,7 +133,3 @@ window.onload = function onload() {
   document.querySelector('.cart__items').addEventListener('click', cartItemClickListener);
   fetchProducts('computador');
 };
-
-//  To do
-//    Se um item for adicionado mais de uma vez, quando ele for deletado, todos os itens com teste
-//    SKU, vai ser removido; msm que eu queria remover apenas 1 deste no carrinho de compras.
