@@ -35,7 +35,7 @@ async function totalPrice(operator, price) {
   const actualPrice = parseFloat(priceElement.textContent) || 0;
   if (operator === 'sum') {
     const total = actualPrice + parseFloat(price);
-    priceElement.innerHTML = `${total.toFixed(2)}`;
+    priceElement.innerHTML = `${total.toFixed(0)}`;
     return;
   }
   const total = actualPrice - parseFloat(price);
