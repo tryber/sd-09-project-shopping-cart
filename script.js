@@ -117,7 +117,7 @@ function checkLocalStorage() {
 }
 
 function emptyCartList() {
-  document.querySelector('.cart__items').innerHTML = ''
+  document.querySelector('.cart__items').innerHTML = '';
   pricesArray = [];
   totalPrice(pricesArray);
   localStorage.removeItem('savedCartList');
