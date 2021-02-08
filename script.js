@@ -30,8 +30,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
+  const myCart = localStorage.getItem('myCart');
+  const myCartJson = await JSON.parse(myCart);
+  const newArray = await myCartJson.products.filter(product => product !== `${event.target.textContent}`);
+  myCartJson.products = await newArray;
+  const MyCartString = JSON.stringify(myCartJson);
+  localStorage.setItem('myCart', MyCartString);
   cart.removeChild(event.target);
 }
 
@@ -57,10 +63,16 @@ async function addItemsToCart(sku, name, container) {
   jsonifyProduct = await fetchedProduct.json();
   const { price: salePrice } = jsonifyProduct;
   const loadingElement = document.getElementsByClassName('loading')[0];
-  setTimeout(async (e) => {
+  setTimeout(async () => {
     container.removeChild(loadingElement);
   }, 20);
-  cart.appendChild(createCartItemElement({ sku, name, salePrice }));
+  const item = createCartItemElement({ sku, name, salePrice });
+  cart.appendChild(item);
+  const myCart = localStorage.getItem('myCart');
+  const myCartJson = await JSON.parse(myCart);
+  myCartJson.products.push(item.textContent);
+  const MyCartString = JSON.stringify(myCartJson);
+  localStorage.setItem('myCart', MyCartString);
 }
 
 async function LoadProducts() {
@@ -87,6 +99,34 @@ async function LoadProducts() {
   });
 }
 
+<<<<<<< HEAD
+=======
+async function LoadCartFromLocalStorage() {
+  const cacheCart = localStorage.getItem('myCart');
+  const productsCache = await JSON.parse(cacheCart);
+  if (productsCache.products.length > 0) {
+    productsCache.products.forEach((product) => {
+      const li = document.createElement('li');
+      li.className = 'cart__item';
+      li.innerText = `$${product}`;
+      li.addEventListener('click', cartItemClickListener);
+      const cartItems = document.getElementsByClassName('cart__items')[0];
+      cartItems.appendChild(li);
+    });
+  }
+}
+
+>>>>>>> 42a762a2eee358bbcb25fd68163a0ddf8e8c07bf
 window.onload = async function onload() {
+  const myCart = {
+    products: [],
+  };
+  myCartString = JSON.stringify(myCart);
+  const verifycCart = localStorage.getItem('myCart');
+  if (!verifycCart) {
+    localStorage.setItem('myCart', myCartString);
+  } else {
+    await LoadCartFromLocalStorage();
+  }
   await LoadProducts();
 };
