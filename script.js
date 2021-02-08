@@ -39,7 +39,7 @@ async function totalPrice(operator, price) {
     return;
   }
   const total = actualPrice - parseFloat(price);
-  priceElement.innerHTML = `${total.toFixed(2)}`;
+  priceElement.innerHTML = `${total.toFixed(0)}`;
 }
 
 async function cartItemClickListener(event) {
