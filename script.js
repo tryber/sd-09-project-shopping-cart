@@ -96,7 +96,7 @@ function buttonAddClickListener() {
       const itemId = getSkuFromProductItem(idOnFocus);
       getItemsById(itemId);
     }
-  }));
+  });
 }
 
 function removeAllItems() {
