@@ -91,7 +91,19 @@ const loadCartItemsFromStorage = () => {
   });
 };
 
+function clearCart() {
+  const items = document.querySelectorAll('.cart__item');
+  const cartItems = document.querySelector('.cart__items');
+  for (item of items) {
+    cartItems.removeChild(item);
+    localStorage.removeItem(localStorage.key(item));
+  }
+}
+
 window.onload = function () {
   fetchProducts('computador');
   loadCartItemsFromStorage();
+
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', clearCart);
 };
