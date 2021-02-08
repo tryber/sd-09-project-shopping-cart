@@ -35,7 +35,9 @@ async function calculateTotalPrice() {
   const totalPrice = document.querySelector('.total-price');
   const shoppingCart = document.querySelectorAll('.cart__item');
   let somatorio = 0;
-  shoppingCart.forEach(elemento => somatorio += Number(elemento.innerText.split('$')[1]));
+  shoppingCart.forEach(elemento => {
+    somatorio += Number(elemento.innerText.split('$')[1]);
+  });
   totalPrice.innerText = somatorio;
 }
 
