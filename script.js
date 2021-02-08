@@ -75,9 +75,7 @@ function callApiCart(idProduct) {
   const endpoint = `https://api.mercadolibre.com/items/${idProduct}`;
   fetch(endpoint)
   .then(response => response.json())
-  .then(obj => {
-    addCart(obj);
-  })
+  .then(obj => addCart(obj))
   .catch(() => alert('erro cart'));
 }
 
@@ -109,7 +107,7 @@ function callApi(item) {
     addItems(objects.results);
     selectIdElement();
     clearLoading();
-    loadCart();
+    loadListCart();
   })
   .catch(() => alert('erro'));
 }
