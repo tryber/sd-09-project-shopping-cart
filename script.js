@@ -36,27 +36,21 @@ const getPrice = (item) => {
   return Number(price);
 };
 
-const calculateTotalPrice = () => {
+const calculateTotalPrice = async () => {
   const listItems = document.querySelectorAll('.cart__item');
   const descriptionList = [];
   listItems.forEach(item => descriptionList.push(item.innerText));
-  const totalPrice = descriptionList.reduce((accumulator, currentValue) => {
+  const totalPrice = await descriptionList.reduce((accumulator, currentValue) => {
     const price = getPrice(currentValue);
     return accumulator + price;
   }, 0);
-  return totalPrice;
-};
-
-const displayTotalPrice = async () => {
-  const result = await calculateTotalPrice();
   const totalPriceElement = document.querySelector('.total-price p span');
-  totalPriceElement.innerText = result.toFixed(2);
+  totalPriceElement.innerText = totalPrice.toFixed(2);
 };
 
 const saveAtLocalStorage = () => {
   if (typeof (Storage) !== 'undefined') {
     localStorage.clear();
-    console.log('list save localstorage:', cartProducts.length);
     localStorage.setItem('listItems', JSON.stringify(cartProducts));
   } else {
     alert('Sorry! No Web Storage support..');
@@ -76,7 +70,7 @@ function cartItemClickListener({ target }) {
   saveAtLocalStorage();
   const parent = target.parentNode;
   parent.removeChild(target);
-  displayTotalPrice();
+  calculateTotalPrice();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -89,7 +83,6 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 const displayProducts = () => {
   if (localStorage.length !== 0) {
-    // console.log('list load localstorage:', localStorage.length);
     cartProducts = JSON.parse(localStorage.getItem('listItems'));
     const cartItemsList = document.querySelector('.cart__items');
     cartItemsList.innerHTML = '';
@@ -98,7 +91,7 @@ const displayProducts = () => {
       const listItem = createCartItemElement({ sku, name, salePrice });
       cartItemsList.appendChild(listItem);
     });
-    displayTotalPrice();
+    calculateTotalPrice();
   }
 };
 
@@ -115,7 +108,6 @@ const fetchSingleProduct = async (productId) => {
     });
     saveAtLocalStorage();
     displayProducts();
-    console.log('cartProducts:', cartProducts);
     if (searchResult.error) {
       throw new Error(searchResult.error);
     }
@@ -128,7 +120,6 @@ function handleClickAddToCart(event) {
   const sectionItem = event.target.parentNode;
   const sku = getSkuFromProductItem(sectionItem);
   fetchSingleProduct(sku);
-  // console.log('cartProducts:', cartProducts);
 }
 
 function addEventInAddToCartButton() {
