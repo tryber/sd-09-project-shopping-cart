@@ -87,8 +87,8 @@ const loadCartItemsFromStorage = () => {
     const li = document.createElement('li');
     li.className = 'cart__item';
     li.innerText = `${item}`;
-    li.addEventListener('click', cartItemClickListener);
     document.querySelector('.cart__items').appendChild(li);
+    li.addEventListener('click', cartItemClickListener);
   });
 };
 
