@@ -30,7 +30,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove();
-  localStorage.removeItem(/SKU: (MLB\d{10}) .*/.exec(event.target.innerText)[1]);
+  if (localStorage.length > 0) localStorage.removeItem(/SKU: (MLB\d{10}) .*/.exec(event.target.innerText)[1]);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
