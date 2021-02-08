@@ -30,11 +30,26 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+// Realiza o cálculo dos ítens do carrinho de compras
+async function totalPrice() {
+  const calcResult = document.querySelector('.total-price');
+  const item = document.querySelectorAll('.cart__item');
+  let calc = 0;
+  for (let index = 0; index < item.length; index += 1) {
+    calc += parseFloat(item[index].innerText.split('$')[1]);
+  }
+  const valueResult = Math.fround(calc).toFixed(2);
+  const result = `Valor à pagar: $ <strong>${valueResult}</strong>`;
+  calcResult.innerHTML = result;
+}
+
+// Retira item do carrinho de compras ao clicar
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
   const item = `<li class="cart__item">${event.target.innerHTML}</li>`;
   localStorage.Items = localStorage.Items.replace(item, '');
+  totalPrice();
 }
 
 // Cria elementos li
@@ -53,6 +68,7 @@ function getItemsStorage() {
     cart.innerHTML = localStorage.Items;
     cart.addEventListener('click', cartItemClickListener);
   }
+  totalPrice();
 }
 
 // Recupera dados dos produtos e acrescenta ao carrinho
@@ -72,6 +88,7 @@ function dataItems() {
       const cart = document.querySelector('.cart__items');
       cart.appendChild(object);
       localStorage.Items = cart.innerHTML;
+      totalPrice();
     });
   }));
 }
@@ -95,4 +112,5 @@ async function dataMercadoLivre(term) {
 window.onload = function onload() {
   dataMercadoLivre('computador');
   getItemsStorage();
+  totalPrice();
 };
