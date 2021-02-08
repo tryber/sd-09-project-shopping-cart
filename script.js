@@ -1,4 +1,5 @@
-let cont = 0;
+let cont = 1;
+let contRecover = 1;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -53,8 +54,7 @@ function addProductShopping(itemId) {
         const { id: sku, title: name, price: salePrice } = object;
         const element = createCartItemElement({ sku, name, salePrice });
         const shoppingBasket = document.querySelector('.cart__items');
-        localStorage.setItem(`${cont}.item`, element.innerHTML);
-        console.log(cont);
+        localStorage.setItem(`${cont}`, element.innerHTML);
         cont += 1;
         //  console.log(element);
         shoppingBasket.addEventListener('click', () => {
@@ -77,7 +77,7 @@ function clearShoppingBasket() {
     const shoppingBasket = document.querySelector('.cart__items');
     shoppingBasket.innerText = ' ';
     localStorage.clear();
-    cont = 0;
+    cont = 1;
   });
 }
 
@@ -112,7 +112,8 @@ function recoverElementFromLocalStorage() {
   const shoppingBasketRecovered = document.querySelector('.cart__items');
   Object.keys(localStorage).forEach((item) => {
     const li = document.createElement('li');
-    li.innerText = `${localStorage[item]}`;
+    li.innerText = `${localStorage[contRecover]}`;
+    contRecover += 1;
     li.addEventListener('click', cartItemClickListener);
     shoppingBasketRecovered.appendChild(li);
   });
