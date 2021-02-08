@@ -1,14 +1,17 @@
 let somaTotal = 0;
 const priceTotal = document.querySelector('.total-price');
+console.log(priceTotal);
 
 const doSum = (arg) => {
   console.log(arg);
-  const value = somaTotal += arg;
+  let value;
+  value = somaTotal += arg;
   return value.toFixed(2);
 };
 
 const alimentElement = (content, element) => {
-  element.innerText = content;
+  const elementhHtml = element;
+  elementhHtml.innerText = content;
 };
 
 function createProductImageElement(imageSource) {
