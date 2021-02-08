@@ -5,7 +5,9 @@ console.log(priceTotal);
 const doSum = (arg) => {
   console.log(arg);
   let value;
-  value = somaTotal + arg;
+  value = somaTotal;
+  value += arg;
+  somaTotal = value;
   return value.toFixed(2);
 };
 
