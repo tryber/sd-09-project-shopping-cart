@@ -61,6 +61,11 @@ function fetchQuery(query) {
     });
 }
 
+function cartListListeners() {
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach(cartItem => cartItem.addEventListener('click', cartItemClickListener));
+}
+
 function addToCartButtons() {
   const buttons = document.querySelectorAll('.items');
   buttons.forEach((button) => {
@@ -81,11 +86,6 @@ function addToCartButtons() {
         });
     });
   });
-}
-
-function cartListListeners() {
-  const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach(cartItem => cartItem.addEventListener('click', cartItemClickListener));
 }
 
 window.onload = function onload() {
