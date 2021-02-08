@@ -56,9 +56,21 @@ const addToCart = async (event) => {
   localStorage.setItem(sku, name);
   element.id = sku;
   ol.appendChild(element);
+  console.log(document.querySelectorAll('.cart__item').length);
+};
+
+const putLoading = () => {
+  const itens = document.getElementsByClassName('items');
+  const element = document.createElement('section');
+  console.log(itens);
+  console.log(element);
+  element.classList.add('loading');
+  element.innerText = 'loading';
+  itens[0].appendChild(element);
 };
 
 const putElementsOnScreen = () => {
+  putLoading();
   const responsePromise = fetchElement();
   responsePromise
   .then((response) => {
@@ -70,6 +82,7 @@ const putElementsOnScreen = () => {
       itemHtml.lastChild.addEventListener('click', addToCart);
       sectionItems.appendChild(itemHtml);
     });
+    document.querySelector('.loading').remove();
   });
 };
 
@@ -116,6 +129,7 @@ const loadingLocalStorage = () => {
 };
 
 window.onload = function onload() {
+
   putElementsOnScreen();
   clearCart();
   loadingLocalStorage();
