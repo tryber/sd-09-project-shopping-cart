@@ -4,21 +4,6 @@ function createProductImageElement(imageSource) {
   img.src = imageSource;
   return img;
 }
-function fetchProductById(id) {
-  fetch(`https://api.mercadolibre.com/items/${id}`).then((response) => {
-    response.json().then(({ id: sku, title: name, price: salePrice }) => {
-      const productItemCart = createCartItemElement({ sku, name, salePrice });
-      const cartItems = document.querySelector('.cart__items');
-      cartItems.appendChild(productItemCart);
-    });
-  });
-}
-
-const itemClickListener = (event) => {
-  const skuItemClicked = event.target.parentNode.firstChild.innerText;
-  fetchProductById(skuItemClicked)
-
-}
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
@@ -33,12 +18,12 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
+  
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
+  
   return section;
 }
 
@@ -56,6 +41,21 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function fetchProductById(id) {
+  fetch(`https://api.mercadolibre.com/items/${id}`).then((response) => {
+    response.json().then(({ id: sku, title: name, price: salePrice }) => {
+      const productItemCart = createCartItemElement({ sku, name, salePrice });
+      const cartItems = document.querySelector('.cart__items');
+      cartItems.appendChild(productItemCart);
+    });
+  });
+}
+
+const itemClickListener = (event) => {
+  const skuItemClicked = event.target.parentNode.firstChild.innerText;
+  fetchProductById(skuItemClicked);
 }
 
 window.onload = function onload() {
