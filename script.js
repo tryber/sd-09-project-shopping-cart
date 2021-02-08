@@ -39,7 +39,7 @@ const updateCartPrice = async () => {
     const text = item.innerText;
     return parseFloat(text.substring(text.indexOf('$') + 1));
   }).reduce((acc, cur) => acc + cur, 0);
-  span.innerText = !result ? 'Carrinho vazio' : result;
+  span.innerText = !result ? 'Carrinho vazio' : 'result';
 };
 
 const saveLocalStorage = () => {
@@ -121,6 +121,7 @@ function getIdByEventListener() {
     }
   });
 }
+
 const objectFilterElement = (productsDatas) => {
   const entries = Object.entries(productsDatas.results);
   entries.forEach((info) => {
