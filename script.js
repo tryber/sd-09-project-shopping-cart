@@ -75,15 +75,9 @@ function addList() {
   sectionItems.addEventListener('click', getId);
 }
 
-function removeItemList() {
-  const listCarts = document.querySelector('.cart__items');
-  listCarts.addEventListener('click', cartItemClickListener);
-}
-
   // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
-  removeItemList();
 };
