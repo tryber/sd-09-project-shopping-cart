@@ -31,6 +31,14 @@ function saveOnLocalStorage() {
   localStorage.setItem('carrinhoDeCompras', shoppingCart.innerHTML);
 }
 
+async function calculateTotalPrice() {
+  const totalPrice = document.querySelector('.total-price');
+  const shoppingCart = document.querySelectorAll('.cart__item');
+  let somatorio = 0;
+  shoppingCart.forEach(elemento => somatorio += Number(elemento.innerText.split('$')[1]));
+  totalPrice.innerText = somatorio;
+}
+
 function removeAllItemsCart() {
   const removeButton = document.querySelector('.empty-cart');
   removeButton.addEventListener('click', () => {
@@ -39,17 +47,6 @@ function removeAllItemsCart() {
     saveOnLocalStorage();
     calculateTotalPrice();
   });
-}
-
-
-async function calculateTotalPrice() {
-  const totalPrice = document.querySelector('.total-price');
-  const shoppingCart = document.querySelectorAll('.cart__item');
-  let somatorio = 0;
-  shoppingCart.forEach(elemento => {
-    somatorio += Number(elemento.innerText.split('$')[1]);
-  });
-  totalPrice.innerText = somatorio;
 }
 
 function cartItemClickListener(event) {
