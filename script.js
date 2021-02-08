@@ -41,7 +41,8 @@ async function setPrice(price) {
 }
 
 async function totalPrice(operator, price) {
-  const actualPrice = parseFloat(priceElement.textContent) || 0;
+  const priceElem = document.getElementsByClassName('total-price')[0];
+  const actualPrice = parseFloat(priceElem.textContent) || 0;
   if (operator === 'sum') {
     const total = actualPrice + parseFloat(price);
     const priceAC = `${total.toFixed(2)}`;
