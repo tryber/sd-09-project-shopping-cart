@@ -43,7 +43,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 const populateStorage = (name, value) => {
   localStorage[name] = value;
-}
+};
 
 const addToCart = async (event) => {
   const itemId = event.target.parentNode.firstChild.innerHTML;
@@ -90,7 +90,7 @@ const loadCartItemsFromStorage = () => {
     li.addEventListener('click', cartItemClickListener);
     document.querySelector('.cart__items').appendChild(li);
   });
-}
+};
 
 window.onload = function () {
   fetchProducts('computador');
