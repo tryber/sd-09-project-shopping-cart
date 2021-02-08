@@ -82,7 +82,6 @@ const fetchProducts = async (query) => {
 
 const loadCartItemsFromStorage = () => {
   const values = Object.values(localStorage);
-  console.log(values);
   return values.forEach((item) => {
     const li = document.createElement('li');
     li.className = 'cart__item';
