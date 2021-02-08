@@ -28,23 +28,10 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function setLocalStorage() {
-  const cartList = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cart', cartList);
-}
-
-function getLocalStorageToCart() {
-  const savedItens = localStorage.getItem('cart');
-  const savedCart = document.querySelector('.cart__items');
-  savedCart.innerHTML = savedItens;
-}
 
 function cartItemClickListener(event) {
-  const cart = document.querySelector('.cart__items');
-  cart.addEventListener(event, (cartItem) => {
-    cartItem.target.remove();
-    setLocalStorage();
-  });
+  event.target.remove();
+  setLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -55,81 +42,79 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function startLoading() {
-  const body = document.querySelector('body');
-  const p = document.createElement('p');
-  body.appendChild(p);
-  p.className = 'loading';
-  p.innerHTML = 'loading...';
+function setLocalStorage() {
+  const item = document.querySelector('.cart__items'); 
+  localStorage.setItem('cart', item.innerText);
 }
 
-function stopLoading() {
-  const pLoading = document.querySelector('.loading');
-  pLoading.remove();
+function getLocalStorageToCart() {
+  const savedItens = localStorage.getItem('cart');
+  const savedCart = document.querySelector('.cart__items');
+  savedCart.innerHTML = savedItens;
 }
 
-async function fetchApi() {
+function fecthApi(url) {
+  return fetch(url)
+    .then((response) => response.json());
+};
+
+function getItemsElements() {
   const createItemsList = document.querySelector('.items');
-  startLoading();
-  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
-    .then((response) => {
-      response.json()
-      .then((data) => {
-        data.results.map((item) => {
-          const items = {
-            sku: item.id,
-            name: item.title,
-            image: item.thumbnail,
-          };
-          const CreateItemElement = createProductItemElement(items);
-          return createItemsList.appendChild(CreateItemElement);
-        });
+  urlApi = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
+  fecthApi(urlApi)
+    .then((data) => {
+      data.results.forEach(item => {
+        const items = {
+          sku: item.id,
+          name: item.title,
+          image: item.thumbnail,
+        };
+        createItemsList.appendChild(createProductItemElement(items));
       });
     });
-  stopLoading();
 }
 
-function fetchItemById(itemId) {
+function getItemsById(itemId) {
   const cartItens = document.querySelector('.cart__items');
-  fetch(`https://api.mercadolibre.com/items/${itemId}`)
-    .then((response) => {
-      response.json()
-        .then((data) => {
-          const itemDetails = {
-            sku: data.id,
-            name: data.title,
-            salePrice: data.price,
-          };
-          return cartItens.appendChild(createCartItemElement(itemDetails));
-        });
+  urlById = `https://api.mercadolibre.com/items/${itemId}`;
+  fecthApi(urlById)
+    .then((data) => {
+      const itemDetails = {
+        sku: data.id,
+        name: data.title,
+        salePrice: data.price,
+      };
+      cartItens.appendChild(createCartItemElement(itemDetails));
+      setLocalStorage();
     });
 }
 
-function addItemToCart() {
-  const listItem = document.querySelector('.items');
-  listItem.addEventListener('click', async (element) => {
-    const idOnFocus = element.target.parentNode;
-    const itemId = getSkuFromProductItem(idOnFocus);
-    fetchItemById(itemId);
-    setLocalStorage();
-  });
-}
+function buttonAddClickListener() {
+  const listItems = document.querySelector('.items');
+  listItems.addEventListener('click', (element => {
+    if (element.target.className == 'item__add') {
+      const idOnFocus = element.target.parentNode;
+      const itemId = getSkuFromProductItem(idOnFocus);
+      getItemsById(itemId);
+    }
+  }));
+};
 
 function removeAllItems() {
+  const cartItens = document.querySelector('.cart__items');
   const emptyCart = document.querySelector('.empty-cart');
   emptyCart.addEventListener('click', () => {
     const list = document.querySelectorAll('li');
     list.forEach((element) => {
       element.remove();
     });
-    setLocalStorage();
   });
+  setLocalStorage();
 }
 
 window.onload = function onload() {
-  fetchApi();
-  addItemToCart();
-  cartItemClickListener('click');
+  getItemsElements();
   getLocalStorageToCart();
+  buttonAddClickListener();
   removeAllItems();
 };
