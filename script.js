@@ -1,3 +1,16 @@
+let somaTotal = 0;
+const priceTotal = document.querySelector('.total-price');
+
+const doSum = (arg) => {
+  console.log(arg);
+  const value = somaTotal += arg;
+  return value.toFixed(2);
+};
+
+const alimentElement = (content, element) => {
+  element.innerText = content;
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -34,6 +47,9 @@ function cartItemClickListener(event) {
   const target = event.target;
   console.log(target.id);
   localStorage.removeItem(target.id);
+  const value = (parseFloat(target.innerText.split('$')[1]) * -1);
+  doSum(value);
+  alimentElement(somaTotal, document.querySelector('.total-price'));
   target.remove();
 }
 
@@ -53,17 +69,16 @@ const addToCart = async (event) => {
   .then(obj => obj);
   const { id: sku, title: name, price: salePrice } = elementTarget;
   const element = createCartItemElement({ sku, name, salePrice });
-  localStorage.setItem(sku, name);
+  localStorage.setItem(sku, salePrice);
   element.id = sku;
   ol.appendChild(element);
-  console.log(document.querySelectorAll('.cart__item').length);
+  doSum(salePrice);
+  alimentElement(somaTotal, document.querySelector('.total-price'));
 };
 
 const putLoading = () => {
   const itens = document.getElementsByClassName('items');
   const element = document.createElement('section');
-  console.log(itens);
-  console.log(element);
   element.classList.add('loading');
   element.innerText = 'loading';
   itens[0].appendChild(element);
@@ -98,6 +113,8 @@ const clearCart = () => {
       elementsToDelete.forEach((element) => {
         localStorage.clear();
         element.remove();
+        somaTotal = 0;
+        alimentElement(somaTotal, document.querySelector('.total-price'));
       });
     }
   });
@@ -114,8 +131,12 @@ const getPromise = (position) => {
     const { id: sku, title: name, price: salePrice } = response;
     const element = createCartItemElement({ sku, name, salePrice });
     element.id = sku;
+    doSum(salePrice);
+    console.log(somaTotal);
     ol.appendChild(element);
+    alimentElement(somaTotal, document.querySelector('.total-price'));
   });
+  console.log(document.querySelector('.total-price'));
   return ol;
 };
 
