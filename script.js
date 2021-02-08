@@ -116,10 +116,24 @@ function clearCartItems() {
   });
 }
 
+function msgLoading(onOff) {
+  const items = document.querySelector('.items');
+  if (onOff === 'on') {
+    const loading = createCustomElement('span', 'loading', 'loading...');
+    items.appendChild(loading);
+  } else {
+    items.innerHTML = '';
+  }
+}
+
 // Inicia as funções após o carregamento da página
 window.onload = function onload() {
-  dataMercadoLivre('computador');
-  getItemsStorage();
+  msgLoading('on');
+  setTimeout(() => {
+    msgLoading('off');
+    dataMercadoLivre('computador');
+    getItemsStorage();
+  }, 500);
   totalPrice();
   clearCartItems();
 };
