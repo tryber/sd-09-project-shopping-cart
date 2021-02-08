@@ -81,7 +81,7 @@ function clearShoppingBasket() {
 
 function buildListFetch() {
   const product = 'computador';
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
     .then((object) => {
