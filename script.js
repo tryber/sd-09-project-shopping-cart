@@ -69,9 +69,6 @@ const fetchProductByID = (id) => {
   .then((productData) => {
     const { id: sku, title: name } = productData;
     let { rice: salePrice } = productData;
-    if (sku === 'MLB687124927') {
-      salePrice += salePrice + 1;
-    }
     const productParameter = { sku, name, salePrice };
     const productElement = createCartItemElement(productParameter);
     const cartList = document.querySelector('.cart__items');
