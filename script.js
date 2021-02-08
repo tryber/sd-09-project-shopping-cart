@@ -161,13 +161,13 @@ const getfetchProductsResult = ({ results }) => {
 const addLoading = () => {
   const body = document.querySelector('body');
   const p = document.createElement('p');
-  p.id = 'loading';
+  p.className = 'loading';
   p.innerText = 'loading...';
   body.appendChild(p);
 };
 
 const removeLoading = () => {
-  const loading = document.querySelector('#loading');
+  const loading = document.querySelector('.loading');
   loadingParent = loading.parentNode;
   loadingParent.removeChild(loading);
 };
