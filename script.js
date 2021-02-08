@@ -1,7 +1,3 @@
-window.onload = function onload() {
-  fetchQuery('computador');
- };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -49,15 +45,19 @@ function fetchQuery(query) {
 
   fetch(endpoint)
     .then(response => response.json())
-    .then(object => {
-      object.results.forEach(result => {
+    .then((object) => {
+      object.results.forEach((result) => {
         const { id, title, thumbnail } = result;
         const itemParams = {
-          sku:id,
-          name:title,
-          image:thumbnail,
+          sku: id,
+          name: title,
+          image: thumbnail,
         };
         document.querySelector('.items').appendChild(createProductItemElement(itemParams));
       });
     });
 }
+
+window.onload = function onload() {
+  fetchQuery('computador');
+};
