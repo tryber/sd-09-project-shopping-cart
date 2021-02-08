@@ -34,8 +34,8 @@ async function cartItemClickListener(event) {
   const cart = document.getElementsByClassName('cart__items')[0];
   let myCart = localStorage.getItem('myCart');
   const myCartJson = JSON.parse(myCart);
-  const newArray = await myCartJson.products.filter(product => product !== `${event.target.textContent}`);
-  myCartJson.products = newArray;
+  const newArray = await myCartJson.filter(product => product !== `${event.target.textContent}`);
+  myCartJson = newArray;
   const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
   cart.removeChild(event.target);
@@ -72,9 +72,9 @@ async function addItemsToCart(sku, name, container) {
   const myCart = localStorage.getItem('myCart');
   const myCartJson = JSON.parse(myCart);
   if (myCartJson.products === '') {
-    myCart.products = [];
+    myCart = [];
   }
-  myCartJson.products.push(item.textContent);
+  myCartJson.push(item.textContent);
   const MyCartString = JSON.stringify(myCartJson);
   localStorage.setItem('myCart', MyCartString);
 }
@@ -119,9 +119,7 @@ async function LoadCartFromLocalStorage() {
 }
 
 window.onload = async function onload() {
-  const myCart = {
-    products: '',
-  };
+  const myCart = '';
   myCartString = JSON.stringify(myCart);
   const verifycCart = localStorage.getItem('myCart');
   if (!verifycCart) {
