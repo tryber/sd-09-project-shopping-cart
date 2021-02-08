@@ -15,12 +15,10 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
-
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
@@ -39,11 +37,25 @@ function removeAllItemsCart() {
     const ol = document.querySelector('.cart__items');
     ol.innerHTML = '';
     saveOnLocalStorage();
+    calculateTotalPrice();
   });
+}
+
+
+async function calculateTotalPrice() {
+  const totalPrice = document.querySelector('.total-price');
+  const shoppingCart = document.querySelectorAll('.cart__item');
+  let somatorio = 0;
+  shoppingCart.forEach(elemento => {
+    somatorio += Number(elemento.innerText.split('$')[1]);
+  });
+  totalPrice.innerText = somatorio;
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
+  calculateTotalPrice();
+  saveOnLocalStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -68,6 +80,7 @@ async function clickToAddButton() {
         const objectItem = createCartItemElement({ sku, name, salePrice });
         itemList.appendChild(objectItem);
         saveOnLocalStorage();
+        calculateTotalPrice();
       }));
 }
 
@@ -97,7 +110,9 @@ function recoverTheLocaStorage() {
   shoppingCart.innerHTML = localStorage.getItem('carrinhoDeCompras');
   const recoveryLi = document.querySelectorAll('.cart__item');
   recoveryLi.forEach(item => item.addEventListener('click', cartItemClickListener));
+  calculateTotalPrice();
 }
+
 
 window.onload = function onload() {
   fetchAPIMercadoLivre('computador');
