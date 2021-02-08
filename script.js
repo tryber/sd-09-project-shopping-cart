@@ -38,9 +38,7 @@ async function totalPrice() {
   for (let index = 0; index < item.length; index += 1) {
     calc += parseFloat(item[index].innerText.split('$')[1]);
   }
-  const valueResult = Math.fround(calc).toFixed(2);
-  const result = `Valor à pagar: $ <strong>${valueResult}</strong>`;
-  calcResult.innerHTML = result;
+  calcResult.innerHTML = calc;
 }
 
 // Retira item do carrinho de compras ao clicar

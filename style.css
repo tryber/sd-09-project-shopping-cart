@@ -56,6 +56,11 @@
   justify-content: center;
 }
 
+.price {
+  text-align: center;
+  font-size: 18px;
+}
+
 .top-bar {
   align-items: center;
   display: flex;
@@ -77,6 +82,7 @@
 
 .total-price {
   font-size: 20px;
+  font-weight: 600;
   margin: 10px;
   text-align: center;
 }
