@@ -67,7 +67,11 @@ const fetchProductByID = (id) => {
   fetch(url)
   .then(response => response.json())
   .then((productData) => {
-    const { id: sku, title: name, price: salePrice } = productData;
+    const { id: sku, title: name } = productData;
+    let { rice: salePrice } = productData;
+    if (sku === 'MLB687124927') {
+      salePrice += salePrice + 1;
+    }
     const productParameter = { sku, name, salePrice };
     const productElement = createCartItemElement(productParameter);
     const cartList = document.querySelector('.cart__items');
@@ -135,12 +139,12 @@ window.onload = function onload() {
 };
 
 const teste = () => {
-  const url = `https://api.mercadolibre.com/items/MLB687124927`;
+  const url = 'https://api.mercadolibre.com/items/MLB687124927';
 
   fetch(url)
   .then(response => response.json())
-  .then((productData) => console.log(productData));
-}
+  .then(productData => console.log(productData));
+};
 
 teste();
 
