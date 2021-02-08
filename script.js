@@ -113,8 +113,8 @@ function stopLoadingInformation() {
 
 async function loadCartFromLocalStorage() {
   const storage = JSON.parse(localStorage.getItem('CartList'));
-  console.log(storage.length)
-  for(let index = 0; index < storage.length; index += 1){
+  console.log(storage.length);
+  for (let index = 0; index < storage.length; index += 1) {
     await fetchProductByID(storage[index]);
   }
 }
