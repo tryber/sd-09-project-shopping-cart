@@ -7,13 +7,15 @@ function buttonClear() {
   });
 }
 
-function cartItemClickListener(event) {
-  //
-}
 
 function localStorag() {
   const cartShop = document.querySelector('.cart__items');
   localStorage.setItem('cartShop', cartShop.innerHTML);
+}
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  localStorag();
 }
 
 function retrieveStorage() {
