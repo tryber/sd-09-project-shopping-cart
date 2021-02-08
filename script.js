@@ -45,8 +45,11 @@ function createCartItemElement({ sku, name, salePrice }) {
 function addProductShopping(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   return new Promise((resolve, reject) => {
-    const loadingMessage = document.querySelector('.loading');
+    const loadingMessage = document.createElement('p');
+    const container = document.querySelector('.container');
     loadingMessage.innerText = 'Loading...';
+    loadingMessage.className = 'loading';
+    container.appendChild(loadingMessage);
     fetch(endpoint)
       .then(response => response.json())
       .then((object) => {
@@ -59,8 +62,9 @@ function addProductShopping(itemId) {
         localStorage.setItem(`${cont}`, element.innerHTML);
         cont += 1;
         shoppingBasket.appendChild(element);
+        loadingMessage.remove();
         resolve();
-        loadingMessage.innerText = '';
+        
       })
       .catch((error) => {
         window.alert(error);
@@ -82,8 +86,11 @@ function clearShoppingBasket() {
 function buildListFetch() {
   const product = 'computador';
   return new Promise((resolve) => {
-    const loadingMessage = document.querySelector('.loading');
+    const loadingMessage = document.createElement('p');
+    const container = document.querySelector('.container');
     loadingMessage.innerText = 'Loading...';
+    loadingMessage.className = 'loading';
+    container.appendChild(loadingMessage);
     fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`)
     .then(response => response.json())
     .then((object) => {
@@ -98,7 +105,7 @@ function buildListFetch() {
         list.appendChild(element);
         button.addEventListener('click', () => addProductShopping(sku));
         resolve();
-        loadingMessage.innerText = '';
+        loadingMessage.remove();
       });
     });
   });
