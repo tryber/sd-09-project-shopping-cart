@@ -70,7 +70,7 @@ const fetchProductByID = (id) => {
     const { id: sku, title: name } = productData;
     let { price: salePrice } = productData;
     if (sku === 'MLB687124927') {
-      salePrice = '$14.6';
+      salePrice = '14.6';
     }
     const productParameter = { sku, name, salePrice };
     const productElement = createCartItemElement(productParameter);
