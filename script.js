@@ -30,10 +30,10 @@ function getSkuFromProductItem(item) {
 
 let pricesArray = [];
 
-async function totalPrice(prices){
+async function totalPrice(prices) {
   const sumPrices = prices.reduce((total, price) => {
-    return Math.round((Math.round(total * 100) / 100
-    + Math.round(price * 100) / 100) * 100) / 100;
+    return Math.round(((Math.round(total * 100) / 100)
+    + (Math.round(price * 100) / 100)) * 100) / 100;
   }, 0);
   document.querySelector('.total-price').innerText = `Preço total: $${sumPrices}`;
 }
@@ -46,7 +46,7 @@ function cartItemClickListener(event) {
   event.target.remove();
   totalPrice(pricesArray);
   localStorage.setItem('savedCartList', cartItemsList.innerHTML);
-  localStorage.setItem('pricesList', pricesArray);
+  localStorage.setItem('pricesList', JSON.stringify(pricesArray));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -100,7 +100,7 @@ function addToCartButtons() {
           pricesArray.push(price);
           totalPrice(pricesArray);
           localStorage.setItem('savedCartList', cartList.innerHTML);
-          localStorage.setItem('pricesList', pricesArray);
+          localStorage.setItem('pricesList', JSON.stringify(pricesArray));
         });
     });
   });
@@ -111,15 +111,18 @@ function checkLocalStorage() {
   if (listCheck) {
     document.querySelector('.cart__items').innerHTML = listCheck;
   }
-  const pricesCheck = localStorage.getItem('pricesList');
+  const pricesCheck = JSON.parse(localStorage.getItem('pricesList'));
   if (pricesCheck) {
     pricesArray = pricesCheck;
   }
 }
 
 window.onload = function onload() {
-  // fetchQuery('computador');
-  checkLocalStorage();
   fetchQuery('computador');
+  pricesArray = [];
+  checkLocalStorage();
+  totalPrice(pricesArray);
+  // fetchQuery('computador');
   addToCartButtons();
+  cartListListeners();
 };
