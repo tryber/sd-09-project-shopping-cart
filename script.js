@@ -83,8 +83,8 @@ function loading() {
 }
 
 function stopLoad() {
-  const loading = document.querySelector('.loading');
-  loading.remove();
+  const load = document.querySelector('.loading');
+  load.remove();
 }
 
 //  recupera elementos API
