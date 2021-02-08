@@ -1,6 +1,11 @@
 const loadingMessage = () => {
   const localOfMessage = document.querySelector('.items');
-  localOfMessage.innerText = 'loading...';
+
+  const message = document.createElement('p');
+  message.classList.add('loading');
+  message.innerText = 'loading...';
+
+  localOfMessage.appendChild(message);
 };
 
 function cartItemClickListener(event) {
