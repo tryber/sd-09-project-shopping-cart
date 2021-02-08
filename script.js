@@ -71,8 +71,8 @@ async function addItemsToCart(sku, name, container) {
   cart.appendChild(item);
   const myCart = localStorage.getItem('myCart');
   const myCartJson = JSON.parse(myCart);
-  if (myCartJson.products === '') {
-    myCart = [];
+  if (myCartJson === '') {
+    myCartJson = [];
   }
   myCartJson.push(item.textContent);
   const MyCartString = JSON.stringify(myCartJson);
@@ -120,7 +120,7 @@ async function LoadCartFromLocalStorage() {
 
 window.onload = async function onload() {
   const myCart = '';
-  myCartString = JSON.stringify(myCart);
+  const myCartString = JSON.stringify(myCart);
   const verifycCart = localStorage.getItem('myCart');
   if (!verifycCart) {
     localStorage.setItem('myCart', myCartString);
