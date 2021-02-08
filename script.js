@@ -44,7 +44,7 @@ function AddItemToCart() {
   const productItem = document.querySelectorAll('.item__add');
   productItem.forEach((item) => {
     item.addEventListener('click', async function (event) {
-      const productSku = document.querySelector('.item__sku').innerText;
+      const productSku = ((event.target).parentNode).firstChild.innerText;
       endpoints = `https://api.mercadolibre.com/items/${productSku}`;
       const responseApiSku = await fetch(endpoints);
       const responseApiJson = await responseApiSku.json();
