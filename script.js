@@ -28,10 +28,21 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// My Function
+// My Functions
+async function calculateTotalCost() {
+  const cartItems = document.querySelectorAll('li.cart__item');
+  const totalCost = Array.from(cartItems).reduce((total, cartItem) => {
+    const priceIndex = cartItem.innerText.lastIndexOf('PRICE: ') + 8;
+    return (total + Number(cartItem.innerText.substr(priceIndex)));
+  }, 0).toFixed(2);
+
+  const totalPriceSpan = document.querySelector('span.total-price');
+  totalPriceSpan.innerText = `Total a pagar: R$${totalCost}`;
+}
+
 function updateCartListStorage(cartList) {
   localStorage.setItem('savedItems', cartList.innerHTML);
-  calculateTotalCost()
+  calculateTotalCost();
 }
 
 // Project Functions
@@ -101,17 +112,6 @@ async function generateProductList() {
 
   const clearCartButton = document.querySelector('button.empty-cart');
   clearCartButton.addEventListener('click', clearCartEvent);
-}
-
-async function calculateTotalCost() {
-  const cartItems = document.querySelectorAll('li.cart__item');
-  const totalCost = Array.from(cartItems).reduce((total, cartItem) => {
-    const priceIndex = cartItem.innerText.lastIndexOf('PRICE: ') + 8;
-    return (total + Number(cartItem.innerText.substr(priceIndex)));
-  }, 0).toFixed(2);
-
-  const totalPriceSpan = document.querySelector('span.total-price');
-  totalPriceSpan.innerText = `Total a pagar: R$${totalCost}`;
 }
 
 function loadCart() {
