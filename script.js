@@ -28,13 +28,13 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+const removeFromStorage = (event) => {
+  localStorage.removeItem(/SKU: (MLB\d{10}) .*/.exec(event.target.innerText)[1]);
+};
+
 function cartItemClickListener(event) {
   event.target.remove();
   removeFromStorage(event);
-}
-
-const removeFromStorage = (event) => {
-  localStorage.removeItem(/SKU: (MLB\d{10}) .*/.exec(event.target.innerText)[1]);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
