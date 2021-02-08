@@ -94,11 +94,12 @@ const loadCartItemsFromStorage = () => {
 function clearCart() {
   const items = document.querySelectorAll('.cart__item');
   const cartItems = document.querySelector('.cart__items');
-  for (item of items) {
+  items.forEach((item) => {
     cartItems.removeChild(item);
     localStorage.removeItem(localStorage.key(item));
-  }
+  });
 }
+
 
 window.onload = function () {
   fetchProducts('computador');
