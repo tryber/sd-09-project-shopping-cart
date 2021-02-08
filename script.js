@@ -44,10 +44,10 @@ async function mercadoLivreResults(term) {
   const results = obj.results;
   const itemsElement = document.querySelector('.items');
   results.forEach((result) => {
-   const { id: sku, title: name, thumbnail: image } = result;
-   const element = createProductItemElement({ sku, name, image });
+    const { id: sku, title: name, thumbnail: image } = result;
+    const element = createProductItemElement({ sku, name, image });
     itemsElement.appendChild(element);
- });
+  });
 }
 
 function createCartListItem(itemList) {
