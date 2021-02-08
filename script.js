@@ -30,16 +30,27 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+async function setPrice (element, price) {
+  const check = price.split('.');
+  if (check[1] == '00') {
+    element.innerHTML = check[0];
+    return;
+  }
+  element.innerHTML = price;
+}
+
 async function totalPrice(operator, price) {
   const priceElement = document.getElementsByClassName('total-price')[0];
   const actualPrice = parseFloat(priceElement.textContent) || 0;
   if (operator === 'sum') {
     const total = actualPrice + parseFloat(price);
-    priceElement.innerHTML = `${total.toFixed(0)}`;
+    const priceAC = `${total.toFixed(2)}`;
+    await setPrice(priceElement, priceAC);
     return;
   }
   const total = actualPrice - parseFloat(price);
-  priceElement.innerHTML = `${total.toFixed(0)}`;
+  const priceAC = `${total.toFixed(2)}`;
+  await setPrice(priceElement, priceAC);
 }
 
 async function cartItemClickListener(event) {
