@@ -30,6 +30,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function cartItemClickListener(event) {
+  document.querySelector('.cart__items').removeChild(event.target);
+  const itemToRemoveSku = event.target.innerText.split(' ')[1];
+  localStorageCart = localStorageCart.filter(cartItem => cartItem.sku !== itemToRemoveSku);
+  localStorage.setItem('MLCartItems', JSON.stringify(localStorageCart));
+  getOrderPrice();
+}
+
 function carregaLoading() {
   sectionSpan = document.querySelector('.cart');
   spanLoading = document.createElement('span');
