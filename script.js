@@ -33,15 +33,15 @@ async function totalCart() {
   let totalCartItems = 0;
 
   try {
-    cart.forEach(item => {
+    cart.forEach((item) => {
       totalCartItems += Number(item.innerText.split('$')[1]);
     });
-  } catch(error) {
+  } catch (error) {
     console.log('O resultado não pôde sere obtido.');
   }
 
   return totalCartItems.toFixed(2);
-};
+}
 
 async function showTotalCart() {
   const totalPrice = document.querySelector('.total-price');
