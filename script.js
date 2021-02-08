@@ -3,6 +3,16 @@ function setShoppingCar() {
   localStorage.setItem('cartSaved', shoppingCart);
 }
 
+function sumPrince() {
+  let result = 0;
+  const totalPrice = document.querySelector('.total-price');
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach((element) => {
+    result += Number(element.innerText.split('$')[1]);
+  });
+  totalPrice.innerText = result;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -37,6 +47,7 @@ function cartItemClickListener(event) {
   const fatherItem = document.querySelector('.cart__items');
   fatherItem.removeChild(event.target);
   setShoppingCar();
+  sumPrince();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -57,32 +68,34 @@ function btnShoppingCar() {
       fetch(endpoint)
       .then((response) => {
         response.json()
-          .then((data) => {
-            const sku = data.id;
-            const name = data.title;
-            const salePrice = data.price;
-            const cartItemElement = createCartItemElement({ sku, name, salePrice });
-            cartItems.appendChild(cartItemElement);
-            setShoppingCar();
-          });
+        .then((data) => {
+          const { id: sku, title: name, price: salePrice } = data;
+          const cartItemElement = createCartItemElement({ sku, name, salePrice });
+          cartItems.appendChild(cartItemElement);
+          setShoppingCar();
+          sumPrince();
+          // addPrice(salePrice);
+        });
       });
     });
   });
 }
+
+
 function fetchMercadoLivre(term) {
   const itemElement = document.querySelector('.items');
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   fetch(endpoint)
-    .then((response) => {
-      response.json()
-        .then((data) => {
-          data.results.forEach((element) => {
-            const { id: sku, title: name, thumbnail: image } = element;
-            itemElement.appendChild(createProductItemElement({ sku, name, image }));
-          });
-          btnShoppingCar();
-        });
+  .then((response) => {
+    response.json()
+    .then((data) => {
+      data.results.forEach((element) => {
+        const { id: sku, title: name, thumbnail: image } = element;
+        itemElement.appendChild(createProductItemElement({ sku, name, image }));
+      });
+      btnShoppingCar();
     });
+  });
 }
 
 function getItem() {
@@ -97,11 +110,23 @@ function cleanCart() {
   const ol = document.querySelector('.cart__items');
   btnClean.addEventListener('click', () => {
     ol.innerHTML = '';
+    setShoppingCar();
+    sumPrince();
   });
 }
+
+/* function addPrice(salePrice) {
+  console.log(salePrice);
+  const itemResult = document.querySelector('.total-price');
+  let result = 0;
+  result += salePrice;
+  itemResult.innerText = `R$: ${result}`
+} */
+
 
 window.onload = function onload() {
   fetchMercadoLivre('computador');
   getItem();
   cleanCart();
+  sumPrince();
 };
