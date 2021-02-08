@@ -28,7 +28,7 @@ function cartItemClickListener() {
   const cartList = document.querySelector('.cart__items');
   cartList.addEventListener('click', (event) => {
     event.target.remove();
-  })
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
