@@ -1,5 +1,15 @@
 let localStorageCart = [];
 
+async function getOrderPrice() {
+  const orderPrice = document.querySelector('.total-price');
+  orderPrice.innerText = 0;
+  document.querySelector('.cart').appendChild(orderPrice);
+  const cartItems = JSON.parse(localStorage.getItem('MLCartItems'));
+  const finalPrice = cartItems.reduce((acc, curr) => acc + curr.salePrice, 0);
+  console.log(finalPrice);
+  orderPrice.innerText = finalPrice;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -77,6 +87,32 @@ function clearCart() {
   getOrderPrice();
 }
 
+function cartItemClickListener(event) {
+  document.querySelector('.cart__items').removeChild(event.target);
+  const itemToRemoveSku = event.target.innerText.split(' ')[1];
+  localStorageCart = localStorageCart.filter(cartItem => cartItem.sku !== itemToRemoveSku);
+  localStorage.setItem('MLCartItems', JSON.stringify(localStorageCart));
+  getOrderPrice();
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+function saveLocalStorage() {
+  const customerCart = document.querySelector('.cart__items');
+  const retrievedLocalStorage = JSON.parse(localStorage.getItem('MLCartItems'));
+  if (retrievedLocalStorage === null) {
+    localStorage.setItem('MLCartItems', JSON.stringify([]));
+  } else {
+    retrievedLocalStorage.forEach(item => customerCart.appendChild(createCartItemElement(item)));
+  }
+}
+
 async function retriveMercadoLivreResults(term) {
   carregaLoading();
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
@@ -102,9 +138,6 @@ async function retriveMercadoLivreResults(term) {
 window.onload = function onload() {
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
   retriveMercadoLivreResults('computador');
+  saveLocalStorage();
+
 };
-
-
-function cartItemClickListener(event) {
-  // coloque seu código aqui
-}
