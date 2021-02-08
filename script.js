@@ -106,9 +106,20 @@ async function dataMercadoLivre(term) {
   dataItems();
 }
 
+function clearCartItems() {
+  const cart = document.querySelector('.cart__items');
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', () => {
+    cart.innerHTML = '';
+    localStorage.clear();
+    totalPrice();
+  });
+}
+
 // Inicia as funções após o carregamento da página
 window.onload = function onload() {
   dataMercadoLivre('computador');
   getItemsStorage();
   totalPrice();
+  clearCartItems();
 };
