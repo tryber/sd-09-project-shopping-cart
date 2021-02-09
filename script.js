@@ -36,10 +36,10 @@ function setLocalStorage() {
 function getLocalStorageToCart() {
   const savedItens = localStorage.getItem('cart');
   const cart = document.querySelector('.cart__items');
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = savedItens;
-  cart.appendChild(li);
+  const p = document.createElement('p');
+  p.className = 'cart__item';
+  p.innerText = savedItens;
+  cart.appendChild(p);
 }
 
 function startLoading() {
