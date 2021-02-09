@@ -51,7 +51,6 @@ function addCart() {
     cartList.appendChild(item);
     localStorage.setItem('productList', cartList.innerHTML);
   }));
-  
 }
 
 async function retriveItems(term) {
@@ -99,11 +98,11 @@ function loading() {
 function soma() {
   const list = document.querySelectorAll('.cart__items li');
   let total = 0;
-  list.forEach(item => {
-    total += parseInt(item.innerText.split('$')[1]);
+  list.forEach((item) => {
+    total += parseInt(item.innerText.split('$')[1], 10);
   });
 
-  const elementNode = document.querySelector('.cart__items');
+  const elementNode = document.querySelector('.cart');
   const calcElement = document.createElement('p');
   calcElement.innerText = `Total: $${total}`;
   elementNode.appendChild(calcElement);
@@ -114,4 +113,5 @@ window.onload = function onload() {
   cartStorage();
   retriveItems('computador');
   clearBtn();
+  soma();
 };
