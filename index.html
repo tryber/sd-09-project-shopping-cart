@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cart Shopping</title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
 
   <body>
+    <header class="header-content">
+      <section class="logo-content">
+        <img src="img-1.png" class="img-header">
+        <p>Carrinho de compras</p>
+      </section>
+      <section class="search-container">
+        <input class="text-input" type="text" placeholder="Search.." name="search">
+        <button class="button-search">
+          <i class="icon-search"></i>
+        </button>
+      </section>
+
+    </header>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
-        <button class="empty-cart">Esvaziar carrinho</button>
+        <section class="items-content">
+          <button class="empty-cart">Esvaziar carrinho</button>
+          <p class="price">Total: <span class="total-price"></span></p>
+        </section>
         <ol class="cart__items"></ol>
       </section>
     </section>
