@@ -6,7 +6,7 @@ function totalPrice() {
     const location = element.innerText.search(regex);
     value += parseFloat(element.innerText.substr(location + 1));
   });
-  document.querySelector('.total-price').innerText = `Total Price: ${value}`;
+  document.querySelector('.total-price').innerText = value;
 }
 
 function cartStorage() {
@@ -44,6 +44,12 @@ function loadStorage() {
   totalPrice();
 }
 
+async function initialPrice(price) {
+  let value = parseFloat(document.querySelector('.total-price').innerText);
+  value += price;
+  document.querySelector('.total-price').innerText = value;
+}
+
 const btnAddItem = async (event) => {
   const product = event.target.parentNode.firstChild.innerText;
   try {
@@ -54,11 +60,11 @@ const btnAddItem = async (event) => {
         const objectLi = createCartItemElement(object);
         document.querySelector('.cart__items').appendChild(objectLi);
         cartStorage();
-        totalPrice();
+        initialPrice(object.price);
       });
     });
-  } catch (error) {
-    alert('Não foi possível recarregar os items. Por favor tente novamente mais tarde');
+  } catch (erro) {
+    alert('Erro ao iniciar o carrinho. Tente novamente mais tarde');
   }
 };
 
