@@ -35,8 +35,11 @@ function setLocalStorage() {
 
 function getLocalStorageToCart() {
   const savedItens = localStorage.getItem('cart');
-  const savedCart = document.querySelector('.cart__items');
-  savedCart.innerHTML = savedItens;
+  const cart = document.querySelector('.cart__items');
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = savedItens;
+  cart.appendChild(li);
 }
 
 function startLoading() {
