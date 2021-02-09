@@ -37,8 +37,15 @@ p {
 }
 
 .cart__item {
+  border-radius: 3px;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.cart__item:hover {
   border: 1px solid white;
   border-radius: 3px;
+  box-shadow: 0 0 20px rgb(9, 80, 66);
   margin: 10px 0;
   padding: 10px;
 }
@@ -90,10 +97,6 @@ p {
   font-size: 24px;
 }
 
-.search-container button:hover {
-  background: rgb( 250, 250, 250 );
-}
-
 .icon-search:hover {
   color: black;
 }
@@ -125,7 +128,19 @@ p {
 
 .item {
   background-color: white;
-  box-shadow: 0 0 6px rgb( 26, 188, 156 );
+  box-shadow: 0 0 0 rgb( 26, 188, 156 );
+  border-radius: 3px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: 5px;
+  width: 200px;
+}
+
+.item:hover {
+  background-color: white;
+  box-shadow: 0 0 20px rgb(19, 139, 115);
   border-radius: 3px;
   box-sizing: border-box;
   display: flex;
