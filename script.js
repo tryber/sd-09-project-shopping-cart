@@ -24,11 +24,10 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function cartItemClickListener() {
+function cartItemClickListener(event) {
   const cartList = document.querySelector('.cart__items');
-  cartList.addEventListener('click', (event) => {
-    event.target.remove();
-  });
+  event.target.remove();
+  localStorage.setItem('productList', cartList.innerHTML);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -42,17 +41,18 @@ function createCartItemElement({ sku, name, salePrice }) {
 function addCart() {
   const addButton = document.querySelectorAll('.item__add');
   addButton.forEach(btn => btn.addEventListener('click', async () => {
-    const skuSelected = btn.parentNode.querySelector('.item__sku').innerText;
-    const endPoint = `https://api.mercadolibre.com/items/${skuSelected}`;
+    const productId = btn.parentNode.querySelector('.item__sku').innerText;
+    const endPoint = `https://api.mercadolibre.com/items/${productId}`;
     const response = await fetch(endPoint);
     const object = await response.json();
-    const objectInf = { sku: object.id, name: object.title, salePrice: object.price };
+    const objInfo = { sku: object.id, name: object.title, salePrice: object.price };
     const cartList = document.querySelector('.cart__items');
-    cartList.appendChild(createCartItemElement(objectInf));
+    const item = createCartItemElement(objInfo);
+    cartList.appendChild(item);
+    localStorage.setItem('productList', cartList.innerHTML);
   }));
 }
 
-// requisito 1
 async function retriveItems(term) {
   const endPoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   const response = await fetch(endPoint);
@@ -71,6 +71,14 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function cartStorage() {
+  let itemsInCar = localStorage.getItem('productList');
+  document.querySelector('.cart__items').innerHTML = itemsInCar;
+  const list = document.querySelectorAll('ol li');
+  list.forEach(li => li.addEventListener('click', cartItemClickListener));
+}
+
 window.onload = function onload() {
+  cartStorage();
   retriveItems('computador');
 };
