@@ -5,11 +5,7 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-const buttonCleaner = document.querySelector('.empty-cart');
-buttonCleaner.addEventListener('click', () => {
-  const Cart = document.querySelector('.cart__items');
-  Cart.innerHTML = '';
-});
+// Remover o item clicado do carrinho
 
 function cartItemClickListener(event) {
   event.currentTarget.remove();
@@ -79,6 +75,13 @@ async function fetchListItem() {
   const section = getButton.parentNode.querySelector('.item__sku');
   console.log(section);
 }
+
+// Botão para limpar carrinho
+const buttonCleaner = document.querySelector('.empty-cart');
+buttonCleaner.addEventListener('click', () => {
+  const Cart = document.querySelector('.cart__items');
+  Cart.innerHTML = '';
+});
 
 console.log(fetchListItem());
 
