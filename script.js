@@ -77,8 +77,8 @@ function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
   const responseJSON = response.then(res => res.json());
 
-  responseJSON.then((res) =>
-    (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item)))
+  responseJSON.then(res =>
+    (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item))),
   ).then(() => addAttributesScripts());
 }
 
