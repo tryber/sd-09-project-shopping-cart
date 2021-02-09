@@ -6,8 +6,8 @@ function createProductImageElement(imageSource) {
 }
 
 let total = 0;
-const section = document.querySelector('.cart');
-section.appendChild(createCustomElement('p', 'totalCartValue', `Total: R$${total}`));
+const sectionCart = document.querySelector('.cart');
+sectionCart.appendChild(createCustomElement('p', 'totalCartValue', `Total: R$${total}`));
 
 function sum(value) {
   const p = document.querySelector('.totalCartValue');
@@ -20,7 +20,7 @@ function sum(value) {
 
 function saveOnLocalStorage({ sku, name, salePrice }) {
   const item = { sku, name, salePrice };
-  localStorage.setItem(sku, item);
+  localStorage.setItem(sku, JSON.stringify(item));
   sum(salePrice);
 }
 
@@ -115,7 +115,7 @@ buttonCleaner.addEventListener('click', () => {
 });
 
 window.onload = function loadFromLocalStorage() {
-  localStorage.forEach((key) => (fetchCartItem(key)));
+  localStorage.forEach((key) => fetchCartItem(key));
 };
 
 console.log(fetchListItem());
