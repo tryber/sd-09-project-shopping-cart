@@ -89,25 +89,25 @@ function fetchProductDetail(productId) {
     .then(response => response.json());
 }
 
-function addProductToCart(sku) {
-  return fetchProductDetail(sku)
-    .then((product) => {
-      const productCartItem = createCartItemElement({
-        sku: product.id,
-        name: product.title,
-        salePrice: product.price,
-      });
-      const cartList = document.querySelector('ol.cart__items');
-      cartList.appendChild(productCartItem);
-    });
+function addProductToCart(product) {
+  const productCartItem = createCartItemElement({
+    sku: product.id,
+    name: product.title,
+    salePrice: product.price,
+  });
+  const cartList = document.querySelector('ol.cart__items');
+  cartList.appendChild(productCartItem);
 }
 
 function addButtonEventListener(itemElement) {
   const button = itemElement.querySelector('.item__add');
   const sku = getSkuFromProductItem(itemElement);
   button.addEventListener('click', () => {
-    addProductToCart(sku);
-    addItemToLocalStorage({ sku });
+    fetchProductDetail(sku)
+      .then((product) => {
+        addProductToCart(product);
+        addItemToLocalStorage({ sku });
+      });
   });
 }
 
@@ -129,7 +129,8 @@ function initializeProductList() {
 
 function loadItemsToCart() {
   const items = loadItemsFromLocalStorage();
-  items.forEach(item => addProductToCart(item.sku));
+  Promise.all(items.map(item => fetchProductDetail(item.sku)))
+    .then(products => products.forEach(addProductToCart));
 }
 
 window.onload = function onload() {
