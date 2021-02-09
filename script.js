@@ -44,19 +44,23 @@ function loadStorage() {
   totalPrice();
 }
 
-function btnAddItem(event) {
+const btnAddItem = async (event) => {
   const product = event.target.parentNode.firstChild.innerText;
-  fetch(`https://api.mercadolibre.com/items/${product}`)
-  .then((response) => {
-    response.json()
-    .then((object) => {
-      const objectLi = createCartItemElement(object);
-      document.querySelector('.cart__items').appendChild(objectLi);
-      cartStorage();
-      totalPrice();
+  try {
+    await fetch(`https://api.mercadolibre.com/items/${product}`)
+    .then((response) => {
+      response.json()
+      .then((object) => {
+        const objectLi = createCartItemElement(object);
+        document.querySelector('.cart__items').appendChild(objectLi);
+        cartStorage();
+        totalPrice();
+      });
     });
-  });
-}
+  } catch (error) {
+    alert('Não foi possível recarregar os items. Por favor tente novamente mais tarde');
+  }
+};
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
