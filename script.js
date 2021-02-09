@@ -89,7 +89,7 @@ function clearBtn() {
 
 function loading() {
   const paragraph = document.createElement('p');
-  paragraph.className = 'eraseMe'
+  paragraph.className = 'eraseMe';
   paragraph.innerText = 'Aguarde';
   const itemsElement = document.querySelector('.items');
   itemsElement.appendChild(paragraph);
@@ -101,4 +101,3 @@ window.onload = function onload() {
   retriveItems('computador');
   clearBtn();
 };
-
