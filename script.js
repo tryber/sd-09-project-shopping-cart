@@ -85,7 +85,7 @@ function getItemsElements() {
         createItemsList.appendChild(createProductItemElement(items));
       });
     });
-    stopLoading();
+  stopLoading();
 }
 
 function getItemsById(itemId) {
