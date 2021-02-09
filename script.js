@@ -51,20 +51,25 @@ async function fetchListItem() {
   itemObj.forEach(({ id: sku, title: name, thumbnail: image }) => {
     const productItem = createProductItemElement({ sku, name, image });
     listItems.appendChild(productItem);
-
-    productItem.addEventListener('click', cartItemClickListener);
   });
+
 }
 
 console.log(fetchListItem());
 
 async function fetchCartItem(itemId) {
+
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
   const itemCart = document.querySelector('.cart__items');
   const response = await fetch(endpoint);
   const itemValues = await response.json();
   const { id: sku, title: name, price: salePrice } = itemValues;
+
+  // Adicionando item ao carrinho
   itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
+
+  // Remover item do carrinho
+  itemCart.children.addEventListener('click', cartItemClickListener);
 }
 
 console.log(fetchCartItem('MLB1341706310'));
