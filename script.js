@@ -50,7 +50,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 function fetchProductDetail(productId) {
   const url = `https://api.mercadolibre.com/items/${productId}`;
   return fetch(url)
-    .then(response => response.json())
+    .then(response => response.json());
 }
 
 function addProductToCart(sku) {
