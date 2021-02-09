@@ -20,7 +20,7 @@ function cartItemClickListener(event) {
 
 // Remover o item do localStorage
 
-function deleteFromLocalStorage ({ sku, name, salePrice }) {
+function deleteFromLocalStorage({ sku }) {
   localStorage.removeItem(sku);
 }
 
@@ -29,7 +29,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  li.addEventListener('click', () => {deleteFromLocalStorage({ sku, name, salePrice })})
+  li.addEventListener('click', () => { deleteFromLocalStorage({ sku, name, salePrice }); });
   return li;
 }
 
