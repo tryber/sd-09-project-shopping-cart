@@ -134,6 +134,7 @@ function loadItemsToCart() {
 }
 
 window.onload = function onload() {
+  // Teste
   initializeProductList();
   loadItemsToCart();
 };
