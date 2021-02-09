@@ -88,9 +88,11 @@ async function fetchProducts() {
         sku: element.id,
         name: element.title,
         image: element.thumbnail,
+        salePrice: element.price,
       };
       const section = createProductItemElement(itemObj);
       htmlElement.appendChild(section);
+
       const btn = section.lastChild;
       btn.addEventListener('click', () => {
         const elementId = btn.parentNode.querySelector('.item__sku');
@@ -128,9 +130,7 @@ function showListOnLoad() {
   if (list !== null) {
     // 4° se não estiver vazio trazer as informações para o html;
     list.forEach((item) => {
-      const element = document.createElement('li');
-      element.textContent = item.name;
-      element.className = 'cart__item';
+     const element = createCartItemElement(item);
       cart.appendChild(element);
     });
   }
