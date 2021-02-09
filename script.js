@@ -31,7 +31,6 @@ function getSkuFromProductItem(item) {
 
 function startLoading() {
   const cartSection = document.querySelector('.cart');
-  console.log(cartSection);
   cartSection.appendChild(createCustomElement('h2', 'loading', 'loading...'));
 }
 
@@ -67,6 +66,7 @@ function saveCartList() {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  totalPriceSum();
   saveCartList();
 }
 
@@ -86,21 +86,21 @@ function addProductInTheCart(parentId) {
     const { id: sku, title: name, price: salePrice } = product;
     const newItem = createCartItemElement({ sku, name, salePrice });
     list.appendChild(newItem);
+    totalPriceSum();
     saveCartList();
   });
 }
 
-// function totalPriceSum() {
-//   fetch(`https://api.mercadolibre.com/items/${parentId}`)
-//   .then(response => response.json())
-//   .then((product) => {
-//     let totalPrice = 0;
-//     const { id: sku, title: name, price: salePrice } = product;
-//     createCartItemElement({ sku, name, salePrice });
-//     totalPrice += salePrice;
-//     createCustomElement(element, className, innerText)
-//   });
-// }
+async function totalPriceSum() {
+  let subTotal = 0;
+  const totalPrice = document.querySelector('.total-price');
+  const eachItem = document.querySelectorAll('.cart__item');
+  eachItem.forEach(item => {
+    const price = item.innerText.split('$')[1];
+    subTotal += Number(price);
+  })
+  totalPrice.innerText = `Sub-Total: R$ ${subTotal}`;
+}
 
 function getItemIdToFetch() {
   document.addEventListener('click', (event) => {
@@ -117,6 +117,7 @@ function cartCleanButton() {
   cleanButton.addEventListener('click', () => {
     const cartList = document.querySelector('.cart__items');
     cartList.innerHTML = '';
+    saveCartList();
   });
 }
 
@@ -127,6 +128,7 @@ function getCartListRefreshingPage() {
   for (let index = 0; index < li.length; index += 1) {
     li[index].addEventListener('click', cartItemClickListener);
   }
+  totalPriceSum();
 }
 
 window.onload = function onload() {
