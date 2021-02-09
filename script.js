@@ -72,7 +72,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartStorage() {
-  let itemsInCar = localStorage.getItem('productList');
+  const itemsInCar = localStorage.getItem('productList');
   document.querySelector('.cart__items').innerHTML = itemsInCar;
   const list = document.querySelectorAll('ol li');
   list.forEach(li => li.addEventListener('click', cartItemClickListener));
