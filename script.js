@@ -5,8 +5,8 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-const button = document.querySelector('.empty-cart');
-button.addEventListener('click', () => {
+const buttonCleaner = document.querySelector('.empty-cart');
+buttonCleaner.addEventListener('click', () => {
   const Cart = document.querySelector('.cart__items');
   Cart.innerHTML = '';
 });
@@ -32,7 +32,6 @@ async function fetchCartItem(itemId) {
 
   // Adicionando item ao carrinho
   itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
-
 }
 
 function createCustomElement(element, className, innerText) {
