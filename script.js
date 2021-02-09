@@ -20,7 +20,7 @@ function sum(value) {
   const p = document.querySelector('.total-price');
   total += value;
   console.log(total);
-  p.innerHTML = `Total: R$${total}`;
+  p.innerHTML = total;
   return p;
 }
 
