@@ -1,3 +1,19 @@
+function totalPrice() {
+  let value = 0;
+  const ol = document.querySelector('.cart__items').childNodes;
+  const regex = /[$]/g;
+  ol.forEach((element) => {
+    const location = element.innerText.search(regex);
+    value += parseFloat(element.innerText.substr(location + 1));
+  });
+  document.querySelector('.total-price').innerText = `Total Price: ${value}`;
+}
+
+function cartStorage() {
+  const cartValue = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cart', cartValue);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -7,6 +23,8 @@ function createProductImageElement(imageSource) {
 
 function cartItemClickListener(event) {
   event.target.remove();
+  cartStorage();
+  totalPrice();
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
@@ -17,14 +35,25 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   return li;
 }
 
+function loadStorage() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('cart');
+  const arrOl = Object.values(document.querySelector('.cart__items').children);
+  arrOl.forEach((element) => {
+    element.addEventListener('click', cartItemClickListener);
+  });
+  totalPrice();
+}
+
 function btnAddItem(event) {
   const product = event.target.parentNode.firstChild.innerText;
   fetch(`https://api.mercadolibre.com/items/${product}`)
   .then((response) => {
     response.json()
     .then((object) => {
-      const li = createCartItemElement(object);
-      document.querySelector('.cart__items').appendChild(li);
+      const objectLi = createCartItemElement(object);
+      document.querySelector('.cart__items').appendChild(objectLi);
+      cartStorage();
+      totalPrice();
     });
   });
 }
@@ -67,6 +96,18 @@ function requestMercadoLivre() {
   });
 }
 
+function emptyCart() {
+  const btnEmpty = document.querySelector('.empty-cart');
+  btnEmpty.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+    cartStorage();
+    totalPrice();
+  });
+}
+
 window.onload = function onload() {
   requestMercadoLivre();
+  loadStorage();
+  totalPrice();
+  emptyCart();
 };
