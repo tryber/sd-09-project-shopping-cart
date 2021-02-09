@@ -45,7 +45,7 @@ async function soma() {
     total += parseFloat(item.innerText.split('$')[1]);
   });
   const calcElement = document.querySelector('.total-price');
-  calcElement.innerText = `Total: $${total}`;
+  calcElement.innerText = total;
 }
 
 function addCart() {
