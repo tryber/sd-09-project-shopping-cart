@@ -54,6 +54,13 @@ async function loadAPI(find = 'computador') {
   return (Object.values(results).map(item => item).forEach(item => retrieveObjects(item)));
 }
 
+function listItemsInCart(results) {
+  const childSection = document.querySelector('.cart__items');
+
+  childSection.appendChild(createCartItemElement(
+    { name: results.title, salePrice: results.price, sku: results.id }));
+}
+
 async function addItemsCart(tagHtml) {
   const response = await
   fetch(`https://api.mercadolibre.com/items/${tagHtml.path[1].children[0].innerText}`);
@@ -79,13 +86,6 @@ function addAttributesScripts() {
 
   promise();
 }
-
-function listItemsInCart(results) {
-  const childSection = document.querySelector('.cart__items');
-
-  childSection.appendChild(createCartItemElement(
-    { name: results.title, salePrice: results.price, sku: results.id }));
-};
 
 window.onload = function onload() {
   loadAPI();
