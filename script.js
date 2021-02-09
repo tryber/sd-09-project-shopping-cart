@@ -15,11 +15,14 @@ function createCustomElement(element, className, innerText) {
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
+  const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
 
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+  section.appendChild(button);
+
+  button.addEventListener('click', () => fetchCartItem(sku));
 
   return section;
 }
@@ -40,6 +43,20 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+async function fetchCartItem(itemId) {
+  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
+  const itemCart = document.querySelector('.cart__items');
+  const response = await fetch(endpoint);
+  const itemValues = await response.json();
+  const { id: sku, title: name, price: salePrice } = itemValues;
+
+  // Adicionando item ao carrinho
+  itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
+}
+
+
+console.log(fetchCartItem('MLB1341706310'));
+
 async function fetchListItem() {
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
 
@@ -52,24 +69,13 @@ async function fetchListItem() {
     const productItem = createProductItemElement({ sku, name, image });
     listItems.appendChild(productItem);
   });
+
+  const getButton = document.querySelector('.item__add');
+  const section = getButton.parentNode.querySelector('.item__sku');
+  console.log(section);
 }
 
 console.log(fetchListItem());
 
-async function fetchCartItem(itemId) {
-  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
-  const itemCart = document.querySelector('.cart__items');
-  const response = await fetch(endpoint);
-  const itemValues = await response.json();
-  const { id: sku, title: name, price: salePrice } = itemValues;
-
-  // Adicionando item ao carrinho
-  itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
-
-  // Remover item do carrinho
-  itemCart.children.addEventListener('click', cartItemClickListener);
-}
-
-console.log(fetchCartItem('MLB1341706310'));
 
 window.onload = function onload() {};
