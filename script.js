@@ -14,11 +14,12 @@ function createProductImageElement(imageSource) {
 
 let total = 0;
 const sectionCart = document.querySelector('.cart');
-sectionCart.appendChild(createCustomElement('p', 'totalCartValue', `Total: R$${total}`));
+sectionCart.appendChild(createCustomElement('p', 'total-price', `Total: R$${total}`));
 
 function sum(value) {
-  const p = document.querySelector('.totalCartValue');
+  const p = document.querySelector('.total-price');
   total += value;
+  console.log(total);
   p.innerHTML = `Total: R$${total}`;
   return p;
 }
@@ -63,7 +64,6 @@ async function fetchCartItem(itemId) {
   // Adicionando item ao carrinho
   itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
   saveOnLocalStorage({ sku, name, salePrice });
-  console.log(localStorage);
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -109,7 +109,7 @@ buttonCleaner.addEventListener('click', () => {
   const Cart = document.querySelector('.cart__items');
   Cart.innerHTML = '';
   localStorage.clear();
-  const p = document.querySelector('.totalCartValue');
+  const p = document.querySelector('.total-price');
   total = 0;
   p.innerHTML = `Total: R$${total}`;
 });
