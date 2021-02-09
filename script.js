@@ -59,12 +59,12 @@ async function retriveItems(term) {
   const object = await response.json();
   const itemsElement = document.querySelector('.items');
   const productList = object.results;
-  itemsElement.removeChild(document.querySelector('.eraseMe'));
   productList.forEach((result) => {
     const { id: sku, title: name, thumbnail: image } = result;
     const item = createProductItemElement({ sku, name, image });
     itemsElement.appendChild(item);
   });
+  itemsElement.removeChild(document.querySelector('.loading'));
   addCart();
 }
 
@@ -89,15 +89,15 @@ function clearBtn() {
 
 function loading() {
   const paragraph = document.createElement('p');
-  paragraph.className = 'eraseMe';
-  paragraph.innerText = 'loading';
+  paragraph.className = 'loading';
+  paragraph.innerText = 'loading...';
   const itemsElement = document.querySelector('.items');
   itemsElement.appendChild(paragraph);
 }
 
 window.onload = function onload() {
-  cartStorage();
   loading();
+  cartStorage();
   retriveItems('computador');
   clearBtn();
 };
