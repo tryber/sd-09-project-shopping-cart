@@ -90,7 +90,7 @@ function clearBtn() {
 function loading() {
   const paragraph = document.createElement('p');
   paragraph.className = 'eraseMe';
-  paragraph.innerText = 'Aguarde';
+  paragraph.innerText = 'loading';
   const itemsElement = document.querySelector('.items');
   itemsElement.appendChild(paragraph);
 }
