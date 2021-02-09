@@ -1,6 +1,3 @@
-let cont = 1;
-let contRecover = 1;
-
 function showLoadingMessage() {
   const loadingMessage = document.createElement('p');
   const container = document.querySelector('.container');
@@ -43,8 +40,9 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener() {
-  // coloque seu código aqui
+function cartItemClickListener(event) {
+  event.target.remove();
+  localStorage.removeItem(localStorage.key(event));
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -68,8 +66,7 @@ function addProductShopping(itemId) {
         const { id: sku, title: name, price: salePrice } = object;
         const element = createCartItemElement({ sku, name, salePrice });
         const shoppingBasket = document.querySelector('.cart__items');
-        localStorage.setItem(`${cont}`, element.innerHTML);
-        cont += 1;
+        localStorage.setItem(itemId,element.innerHTML);
         shoppingBasket.appendChild(element);
         removeLoadingMessage();
         resolve();
@@ -87,7 +84,6 @@ function clearShoppingBasket() {
     const shoppingBasket = document.querySelector('.cart__items');
     shoppingBasket.innerText = ' ';
     localStorage.clear();
-    cont = 1;
   });
 }
 
@@ -121,10 +117,9 @@ function buildListFetch() {
 
 function recoverElementFromLocalStorage() {
   const shoppingBasketRecovered = document.querySelector('.cart__items');
-  Object.keys(localStorage).forEach(() => {
+  Object.values(localStorage).forEach((item) => {
     const li = document.createElement('li');
-    li.innerText = `${localStorage[contRecover]}`;
-    contRecover += 1;
+    li.innerText = `${item}`;
     li.addEventListener('click', cartItemClickListener);
     shoppingBasketRecovered.appendChild(li);
   });
