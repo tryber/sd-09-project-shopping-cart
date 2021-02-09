@@ -5,6 +5,29 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+function cartItemClickListener(event) {
+  event.currentTarget.remove();
+}
+
+async function fetchCartItem(itemId) {
+  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
+  const itemCart = document.querySelector('.cart__items');
+  const response = await fetch(endpoint);
+  const itemValues = await response.json();
+  const { id: sku, title: name, price: salePrice } = itemValues;
+
+  // Adicionando item ao carrinho
+  itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -31,30 +54,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  event.currentTarget.remove();
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
-
-async function fetchCartItem(itemId) {
-  const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
-  const itemCart = document.querySelector('.cart__items');
-  const response = await fetch(endpoint);
-  const itemValues = await response.json();
-  const { id: sku, title: name, price: salePrice } = itemValues;
-
-  // Adicionando item ao carrinho
-  itemCart.appendChild(createCartItemElement({ sku, name, salePrice }));
-}
-
-
 console.log(fetchCartItem('MLB1341706310'));
 
 async function fetchListItem() {
@@ -76,6 +75,5 @@ async function fetchListItem() {
 }
 
 console.log(fetchListItem());
-
 
 window.onload = function onload() {};
