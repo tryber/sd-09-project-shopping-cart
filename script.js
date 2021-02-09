@@ -57,11 +57,22 @@ function fetchProduct() {
         eachSection.appendChild(newList);
       });
     });
-}
+  }
 
 function saveCartList() {
   const cartList = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cartList', cartList);
+}
+
+async function totalPriceSum() {
+  let subTotal = 0;
+  const totalPrice = document.querySelector('.total-price');
+  const eachItem = document.querySelectorAll('.cart__item');
+  eachItem.forEach((item) => {
+    const price = item.innerText.split('$')[1];
+    subTotal += Number(price);
+  });
+    totalPrice.innerText = `Sub-Total: R$ ${subTotal}`;
 }
 
 function cartItemClickListener(event) {
@@ -89,17 +100,6 @@ function addProductInTheCart(parentId) {
     totalPriceSum();
     saveCartList();
   });
-}
-
-async function totalPriceSum() {
-  let subTotal = 0;
-  const totalPrice = document.querySelector('.total-price');
-  const eachItem = document.querySelectorAll('.cart__item');
-  eachItem.forEach(item => {
-    const price = item.innerText.split('$')[1];
-    subTotal += Number(price);
-  })
-  totalPrice.innerText = `Sub-Total: R$ ${subTotal}`;
 }
 
 function getItemIdToFetch() {
