@@ -1,5 +1,5 @@
-//Exercícios resolvidos com a ajuda de Cleber Texeira Turma-9
-//https://github.com/tryber/sd-09-project-shopping-cart/pull/63
+// Exercícios resolvidos com a ajuda de Cleber Texeira Turma-9
+// https://github.com/tryber/sd-09-project-shopping-cart/pull/63
 // Cria o elemento img para receber a imagem do produto
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
