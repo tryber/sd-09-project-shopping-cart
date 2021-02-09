@@ -130,7 +130,7 @@ function showListOnLoad() {
   if (list !== null) {
     // 4° se não estiver vazio trazer as informações para o html;
     list.forEach((item) => {
-     const element = createCartItemElement(item);
+      const element = createCartItemElement(item);
       cart.appendChild(element);
     });
   }
