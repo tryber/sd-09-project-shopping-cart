@@ -57,7 +57,7 @@ function fetchProduct() {
         eachSection.appendChild(newList);
       });
     });
-  }
+}
 
 function saveCartList() {
   const cartList = document.querySelector('.cart__items').innerHTML;
@@ -72,7 +72,7 @@ async function totalPriceSum() {
     const price = item.innerText.split('$')[1];
     subTotal += Number(price);
   });
-    totalPrice.innerText = `Sub-Total: R$ ${subTotal}`;
+  totalPrice.innerText = `Sub-Total: R$ ${subTotal}`;
 }
 
 function cartItemClickListener(event) {
