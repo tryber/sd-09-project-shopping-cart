@@ -72,7 +72,7 @@ async function totalPriceSum() {
     const price = item.innerText.split('$')[1];
     subTotal += Number(price);
   });
-  totalPrice.innerText = `Sub-Total: R$ ${subTotal}`;
+  totalPrice.innerText = subTotal;
 }
 
 function cartItemClickListener(event) {
