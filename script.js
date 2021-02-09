@@ -5,6 +5,12 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+async function sumPrices(price) {
+  const paragraph = document.querySelector('.price');
+  const value = Number(paragraph.innerText);
+  paragraph.innerText = value + price;
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -98,6 +104,7 @@ async function fetchProducts() {
         const elementId = btn.parentNode.querySelector('.item__sku');
         fetchProductById(elementId.innerText);
         saveOnLocalStorage(itemObj);
+        sumPrices(itemObj.salePrice);
       });
     }); removeLoad();
   });
@@ -117,6 +124,7 @@ function emptyCart() {
       });
     }
     localStorage.clear();
+    sumPrices();
   });
 }
 emptyCart();
