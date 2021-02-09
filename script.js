@@ -1,4 +1,28 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  initializeProductList();
+};
+
+function initializeProductList() {
+  const sectionItems = document.querySelector('section.items');
+  fetchProductList()
+    .then((products) => {
+      products.forEach((product) => {
+        const productElement = createProductItemElement({
+          sku: product.id,
+          name: product.title,
+          image: product.thumbnail
+        });
+        sectionItems.appendChild(productElement);
+      });
+    });
+}
+
+function fetchProductList() {
+  const productName = 'computador'
+  return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${productName}`)
+    .then(response => response.json())
+    .then(data => data.results);
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
