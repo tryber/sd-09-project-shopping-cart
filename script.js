@@ -1,3 +1,10 @@
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -59,13 +66,6 @@ async function fetchCartItem(itemId) {
   console.log(localStorage);
 }
 
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
-}
-
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -115,7 +115,7 @@ buttonCleaner.addEventListener('click', () => {
 });
 
 window.onload = function loadFromLocalStorage() {
-  localStorage.forEach((key) => fetchCartItem(key));
+  localStorage.forEach(key => fetchCartItem(key));
 };
 
 console.log(fetchListItem());
