@@ -66,7 +66,7 @@ function addProductShopping(itemId) {
         const { id: sku, title: name, price: salePrice } = object;
         const element = createCartItemElement({ sku, name, salePrice });
         const shoppingBasket = document.querySelector('.cart__items');
-        localStorage.setItem(itemId,element.innerHTML);
+        localStorage.setItem(itemId, element.innerHTML);
         shoppingBasket.appendChild(element);
         removeLoadingMessage();
         resolve();
