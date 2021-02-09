@@ -49,7 +49,7 @@ async function soma() {
   items.forEach((item) => {
     results += +item.innerText.split('$')[1];
   });
-  totalPrice.innerText = `TOTAL: $${results}`;
+  totalPrice.innerText = results;
 }
 
 function cartItemClickListener(event) {
