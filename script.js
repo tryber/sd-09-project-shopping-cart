@@ -24,20 +24,6 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function cartItemClickListener(event) {
-  const cartList = document.querySelector('.cart__items');
-  event.target.remove();
-  localStorage.setItem('productList', cartList.innerHTML);
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
-}
-
 async function soma() {
   const list = await document.querySelectorAll('.cart__items li');
   let total = 0;
@@ -47,6 +33,21 @@ async function soma() {
   });
   const calcElement = document.querySelector('.total-price');
   calcElement.innerText = total;
+}
+
+function cartItemClickListener(event) {
+  const cartList = document.querySelector('.cart__items');
+  event.target.remove();
+  localStorage.setItem('productList', cartList.innerHTML);
+  soma();
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
 }
 
 function addCart() {
