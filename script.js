@@ -38,8 +38,11 @@ async function totalPrice(prices) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
   const cartItemsList = document.querySelector('.cart__items');
+  // Esse uso da identificação do index para linkar as informações de dois arrays diferentes
+  // foi feito com base nas soluções encontradas em
+  // https://www.geeksforgeeks.org/how-to-get-the-child-node-index-in-javascript/ e
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/splice
   const indexOfCartItem = Array.prototype.indexOf.call(cartItemsList.children, event.target);
   pricesArray.splice(indexOfCartItem, 1);
   event.target.remove();
@@ -115,6 +118,8 @@ function checkLocalStorage() {
   if (listCheck) {
     document.querySelector('.cart__items').innerHTML = listCheck;
   }
+  // Uso de JSON.stringfy e JSON.parse baseado na solução
+  // mostrada em https://gist.github.com/nrojas13/68b79e21d0c81aa22ad762c9a4db38d0
   const pricesCheck = JSON.parse(localStorage.getItem('pricesList'));
   if (pricesCheck) {
     pricesArray = pricesCheck;
