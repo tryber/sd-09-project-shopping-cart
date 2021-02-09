@@ -54,12 +54,24 @@ async function loadAPI(find = 'computador') {
   return (Object.values(results).map(item => item).forEach(item => retrieveObjects(item)));
 }
 
+async function addItemsCart(tagHtml) {
+  const response = await
+  fetch(`https://api.mercadolibre.com/items/${tagHtml.path[1].children[0].innerText}`);
+
+  const responseJSON = await response.json();
+  const results = responseJSON;
+
+  listItemsInCart(results);
+}
+
 function addAttributesScripts() {
   const promise = () => new Promise((resolve) => {
     setTimeout(() => {
       const button = document.querySelectorAll('section.item');
       for (let i = 0; i < button.length; i += 1) {
-        document.querySelectorAll('section.item')[i].setAttribute('onclick', 'addItemsCart(this)');
+        document.querySelectorAll('section.item')[i].addEventListener('click', (event) => {
+          addItemsCart(event);
+        });
       }
     }, 5000);
     return resolve('carregado');
@@ -68,15 +80,7 @@ function addAttributesScripts() {
   promise();
 }
 
-const addItemsCart = async function (tagHtml) {
-  const response = await fetch(`https://api.mercadolibre.com/items/${tagHtml.children[0].innerText}`);
-  const responseJSON = await response.json();
-  const results = responseJSON;
-
-  return results;
-};
-
-const listItemsInCart = function (results) {
+function listItemsInCart(results) {
   const childSection = document.querySelector('.cart__items');
 
   childSection.appendChild(createCartItemElement(
@@ -86,15 +90,11 @@ const listItemsInCart = function (results) {
 window.onload = function onload() {
   loadAPI();
   addAttributesScripts();
-  addItemsCart();
-  listItemsInCart();
 };
 
 /**
-Listagem de produtos
-  ✓ Listagem de produtos (428ms)
-Adicione o produto ao carrinho de compras
-  1) Adicione o produto ao carrinho de compras
+OK - Listagem de produtos
+OK - Adicione o produto ao carrinho de compras
 Remova o item do carrinho de compras ao clicar nele
   2) Remova o item do carrinho de compras ao clicar nele
 Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
