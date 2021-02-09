@@ -42,7 +42,8 @@ async function soma() {
   const list = await document.querySelectorAll('.cart__items li');
   let total = 0;
   list.forEach((item) => {
-    total += parseFloat(item.innerText.split('$')[1]);
+    total += Number(item.innerText.split('$')[1]);
+    console.log(total);
   });
   const calcElement = document.querySelector('.total-price');
   calcElement.innerText = total;
