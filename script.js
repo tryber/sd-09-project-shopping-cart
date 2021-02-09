@@ -35,8 +35,43 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function loadItemsFromLocalStorage() {
+  const stringItems = localStorage.getItem('cart-items');
+  if (!stringItems) {
+    return [];
+  }
+  const productItems = JSON.parse(stringItems);
+  return productItems;
+}
+
+function saveItemsToLocalStorage(items) {
+  const stringItems = JSON.stringify(items);
+  localStorage.setItem('cart-items', stringItems);
+}
+
+function addItemToLocalStorage({ sku }) {
+  const itemsFromLocalStorage = loadItemsFromLocalStorage();
+  itemsFromLocalStorage.push({ sku });
+  saveItemsToLocalStorage(itemsFromLocalStorage);
+}
+
+function removeItemFromLocalStorage(sku) {
+  const items = loadItemsFromLocalStorage();
+  const itemIndex = items.findIndex(item => item.sku === sku);
+  items.splice(itemIndex, 1);
+  saveItemsToLocalStorage(items);
+}
+
+function getSkuFromCartItem(cartItem) {
+  const [_, sku] = cartItem.innerText.match(/^SKU: (.+) \| NAME.+/);
+  return sku;
+}
+
 function cartItemClickListener(event) {
-  event.target.remove();
+  const { target } = event;
+  const sku = getSkuFromCartItem(target);
+  removeItemFromLocalStorage(sku);
+  target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -54,7 +89,7 @@ function fetchProductDetail(productId) {
 }
 
 function addProductToCart(sku) {
-  fetchProductDetail(sku)
+  return fetchProductDetail(sku)
     .then((product) => {
       const productCartItem = createCartItemElement({
         sku: product.id,
@@ -69,7 +104,10 @@ function addProductToCart(sku) {
 function addButtonEventListener(itemElement) {
   const button = itemElement.querySelector('.item__add');
   const sku = getSkuFromProductItem(itemElement);
-  button.addEventListener('click', () => addProductToCart(sku));
+  button.addEventListener('click', () => {
+    addProductToCart(sku);
+    addItemToLocalStorage({ sku });
+  });
 }
 
 function initializeProductList() {
@@ -88,6 +126,12 @@ function initializeProductList() {
     });
 }
 
+function loadItemsToCart() {
+  const items = loadItemsFromLocalStorage();
+  items.forEach(async item => await addProductToCart(item.sku));
+}
+
 window.onload = function onload() {
   initializeProductList();
+  loadItemsToCart();
 };
