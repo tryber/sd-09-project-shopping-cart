@@ -78,7 +78,7 @@ function getListProductsCartItemsAndRender() {
   const li = document.querySelectorAll('.cart__item');
   li.forEach((element) => {
     element.addEventListener('click', cartItemClickListener);
-  })
+  });
 }
 
 window.onload = function onload() {
