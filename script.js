@@ -63,7 +63,8 @@ function removeItemFromLocalStorage(sku) {
 }
 
 function getSkuFromCartItem(cartItem) {
-  const [_, sku] = cartItem.innerText.match(/^SKU: (.+) \| NAME.+/);
+  const result = cartItem.innerText.match(/^SKU: (.+) \| NAME.+/);
+  const sku = result[1];
   return sku;
 }
 
@@ -128,7 +129,7 @@ function initializeProductList() {
 
 function loadItemsToCart() {
   const items = loadItemsFromLocalStorage();
-  items.forEach(async item => await addProductToCart(item.sku));
+  items.forEach(item => addProductToCart(item.sku));
 }
 
 window.onload = function onload() {
