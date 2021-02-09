@@ -91,7 +91,7 @@ const fetchProducts = async (query) => {
       const eachResult = createProductItemElement({ sku, name, image });
       document.querySelector('.items').appendChild(eachResult);
     });
-    
+
     document.querySelector('div.loading').remove();
 
     document.querySelectorAll('.item__add')
