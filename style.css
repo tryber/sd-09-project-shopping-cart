@@ -45,7 +45,7 @@ p {
 .cart__item:hover {
   border: 1px solid white;
   border-radius: 3px;
-  box-shadow: 0 0 20px rgb(9, 80, 66);
+  box-shadow: 0 0 20px rgb( 9, 80, 66 );
   margin: 10px 0;
   padding: 10px;
 }
@@ -140,7 +140,7 @@ p {
 
 .item:hover {
   background-color: white;
-  box-shadow: 0 0 20px rgb(19, 139, 115);
+  box-shadow: 0 0 20px rgb( 19, 139, 115 );
   border-radius: 3px;
   box-sizing: border-box;
   display: flex;
