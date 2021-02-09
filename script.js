@@ -42,9 +42,20 @@ function stopLoading() {
   document.querySelector('.loading').remove();
 }
 
+async function soma() {
+  const items = document.querySelectorAll('.cart__item');
+  const totalPrice = document.querySelector('.total-price');
+  let results = 0;
+  items.forEach((item) => {
+    results += +item.innerText.split('$')[1];
+  });
+  totalPrice.innerText = `TOTAL: $${results}`;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   setLocalStorage();
+  soma();
 }
 
 function getLocalStorageToCart() {
@@ -96,6 +107,7 @@ function getItemsById(itemId) {
       };
       cartItens.appendChild(createCartItemElement(itemDetails));
       setLocalStorage();
+      soma();
     });
 }
 
@@ -118,6 +130,7 @@ function removeAllItems() {
     list.forEach((element) => {
       element.remove();
     });
+    soma();
   });
   setLocalStorage();
 }
@@ -128,4 +141,5 @@ window.onload = function onload() {
   getLocalStorageToCart();
   buttonAddClickListener();
   removeAllItems();
+  soma();
 };
