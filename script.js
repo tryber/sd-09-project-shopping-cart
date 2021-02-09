@@ -5,6 +5,17 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+let total = 0;
+const section = document.querySelector('.cart');
+section.appendChild(createCustomElement('p', 'totalCartValue', `Total: R$${total}`));
+
+function sum(value) {
+  const p = document.querySelector('.totalCartValue');
+  total += value;
+  p.innerHTML = `Total: R$${total}`;
+  return p;
+}
+
 // Salvando o item no localStorage
 
 function saveOnLocalStorage({ sku, name, salePrice }) {
@@ -92,17 +103,6 @@ async function fetchListItem() {
   console.log(section);
 }
 
-let total = 0;
-const section = document.querySelector('.cart');
-section.appendChild(createCustomElement('p', 'totalCartValue', `Total: R$${total}`));
-
-function sum(value) {
-  const p = document.querySelector('.totalCartValue');
-  total += value;
-  p.innerHTML = `Total: R$${total}`
-  return p;
-}
-
 // Botão para limpar carrinho e o localStorage
 const buttonCleaner = document.querySelector('.empty-cart');
 buttonCleaner.addEventListener('click', () => {
@@ -111,12 +111,13 @@ buttonCleaner.addEventListener('click', () => {
   localStorage.clear();
   const p = document.querySelector('.totalCartValue');
   total = 0;
-  p.innerHTML = `Total: R$${total}`
+  p.innerHTML = `Total: R$${total}`;
 });
 
-window.onload = function loadFromLocalStorage () {
-  localStorage.forEach((key) => fetchCartItem(key));
-}
+window.onload = function loadFromLocalStorage() {
+  localStorage.forEach((key) => (fetchCartItem(key)));
+};
+
 console.log(fetchListItem());
 
 window.onload = function onload() {};
