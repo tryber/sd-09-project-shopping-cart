@@ -1,5 +1,54 @@
 // Primeiro commit
-window.onload = function onload() { };
+function createProductItemElement({ sku, name, image }) {
+  const section = document.createElement('section');
+  section.className = 'item';
+
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  section.appendChild(createCustomElement('span', 'item__title', name));
+  section.appendChild(createProductImageElement(image));
+  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
+
+  return section;
+}
+
+function addingSection(section) {
+  const childElementClassItem = document.querySelector('.items');
+  childElementClassItem.appendChild(section);
+}
+
+function productsRequisition() {
+  // No meu cabeçalho -headers- o meu tipo de requisição -Accept- vai ser tratada com json
+  // fetch(ondeEuQueroRecuperar, informaçõesParaFazerARecuperação-parametros)
+
+  // Retorno da requisição -API- que vem em forma de promise
+  // them trabalha a promise
+
+  // const parameters = { headers: { Accept: 'application/json '} };
+  fetch("https://api.mercadolibre.com/sites/MLB/search?q=computador")
+  .then((response) => {
+    response.json()
+    .then((data) => {
+      const products = data.results;
+      products.map((product, index) => {
+        const { id: sku, title: name, thumbnail: image } = product;
+        addingSection(createProductItemElement({sku, name, image}));
+      });
+      // console.log(products)
+    })
+    // JavaScript Object Notation - JSOM
+    // JSON - traz a resposta da promise em formato de objeto
+    // then recupera a operação do json
+  });
+}
+
+window.onload = function onload() {
+  productsRequisition()
+};
+
+// *******************************************************************************************
+// *******************************************************************************************
+// *******************************************************************************************
+
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -13,18 +62,6 @@ function createCustomElement(element, className, innerText) {
   e.className = className;
   e.innerText = innerText;
   return e;
-}
-
-function createProductItemElement({ sku, name, image }) {
-  const section = document.createElement('section');
-  section.className = 'item';
-
-  section.appendChild(createCustomElement('span', 'item__sku', sku));
-  section.appendChild(createCustomElement('span', 'item__title', name));
-  section.appendChild(createProductImageElement(image));
-  section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
-  return section;
 }
 
 function getSkuFromProductItem(item) {
