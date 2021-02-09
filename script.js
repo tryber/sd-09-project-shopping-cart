@@ -92,7 +92,7 @@ function dataItems() {
 }
 
 // Recupera dados dos produtos e preenche a página
-async function dataMercadoLivre(term) {
+async function dataMercadoLivre(term = 'computador') {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   const response = await fetch(endpoint);
   const object = await response.json();
@@ -106,6 +106,7 @@ async function dataMercadoLivre(term) {
   dataItems();
 }
 
+// Adiciona evento ao botão 'Esvaziar carrinho'
 function clearCartItems() {
   const cart = document.querySelector('.cart__items');
   const btn = document.querySelector('.empty-cart');
@@ -116,6 +117,7 @@ function clearCartItems() {
   });
 }
 
+// Adiciona mensagem 'loadind...'
 function msgLoading(onOff) {
   const items = document.querySelector('.items');
   if (onOff === 'on') {
@@ -126,12 +128,51 @@ function msgLoading(onOff) {
   }
 }
 
+// Recebe texto de pesquisa do produto
+function captureItem() {
+  const btn = document.querySelector('#btn-input');
+  dataMercadoLivre();
+  btn.addEventListener('click', () => {
+    const item = document.querySelector('#input-item');
+    const items = document.querySelector('.items');
+    items.innerHTML = '';
+    msgLoading('on');
+    setTimeout(() => {
+      if (item.value === '') dataMercadoLivre();
+      msgLoading('off');
+      dataMercadoLivre(item.value);
+      item.value = '';
+    }, 500);
+  });
+}
+
+// Adiciona data atual ao topo da página
+function date() {
+  const insertDate = document.querySelector('.date');
+  // const date = new Date();
+  console.log(date);
+  insertDate.innerText = new Date().toLocaleDateString();
+  // `Hoje é ${now.getDay()}, ${now.getDate()} de ${now.getMonth()} de ${now.getFullYear()}`;
+}
+
+// Adiciona rodapé à página
+function createFooter() {
+  const container = document.querySelector('body');
+  const footer = document.createElement('footer');
+  footer.id = 'footer';
+  footer.classList.add('footer');
+  footer.innerText = 'Project Shopping Cart - Bloco 9 - Trybe 🚀 - Criado por: Cleber Lopes Teixeira - Turma 09 - 2020 ©️';
+  container.appendChild(footer);
+}
+
 // Inicia as funções após o carregamento da página
 window.onload = function onload() {
+  date();
   msgLoading('on');
+  createFooter();
   setTimeout(() => {
     msgLoading('off');
-    dataMercadoLivre('computador');
+    captureItem();
     getItemsStorage();
   }, 500);
   totalPrice();

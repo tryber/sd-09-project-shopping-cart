@@ -408,11 +408,11 @@ Para que isso funcione, o carrinho de compras deve ser salvo no **LocalStorage**
 
 Cada vez que se adicionar um item ao carrinho de compras, será necessário somar seus valores e apresentá-los na página principal do projeto. Não queremos que essa soma, no entanto, impacte no carregamento da página. Devemos, portanto, fazer essa soma de forma *assíncrona*. Use `async/await` para fazer isso. O elemento que tem como filho o preço total dos itens do carrinho deve ter, **obrigatóriamente**, a classe `total-price`.
 
-### Crie um botão para limpar carrinho de compras
+### Crie um botão para limpar carrinho de compras ✔
 
 Crie um botão para remover todos os itens do carrinho de compras. Ele deve, **obrigatóriamente**, ter a classe `empty-cart`.
 
-### Adicione um texto de "loading" durante uma requisição à API
+### Adicione um texto de "loading" durante uma requisição à API ✔
 
 Uma requisição à API gasta um tempo e durante ele, ficamos sem saber se está tudo certo ou se algo deu errado.
 Normalmente é utilizada alguma forma para mostrar que a requisição está em andamento.
