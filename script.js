@@ -81,7 +81,19 @@ function getListProductsCartItemsAndRender() {
   });
 }
 
+function emptyButtonClickListener(event) {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = '';
+  localStorage.clear();
+}
+
+function setEventButton() {
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', emptyButtonClickListener);
+}
+
 window.onload = function onload() {
   fetchAllProductsAndList();
   getListProductsCartItemsAndRender();
+  setEventButton();
 };
