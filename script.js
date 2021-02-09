@@ -28,11 +28,15 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function totalPrice() {
-  let price = 0;
-  const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach(item => (price += parseFloat(item.innerText.split('$')[1])));
-  document.querySelector('.total-price').innerText = `$${price}`;
+async function totalPrice() {
+  try {
+    let price = 0;
+    const cartItems = await document.querySelectorAll('.cart__item');
+    cartItems.forEach(item => (price += parseFloat(item.innerText.split('$')[1])));
+    document.querySelector('.total-price').innerText = `${price}`;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function updatePrice() {
