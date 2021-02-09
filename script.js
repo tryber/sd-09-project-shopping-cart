@@ -64,22 +64,22 @@ async function addItemsCart(tagHtml) {
 }
 
 function addAttributesScripts() {
-    const button = document.querySelectorAll('section.item');
+  const button = document.querySelectorAll('section.item');
 
-    for (let i = 0; i < button.length; i += 1) {
-      document.querySelectorAll('section.item')[i].addEventListener('click', (event) => {
-        addItemsCart(event);
-      });
-    }
+  for (let i = 0; i < button.length; i += 1) {
+    document.querySelectorAll('section.item')[i].addEventListener('click', (event) => {
+      addItemsCart(event);
+    });
+  }
 }
 
 function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
   const responseJSON = response.then(res => res.json());
 
-  responseJSON.then(res => {
-    return (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item)));
-  }).then(res => addAttributesScripts());
+  responseJSON.then((res) =>
+    (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item)))
+  ).then(() => addAttributesScripts());
 }
 
 window.onload = function onload() {
