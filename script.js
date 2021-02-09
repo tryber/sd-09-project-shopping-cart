@@ -29,12 +29,28 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function startLoading() {
+  const cartSection = document.querySelector('.cart');
+  console.log(cartSection);
+  cartSection.appendChild(createCustomElement('h2', 'loading', 'loading...'));
+}
+
+function stopLoading() {
+  const loading = document.querySelector('.loading');
+  loading.remove();
+}
+
 function fetchProduct() {
   const eachSection = document.querySelector('.items');
+  startLoading();
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then(response => response.json())
-    .catch(() => alert('Produto não encontrado!'))
+    .catch(() => {
+      stopLoading();
+      alert('Produto não encontrado!');
+    })
     .then((object) => {
+      stopLoading();
       const objResults = object.results;
       objResults.forEach((element) => {
         const { id: sku, title: name, thumbnail: image } = element;
@@ -65,14 +81,26 @@ function createCartItemElement({ sku, name, salePrice }) {
 function addProductInTheCart(parentId) {
   fetch(`https://api.mercadolibre.com/items/${parentId}`)
   .then(response => response.json())
-    .then((product) => {
-      const list = document.querySelector('.cart__items');
-      const { id: sku, title: name, price: salePrice } = product;
-      const newItem = createCartItemElement({ sku, name, salePrice });
-      list.appendChild(newItem);
-      saveCartList();
-    });
+  .then((product) => {
+    const list = document.querySelector('.cart__items');
+    const { id: sku, title: name, price: salePrice } = product;
+    const newItem = createCartItemElement({ sku, name, salePrice });
+    list.appendChild(newItem);
+    saveCartList();
+  });
 }
+
+// function totalPriceSum() {
+//   fetch(`https://api.mercadolibre.com/items/${parentId}`)
+//   .then(response => response.json())
+//   .then((product) => {
+//     let totalPrice = 0;
+//     const { id: sku, title: name, price: salePrice } = product;
+//     createCartItemElement({ sku, name, salePrice });
+//     totalPrice += salePrice;
+//     createCustomElement(element, className, innerText)
+//   });
+// }
 
 function getItemIdToFetch() {
   document.addEventListener('click', (event) => {
