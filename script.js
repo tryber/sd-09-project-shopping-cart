@@ -118,7 +118,7 @@ buttonCleaner.addEventListener('click', () => {
 
 function loadFromLocalStorage() {
   const arrayLocalStorage = Object.keys(localStorage);
-  arrayLocalStorage.forEach((key) => { fetchCartItem(key) });
+  arrayLocalStorage.forEach(key => fetchCartItem(key));
   console.log(arrayLocalStorage);
 }
 
