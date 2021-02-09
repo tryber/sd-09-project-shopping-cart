@@ -6,7 +6,7 @@ function createProductImageElement(imageSource) {
 }
 
 async function sumPrices(price) {
-  const paragraph = document.querySelector('.price');
+  const paragraph = document.querySelector('.total-price');
   const value = Number(paragraph.innerText);
   paragraph.innerText = value + price;
 }
