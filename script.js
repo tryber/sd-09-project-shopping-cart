@@ -31,13 +31,6 @@ function addingSection(section) {
 }
 
 function productsRequisition() {
-  // No meu cabeçalho -headers- o meu tipo de requisição -Accept- vai ser tratada com json
-  // fetch(ondeEuQueroRecuperar, informaçõesParaFazerARecuperação-parametros)
-
-  // Retorno da requisição -API- que vem em forma de promise
-  // them trabalha a promise
-
-  // const parameters = { headers: { Accept: 'application/json '} };
   fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
   .then((response) => {
     response.json()
@@ -47,11 +40,37 @@ function productsRequisition() {
         const { id: sku, title: name, thumbnail: image } = product;
         addingSection(createProductItemElement({ sku, name, image }));
       });
+      const retrievingClassItem__add = document.querySelectorAll('.item__add');
+      retrievingClassItem__add.forEach((element) => {
+        const sku = element.parentNode.firstChild.innerText;
+        element.addEventListener('click', () => newRequest(sku));
+      });
     });
-    // JavaScript Object Notation - JSOM
-    // JSON - traz a resposta da promise em formato de objeto
-    // then recupera a operação do json
   });
+}
+
+function createCartItemElement({ sku, name, salePrice }) {
+  const li = document.createElement('li');
+  li.className = 'cart__item';
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+function addingListItems(li) {
+  const cart__items = document.querySelector('.cart__items');
+  cart__items.appendChild(li);
+}
+
+function newRequest(sku) {
+  fetch(`https://api.mercadolibre.com/items/${sku}`)
+    .then((response) => {
+      response.json()
+        .then((data) => {
+          const { id: sku, title: name , price: salePrice } = data;
+          addingListItems(createCartItemElement({ sku, name, salePrice }));
+        });
+    });
 }
 
 window.onload = function onload() {
@@ -68,12 +87,4 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-}
-
-function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement('li');
-  li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
-  return li;
 }
