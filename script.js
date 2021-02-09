@@ -46,14 +46,6 @@ function retrieveObjects({ id: sku, title: name, thumbnail: image }) {
   filhoSection.appendChild(createProductItemElement({ sku, name, image }));
 }
 
-async function loadAPI(find = 'computador') {
-  const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
-  const responseJSON = await response.json();
-  const results = responseJSON.results;
-
-  return (Object.values(results).map(item => item).forEach(item => retrieveObjects(item)));
-}
-
 function listItemsInCart(results) {
   const childSection = document.querySelector('.cart__items');
 
@@ -72,24 +64,26 @@ async function addItemsCart(tagHtml) {
 }
 
 function addAttributesScripts() {
-  const promise = () => new Promise((resolve) => {
-    setTimeout(() => {
-      const button = document.querySelectorAll('section.item');
-      for (let i = 0; i < button.length; i += 1) {
-        document.querySelectorAll('section.item')[i].addEventListener('click', (event) => {
-          addItemsCart(event);
-        });
-      }
-    }, 5000);
-    return resolve('carregado');
-  });
+    const button = document.querySelectorAll('section.item');
 
-  promise();
+    for (let i = 0; i < button.length; i += 1) {
+      document.querySelectorAll('section.item')[i].addEventListener('click', (event) => {
+        addItemsCart(event);
+      });
+    }
+}
+
+function loadAPI(find = 'computador') {
+  const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
+  const responseJSON = response.then(res => res.json());
+
+  responseJSON.then(res => {
+    return (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item)));
+  }).then(res => addAttributesScripts());
 }
 
 window.onload = function onload() {
   loadAPI();
-  addAttributesScripts();
 };
 
 /**
