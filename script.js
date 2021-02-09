@@ -78,7 +78,16 @@ function cartStorage() {
   list.forEach(li => li.addEventListener('click', cartItemClickListener));
 }
 
+function clearBtn() {
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', () => {
+    const removeList = document.querySelector('.cart__items').innerHTML = '';
+    localStorage.setItem('productList', removeList);
+  })
+}
+
 window.onload = function onload() {
   cartStorage();
   retriveItems('computador');
+  clearBtn();
 };
