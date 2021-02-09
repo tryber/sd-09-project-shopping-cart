@@ -81,9 +81,9 @@ function cartStorage() {
 function clearBtn() {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', () => {
-    const removeList = document.querySelector('.cart__items').innerHTML = '';
-    localStorage.setItem('productList', removeList);
-  })
+    const removeList = document.querySelector('.cart__items');
+    localStorage.setItem('productList', removeList.innerHTML = '');
+  });
 }
 
 window.onload = function onload() {
