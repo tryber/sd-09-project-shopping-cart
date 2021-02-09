@@ -60,6 +60,13 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function createLoading() {
+  const loading = document.createElement('span');
+  loading.className = 'loading';
+  loading.innerText = 'loading...';
+  return loading;
+}
+
 function fetchAllProductsAndList() {
   const sectionItems = document.querySelector('section .items');
   sectionItems.appendChild(createLoading());
@@ -93,13 +100,6 @@ function emptyButtonClickListener(event) {
 function setEventButton() {
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', emptyButtonClickListener);
-}
-
-function createLoading() {
-  const loading = document.createElement('span');
-  loading.className = 'loading'
-  loading.innerText = 'loading...'
-  return loading;
 }
 
 window.onload = function onload() {
