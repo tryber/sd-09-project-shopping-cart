@@ -56,12 +56,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function loadComplete() {
+  document.querySelector('.loading').remove();
+}
+
 function fetchQuery(query) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
 
   fetch(endpoint)
     .then(response => response.json())
     .then((object) => {
+      loadComplete();
       object.results.forEach((result) => {
         const { id, title, thumbnail } = result;
         const itemParams = {
