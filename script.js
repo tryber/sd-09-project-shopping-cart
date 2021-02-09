@@ -6,7 +6,7 @@ function createProductImageElement(imageSource) {
 }
 const localStorage = [];
 function saveOnLocalStorage({ sku, name, salePrice }) {
-  const item = { sku, name, salePrice }
+  const item = { sku, name, salePrice };
   localStorage.push(item);
 }
 
@@ -14,7 +14,6 @@ function saveOnLocalStorage({ sku, name, salePrice }) {
 
 function cartItemClickListener(event) {
   event.currentTarget.remove();
-  const { sku, name, salePrice } = event
   saveOnLocalStorage({ sku, name, salePrice });
 }
 
