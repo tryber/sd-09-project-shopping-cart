@@ -78,12 +78,16 @@ function addAttributesScripts() {
 function verifyLocalStorage() {
   if (localStorage.length > 0) {
     Object.values(localStorage).forEach((item) => {
-      const response = fetch(`https://api.mercadolibre.com/items/${item}`)
-      const responseJSON = response.then((res) => {
-        res.json().then((res) => {
-          const results = res;
+      const response = fetch(`https://api.mercadolibre.com/items/${item}`);
+      response.then((res) => {
+        res.json().then((ok) => {
+          const results = ok;
           listItemsInCart(results);
-})})})}}
+        });
+      });
+    });
+  }
+}
 
 function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
