@@ -141,7 +141,7 @@ O [manual da API do Mercado Livre](https://developers.mercadolivre.com.br/pt_br/
 
 ---
 
-### Crie a listagem de produtos
+### Crie a listagem de produtos ✔
 
 Você deve criar uma listagem de produtos que devem ser consultados através da API do Mercado Livre.
 
@@ -347,7 +347,7 @@ Adicione o elemento retornado da função `createProductItemElement(product)` co
 
 **Obs:** as variáveis `sku`, no código fornecido, se referem aos campos `id` retornados pela API.
 
-### Adicione o produto ao carrinho de compras
+### Adicione o produto ao carrinho de compras ✔
 
 Cada produto na página _HTML_ possui um botão com o nome `Adicionar ao carrinho!`.
 
@@ -394,25 +394,25 @@ Você **deve** utilizar a função `createCartItemElement()` para criar os compo
 
 Adicione o elemento retornado da função `createCartItemElement(product)` como filho do elemento `<ol class="cart__items">`.
 
-### Remova o item do carrinho de compras ao clicar nele
+### Remova o item do carrinho de compras ao clicar nele ✔
 
 Ao clicar no **produto no carrinho de compra**, ele deve ser removido da lista.
 Para isso, uma função (já existente) chamada `cartItemClickListener(event)` deve ser implementada com a lógica necessária para realizar a remoção.
 
-### Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
+### Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página ✔
 
 Ao carregar a página, o estado atual do carrinho de compras deve ser carregado do **LocalStorage**.
 Para que isso funcione, o carrinho de compras deve ser salvo no **LocalStorage**, ou seja, todas as **adições** e **remoções** devem ser abordadas para que a lista atual seja salva.
 
-### Some o valor total dos itens do carrinho de compras de forma assíncrona
+### Some o valor total dos itens do carrinho de compras de forma assíncrona ✔
 
 Cada vez que se adicionar um item ao carrinho de compras, será necessário somar seus valores e apresentá-los na página principal do projeto. Não queremos que essa soma, no entanto, impacte no carregamento da página. Devemos, portanto, fazer essa soma de forma *assíncrona*. Use `async/await` para fazer isso. O elemento que tem como filho o preço total dos itens do carrinho deve ter, **obrigatóriamente**, a classe `total-price`.
 
-### Crie um botão para limpar carrinho de compras
+### Crie um botão para limpar carrinho de compras ✔
 
 Crie um botão para remover todos os itens do carrinho de compras. Ele deve, **obrigatóriamente**, ter a classe `empty-cart`.
 
-### Adicione um texto de "loading" durante uma requisição à API
+### Adicione um texto de "loading" durante uma requisição à API ✔
 
 Uma requisição à API gasta um tempo e durante ele, ficamos sem saber se está tudo certo ou se algo deu errado.
 Normalmente é utilizada alguma forma para mostrar que a requisição está em andamento.
@@ -472,5 +472,7 @@ Ao finalizar e submeter o projeto, não se esqueça de avaliar sua experiência 
 Link: [FORMULÁRIO DE AVALIAÇÃO DE PROJETO](https://be-trybe.typeform.com/to/ZTeR4IbH)
 
 O avaliador automático não necessariamente avalia seu projeto na ordem em que os requisitos aparecem no readme. Isso acontece para deixar o processo de avaliação mais rápido. Então, não se assuste se isso acontecer, ok?
+
+## #VQV!:v::rocket:
 
 ---

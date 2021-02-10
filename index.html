@@ -1,19 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <link rel="shortcut icon" href="cart.png" type="image/x-icon">
+    <title>Shopping Cart - Cleber Teixeira</title>
     <link rel="stylesheet" href="style.css" />
     <script src="script.js"></script>
   </head>
-
   <body>
+    <section class="top-bar">
+      <img src="trybe_livre.png" class="img"></img>
+      <div class="content">
+      <input type="text"  placeholder="Buscar produtos, marcas e muito mais..." class="input" id="input-item" value="">
+      <button class="btn-input" id="btn-input"></button>
+    </div>
+    <div class="date"></div>
+    </section>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
+        <span class="price">Valor à pagar:<br/>R$<span class="total-price"></span></span>
         <button class="empty-cart">Esvaziar carrinho</button>
         <ol class="cart__items"></ol>
       </section>
