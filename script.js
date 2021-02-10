@@ -32,7 +32,7 @@ function cartItemClickListener(event) {
   const textListItem = String(event.path[0].innerText).substring(5, 18);
 
   event.path[0].remove();
-  localStorage.removeItem(Object.entries(localStorage).find(item => item[1] === textListItem )[0]);
+  localStorage.removeItem(Object.entries(localStorage).find(item => item[1] === textListItem)[0]);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -107,8 +107,8 @@ function cleanListCart() {
   const htmlCollectionChild = document.getElementsByClassName('cart__item');
   const nodeChild = document.querySelectorAll('.cart__items');
 
-  document.querySelectorAll(".empty-cart")[0].addEventListener('click', () => {
-    while (nodeChild[0].hasChildNodes() ) nodeChild[0].removeChild(htmlCollectionChild[0]);
+  document.querySelectorAll('.empty-cart')[0].addEventListener('click', () => {
+    while (nodeChild[0].hasChildNodes()) nodeChild[0].removeChild(htmlCollectionChild[0]);
 
     localStorage.clear();
   });
