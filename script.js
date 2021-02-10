@@ -29,10 +29,10 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  const textListItem = String(event.path[0].innerText).substring(5, 18);
+
   event.path[0].remove();
-  // localStorage.clear();
-  localStorage.removeItem(Object.entries(localStorage).find(item => item[1] === String(event.path[0].innerText).substring(5, 18) )[0]);
-  // 
+  localStorage.removeItem(Object.entries(localStorage).find(item => item[1] === textListItem )[0]);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
