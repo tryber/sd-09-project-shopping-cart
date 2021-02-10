@@ -29,7 +29,7 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-async function  calcPrices() {
+async function calcPrices() {
   const list = await document.querySelectorAll('.cart__items li');
   let total = 0;
   list.forEach((item) => {
@@ -104,14 +104,6 @@ function clearBtn() {
     localStorage.setItem('productList', removeList.innerHTML = '');
     calcPrices();
   });
-}
-
-function loading() {
-  const paragraph = document.createElement('p');
-  paragraph.className = 'loading';
-  paragraph.innerText = 'loading...';
-  const itemsElement = document.querySelector('.items');
-  itemsElement.appendChild(paragraph);
 }
 
 window.onload = function onload() {
