@@ -29,14 +29,14 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  if (localStorage.length === 0) return 0;
-
-  const textListItem = String(event.path[0].innerText).substring(5, 18);
-
+  // console.log(event)
   event.path[0].remove();
-  localStorage.removeItem(Object.entries(localStorage).find(item => item[1] === textListItem)[0]);
+  // if (localStorage.length === 0) return;
 
-  return localStorage.length;
+  // const textListItem = String(event.path[0].innerText).substring(5, 18);
+  // const listLocalStorage = Object.entries(localStorage).find(item => item[1] === textListItem)
+
+  // localStorage.removeItem(listLocalStorage)
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -122,6 +122,11 @@ window.onload = function onload() {
   cleanListCart();
 };
 
+/*
+     Uncaught TypeError: Cannot read property '0' of undefined
+     cartItemClickListener (script.js:37:94)
+*/
+
 /**
 OK - Listagem de produtos
 OK - Adicione o produto ao carrinho de compras
@@ -132,11 +137,8 @@ Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
 Some o valor total dos itens do carrinho de compras de forma assíncrona
   4) Some o valor total dos itens do carrinho de compras de forma assíncrona
 Botão para limpar carrinho de compras
-  5) Botão para limpar carrinho de compras
-Adicionar um texto de "loading" durante uma requisição à API
+OK - Botão para limpar carrinho de compras
   6) Adicionar um texto de "loading" durante uma requisição à API
-AssertionError: Timed out retrying: Expected to find element: ``,
-but never found it. Queried from element: <ol.cart__items>
 AssertionError: Timed out retrying: Expected to find element: `.total-price`, but never found it.
 AssertionError: Timed out retrying: Expected to find element: `.loading`, but never found it.
  */
