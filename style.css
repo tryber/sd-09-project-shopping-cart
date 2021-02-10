@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(237, 236, 236);
+  background-color: rgb( 237, 236, 236 );
   font-family: sans-serif;
   margin: 0;
   padding: 0;
@@ -7,13 +7,13 @@ body {
 
 .btn-input {
   background-color: white;
-  background-image: url('lupa.png');
+  background-image: url( 'lupa.png' );
   background-position: center;
   background-repeat: no-repeat;
   background-size: 30px;
-  border: 0 rgba(0, 0, 0, .2);
+  border: 0 rgba( 0, 0, 0, 0.2 );
   border-radius: 2px;
-  box-shadow: 0 1px 2px 0 rgb(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px 0 rgb( 0, 0, 0, 0.2 );
   box-sizing: border-box;
   margin-left: 1px;
   padding: 17px;
@@ -23,10 +23,10 @@ body {
 
 .cart {
   background-color: white;
-  border: 1px solid rgb(196, 196, 196);
+  border: 1px solid rgb( 196, 196, 196 );
   border-radius: 7px;
   box-shadow: 1px 1px 10px gray;
-  color: rgb(51, 51, 51);
+  color: rgb( 51, 51, 51 );
   display: flex;
   flex-flow: column wrap;
   line-height: 22px;
@@ -39,7 +39,7 @@ body {
 }
 
 .cart:hover {
-  box-shadow: 1px 1px 10px rgb(29, 102, 104);
+  box-shadow: 1px 1px 10px rgb( 29, 102, 104 );
   transition: 0.4s;
 }
 
@@ -72,7 +72,7 @@ body {
 }
 
 .cart .empty-cart:hover {
-  background-color: rgb(67, 121, 123);
+  background-color: rgb( 67, 121, 123 );
   transition: 0.4s;
 }
 
@@ -96,7 +96,7 @@ body {
 }
 
 .footer {
-  background-color: rgba(67, 121, 123, 0.8);
+  background-color: rgba( 67, 121, 123, 0.8 );
   bottom: 0;
   color: white;
   display: block;
@@ -118,11 +118,11 @@ body {
 
 .input {
   background-color: white;
-  border: 0 rgba(0, 0, 0, .2);
+  border: 0 rgba( 0, 0, 0, 0.2 );
   border-radius: 2px;
-  box-shadow: 0 1px 2px 0 rgb(0, 0, 0, .2);
+  box-shadow: 0 1px 2px 0 rgb( 0, 0, 0, 0.2 );
   box-sizing: border-box;
-  color: rgb(51, 51, 51);
+  color: rgb( 51, 51, 51 );
   font-size: 12pt;
   padding: 7px 60px 9px 15px;
   position: relative;
@@ -131,11 +131,11 @@ body {
 
 .item {
   background-color: white;
-  border: 1px solid rgb(196, 196, 196);
+  border: 1px solid rgb( 196, 196, 196 );
   box-shadow: 1px 1px 10px gray;
   border-radius: 5px;
   box-sizing: border-box;
-  color: rgb(51, 51, 51);
+  color: rgb( 51, 51, 51 );
   display: flex;
   flex-direction: column;
   height: auto;
@@ -144,7 +144,7 @@ body {
 }
 
 .item:hover {
-  box-shadow: 1px 1px 10px rgb(29, 102, 104);
+  box-shadow: 1px 1px 10px rgb( 29, 102, 104 );
   transition: 0.4s;
 }
 
@@ -159,7 +159,7 @@ body {
 }
 
 .item .item__add:hover {
-  background-color: rgb(67, 121, 123);
+  background-color: rgb( 67, 121, 123 );
   transition: 0.4s;
 }
 
@@ -193,9 +193,9 @@ ol {
 .price {
   border: 1px solid cadetblue;
   border-radius: 5px;
-  color: rgb(51, 51, 51);
+  color: rgb( 51, 51, 51 );
   font-size: 12pt;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 20px;
   padding: 5px 0;
   text-align: center;
   width: 100%;
@@ -203,7 +203,7 @@ ol {
 
 .top-bar {
   align-items: center;
-  background: -webkit-linear-gradient(cadetblue, rgb(227, 227, 95));
+  background: linear-gradient( cadetblue, rgb( 227, 227, 95 ) );
   box-shadow: 1px 1px 10px gray;
   color: white;
   font-size: 17pt;
