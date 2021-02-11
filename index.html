@@ -10,11 +10,17 @@
   </head>
 
   <body>
+    <header>
+      <h3>Digite o produto que deseja buscar</h1>
+      <input type="text" id="searchProduct">
+      <button id="seachButton">Buscar</button>
+    </header>
     <section class="container">
       <section class="items"></section>
       <section class="cart">
         <span class="cart__title">Carrinho de compras</span>
         <button class="empty-cart">Esvaziar carrinho</button>
+        <span>Valor Total: R$<span class="total-price">0</span></span>
         <ol class="cart__items"></ol>
       </section>
     </section>
