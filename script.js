@@ -85,3 +85,19 @@ function getStorageItems() {
   }
   totalPriceCart();
 }
+
+async function fetchAddToCartRequest(itemId) {
+  const response = await fetch(`https://api.mercadolibre.com/items/${itemId}`);
+  try {
+    const object = await response.json();
+    const { id, title, price } = object;
+    const item = createCartItemElement({ sku: id, name: title, salePrice: price });
+    const cartItems = document.querySelector('.cart__items');
+    cartItems.appendChild(item);
+    setLocalStorage();
+    totalPriceCart();
+  } catch (error) {
+    window.alert(error);
+  }
+}
+
