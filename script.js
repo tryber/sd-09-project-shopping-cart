@@ -101,3 +101,14 @@ async function fetchAddToCartRequest(itemId) {
   }
 }
 
+function getProductId(event) {
+  const id = event.target.parentNode.firstChild.innerText;
+  fetchAddToCartRequest(id);
+}
+
+function addToCart() {
+  document.querySelectorAll('.item__add')
+  .forEach((button) => {
+    button.addEventListener('click', getProductId);
+  });
+}
