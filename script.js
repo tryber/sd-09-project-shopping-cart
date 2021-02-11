@@ -25,15 +25,15 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function addingSection(section) {
-  const childElementClassItem = document.querySelector('.items');
-  childElementClassItem.appendChild(section);
+function addingHtml(htmlElement, addingClass) {
+  const parentElement = document.querySelector(addingClass);
+  parentElement.appendChild(htmlElement);
 }
 
-function addingListItems(li) {
-  const cartItems = document.querySelector('.cart__items');
-  cartItems.appendChild(li);
-}
+// function addingListItems(li) {
+//   const cartItems = document.querySelector('.cart__items');
+//   cartItems.appendChild(li);
+// }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
@@ -53,7 +53,7 @@ function newRequest(itemSku) {
       response.json()
         .then((data) => {
           const { id: sku, title: name, price: salePrice } = data;
-          addingListItems(createCartItemElement({ sku, name, salePrice }));
+          addingHtml(createCartItemElement({ sku, name, salePrice }), '.cart__items');
         });
     });
 }
@@ -66,7 +66,7 @@ function productsRequisition() {
       const products = data.results;
       products.forEach((product) => {
         const { id: sku, title: name, thumbnail: image } = product;
-        addingSection(createProductItemElement({ sku, name, image }));
+        addingHtml(createProductItemElement({ sku, name, image }), '.items');
       });
       const retrievingClassItemAdd = document.querySelectorAll('.item__add');
       retrievingClassItemAdd.forEach((element) => {
