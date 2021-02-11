@@ -112,3 +112,29 @@ function addToCart() {
     button.addEventListener('click', getProductId);
   });
 }
+
+function fetchAllProducts(query) {
+  const loading = document.createElement('p');
+  loading.className = 'loading';
+  loading.innerHTML = 'loadind...';
+  document.body.appendChild(loading);
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+  fetch(endpoint)
+    .then(response => response.json())
+    .then((dataAll) => {
+      if (dataAll.error) {
+        throw new Error(dataAll.error);
+      }
+      const allProductsInfo = dataAll.results;
+      allProductsInfo.forEach((object) => {
+        const { id, title, thumbnail } = object;
+        const item = createProductItemElement({
+          sku: id, name: title, image: thumbnail,
+        });
+        document.querySelector('.items').appendChild(item);
+      });
+      document.body.removeChild(loading);
+      addToCart();
+    })
+    .catch(error => window.alert(error));
+}
