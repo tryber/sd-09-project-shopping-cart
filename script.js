@@ -140,6 +140,7 @@ function showListOnLoad() {
     list.forEach((item) => {
       const element = createCartItemElement(item);
       cart.appendChild(element);
+      sumPrices(item.salePrice);
     });
   }
 }
