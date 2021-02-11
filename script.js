@@ -72,3 +72,16 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+function getStorageItems() {
+  const ol = document.querySelector('.cart__items');
+  for (let index = 0; index < localStorage.length; index += 1) {
+    const listItem = document.createElement('li');
+    const objStorage = JSON.parse(localStorage.getItem(index));
+    listItem.innerText = objStorage.text;
+    listItem.className = objStorage.class;
+    listItem.addEventListener('click', cartItemClickListener);
+    ol.appendChild(listItem);
+  }
+  totalPriceCart();
+}
