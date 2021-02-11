@@ -52,8 +52,8 @@ function newRequest(itemSku) {
     .then((response) => {
       response.json()
         .then((data) => {
-          const { id: sku, title: name, price: salePrice } = data;
-          addingHtml(createCartItemElement({ sku, name, salePrice }), '.cart__items');
+          // const { id: sku, title: name, price: salePrice } = data;
+          addingHtml(createCartItemElement({ sku: data.id, name: data.title, salePrice: data.price }), '.cart__items');
         });
     });
 }
