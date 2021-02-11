@@ -7,6 +7,15 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
+function totalPriceCart() {
+  let totalPrice = 0;
+  const list = document.getElementsByTagName('li');
+  [...list].forEach((item) => {
+    totalPrice += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  document.querySelector('.total-price').innerHTML = totalPrice;
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
