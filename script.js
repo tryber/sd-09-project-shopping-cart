@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -138,3 +136,9 @@ function fetchAllProducts(query) {
     })
     .catch(error => window.alert(error));
 }
+
+window.onload = function onload() {
+  fetchAllProducts('computador');
+  getStorageItems();
+  clearCart();
+};
