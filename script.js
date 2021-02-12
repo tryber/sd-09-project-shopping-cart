@@ -28,37 +28,43 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function itemLocalStorage (...args) {
-  let id = 0;
-  let getItemList = localStorage.getItem('itemList');
+function itemLocalStorage(...args) {
+  const getItemList = localStorage.getItem('itemList');
   let arr = (localStorage.itemList === undefined) ? [] : getItemList;
+  let id = 0;
 
-  if (args[0].id === undefined) {return} else {id = args[0].id}
-  if (typeof arr === 'string') arr = JSON.parse(getItemList)
+  if (typeof arr === 'string') arr = JSON.parse(getItemList);
+  if (args[0].id === undefined) {
+    return;
+  } else id = args[0].id;
 
-  arr.push(id)
-  arr.sort()
+  arr.push(id);
+  arr.sort();
 
-  localStorage.setItem('itemList', JSON.stringify(arr))
+  localStorage.setItem('itemList', JSON.stringify(arr));
 }
 
 function cartItemClickListener(event) {
-  let idText = String(event.path[0].innerText).substring(5, 18);
+  const idText = String(event.path[0].innerText).substring(5, 18);
   let itemList = localStorage.itemList;
 
   event.path[0].remove();
 
-  if (itemList === undefined || itemList === null) {return}
-  else {
-    itemList = JSON.parse(itemList);
-    itemList.forEach((item) => {
-      if(item === idText) {
-        itemList.splice(itemList.indexOf(item), 1);
-        if (itemList.length === 0) {localStorage.clear(); return;}
-        localStorage.setItem('itemList', JSON.stringify(itemList));
-      }
-    })
-  }
+  if (itemList === undefined || itemList === null) {
+    return;
+  } else {
+      itemList = JSON.parse(itemList);
+      itemList.forEach((item) => {
+        if(item === idText) {
+          itemList.splice(itemList.indexOf(item), 1);
+          if (itemList.length === 0) {
+            localStorage.clear();
+            return;
+          }
+          localStorage.setItem('itemList', JSON.stringify(itemList));
+        }
+      })
+    }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
