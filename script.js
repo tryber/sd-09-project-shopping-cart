@@ -56,7 +56,6 @@ async function mercadoLivreResults(term) {
   });
 }
 
-
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
@@ -80,13 +79,10 @@ function getId(button) {
   }
 }
 
-
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
 }
-
-
 
 function SaveLocalStorage() {
   const items = document.querySelector('.items');
