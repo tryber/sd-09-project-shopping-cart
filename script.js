@@ -46,6 +46,11 @@ async function mercadoLivreResults(term) {
   });
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+  localStorage();
+}
+
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
@@ -69,32 +74,28 @@ function getId(button) {
   }
 }
 
-function localStorage() {
-  const itensList = document.querySelector('.cart__items');
-  localStorage.setItem('products', itensList.innerHTML);
-}
 
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-  localStorage();
+function localStorage() {
+  const itensList = document.querySelector('.cart__items');
+  localStorage.setItem('products', itensList.innerHTML);
 }
+
 
 function SaveLocalStorage() {
   const items = document.querySelector('.items');
   const listItems = localStorage.getItem('products');
-  
+
   if (!listItems) {
     localStorage.setItem('products', '');
   }
   items.innerHTML = localStorage.getItem('products');
   items.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
 }
-
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
