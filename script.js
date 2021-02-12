@@ -47,7 +47,7 @@ function itemLocalStorage(...args) {
 function cartItemClickListener(event) {
   const idText = String(event.path[0].innerText).substring(5, 18);
   let itemList = localStorage.itemList;
-  
+
   if (itemList === undefined || itemList === null) return 0;
 
   event.path[0].remove();
@@ -57,8 +57,7 @@ function cartItemClickListener(event) {
     if (item === idText) {
       itemList.splice(itemList.indexOf(item), 1);
       if (itemList.length === 0) {
-        localStorage.clear();
-        return;
+        return localStorage.clear();
       }
       localStorage.setItem('itemList', JSON.stringify(itemList));
     }
@@ -115,9 +114,8 @@ function verifyLocalStorage() {
   itemList.forEach(async (item) => {
     const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
     const results = await response.json();
-    listItemsInCart(results);
+    return listItemsInCart(results);
   });
-
 }
 
 function loadAPI(find = 'computador') {
