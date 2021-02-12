@@ -26,8 +26,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
   event.target.remove();
+  localStorage();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -70,14 +70,33 @@ function getId(button) {
     searchID(id);
   }
 }
+
+function localStorage(){
+  const list_itens = document.querySelector('.cart__items');
+  localStorage.setItem('products', list_itens.innerHTML);
+}
+
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
 }
+  // Requisito 2 e 3 feito com auxílio e colaboraçao do colega Layo Kaminky
 
-  // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky
+  // REQUISITO 4 
+  // Salvar os itens do carrinho no LocalStorage 
+  function SaveLocalStorage() {
+    const items = document.querySelector('.items');
+    const listItems = localStorage.getItem('products');
+
+    if (!listItems) {
+      localStorage.setItem('products',''); // setItem -> armazena 
+    }
+    items.innerHTML = localStorage.getItem('products');
+    items.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
+  }
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
+  SaveLocalStorage();
 };
