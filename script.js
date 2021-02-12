@@ -87,7 +87,6 @@ function addList() {
 function SaveLocalStorage() {
   const items = document.querySelector('.items');
   const listItems = localStorage.getItem('products');
-
   if (!listItems) {
     localStorage.setItem('products', '');
   }
