@@ -63,6 +63,7 @@ function cartItemClickListener(event) {
     }
     return 0;
   });
+  return 0;
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -118,6 +119,7 @@ function verifyLocalStorage() {
     listItemsInCart(results);
     return 0;
   });
+  return 0;
 }
 
 function loadAPI(find = 'computador') {
