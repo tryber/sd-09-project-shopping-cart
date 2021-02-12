@@ -143,7 +143,6 @@ function loadFromLocalStorage() {
     cart.appendChild(createCartItemElement({ sku, name, salePrice }));
     sum(salePrice);
   });
-
 }
 
 function load() {
