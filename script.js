@@ -51,7 +51,7 @@ function cartItemClickListener(event) {
   event.path[0].remove();
 
   if (itemList === undefined || itemList === null) {
-    return;
+    return 0;
   } else {
     itemList = JSON.parse(itemList);
     itemList.forEach((item) => {
@@ -111,8 +111,8 @@ function addAttributesScripts() {
 function verifyLocalStorage() {
   let itemList = localStorage.itemList;
 
-  if (itemList === undefined || itemList === null) { 
-    return;
+  if (itemList === undefined || itemList === null) {
+    return 0;
   } else {
     itemList = JSON.parse(itemList);
     itemList.forEach(async (item) => {
