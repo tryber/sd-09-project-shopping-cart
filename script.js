@@ -57,10 +57,11 @@ function cartItemClickListener(event) {
     if (item === idText) {
       itemList.splice(itemList.indexOf(item), 1);
       if (itemList.length === 0) {
-        return localStorage.clear();
+        localStorage.clear();
       }
       localStorage.setItem('itemList', JSON.stringify(itemList));
     }
+    return 0;
   });
 }
 
@@ -114,7 +115,8 @@ function verifyLocalStorage() {
   itemList.forEach(async (item) => {
     const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
     const results = await response.json();
-    return listItemsInCart(results);
+    listItemsInCart(results);
+    return 0;
   });
 }
 
