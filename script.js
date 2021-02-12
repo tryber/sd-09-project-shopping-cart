@@ -28,15 +28,37 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function itemLocalStorage (...args) {
+  let id = 0;
+  let getItemList = localStorage.getItem('itemList');
+  let arr = (localStorage.itemList === undefined) ? [] : getItemList;
+
+  if (args[0].id === undefined) {return} else {id = args[0].id}
+  if (typeof arr === 'string') arr = JSON.parse(getItemList)
+
+  arr.push(id)
+  arr.sort()
+
+  localStorage.setItem('itemList', JSON.stringify(arr))
+}
+
 function cartItemClickListener(event) {
-  // console.log(event)
+  let idText = String(event.path[0].innerText).substring(5, 18);
+  let itemList = localStorage.itemList;
+
   event.path[0].remove();
-  // if (localStorage.length === 0) return;
 
-  // const textListItem = String(event.path[0].innerText).substring(5, 18);
-  // const listLocalStorage = Object.entries(localStorage).find(item => item[1] === textListItem)
-
-  // localStorage.removeItem(listLocalStorage)
+  if (itemList === undefined || itemList === null) {return}
+  else {
+    itemList = JSON.parse(itemList);
+    itemList.forEach((item) => {
+      if(item === idText) {
+        itemList.splice(itemList.indexOf(item), 1);
+        if (itemList.length === 0) {localStorage.clear(); return;}
+        localStorage.setItem('itemList', JSON.stringify(itemList));
+      }
+    })
+  }
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -67,7 +89,7 @@ async function addItemsCart(tagHtml) {
   const results = responseJSON;
 
   listItemsInCart(results);
-  localStorage.setItem((Math.random() * 1000), results.id);
+  itemLocalStorage(results)
 }
 
 function addAttributesScripts() {
@@ -81,15 +103,15 @@ function addAttributesScripts() {
 }
 
 function verifyLocalStorage() {
-  if (localStorage.length > 0) {
-    Object.values(localStorage).forEach((item) => {
-      const response = fetch(`https://api.mercadolibre.com/items/${item}`);
-      response.then((res) => {
-        res.json().then((ok) => {
-          const results = ok;
-          listItemsInCart(results);
-        });
-      });
+  let itemList = localStorage.itemList;
+
+  if (itemList === undefined || itemList === null) {return}
+  else {
+    itemList = JSON.parse(itemList);
+    itemList.forEach(async (item) => {
+      const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
+      const results = await response.json()
+      listItemsInCart(results);
     });
   }
 }
@@ -122,16 +144,10 @@ window.onload = function onload() {
   cleanListCart();
 };
 
-/*
-     Uncaught TypeError: Cannot read property '0' of undefined
-     cartItemClickListener (script.js:37:94)
-*/
-
 /**
 OK - Listagem de produtos
 OK - Adicione o produto ao carrinho de compras
-Remova o item do carrinho de compras ao clicar nele
-  2) Remova o item do carrinho de compras ao clicar nele
+OK Remova o item do carrinho de compras ao clicar nele
 Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
   3) Carregue o carrinho de compras através do **LocalStorage** ao iniciar a página
 Some o valor total dos itens do carrinho de compras de forma assíncrona
