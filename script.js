@@ -25,10 +25,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-  localStorage();
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -71,29 +67,31 @@ function getId(button) {
   }
 }
 
-function localStorage(){
-  const list_itens = document.querySelector('.cart__items');
-  localStorage.setItem('products', list_itens.innerHTML);
+function localStorage() {
+  const itensList = document.querySelector('.cart__items');
+  localStorage.setItem('products', itensList.innerHTML);
 }
 
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
 }
-  // Requisito 2 e 3 feito com auxílio e colaboraçao do colega Layo Kaminky
 
-  // REQUISITO 4 
-  // Salvar os itens do carrinho no LocalStorage 
-  function SaveLocalStorage() {
-    const items = document.querySelector('.items');
-    const listItems = localStorage.getItem('products');
-
-    if (!listItems) {
-      localStorage.setItem('products',''); // setItem -> armazena 
-    }
-    items.innerHTML = localStorage.getItem('products');
-    items.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
+function SaveLocalStorage() {
+  const items = document.querySelector('.items');
+  const listItems = localStorage.getItem('products');
+  
+  if (!listItems) {
+    localStorage.setItem('products','');
   }
+  items.innerHTML = localStorage.getItem('products');
+  items.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
+}
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  localStorage();
+}
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
