@@ -104,7 +104,7 @@ const emptyCartStorage = () => {
 
 // Limpando itens
 const emptyProductsItems = () => {
-  (document.querySelectorAll('.item')).forEach(item => {
+  (document.querySelectorAll('.item')).forEach((item) => {
     item.remove();
   });
 };
@@ -123,7 +123,6 @@ const listingProducts = async (QUERY) => {
   const json = await response.json();
 
   setTimeout(() => {
-
     json.results.forEach((objProduct) => {
       const { id, title, thumbnail } = objProduct;
 
