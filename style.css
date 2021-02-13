@@ -31,7 +31,7 @@
 }
 
 .item {
-  border: 2px solid blue;
+  border: 2px solid green;
   border-radius: 5px;
   box-sizing: border-box;
   display: flex;
@@ -67,6 +67,10 @@
   display: flex;
   flex-basis: 30%;
   flex-flow: column wrap;
+}
+
+.input__search {
+  width: 80%;
 }
 
 .cart .cart__title {

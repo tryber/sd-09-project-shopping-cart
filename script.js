@@ -1,10 +1,5 @@
 
 
-/* My changes */
-// body {
-//   background-color: rgba(237,237,237,255);
-// }
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -107,24 +102,42 @@ const emptyCartStorage = () => {
   });
 };
 
+// Limpando itens
+const emptyProductsItems = () => {
+  (document.querySelectorAll('.item')).forEach(item => {
+    item.remove();
+  });
+};
+
+// Loading
+function loading() {
+  document.querySelector('.items')
+    .appendChild(createCustomElement('p', 'loading', 'loading...'));
+}
+
 // Listando produtos
 const listingProducts = async (QUERY) => {
+  emptyProductsItems();
+
   const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`);
   const json = await response.json();
 
-  json.results.forEach((objProduct) => {
-    const { id, title, thumbnail } = objProduct;
+  setTimeout(() => {
 
-    const productItem = createProductItemElement({ sku: id, name: title, image: thumbnail });
-    document.querySelector('.items').appendChild(productItem);
-  });
+    json.results.forEach((objProduct) => {
+      const { id, title, thumbnail } = objProduct;
 
-  document.querySelector('.loading').remove();
+      const productItem = createProductItemElement({ sku: id, name: title, image: thumbnail });
+      document.querySelector('.items').appendChild(productItem);
+    });
 
-  const allButtonsAdd = document.querySelectorAll('.item');
-  allButtonsAdd.forEach(button => button.addEventListener('click', addProductCart));
+    const allButtonsAdd = document.querySelectorAll('.item');
+    allButtonsAdd.forEach(button => button.addEventListener('click', addProductCart));
 
-  document.querySelector('.empty-cart').addEventListener('click', emptyCartStorage);
+    document.querySelector('.empty-cart').addEventListener('click', emptyCartStorage);
+
+    document.querySelector('.loading').remove();
+  }, 3000);
 };
 
 // Adicionando itens no carrinho, ao carregar a página
@@ -138,8 +151,7 @@ function recoverItemsLocalstorage() {
 }
 
 window.onload = function onload() {
-  document.querySelector('.items')
-    .appendChild(createCustomElement('p', 'loading', 'loading...'));
+  loading();
 
   document.querySelector('.cart')
     .appendChild(createCustomElement('p', 'total-text', 'Preço total: $'))
@@ -147,4 +159,9 @@ window.onload = function onload() {
 
   listingProducts('computador');
   recoverItemsLocalstorage();
+
+  document.querySelector('.button__search').addEventListener('click', () => {
+    loading();
+    listingProducts(document.querySelector('.input__search').value);
+  });
 };
