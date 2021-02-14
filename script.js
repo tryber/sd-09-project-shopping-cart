@@ -42,29 +42,29 @@ function createElement(term) {
   const loading = document.querySelector('.loading');
   loading.innerText = 'loading';
   fetch(`https://api.mercadolibre.com/items/${term}`, param)
-    .then((response) => {
-      response.json()
+    .then((response) => 
+      response.json())
       .then((data) => {
-        console.log(data);
-        // data.results.map(result => {
-        const { id: sku, title: name, price: salePrice } = data.results;
-        const ol = document.querySelector('.cart__items');
-        createCartItemElement({ sku, name, salePrice });
-        const cartItemsList = document.querySelector('.cart__items');
-        ol.appendChild(cartItemsList);
-        return result;
-      });
-      // });
-    });
-}
+        const ol = document.querySelector('.cart__itens')
+        console.log(data)
+        const  { id: sku, title: name, price: salePrice } = data;
+        const a = (sku, name, salePrice)
+        
+        ol.appendChild(createCartItemElement(`${sku},${name}, ${salePrice}`))        
+      })
+};
+
 
 function select() {
   const buttonAdd = document.querySelectorAll('.item__add');
-  buttonAdd.forEach(button => button.addEventListener('click', () => {
-    buttonText = document.querySelector('.item__sku').innerText;
-    console.log(buttonText);
-    createElement(buttonText);
-  }));
+  for (let i = 0; i < buttonAdd.length; i +=1) {
+    console.log([i]);
+    buttonAdd[i].addEventListener('click', (event) => {
+      buttonText = event.target.parentNode.firstChild.innerText;
+      createElement(buttonText);
+      })
+    
+  }
 }
 
 retrieveMercadoLivre = (term) => {
