@@ -27,14 +27,8 @@ function createProductItemElement({ sku, name, image }) {
 }*/
 
 function cartItemClickListener(event) {
-  const exclude = document.querySelectorAll('cart__item');
-  console.log(exclude);
-  for (let index = 0; index < exclude.length; index += 1) {
-    exclude[index].remove();
-  }
-  
+  event.target.parentNode.firstChild.remove();
 }
-
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
