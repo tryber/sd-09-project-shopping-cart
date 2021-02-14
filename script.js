@@ -22,18 +22,19 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
-function getSkuFromProductItem(item) {
+/*function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
 }
+*/
 
-function createCartItemElement({ sku, name, salePrice }) {
+function createCartItemElement({ id:sku, title:name, price:salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  //li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
@@ -45,15 +46,13 @@ function createElement(term) {
     .then((response) => 
       response.json())
       .then((data) => {
-        const ol = document.querySelector('.cart__itens')
         console.log(data)
-        const  { id: sku, title: name, price: salePrice } = data;
-        const a = (sku, name, salePrice)
+        //let  { id: sku, title: name, price: salePrice } = data;
         
-        ol.appendChild(createCartItemElement(`${sku},${name}, ${salePrice}`))        
+        const ol = document.querySelector('.cart__items');
+        ol.appendChild(createCartItemElement(data));
       })
 };
-
 
 function select() {
   const buttonAdd = document.querySelectorAll('.item__add');
