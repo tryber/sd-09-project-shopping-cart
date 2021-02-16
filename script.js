@@ -5,21 +5,13 @@ function createProductImageElement(imageSource) {
   return img;
 }
 
-function localStorage() {
-  const itensList = document.querySelector('.cart__items');
-  localStorage.setItem('products', itensList.innerHTML);
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
-  localStorage();
-}
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
   return e;
 }
+
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -31,8 +23,13 @@ function createProductItemElement({ sku, name, image }) {
   sectionItems.appendChild(section);
   return section;
 }
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
+}
+
+function cartItemClickListener(event) {
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -83,19 +80,10 @@ function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
 }
-
-function SaveLocalStorage() {
-  const items = document.querySelector('.items');
-  const listItems = localStorage.getItem('products');
-  if (!listItems) {
-    localStorage.setItem('products', '');
-  }
-  items.innerHTML = localStorage.getItem('products');
-  items.childNodes.forEach((product => product.addEventListener('click', cartItemClickListener)));
-}
+// Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
-  SaveLocalStorage();
 };
+
