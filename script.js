@@ -86,4 +86,3 @@ window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
 };
-
