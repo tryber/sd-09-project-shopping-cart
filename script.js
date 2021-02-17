@@ -22,6 +22,7 @@ function clearCart() {
   for (let i = comp - 1; i >= 0; i -= 1) {
     cartList[0].parentElement.removeChild(cartList[i]);
   }
+  localStorage.clear();
 }
 
 function createCustomElement(element, className, innerText) {
