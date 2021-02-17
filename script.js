@@ -12,24 +12,41 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-let soma = 0;
-
-function atualizaSoma(valor) {
-  document.querySelector('.somador').innerHTML = `Total: R$${valor}`;
+function atualizaSoma(valor, sinal) {
+  const somador = document.querySelector('.somador');
+  if (sinal === '+') {
+    let total = Number(somador.innerHTML) + valor;
+    for (let i in 3) {
+      total = Math.floor(total * 100) / 100;
+    }
+    somador.innerHTML = total;
+  } else {
+    let total = Number(somador.innerHTML) - valor;
+    for (let i in 3) {
+      total = Math.floor(total * 100) / 100;
+    }
+    somador.innerHTML = total;
+  }
+  const partesSoma = somador.innerHTML.split('.');
+  const decimal = partesSoma[1];
+  if (decimal != undefined) {
+    somador.innerHTML = `${partesSoma[0]}.${decimal.slice(0, 2)}`
+  }
+  if (Number(somador.innerHTML) < 0) {
+    somador.innerHTML = '0';
+  }
 }
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
-  soma -= (Math.floor(item.innerText.split('PRICE: $')[1] * 100)) / 100;
-  soma = (Math.floor(soma * 100)) / 100;
-  soma = (Math.floor(soma * 100)) / 100;
 
-  if (soma < 0) {
-    soma = 0;
+  let preco = (Math.floor(item.innerText.split('PRICE: $')[1] * 100)) / 100;
+  for (let i in 3) {
+    preco = Math.floor(preco * 100) / 100;
   }
 
-  atualizaSoma(soma);
+  atualizaSoma(preco, '-')
 
   item.parentElement.removeChild(item);
 }
@@ -63,11 +80,14 @@ function createProductItemElement({ sku, name, image }) {
 
     const { price: salePrice } = object;
 
-    soma += (Math.floor(salePrice * 100)) / 100;
-    soma = (Math.floor(soma * 100)) / 100;
-    soma = (Math.floor(soma * 100)) / 100;
+    let preco = (Math.floor(salePrice * 100)) / 100;
+    for (let i in 3) {
+      preco = Math.floor(preco * 100) / 100;
+    }
 
-    atualizaSoma(soma);
+    console.log(preco);
+
+    atualizaSoma(preco, '+');
 
     cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
   });
@@ -96,6 +116,7 @@ window.onload = function onload() {
   const cart = document.querySelector('.cart');
   const somador = document.createElement('div');
   somador.className = 'somador';
+  somador.innerHTML = '0';
   cart.appendChild(somador);
 };
 
