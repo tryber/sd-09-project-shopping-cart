@@ -12,9 +12,25 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+let soma = 0;
+
+function atualizaSoma(soma) {
+  document.querySelector('.somador').innerHTML = `Total: R$${soma}`;
+}
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
+  soma -= (Math.floor(item.innerText.split('PRICE: $')[1] * 100)) / 100;
+  soma = (Math.floor(soma * 100)) / 100;
+  soma = (Math.floor(soma * 100)) / 100;
+
+  if (soma < 0) {
+    soma = 0;
+  }
+
+  atualizaSoma(soma);
+
   item.parentElement.removeChild(item);
 }
 
@@ -47,6 +63,12 @@ function createProductItemElement({ sku, name, image }) {
 
     const { price: salePrice } = object;
 
+    soma += (Math.floor(salePrice * 100)) / 100;
+    soma = (Math.floor(soma * 100)) / 100;
+    soma = (Math.floor(soma * 100)) / 100;
+
+    atualizaSoma(soma);
+
     cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
   });
 
@@ -71,6 +93,10 @@ async function createItems() {
 
 window.onload = function onload() {
   createItems();
+  const cart = document.querySelector('.cart');
+  const somador = document.createElement('div');
+  somador.className = 'somador'
+  cart.appendChild(somador);
 };
 
 function getSkuFromProductItem(item) {
