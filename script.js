@@ -1,26 +1,10 @@
 function saveState() {
-  localStorage.clear()
+  localStorage.clear();
   const cartItemsList = document.querySelectorAll('.cart__item');
   for (let i = 0; i < cartItemsList.length; i += 1) {
-
-    let cartItemText = cartItemsList[i].innerHTML;
-    
-    localStorage.setItem(i, cartItemText)
-    localStorage.setItem('count', cartItemsList.length)
-  }
-}
-
-function aplyState() {
-  const cartItems = document.querySelector('.cart__items');
-  for (let i = 0; i < localStorage.getItem('count'); i += 1) {
-
-    let item = localStorage[i].split('|');
-
-    const sku = item[0].split(':')[1].trim();
-    const name = item[1].split(':')[1].trim();
-    const salePrice = item[2].split(':')[1].trim();
-
-    cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
+    const cartItemText = cartItemsList[i].innerHTML;
+    localStorage.setItem(i, cartItemText);
+    localStorage.setItem('count', cartItemsList.length);
   }
 }
 
@@ -42,7 +26,7 @@ function cartItemClickListener(event) {
   // coloque seu código aqui
   const item = event.target;
   item.parentElement.removeChild(item);
-  saveState()
+  saveState();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -51,6 +35,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+
+function aplyState() {
+  const cartItems = document.querySelector('.cart__items');
+  for (let i = 0; i < localStorage.getItem('count'); i += 1) {
+    const item = localStorage[i].split('|');
+    const sku = item[0].split(':')[1].trim();
+    const name = item[1].split(':')[1].trim();
+    const salePrice = item[2].split(':')[1].trim();
+    cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
+  }
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -75,7 +70,7 @@ function createProductItemElement({ sku, name, image }) {
 
     cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
 
-    saveState()
+    saveState();
   });
 
   return section;
