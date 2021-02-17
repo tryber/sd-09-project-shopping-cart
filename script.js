@@ -62,7 +62,7 @@ const executeAddingPrices = async () => {
   updatingFooter(parentElement);
   const footer = document.createElement('footer');
   footer.className = 'total-price';
-  footer.innerText = `Total a pagar: R$ ${sumOfPrices}`;
+  footer.innerText = sumOfPrices;
   parentElement.appendChild(footer);
 };
 
