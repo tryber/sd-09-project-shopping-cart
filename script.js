@@ -126,11 +126,19 @@ function productsRequisition() {
   });
 }
 
+function emptyingCart() {
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach(element => element.remove());
+  executeAddingPrices();
+}
 
 window.onload = function onload() {
   productsRequisition();
   retrievingList();
   executeAddingPrices();
+
+  const emptyCartButton = document.querySelector('.empty-cart');
+  emptyCartButton.addEventListener('click', emptyingCart)
 };
 
 // *******************************************************************************************
