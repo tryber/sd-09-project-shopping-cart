@@ -14,8 +14,8 @@ function createCustomElement(element, className, innerText) {
 
 let soma = 0;
 
-function atualizaSoma(soma) {
-  document.querySelector('.somador').innerHTML = `Total: R$${soma}`;
+function atualizaSoma(valor) {
+  document.querySelector('.somador').innerHTML = `Total: R$${valor}`;
 }
 
 function cartItemClickListener(event) {
@@ -95,7 +95,7 @@ window.onload = function onload() {
   createItems();
   const cart = document.querySelector('.cart');
   const somador = document.createElement('div');
-  somador.className = 'somador'
+  somador.className = 'somador';
   cart.appendChild(somador);
 };
 
