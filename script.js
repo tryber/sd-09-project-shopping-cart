@@ -34,7 +34,6 @@ async function calcPrices() {
   let total = 0;
   list.forEach((item) => {
     total += Number(item.innerText.split('$')[1]);
-    console.log(total);
   });
   const calcElement = document.querySelector('.total-price');
   calcElement.innerText = total;
@@ -86,9 +85,9 @@ async function retriveItems(term) {
   addCart();
 }
 
-// function getSkuFromProductItem(item) {
-//   return item.querySelector('span.item__sku').innerText;
-// }
+function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText;
+}
 
 function cartStorage() {
   const itemsInCar = localStorage.getItem('productList');
