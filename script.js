@@ -15,13 +15,9 @@ function createCustomElement(element, className, innerText) {
 function atualizaSoma(valor, sinal) {
   const somador = document.querySelector('.somador');
   if (sinal === '+') {
-    let total = Number(somador.innerHTML) + valor;
-    total = Math.floor(total * 100) / 100;
-    somador.innerHTML = total;
+    somador.innerHTML = Number(Math.floor(somador.innerHTML * 100) / 100) + valor;
   } else {
-    let total = Number(somador.innerHTML) - valor;
-    total = Math.floor(total * 100) / 100;
-    somador.innerHTML = total;
+    somador.innerHTML = Number(Math.floor(somador.innerHTML * 100) / 100) - valor;
   }
   const partesSoma = somador.innerHTML.split('.');
   const decimal = partesSoma[1];
