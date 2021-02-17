@@ -130,6 +130,7 @@ function emptyingCart() {
   const cartItems = document.querySelectorAll('.cart__item');
   cartItems.forEach(element => element.remove());
   executeAddingPrices();
+  savingList();
 }
 
 window.onload = function onload() {
@@ -138,7 +139,7 @@ window.onload = function onload() {
   executeAddingPrices();
 
   const emptyCartButton = document.querySelector('.empty-cart');
-  emptyCartButton.addEventListener('click', emptyingCart)
+  emptyCartButton.addEventListener('click', emptyingCart);
 };
 
 // *******************************************************************************************
