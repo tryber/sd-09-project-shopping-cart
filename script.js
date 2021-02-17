@@ -17,9 +17,9 @@ function createProductImageElement(imageSource) {
 
 function clearCart() {
   // const cart = document.querySelector('.cart__items');
-  const cartList = document.querySelectorAll('.cart__item')
+  const cartList = document.querySelectorAll('.cart__item');
   const comp = cartList.length;
-  for (let i = comp - 1; i >= 0 ; i -= 1) {
+  for (let i = comp - 1; i >= 0; i -= 1) {
     cartList[0].parentElement.removeChild(cartList[i]);
   }
 }
