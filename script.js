@@ -40,6 +40,32 @@ function savingList() {
   localStorage.setItem('shoppingCart', savedList.innerHTML);
 }
 
+function addingPrices() {
+  const selectedPrices = document.querySelectorAll('li');
+  let sum = 0;
+  selectedPrices.forEach((element) => {
+    sum += Number(element.innerText.split('$')[1]);
+  });
+  return Math.round(sum * 100) / 100;
+}
+
+function updatingFooter(parentElement) {
+  const updatesFooter = document.querySelector('footer');
+  if (updatesFooter) {
+    parentElement.removeChild(updatesFooter);
+  }
+}
+
+const executeAddingPrices = async () => {
+  const sumOfPrices = await addingPrices();
+  const parentElement = document.querySelector('.cart');
+  updatingFooter(parentElement);
+  const footer = document.createElement('footer');
+  footer.className = 'total-price';
+  footer.innerText = `Total a pagar: R$ ${sumOfPrices}`;
+  parentElement.appendChild(footer);
+};
+
 function cartItemClickListener(event) {
   // coloque seu código aqui
   event.target.remove();
@@ -100,31 +126,6 @@ function productsRequisition() {
   });
 }
 
-function addingPrices() {
-  const selectedPrices = document.querySelectorAll('li');
-  let sum = 0;
-  selectedPrices.forEach((element) => {
-    sum += Number(element.innerText.split('$')[1]);
-  });
-  return Math.round(sum * 100) / 100;
-}
-
-function updatingFooter(parentElement) {
-  const updatesFooter = document.querySelector('footer');
-  if (updatesFooter) {
-    parentElement.removeChild(updatesFooter);
-  }
-}
-
-const executeAddingPrices = async () => {
-  const sumOfPrices = await addingPrices();
-  const parentElement = document.querySelector('.cart');
-  updatingFooter(parentElement)
-  const footer = document.createElement('footer');
-  footer.className = 'total-price';
-  footer.innerText = `Total a pagar: R$ ${sumOfPrices}`;
-  parentElement.appendChild(footer);
-}
 
 window.onload = function onload() {
   productsRequisition();
