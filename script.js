@@ -16,21 +16,17 @@ function atualizaSoma(valor, sinal) {
   const somador = document.querySelector('.somador');
   if (sinal === '+') {
     let total = Number(somador.innerHTML) + valor;
-    for (let i in 3) {
-      total = Math.floor(total * 100) / 100;
-    }
+    total = Math.floor(total * 100) / 100;
     somador.innerHTML = total;
   } else {
     let total = Number(somador.innerHTML) - valor;
-    for (let i in 3) {
-      total = Math.floor(total * 100) / 100;
-    }
+    total = Math.floor(total * 100) / 100;
     somador.innerHTML = total;
   }
   const partesSoma = somador.innerHTML.split('.');
   const decimal = partesSoma[1];
-  if (decimal != undefined) {
-    somador.innerHTML = `${partesSoma[0]}.${decimal.slice(0, 2)}`
+  if (decimal !== undefined) {
+    somador.innerHTML = `${partesSoma[0]}.${decimal.slice(0, 2)}`;
   }
   if (Number(somador.innerHTML) < 0) {
     somador.innerHTML = '0';
@@ -42,11 +38,9 @@ function cartItemClickListener(event) {
   const item = event.target;
 
   let preco = (Math.floor(item.innerText.split('PRICE: $')[1] * 100)) / 100;
-  for (let i in 3) {
-    preco = Math.floor(preco * 100) / 100;
-  }
+  preco = Math.floor(preco * 100) / 100;
 
-  atualizaSoma(preco, '-')
+  atualizaSoma(preco, '-');
 
   item.parentElement.removeChild(item);
 }
@@ -81,11 +75,7 @@ function createProductItemElement({ sku, name, image }) {
     const { price: salePrice } = object;
 
     let preco = (Math.floor(salePrice * 100)) / 100;
-    for (let i in 3) {
-      preco = Math.floor(preco * 100) / 100;
-    }
-
-    console.log(preco);
+    preco = Math.floor(preco * 100) / 100;
 
     atualizaSoma(preco, '+');
 
