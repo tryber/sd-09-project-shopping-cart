@@ -1,3 +1,13 @@
+async function cartTotalValue() {
+  totalPrice = document.querySelector('.total-price');
+  let total = 0;
+  cartItems = document.querySelectorAll('.cart__item');
+  await [...cartItems].forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  totalPrice.innerHTML = `Total: R$ ${total.toFixed(2)}`;
+}
+
 function saveCart() {
   const cartList = document.querySelector('.cart__items');
   localStorage.setItem('cart', cartList.innerHTML);
@@ -8,7 +18,6 @@ function loadCart() {
   cart.innerHTML = localStorage.getItem('cart');
   const cartItems = document.getElementsByClassName('cart__item');
   [...cartItems].forEach(item => item.addEventListener('click', cartItemClickListener));
-
 }
 
 function createLoading() {
@@ -114,17 +123,6 @@ function emptyCart() {
     totalPrice.innerHTML = 'Total: R$ 0.00';
     saveCart();
   });
-}
-
-async function cartTotalValue() {
-  totalPrice = document.querySelector('.total-price');
-  let total = 0;
-  cartItems = document.querySelectorAll('.cart__item');
-  await [...cartItems].forEach((item) => {
-
-    total += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  totalPrice.innerHTML = `Total: R$ ${total.toFixed(2)}`;
 }
 
 

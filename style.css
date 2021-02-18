@@ -1,5 +1,5 @@
 body {
-  font-family: 'Segoe UI', 'Tahoma', 'Verdana', 'sans-serif';
+  font-family: = Tahoma, Verdana, sans-serif;
   margin: 0;
 }
 
@@ -37,7 +37,7 @@ body {
 }
 
 .item {
-  border: 2px solid rgb(92, 91, 91);
+  border: 2px solid rgb( 92, 91, 91 );
   border-radius: 5px;
   box-sizing: border-box;
   display: flex;
@@ -62,7 +62,7 @@ body {
 }
 
 .item .item__add {
-  background-color: rgb(78, 182, 78);
+  background-color: rgb( 78, 182, 78 );
   border: 0;
   border-radius: 2px;
   cursor: pointer;
@@ -71,7 +71,7 @@ body {
 }
 
 .cart {
-  border: 1px solid rgb(78, 78, 82);
+  border: 1px solid rgb( 78, 78, 82 );
   border-radius: 7px;
   box-sizing: border-box;
   display: flex;
@@ -88,7 +88,7 @@ body {
 }
 
 .cart__item {
-  background-color: rgb(228, 227, 227);
+  background-color: rgb( 228, 227, 227 );
   border-bottom: 8px solid white;
 }
 
@@ -100,8 +100,8 @@ body {
 
 header {
   align-items: center;
-  background-color: rgb(75, 167, 75);
-  color: rgb(53, 53, 53);
+  background-color: rgb( 75, 167, 75 );
+  color: rgb( 53, 53, 53 );
   display: flex;
   height: 100px;
   justify-content: center;
@@ -113,7 +113,7 @@ header {
 
 .total-price {
   align-self: center;
-  background-color: rgb(78, 78, 82);
+  background-color: rgb( 78, 78, 82 );
   border: 1px solid black;
   border-radius: 5px;
   color: white;
