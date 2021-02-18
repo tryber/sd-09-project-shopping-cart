@@ -1,7 +1,7 @@
 async function cartTotalValue(productPrice) {
   let total = parseFloat(document.querySelector('.total-price').innerHTML);
   total += parseFloat(productPrice);
-  document.querySelector('.total-price').innerText = total;
+  document.querySelector('.total-price').innerHTML = total;
 }
 
 function saveCart() {
