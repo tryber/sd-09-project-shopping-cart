@@ -2,7 +2,7 @@ async function cartTotalValue(productPrice) {
   const total = +(document.querySelector('.total-price').innerText);
   let sum = parseFloat(total);
   const totalPrice = document.querySelector('.total-price');
-  sum += parseFloat(productPrice);
+  sum += git aparseFloat(productPrice);
   totalPrice.innerHTML = sum;
 }
 
@@ -10,7 +10,7 @@ function saveCart() {
   const cartList = document.querySelector('.cart__items');
   localStorage.setItem('cart', cartList.innerHTML);
 }
-
+ç
 function cartItemClickListener(event) {
   event.target.remove();
   saveCart();
