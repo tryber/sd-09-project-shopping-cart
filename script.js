@@ -1,7 +1,9 @@
 async function cartTotalValue(productPrice) {
-  let total = parseFloat(document.querySelector('.total-price').innerHTML);
-  total += parseFloat(productPrice);
-  document.querySelector('.total-price').innerHTML = total;
+  const total = +(document.querySelector('.total-price').innerHTML);
+  let sum = parseFloat(total);
+  const totalPrice = document.querySelector('.total-price')
+  sum += parseFloat(productPrice);
+  totalPrice.innerHTML = sum;
 }
 
 function saveCart() {
@@ -86,7 +88,7 @@ function addToCart() {
     const cartItems = document.querySelector('.cart__items');
     const cartItem = createCartItemElement(item);
     cartItems.appendChild(cartItem);
-    cartTotalValue(response.price);
+    cartTotalValue(item.salePrice);
     saveCart();
   });
 }
