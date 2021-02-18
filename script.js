@@ -1,5 +1,5 @@
 async function cartTotalValue(productPrice) {
-  const total = +(document.querySelector('.total-price').innerHTML);
+  const total = +(document.querySelector('.total-price').innerText);
   let sum = parseFloat(total);
   const totalPrice = document.querySelector('.total-price');
   sum += parseFloat(productPrice);
