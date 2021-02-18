@@ -5,7 +5,7 @@ async function cartTotalValue() {
   await [...cartItems].forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  totalPrice.innerHTML = Math.round(total);
+  totalPrice.innerHTML = total.toFixed(2);
 }
 
 function saveCart() {
@@ -120,7 +120,7 @@ function emptyCart() {
   emptyCartButton = document.querySelector('.empty-cart');
   emptyCartButton.addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
-    totalPrice.innerHTML = 'Total: R$ 0.00';
+    totalPrice.innerHTML = '0.00';
     saveCart();
   });
 }

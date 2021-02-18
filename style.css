@@ -111,12 +111,13 @@ header {
   margin-left: 20px;
 }
 
-.total-price {
+.price {
   align-self: center;
   background-color: rgb( 78, 78, 82 );
   border: 1px solid black;
   border-radius: 5px;
   color: white;
+  display: flex;
   margin-bottom: 10px;
   padding: 5px;
   text-align: center;
