@@ -2,10 +2,10 @@ async function cartTotalValue() {
   totalPrice = document.querySelector('.total-price');
   let total = 0;
   cartItems = document.querySelectorAll('.cart__item');
-  await [...cartItems].forEach((item) => {
+  [...cartItems].forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
+    totalPrice.innerHTML = (Math.ceil(total * 100).toFixed(2) / 100);
   });
-  totalPrice.innerHTML = (Math.ceil(total * 100).toFixed(2) / 100);
 }
 
 function saveCart() {
