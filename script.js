@@ -1,11 +1,8 @@
-async function cartTotalValue() {
-  totalPrice = document.querySelector('.total-price');
-  let total = 0;
-  cartItems = document.querySelectorAll('.cart__item');
-  await [...cartItems].forEach((item) => {
-    total += parseFloat(item.innerHTML.split('$')[1]);
-  });
-  totalPrice.innerHTML = total.toFixed(2);
+async function cartTotalValue(productPrice) {
+  let total = document.querySelector('.total-price');
+  let sum = 0;
+  sum += parseFloat(productPrice);
+  total.innerText = sum;
 }
 
 function saveCart() {
@@ -90,7 +87,7 @@ function addToCart() {
     const cartItems = document.querySelector('.cart__items');
     const cartItem = createCartItemElement(item);
     cartItems.appendChild(cartItem);
-    cartTotalValue();
+    cartTotalValue(response.price);
     saveCart();
   });
 }
