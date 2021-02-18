@@ -113,12 +113,15 @@ function verifyLocalStorage() {
   if (itemList === undefined || itemList === null) return 0;
 
   itemList = JSON.parse(itemList);
-  itemList.forEach(async (item) => {
-    const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
-    const results = await response.json();
-    listItemsInCart(results);
-    return 0;
-  });
+  itemList.forEach(
+    setInterval(()  => {
+    async (item) => {
+      const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
+      const results = await response.json();
+      listItemsInCart(results)
+    }
+}, 2000)
+  );
   return 0;
 }
 
