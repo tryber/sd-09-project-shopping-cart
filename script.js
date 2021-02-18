@@ -1,9 +1,11 @@
-async function cartTotalValue(productPrice) {
-  const total = +(document.querySelector('.total-price').innerText);
-  let sum = parseFloat(total);
-  const totalPrice = document.querySelector('.total-price');
-  sum += parseFloat(productPrice);
-  totalPrice.innerHTML = sum;
+async function cartTotalValue() {
+  totalPrice = document.querySelector('.total-price');
+  let total = 0;
+  cartItems = document.querySelectorAll('.cart__item');
+  await [...cartItems].forEach((item) => {
+    total += parseFloat(item.innerHTML.split('$')[1]);
+  });
+  totalPrice.innerHTML = (Math.ceil(total * 100).toFixed(2)/100);
 }
 
 function saveCart() {
@@ -88,7 +90,7 @@ function addToCart() {
     const cartItems = document.querySelector('.cart__items');
     const cartItem = createCartItemElement(item);
     cartItems.appendChild(cartItem);
-    cartTotalValue(item.salePrice);
+    cartTotalValue();
     saveCart();
   });
 }
