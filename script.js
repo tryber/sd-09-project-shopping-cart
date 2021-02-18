@@ -117,9 +117,8 @@ function verifyLocalStorage() {
     async (item) => {
       const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
       const results = await response.json();
-      listItemsInCart(results)
-    }
-  );
+      listItemsInCart(results);
+    });
   return 0;
 }
 
