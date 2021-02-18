@@ -5,7 +5,7 @@ async function cartTotalValue() {
   await [...cartItems].forEach((item) => {
     total += parseFloat(item.innerHTML.split('$')[1]);
   });
-  totalPrice.innerHTML = (Math.ceil(total * 100).toFixed(2)/100);
+  totalPrice.innerHTML = (Math.ceil(total * 100).toFixed(2) / 100);
 }
 
 function saveCart() {
