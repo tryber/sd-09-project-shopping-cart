@@ -13,6 +13,11 @@ function saveCart() {
   localStorage.setItem('cart', cartList.innerHTML);
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+  saveCart();
+}
+
 function loadCart() {
   const cart = document.querySelector('.cart__items');
   cart.innerHTML = localStorage.getItem('cart');
@@ -60,11 +65,6 @@ function createProductItemElement({ sku, name, image }) {
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
-  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
