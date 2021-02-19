@@ -1,17 +1,15 @@
-window.onload = function onload() { };
+function createCustomElement(element, className, innerText) {
+  const e = document.createElement(element);
+  e.className = className;
+  e.innerText = innerText;
+  return e;
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
-}
-
-function createCustomElement(element, className, innerText) {
-  const e = document.createElement(element);
-  e.className = className;
-  e.innerText = innerText;
-  return e;
 }
 
 function createProductItemElement({ sku, name, image }) {
@@ -26,11 +24,27 @@ function createProductItemElement({ sku, name, image }) {
   return section;
 }
 
+function showSearchedItems(itensArray) {
+  const itemsSection = document.querySelector('.items');
+  itensArray.map((item) => {
+    const itemElement =
+    createProductItemElement({ sku: item.id, name: item.title, image: item.thumbnail });
+    itemsSection.appendChild(itemElement);
+    return itemsSection;
+  });
+}
+
+window.onload = function onload() {
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then(responseObj => responseObj.json())
+  .then(jsonObj => showSearchedItems(jsonObj.results));
+};
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener(event) { // função pra remover o item do carrinho?
   // coloque seu código aqui
 }
 
