@@ -1,4 +1,4 @@
-var valorTotal = 0;
+let valorTotal = 0;
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -47,14 +47,14 @@ function itemLocalStorage(...args) {
 }
 
 async function priceItems(preco) {
-  if (typeof preco == 'string') {
+  if (typeof preco === 'string') {
     const response = await fetch(`https://api.mercadolibre.com/items/${preco}`);
     const results = await response.json();
-    let { price } = results;
+    const { price } = results;
 
     valorTotal -= price;
 
-  } else valorTotal += preco.price;
+  } valorTotal += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
   TAGSECTIONCART.innerHTML = valorTotal.toFixed(2);
