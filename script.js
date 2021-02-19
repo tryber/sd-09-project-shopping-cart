@@ -34,17 +34,30 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener);
   const local = {
-    'SKU': sku,
-    'NAME': name,
-    'PRICE': salePrice
-  }
+    SKU: sku,
+    NAME: name,
+    PRICE: salePrice,
+  };
   localStorage.setItem('item', JSON.stringify(local));
-  let returnInfo = JSON.parse(localStorage.getItem('item'));
+  const returnInfo = JSON.parse(localStorage.getItem('item'));
   console.log(returnInfo);
   return li;
 }
+
+function emptyAllCart() {
+  const emptyComplete = document.querySelectorAll('.cart__item');
+  for (i = 0; i < emptyComplete.length; i += 1) {
+    emptyComplete[i].remove();
+  }
+}
+
+function deleteCart() {
+  const emptyAll = document.querySelector('.empty-cart');
+  emptyAll.addEventListener('click', emptyAllCart);
+}
+
 
 function createElement(term) {
   const loading = document.querySelector('.loading');
@@ -58,8 +71,8 @@ function createElement(term) {
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
       });
-      loading.innerText = '';
-      empty_cart();
+  loading.innerText = '';
+  deleteCart();
 }
 
 function chosen(event) {
@@ -92,17 +105,6 @@ retrieveMercadoLivre = (term) => {
     });
 };
 
-function empty_cart(){
-  const emptyAll = document.querySelector('.empty-cart');
-  emptyAll.addEventListener('click', emptyAllCart);
-}
-
-function emptyAllCart() {
-  const emptyComplete = document.querySelectorAll('.cart__item');
-  for (i = 0; i <emptyComplete.length; i += 1) {
-    emptyComplete[i].remove();
-  }
-}
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
 };
