@@ -52,11 +52,13 @@ async function priceItems(preco) {
     const results = await response.json();
     const { price } = results;
 
-    valorTotal -= price;
-  } else valorTotal += preco.price;
+    valor -= price;
+  } else valor += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
-  TAGSECTIONCART.innerHTML = (Number.isInteger(valorTotal)) ? Math.round(valorTotal) : valorTotal.toFixed(2);
+  let valorTotal = (Number.isInteger(valor)) ? Math.round(valor) : valor.toFixed(2);
+
+  TAGSECTIONCART.innerHTML = valorTotal;
 }
 
 function cartItemClickListener(event) {
