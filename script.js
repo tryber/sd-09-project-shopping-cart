@@ -41,19 +41,25 @@ const fetchShoppingCart = (productQuery) => {
     });
 };
 
-// const emptyCart = () => {
-//   const cartItemsOL = document.querySelector('.cart__items');
-//   cartItemsOL.innerHTML = '';
-// };
+// REMOVE ALL ITEMS FROM CART BY CLICKING ON IT
+const emptyCart = () => {
+  const olCartItems = document.querySelector('.cart__items');
+  const buttonClearCart = document.querySelector('.empty-cart');
+
+  buttonClearCart.addEventListener('click', () => {
+    olCartItems.innerHTML = '';
+  });
+};
 
 // const clickEvent = () => {
 //   const buttonEmptyCart = document.querySelector('.empty-cart');
 //   buttonEmptyCart.addEventListener('click', emptyCart);
 // }
 
+// REMOVE ITEM FROM CART BY CLICKING ON IT
 function cartItemClickListener() {
-  const ulItems = document.querySelector('.cart__items');
-  ulItems.addEventListener('click', (event) => {
+  const olCartItems = document.querySelector('.cart__items');
+  olCartItems.addEventListener('click', (event) => {
     event.target.remove();
   });
 }
@@ -85,7 +91,12 @@ function addItemToCart() {
   });
 }
 
+// const addToLocalStorage = () => {
+
+// }
+
 window.onload = function onload() {
   fetchShoppingCart('computador');
   addItemToCart();
+  emptyCart();
 };
