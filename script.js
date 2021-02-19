@@ -37,6 +37,10 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  return li;
+}
+
+function storeInfo({ id: sku, title: name, price: salePrice }) {
   const local = {
     SKU: sku,
     NAME: name,
@@ -45,8 +49,9 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   localStorage.setItem('item', JSON.stringify(local));
   const returnInfo = JSON.parse(localStorage.getItem('item'));
   //console.log(returnInfo);
-  return li;
+  
 }
+
 
 function emptyAllCart() {
   const emptyComplete = document.querySelectorAll('.cart__item');
@@ -59,17 +64,19 @@ function deleteCart() {
   const emptyAll = document.querySelector('.empty-cart');
   emptyAll.addEventListener('click', emptyAllCart);
 }
-
-function sumAll(data) {
-  console.log(data);
+/*
+function sumAll() {
+  const soma = document.querySelectorAll('.cart__items li')
+  console.log(soma);
   const valores = [];
   const {price} = data
   valores.push(price);
-  //console.log(valores);
+  console.log(valores);
   const total = valores.reduce((result, number) => result + number,0);
   console.log(total);
 }
-
+sumAll();
+*/
 async function createElement(term) {
   const loading = document.querySelector('.loading');
   loading.innerText = 'loading';
@@ -78,10 +85,10 @@ async function createElement(term) {
       response.json())
       .then((data) => {
         //console.log(data);
-        sumAll(data);
+        storeInfo(data);
         const ol = document.querySelector('.cart__items');
-        const retorno = createCartItemElement(data)
-          ol.appendChild(retorno);
+        
+        ol.appendChild(createCartItemElement(data));
       });
   loading.innerText = '';
   deleteCart();
@@ -90,7 +97,7 @@ async function createElement(term) {
 function chosen(event) {
   buttonText = event.target.parentNode.firstChild.innerText;
   createElement(buttonText);
-  sumAll()
+ 
 }
 
 function select() {
