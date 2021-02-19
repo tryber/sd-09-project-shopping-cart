@@ -56,7 +56,7 @@ async function priceItems(preco) {
   } else valorTotal += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
-  TAGSECTIONCART.innerHTML = valorTotal.toFixed(2);
+  TAGSECTIONCART.innerHTML = valorTotal.toPrecision(2);
 }
 
 function cartItemClickListener(event) {
