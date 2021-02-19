@@ -1,4 +1,18 @@
-window.onload = function onload() { };
+window.onload = function onload() { 
+  fetch('https://api.mercadolibre.com/sites/MLB/search?q=computador')
+  .then(responseObj => responseObj.json())
+  .then((jsonObj) => showSearchedItems(jsonObj.results));
+}
+
+function showSearchedItems(itensArray) {
+  const itemsSection = document.querySelector('.items');
+  itensArray.map((item) => {
+    const itemElement =
+    createProductItemElement({sku: item.id, name: item.title, image: item.thumbnail});
+    itemsSection.appendChild(itemElement);
+    return itemsSection;
+  });
+}
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
@@ -30,7 +44,7 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
+function cartItemClickListener(event) { // função pra remover o item do carrinho?
   // coloque seu código aqui
 }
 
