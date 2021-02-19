@@ -54,7 +54,7 @@ async function priceItems(preco) {
 
     valorTotal -= price;
 
-  } else valorTotal += preco.price;
+  }valorTotal += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
   TAGSECTIONCART.innerHTML = valorTotal.toFixed(2);
