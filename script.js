@@ -41,7 +41,7 @@ function itemLocalStorage(...args) {
   } id = args[0].id;
 
   arr.push(id);
-  arr.sort();
+  // arr.sort();
 
   localStorage.setItem('itemList', JSON.stringify(arr));
 }
@@ -56,7 +56,7 @@ async function priceItems(preco) {
   } else valorTotal += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
-  TAGSECTIONCART.innerHTML = valorTotal.toFixed();
+  TAGSECTIONCART.innerHTML = valorTotal.toFixed(2);
 }
 
 function cartItemClickListener(event) {
