@@ -56,7 +56,7 @@ async function priceItems(preco) {
   } else valorTotal += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
-  const valor = (Number.isInteger(valorTotal)) ? Math.round(valorTotal) : valorTotal.toFixed(2);
+  const valor = (Number.isInteger(valorTotal)) ? Math.round(valorTotal) : valorTotal;
   TAGSECTIONCART.innerHTML = valor;
 }
 
