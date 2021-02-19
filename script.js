@@ -53,7 +53,7 @@ async function priceItems(preco) {
     const { price } = results;
 
     valorTotal -= price;
-  } valorTotal += preco.price;
+  } else valorTotal += preco.price;
 
   const TAGSECTIONCART = document.getElementsByClassName('total-price')[0];
   TAGSECTIONCART.innerHTML = valorTotal.toFixed(2);
@@ -90,8 +90,9 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function retrieveObjects({ id: sku, title: name, thumbnail: image }) {
+function retrieveObjects(results) {
   const filhoSection = document.querySelector('section.items');
+  let { id: sku, title: name, thumbnail: image } = results;
 
   filhoSection.appendChild(createProductItemElement({ sku, name, image }));
 }
