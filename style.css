@@ -74,3 +74,31 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.loading {
+  animation: spin 1s infinite linear;
+  border-radius: 100%;
+  border-top: 6px solid greenyellow;
+  border: 5px solid green;
+  display: flex;
+  height: 2rem;
+  justify-content: center;
+  margin: auto;
+  visibility: hidden;
+  width: 2rem;
+}
+
+.loading.display {
+  visibility: visible;
+}
+
+@keyframes spin {
+
+  from {
+    transform: rotate( 0deg );
+  }
+
+  to {
+    transform: rotate( 360deg );
+  }
+}

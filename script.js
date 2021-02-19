@@ -26,8 +26,27 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+// ADD LOADING BEFORE FETCH
+
+const displayLoading = () => {
+  const loader = document.querySelector('.loading');
+  loader.classList.add('display');
+  setTimeout(() => {
+    loader.classList.remove('display');
+  }, 5000);
+};
+
+const hideLoading = () => {
+  const loader = document.querySelector('.loading');
+  loader.classList.remove('display');
+};
+
 const fetchShoppingCart = (productQuery) => {
+  // const loader = document.querySelector('.loading');
+  displayLoading();
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${productQuery}`;
+  // let loader = document.createElement('div').innerText = 'Loading...';
+  // document.querySelector('.items').innerHTML = loader;
   fetch(endpoint)
     .then(response => response.json())
     .then(object => object.results.forEach((productItem) => {
@@ -35,6 +54,7 @@ const fetchShoppingCart = (productQuery) => {
         throw new Error(object.error);
       }
       document.querySelector('.items').appendChild(createProductItemElement(productItem));
+      hideLoading();
     }))
     .catch((error) => {
       window.alert(`Error: ${error}`);
@@ -50,11 +70,6 @@ const emptyCart = () => {
     olCartItems.innerHTML = '';
   });
 };
-
-// const clickEvent = () => {
-//   const buttonEmptyCart = document.querySelector('.empty-cart');
-//   buttonEmptyCart.addEventListener('click', emptyCart);
-// }
 
 // REMOVE ITEM FROM CART BY CLICKING ON IT
 function cartItemClickListener() {
