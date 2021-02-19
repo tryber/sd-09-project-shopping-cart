@@ -52,7 +52,10 @@ const fetchShoppingCart = (productQuery) => {
 // }
 
 function cartItemClickListener() {
-  // coloque seu código aqui
+  const ulItems = document.querySelector('.cart__items');
+  ulItems.addEventListener('click', (event) => {
+    event.target.remove();
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
