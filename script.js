@@ -31,9 +31,9 @@ function cartItemClickListener(event) {
   event.target.remove();
 }
 
-
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
+ // const valores = [];
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
@@ -44,7 +44,7 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   };
   localStorage.setItem('item', JSON.stringify(local));
   const returnInfo = JSON.parse(localStorage.getItem('item'));
-  console.log(returnInfo);
+  //console.log(returnInfo);
   return li;
 }
 
@@ -60,18 +60,28 @@ function deleteCart() {
   emptyAll.addEventListener('click', emptyAllCart);
 }
 
+function sumAll(data) {
+  console.log(data);
+  const valores = [];
+  const {price} = data
+  valores.push(price);
+  //console.log(valores);
+  const total = valores.reduce((result, number) => result + number,0);
+  console.log(total);
+}
 
-function createElement(term) {
+async function createElement(term) {
   const loading = document.querySelector('.loading');
   loading.innerText = 'loading';
-  const param = { headers: { Accept: 'application/json' } };
-  fetch(`https://api.mercadolibre.com/items/${term}`, param)
+  await fetch(`https://api.mercadolibre.com/items/${term}`)
     .then(response =>
       response.json())
       .then((data) => {
-        console.log(data);
+        //console.log(data);
+        sumAll(data);
         const ol = document.querySelector('.cart__items');
-        ol.appendChild(createCartItemElement(data));
+        const retorno = createCartItemElement(data)
+          ol.appendChild(retorno);
       });
   loading.innerText = '';
   deleteCart();
@@ -80,27 +90,27 @@ function createElement(term) {
 function chosen(event) {
   buttonText = event.target.parentNode.firstChild.innerText;
   createElement(buttonText);
+  sumAll()
 }
 
 function select() {
   const buttonAdd = document.querySelectorAll('.item__add');
   for (let i = 0; i < buttonAdd.length; i += 1) {
-    console.log([i]);
+    //console.log([i]);
     buttonAdd[i].addEventListener('click', chosen);
   }
 }
-
 retrieveMercadoLivre = (term) => {
   const param = { headers: { Accept: 'application/json' } };
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
   .then(response => response.json())
     .then((data) => {
       const itensMercado = document.querySelector('.items');
-      console.log(data);
+      //console.log(data);
       data.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
         const element = createProductItemElement({ sku, name, image });
-        console.log(sku, name, image);
+        //console.log(sku, name, image);
         itensMercado.appendChild(element);
       });
       select();
