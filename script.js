@@ -92,7 +92,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 function retrieveObjects(results) {
   const filhoSection = document.querySelector('section.items');
-  let { id: sku, title: name, thumbnail: image } = results;
+  const { id: sku, title: name, thumbnail: image } = results;
 
   filhoSection.appendChild(createProductItemElement({ sku, name, image }));
 }
