@@ -78,6 +78,21 @@ function sumAll() {
 }
 sumAll();
 */
+
+
+function loading() {
+  const container = document.querySelector('.container');
+  const paragraph = document.createElement('p');
+  paragraph.innerText = 'loading...';
+  paragraph.className = 'loading';
+  container.appendChild(paragraph);
+}
+
+function loadEnd() {
+  const container = document.querySelector('.container p');
+  container.innerText = '';
+}
+
 async function createElement(term) {
   loading();
   await fetch(`https://api.mercadolibre.com/items/${term}`)
@@ -103,19 +118,6 @@ function select() {
     // console.log([i]);
     buttonAdd[i].addEventListener('click', chosen);
   }
-}
-
-function loading() {
-  const container = document.querySelector('.container');
-  const paragraph = document.createElement('p');
-  paragraph.innerText = 'loading...';
-  paragraph.className = 'loading';
-  container.appendChild(paragraph);
-}
-
-function loadEnd() {
-  const container = document.querySelector('.container p');
-  container.innerText = '';
 }
 
 retrieveMercadoLivre = (term) => {
