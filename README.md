@@ -71,7 +71,7 @@ Seu projeto deve ter o comportamento parecido com o do gif abaixo quando finaliz
 
 ## Como desenvolver
 
-### Antes de começar a desenvolver:
+### Antes de começar a desenvolver
 
 1. Clone o repositório
   * `git clone https://github.com/tryber/sd-09-project-shopping-cart.git`.
