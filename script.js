@@ -41,15 +41,15 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 }
 
 function storeInfo(event) {
-  const a = document.querySelectorAll('.cart__items');
+  const a = document.querySelector('.cart__items').innerText;
   console.log(a)
-  for (i = 0; i < a.length; i += 1) {
-    const b = this.event.innerText
-    console.log(a[i])
-    localStorage.setItem('item', JSON.stringify(b));
-    const returnInfo = JSON.parse(localStorage.getItem('item'));
+  //for (i = 0; i < a.length; i += 1) {
+  //  const b = event.target.innerText
+    //console.log(a[i])
+    localStorage.setItem('item', a);
+    const returnInfo = localStorage.getItem('item');
   //console.log(returnInfo);
-  }
+  //}
 }
 
 
