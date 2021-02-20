@@ -102,7 +102,7 @@ async function createElement(term) {
         storeInfo();
       });
   
-  //deleteCart();
+  deleteCart();
 }
 
 function chosen(event) {
@@ -125,32 +125,30 @@ function valorTotal(){
   const total = document.querySelector('.cart');
   const totalSection = document.createElement('h5');
   totalSection.className = 'total';
-  if (!cartItem){
-    totalSection.innerText = 'R$ 0';
-    total.appendChild(totalSection);
+  total.appendChild(totalSection);
+  if (!cartItems){
+    totalSection.innerText = 'R$ 0';   
   } else {
     let somaTotal = 0;
-    for (i = 0; i < cartItems.length; i += 1) {
-      somaTotal += cartItems[i].split('$');
+    for (i = 0; i < cartItem.length; i += 1) {
+      let z = cartItems.split('$')[i];
+      somaTotal += parseInt(z) ;
+      console.log(cartItems)
     } 
-    return totalSection.innerText = 'R$ `${somaTotal}`';
+    return totalSection.innerText = 'R$10';
   }
-
 }
 
 
 function retrieveLocalStorage() {
-  //if (localStorage)
-  const returnInfo = localStorage.getItem('item');
-  console.log(returnInfo);
-  for (i = 0; i < returnInfo.length; i += 1) {
-    console.log(returnInfo[i])
-    const cartItem = document.querySelector('.cart__item');
-    const li = document.createElement('li');
-    li.className = 'cart__item';
-    li.innerText = returnInfo[i];
-    cartItem.appendChild(li);
+  const cartItems = document.querySelector('.cart__items');
+  const cartItem = document.querySelector('.cart__item');
+    //const li = document.createElement('li');
+  cartItems.innerText = localStorage.getItem('item');
+  for (let i = 0; i < cartItem.length; i += 1) {
+    cartItem[i].addEventListener('click', cartItemClickListener);
   }  
+
 };
 
 retrieveMercadoLivre = (term) => {
@@ -172,6 +170,6 @@ retrieveMercadoLivre = (term) => {
 
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
-  //retrieveLocalStorage();
-  valorTotal();
+  retrieveLocalStorage();
+  //valorTotal();
 };
