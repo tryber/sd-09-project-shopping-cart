@@ -40,13 +40,16 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   return li;
 }
 
-function storeInfo() {
-  const a = document.querySelectorAll('.cart__item');
+function storeInfo(event) {
+  const a = document.querySelectorAll('.cart__items');
+  console.log(a)
   for (i = 0; i < a.length; i += 1) {
-    localStorage.setItem('item', JSON.stringify(a[i]));
+    const b = this.event.innerText
+    console.log(a[i])
+    localStorage.setItem('item', JSON.stringify(b));
     const returnInfo = JSON.parse(localStorage.getItem('item'));
   //console.log(returnInfo);
-  
+  }
 }
 
 
