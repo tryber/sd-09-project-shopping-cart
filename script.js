@@ -37,7 +37,7 @@ const totalValue = async () => {
   });
 };
 
-// SAVE SELECTED ITEMS ON LOCALSTORAGE
+// SET SELECTED ITEMS ON LOCALSTORAGE
 function localStorageSave() {
   const olCartItems = document.querySelector('.cart__items');
   const totalPriceSpan = document.querySelector('.total-price');
@@ -46,6 +46,7 @@ function localStorageSave() {
   totalValue();
 }
 
+// GET ITEMS FROM LOCALSTORAGE
 function localStorageLoad() {
   const cart = document.querySelector('.cart__items');
   const totalPriceSpan = document.querySelector('.total-price');
@@ -132,6 +133,7 @@ function addItemToCart() {
     const cartItems = document.querySelector('.cart__items');
     const cartItem = createCartItemElement(item);
     cartItems.appendChild(cartItem);
+    totalValue();
     localStorageSave();
   });
 }
