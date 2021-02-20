@@ -90,7 +90,7 @@ function loading() {
 
 function loadEnd() {
   const container = document.querySelector('.container p');
-  container.innerText = '';
+  container.remove();
 }
 
 async function createElement(term) {
