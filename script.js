@@ -26,7 +26,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// TOTAL VALUE OF THE SHOPPING CART
 const totalValue = async () => {
   const totalPriceSpan = document.querySelector('.total-price');
   const liCartItems = document.querySelectorAll('.cart__item');
@@ -37,7 +36,6 @@ const totalValue = async () => {
   });
 };
 
-// SET SELECTED ITEMS ON LOCALSTORAGE
 function localStorageSave() {
   const olCartItems = document.querySelector('.cart__items');
   const totalPriceSpan = document.querySelector('.total-price');
@@ -46,7 +44,6 @@ function localStorageSave() {
   totalValue();
 }
 
-// GET ITEMS FROM LOCALSTORAGE
 function localStorageLoad() {
   const cart = document.querySelector('.cart__items');
   const totalPriceSpan = document.querySelector('.total-price');
@@ -55,7 +52,6 @@ function localStorageLoad() {
   totalValue();
 }
 
-// ADD LOADING BEFORE FETCH
 const displayLoading = () => {
   const loader = document.querySelector('.loading');
   loader.classList.add('display');
@@ -64,17 +60,10 @@ const displayLoading = () => {
   }, 5000);
 };
 
-// const hideLoading = () => {
-//   const loader = document.querySelector('.loading');
-//   loader.classList.remove('display');
-// };
-
 const fetchShoppingCart = (productQuery) => {
   const loader = document.querySelector('.loading');
   displayLoading();
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${productQuery}`;
-  // let loader = document.createElement('div').innerText = 'Loading...';
-  // document.querySelector('.items').innerHTML = loader;
   fetch(endpoint)
     .then(response => response.json())
     .then(object => object.results.forEach((productItem) => {
@@ -83,14 +72,12 @@ const fetchShoppingCart = (productQuery) => {
       }
       document.querySelector('.items').appendChild(createProductItemElement(productItem));
       loader.remove();
-      // hideLoading();
     }))
     .catch((error) => {
       window.alert(`Error: ${error}`);
     });
 };
 
-// REMOVE ALL ITEMS FROM CART BY CLICKING ON IT
 const emptyCart = () => {
   const olCartItems = document.querySelector('.cart__items');
   const clearCartButton = document.querySelector('.empty-cart');
@@ -103,7 +90,6 @@ const emptyCart = () => {
   });
 };
 
-// REMOVE ITEM FROM CART BY CLICKING ON IT
 function cartItemClickListener() {
   const olCartItems = document.querySelector('.cart__items');
   olCartItems.addEventListener('click', (event) => {
@@ -141,14 +127,10 @@ function addItemToCart() {
   });
 }
 
-// const addToLocalStorage = () => {
-
-// }
-
 window.onload = function onload() {
   fetchShoppingCart('computador');
   addItemToCart();
+  cartItemClickListener()
   emptyCart();
   localStorageLoad();
-  // totalValue();
 };
