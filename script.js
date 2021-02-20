@@ -42,14 +42,7 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 
 function storeInfo() {
   const a = document.querySelector('.cart__items').innerText;
-  //console.log(a);
-  // for (i = 0; i < a.length; i += 1) {
-  //  const b = event.target.innerText
-    // console.log(a[i])
   localStorage.setItem('item', a);
-    // const returnInfo = localStorage.getItem('item');
-  // console.log(returnInfo);
-  // }
 }
 
 function emptyAllCart() {
@@ -78,7 +71,6 @@ function sumAll() {
 sumAll();
 */
 
-
 function loading() {
   const container = document.querySelector('.container');
   const paragraph = document.createElement('p');
@@ -101,7 +93,6 @@ async function createElement(term) {
         ol.appendChild(createCartItemElement(data));
         storeInfo();
       });
-  
   deleteCart();
 }
 
@@ -117,9 +108,8 @@ function select() {
     buttonAdd[i].addEventListener('click', chosen);
   }
 }
-
+/*
 function valorTotal(){
-  
   const cartItems = document.querySelectorAll('.cart__items');
   const cartItem = document.querySelector('.cart__item');
   const total = document.querySelector('.cart');
@@ -127,29 +117,27 @@ function valorTotal(){
   totalSection.className = 'total';
   total.appendChild(totalSection);
   if (!cartItems){
-    totalSection.innerText = 'R$ 0';   
+    totalSection.innerText = 'R$ 0';
   } else {
     let somaTotal = 0;
     for (i = 0; i < cartItem.length; i += 1) {
       let z = cartItems.split('$')[i];
       somaTotal += parseInt(z) ;
       console.log(cartItems)
-    } 
+    }
     return totalSection.innerText = 'R$10';
   }
 }
-
+*/
 
 function retrieveLocalStorage() {
   const cartItems = document.querySelector('.cart__items');
-  const cartItem = document.querySelector('.cart__item');
-    //const li = document.createElement('li');
-  cartItems.innerText = localStorage.getItem('item');
+  const cartItem = document.querySelectorAll('.cart__item');
+  cartItems.innerHTML = localStorage.getItem('item');
   for (let i = 0; i < cartItem.length; i += 1) {
     cartItem[i].addEventListener('click', cartItemClickListener);
-  }  
-
-};
+  }
+}
 
 retrieveMercadoLivre = (term) => {
   loading();
@@ -171,5 +159,5 @@ retrieveMercadoLivre = (term) => {
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
   retrieveLocalStorage();
-  //valorTotal();
+  // valorTotal();
 };
