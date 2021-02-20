@@ -134,19 +134,20 @@ function addAttributesScripts() {
   }
 }
 
-function verifyLocalStorage() {
+async function verifyLocalStorage() {
   let itemList = localStorage.itemList;
 
   if (itemList === undefined || itemList === null) return 0;
 
   itemList = JSON.parse(itemList);
-  itemList.forEach(
-    async (item) => {
-      const response = await fetch(`https://api.mercadolibre.com/items/${item}`);
-      const results = await response.json();
-      listItemsInCart(results);
-      priceItems(results);
-    });
+  
+  for (const [, index] of itemList.entries()) {
+    const response = await fetch(`https://api.mercadolibre.com/items/${index}`)
+    const results = await response.json();
+    listItemsInCart(results);
+    priceItems(results);
+  }
+
   return 0;
 }
 
@@ -158,7 +159,6 @@ function loadAPI(find = 'computador') {
     (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item))),
   ).then(() => {
     addAttributesScripts();
-    verifyLocalStorage();
   });
 }
 
@@ -177,6 +177,7 @@ window.onload = function onload() {
   loadAPI();
   cleanListCart();
   createPrice();
+  verifyLocalStorage();
 };
 
 /**
