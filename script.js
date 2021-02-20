@@ -104,18 +104,28 @@ function select() {
     buttonAdd[i].addEventListener('click', chosen);
   }
 }
-retrieveMercadoLivre = (term) => {
+
+function loading() {
   const container = document.querySelector('.container');
-  const paragraph = document.createElement(p);
+  const paragraph = document.createElement('p');
   paragraph.innerText = 'loading...';
   paragraph.className = 'loading';
   container.appendChild(paragraph);
-  const param = { headers: { Accept: 'application/json' } };
-  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
+}
+
+function loadEnd(){
+  const container = document.querySelector('.container p');
+  container.innerText = '';
+}
+
+retrieveMercadoLivre = (term) => {
+  loading()
+  //const param = { headers: { Accept: 'application/json' } };
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`)
   .then(response => response.json())
     .then((data) => {
       const itensMercado = document.querySelector('.items');
-      paragraph.innerText = '';
+      loadEnd();
       // console.log(data);
       data.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
