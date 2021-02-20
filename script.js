@@ -33,7 +33,8 @@ const totalValue = async () => {
   let totalValues = 0;
   [...liCartItems].forEach((cartItem) => {
     totalValues += parseFloat(cartItem.innerHTML.split('$')[1]);
-    totalPriceSpan.innerHTML = ((Math.round(totalValues * 100)) / 100);
+    totalPriceSpan.innerHTML = totalValues;
+    // ((Math.round(totalValues * 100)) / 100);
   });
 };
 
