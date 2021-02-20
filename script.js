@@ -130,7 +130,7 @@ function addItemToCart() {
 window.onload = function onload() {
   fetchShoppingCart('computador');
   addItemToCart();
-  cartItemClickListener()
+  cartItemClickListener();
   emptyCart();
   localStorageLoad();
 };
