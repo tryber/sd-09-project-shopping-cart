@@ -119,6 +119,8 @@ function select() {
 }
 
 function valorTotal(){
+  
+  const cartItems = document.querySelectorAll('.cart__items');
   const cartItem = document.querySelector('.cart__item');
   const total = document.querySelector('.cart');
   const totalSection = document.createElement('h5');
@@ -126,14 +128,29 @@ function valorTotal(){
   if (!cartItem){
     totalSection.innerText = 'R$ 0';
     total.appendChild(totalSection);
+  } else {
+    let somaTotal = 0;
+    for (i = 0; i < cartItems.length; i += 1) {
+      somaTotal += cartItems[i].split('$');
+    } 
+    return totalSection.innerText = 'R$ `${somaTotal}`';
   }
-   
+
 }
+
 
 function retrieveLocalStorage() {
   //if (localStorage)
   const returnInfo = localStorage.getItem('item');
   console.log(returnInfo);
+  for (i = 0; i < returnInfo.length; i += 1) {
+    console.log(returnInfo[i])
+    const cartItem = document.querySelector('.cart__item');
+    const li = document.createElement('li');
+    li.className = 'cart__item';
+    li.innerText = returnInfo[i];
+    cartItem.appendChild(li);
+  }  
 };
 
 retrieveMercadoLivre = (term) => {
@@ -155,6 +172,6 @@ retrieveMercadoLivre = (term) => {
 
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
-  retrieveLocalStorage();
+  //retrieveLocalStorage();
   valorTotal();
 };
