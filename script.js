@@ -87,7 +87,6 @@ async function createElement(term) {
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
       });
-  loading.innerText = '';
   deleteCart();
   storeInfo();
 }
@@ -113,14 +112,14 @@ function loading() {
   container.appendChild(paragraph);
 }
 
-function loadEnd(){
+function loadEnd() {
   const container = document.querySelector('.container p');
   container.innerText = '';
 }
 
 retrieveMercadoLivre = (term) => {
-  loading()
-  //const param = { headers: { Accept: 'application/json' } };
+  loading();
+  // const param = { headers: { Accept: 'application/json' } };
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`)
   .then(response => response.json())
     .then((data) => {
