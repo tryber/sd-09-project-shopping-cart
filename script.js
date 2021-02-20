@@ -40,14 +40,11 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   return li;
 }
 
-function storeInfo({ id: sku, title: name, price: salePrice }) {
-  const local = {
-    SKU: sku,
-    NAME: name,
-    PRICE: salePrice,
-  };
-  localStorage.setItem('item', JSON.stringify(local));
-  const returnInfo = JSON.parse(localStorage.getItem('item'));
+function storeInfo() {
+  const a = document.querySelectorAll('.cart__item');
+  for (i = 0; i < a.length; i += 1) {
+    localStorage.setItem('item', JSON.stringify(a[i]));
+    const returnInfo = JSON.parse(localStorage.getItem('item'));
   //console.log(returnInfo);
   
 }
@@ -85,13 +82,14 @@ async function createElement(term) {
       response.json())
       .then((data) => {
         //console.log(data);
-        storeInfo(data);
+        
         const ol = document.querySelector('.cart__items');
         
         ol.appendChild(createCartItemElement(data));
       });
   loading.innerText = '';
   deleteCart();
+  storeInfo();
 }
 
 function chosen(event) {
