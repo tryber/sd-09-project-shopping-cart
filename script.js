@@ -33,8 +33,7 @@ const totalValue = async () => {
   let totalValues = 0;
   [...liCartItems].forEach((cartItem) => {
     totalValues += parseFloat(cartItem.innerHTML.split('$')[1]);
-    totalPriceSpan.innerHTML = totalValues;
-    // ((Math.round(totalValues * 100)) / 100);
+    totalPriceSpan.innerHTML = (Math.round(totalValues * 100) / 100);
   });
 };
 
@@ -99,6 +98,7 @@ const emptyCart = () => {
   clearCartButton.addEventListener('click', () => {
     olCartItems.innerHTML = '';
     totalPriceSpan.innerHTML = 0;
+    totalValue();
     localStorageSave();
   });
 };
@@ -108,6 +108,8 @@ function cartItemClickListener() {
   const olCartItems = document.querySelector('.cart__items');
   olCartItems.addEventListener('click', (event) => {
     event.target.remove();
+    totalValue();
+    localStorageSave();
   });
 }
 
