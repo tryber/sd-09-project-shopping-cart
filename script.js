@@ -30,10 +30,10 @@ function getSkuFromProductItem(item) {
 const totalValue = async () => {
   const totalPriceSpan = document.querySelector('.total-price');
   const liCartItems = document.querySelectorAll('.cart__item');
-  let sumValues = 0;
+  let totalValues = 0;
   [...liCartItems].forEach((cartItem) => {
-    sumValues += parseFloat(cartItem.innerHTML.split('$')[1]);
-    totalPriceSpan.innerHTML = sumValues;
+    totalValues += parseFloat(cartItem.innerHTML.split('$')[1]);
+    totalPriceSpan.innerHTML = ((Math.round(totalValues * 100)) / 100);
   });
 };
 
