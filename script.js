@@ -34,7 +34,6 @@ function cartItemClickListener(event) {
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
-  // const valores = [];
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
@@ -42,8 +41,8 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 }
 
 function storeInfo() {
-  const a = document.querySelector('.cart__item').innerText;
-  console.log(a);
+  const a = document.querySelector('.cart__items').innerText;
+  //console.log(a);
   // for (i = 0; i < a.length; i += 1) {
   //  const b = event.target.innerText
     // console.log(a[i])
@@ -94,17 +93,16 @@ function loadEnd() {
 }
 
 async function createElement(term) {
-  loading();
   await fetch(`https://api.mercadolibre.com/items/${term}`)
     .then(response =>
       response.json())
       .then((data) => {
-        loadEnd();
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
+        storeInfo();
       });
-  deleteCart();
-  storeInfo();
+  
+  //deleteCart();
 }
 
 function chosen(event) {
@@ -120,9 +118,26 @@ function select() {
   }
 }
 
+function valorTotal(){
+  const cartItem = document.querySelector('.cart__item');
+  const total = document.querySelector('.cart');
+  const totalSection = document.createElement('h5');
+  totalSection.className = 'total';
+  if (!cartItem){
+    totalSection.innerText = 'R$ 0';
+    total.appendChild(totalSection);
+  }
+   
+}
+
+function retrieveLocalStorage() {
+  //if (localStorage)
+  const returnInfo = localStorage.getItem('item');
+  console.log(returnInfo);
+};
+
 retrieveMercadoLivre = (term) => {
   loading();
-  // const param = { headers: { Accept: 'application/json' } };
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`)
   .then(response => response.json())
     .then((data) => {
@@ -140,4 +155,6 @@ retrieveMercadoLivre = (term) => {
 
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
+  retrieveLocalStorage();
+  valorTotal();
 };
