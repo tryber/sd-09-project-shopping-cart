@@ -26,8 +26,18 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-// ADD LOADING BEFORE FETCH
+// SAVE SELECTED ITEMS ON LOCALSTORAGE
+function localStorageSave() {
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('cart', cartList.innerHTML);
+}
 
+function localStorageLoad() {
+  const cart = document.querySelector('.cart__items');
+  cart.innerHTML = localStorage.getItem('cart');
+}
+
+// ADD LOADING BEFORE FETCH
 const displayLoading = () => {
   const loader = document.querySelector('.loading');
   loader.classList.add('display');
@@ -69,6 +79,7 @@ const emptyCart = () => {
 
   buttonClearCart.addEventListener('click', () => {
     olCartItems.innerHTML = '';
+    localStorageSave();
   });
 };
 
@@ -103,7 +114,7 @@ function addItemToCart() {
     const cartItems = document.querySelector('.cart__items');
     const cartItem = createCartItemElement(item);
     cartItems.appendChild(cartItem);
-    // saveCart();
+    localStorageSave();
   });
 }
 
@@ -115,4 +126,5 @@ window.onload = function onload() {
   fetchShoppingCart('computador');
   addItemToCart();
   emptyCart();
+  localStorageLoad();
 };
