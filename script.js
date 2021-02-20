@@ -80,7 +80,7 @@ sumAll();
 */
 async function createElement(term) {
   const loading = document.querySelector('.loading');
-  loading.innerText = 'loading';
+  loading.innerText = 'loading...';
   await fetch(`https://api.mercadolibre.com/items/${term}`)
     .then(response =>
       response.json())
