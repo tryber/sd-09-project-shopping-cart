@@ -105,14 +105,17 @@ function select() {
   }
 }
 retrieveMercadoLivre = (term) => {
-  const loading = document.querySelector('.loading');
-  loading.innerText = 'loading...';
+  const container = document.querySelector('.container');
+  const paragraph = document.createElement(p);
+  paragraph.innerText = 'loading...';
+  paragraph.className = 'loading';
+  container.appendChild(paragraph);
   const param = { headers: { Accept: 'application/json' } };
   fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${term}`, param)
   .then(response => response.json())
     .then((data) => {
       const itensMercado = document.querySelector('.items');
-      loading.innerText = '';
+      paragraph.innerText = '';
       // console.log(data);
       data.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
