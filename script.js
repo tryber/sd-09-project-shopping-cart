@@ -79,11 +79,12 @@ function sumAll() {
 sumAll();
 */
 async function createElement(term) {
+  loading();
   await fetch(`https://api.mercadolibre.com/items/${term}`)
     .then(response =>
       response.json())
       .then((data) => {
-        // console.log(data);
+        loadEnd();
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
       });
