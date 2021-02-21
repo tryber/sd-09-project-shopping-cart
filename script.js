@@ -35,23 +35,16 @@ function cartItemClickListener(event) {
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  const a = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`
+  li.innerText = a;
+  localStorage.setItem('item', a);
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
 function storeInfo() {
-  const item = document.querySelector('.cart__items');
-  for (let i = 0; i < item.length; i += 1) {
-    const info = item[i].innerText;
-    console.log(info)
-    const object = {
-      number: [i],
-      item: info,
-    }
-    const c = JSON.stringify(object);
-    localStorage.setItem('list', c);
-  }
+  const items = document.querySelector('.cart__items').innerText;
+  localStorage.setItem('item', items);
 }
 
 function emptyAllCart() {
@@ -100,8 +93,9 @@ async function createElement(term) {
       .then((data) => {
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
-        storeInfo();
+        
       });
+  storeInfo();
   deleteCart();
 }
 
@@ -140,12 +134,19 @@ function valorTotal(){
 */
 
 function retrieveLocalStorage() {
-  const cartItems = document.querySelector('.cart__items');
+  //const cartItems = document.querySelector('.cart__items');
   const cartItem = document.querySelectorAll('.cart__item');
-  cartItems.innerHTML = localStorage.getItem('item');
-  for (let i = 0; i < cartItem.length; i += 1) {
-    cartItem[i].addEventListener('click', cartItemClickListener);
-  }
+  let cartItems = localStorage.getItem('item');
+  const frases = cartItems.split('\n');
+  for (i = 0; i < frases.length; i += 1) {
+    console.log(frases[i]);
+    const li = document.createElement('li');
+    li.className = 'cart__item';
+    li.innerText = frases[i];
+    li.addEventListener('click', cartItemClickListener);
+    const ol = document.querySelector('.cart__items');
+    ol.appendChild(li);
+  }  
 }
 
 retrieveMercadoLivre = (term) => {
