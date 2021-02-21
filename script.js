@@ -41,8 +41,17 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
 }
 
 function storeInfo() {
-  const a = document.querySelector('.cart__items').innerText;
-  localStorage.setItem('item', a);
+  const item = document.querySelector('.cart__items');
+  for (let i = 0; i < item.length; i += 1) {
+    const info = item[i].innerText;
+    console.log(info)
+    const object = {
+      number: [i],
+      item: info,
+    }
+    const c = JSON.stringify(object);
+    localStorage.setItem('list', c);
+  }
 }
 
 function emptyAllCart() {
