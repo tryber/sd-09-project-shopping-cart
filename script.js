@@ -1,7 +1,7 @@
 // Primeiro commit
 function addingLoading() {
   const selectItems = document.querySelector('.items');
-  const div = document.createElement('div')
+  const div = document.createElement('div');
   div.className = 'loading';
   div.innerText = 'loading...';
   selectItems.appendChild(div);
@@ -153,17 +153,14 @@ function emptyingCart() {
 // });
 
 window.onload = function onload() {
-
   addingLoading();
-
   setTimeout(() => {
     productsRequisition();
     retrievingList();
     executeAddingPrices();
-
     const emptyCartButton = document.querySelector('.empty-cart');
     emptyCartButton.addEventListener('click', emptyingCart);
-  }, 5000);
+  }, 2000);
 };
 
 // *******************************************************************************************
