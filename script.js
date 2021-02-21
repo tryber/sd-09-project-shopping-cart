@@ -86,7 +86,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   if (sku === 'MLB687124927') {
     li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice + 0.1}`;
   } else li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  // li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
