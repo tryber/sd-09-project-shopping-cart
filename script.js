@@ -1,4 +1,17 @@
 // Primeiro commit
+function addingLoading() {
+  const selectItems = document.querySelector('.items');
+  const div = document.createElement('div')
+  div.className = 'loading';
+  div.innerText = 'loading...';
+  selectItems.appendChild(div);
+}
+
+function removingLoading() {
+  const divLoading = document.querySelector('.loading');
+  divLoading.remove();
+}
+
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
@@ -112,6 +125,7 @@ function productsRequisition() {
   .then((response) => {
     response.json()
     .then((data) => {
+      removingLoading();
       const products = data.results;
       products.forEach((product) => {
         const { id: sku, title: name, thumbnail: image } = product;
@@ -133,13 +147,23 @@ function emptyingCart() {
   savingList();
 }
 
-window.onload = function onload() {
-  productsRequisition();
-  retrievingList();
-  executeAddingPrices();
+// document.addEventListener('DOMContentLoaded', function(event) {
+//   const load = document.querySelector('.ring');
+//   load[0].style.visibility = 'hidden';
+// });
 
-  const emptyCartButton = document.querySelector('.empty-cart');
-  emptyCartButton.addEventListener('click', emptyingCart);
+window.onload = function onload() {
+
+  addingLoading();
+
+  setTimeout(() => {
+    productsRequisition();
+    retrievingList();
+    executeAddingPrices();
+
+    const emptyCartButton = document.querySelector('.empty-cart');
+    emptyCartButton.addEventListener('click', emptyingCart);
+  }, 5000);
 };
 
 // *******************************************************************************************
