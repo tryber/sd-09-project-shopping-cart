@@ -1,5 +1,3 @@
-window.onload = function onload() { };
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -41,3 +39,25 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+listMercadoLivre = (product) => {
+  const param = { headers: { Accept: 'application/json' } };
+  fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${product}`, param)
+  .then(response => response.json())
+    .then((data) => {
+      const itensMercado = document.querySelector('.items');
+      console.log(data);
+      data.results.forEach((result) => {
+        const { id: sku, title: name, thumbnail: image } = result;
+        const element = createProductItemElement({ sku, name, image });
+        console.log(sku, name, image);
+        itensMercado.appendChild(element);
+      });
+    });
+};
+
+window.onload = function onload() {
+  listMercadoLivre();
+};
+
+// ...snumoc sarvalap òs oãs oãn snoitcnuF ooZ
