@@ -37,9 +37,8 @@ function itemLocalStorage(...args) {
   if (typeof arr === 'string') arr = JSON.parse(getItemList);
   if (args[0].id === undefined) {
     return;
-  } const { id } = args[0];
+  } arr.push(args[0]);
 
-  arr.push(id);
   localStorage.setItem('itemList', JSON.stringify(arr));
 }
 
@@ -138,8 +137,10 @@ async function verifyLocalStorage() {
 
   if (itemList === undefined || itemList === null) return 0;
 
-  const produto = async id => sacola.push(fetch(urlAPI + id).then(res => res.json()));
-
+  const produto = async (cod, index) => {
+    const { id } = cod;
+    sacola.push(fetch(urlAPI + id).then(res => res.json()));
+  }
   itemList = JSON.parse(itemList);
   itemList.forEach(async (id) => {
     produto(id);
