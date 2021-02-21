@@ -83,7 +83,7 @@ function loading() {
 }
 
 function loadEnd() {
-  const container = document.querySelector('.container p');
+  const container = document.querySelector('.loading');
   container.remove();
 }
 async function createElement(term) {
@@ -131,13 +131,14 @@ retrieveMercadoLivre = (term) => {
   .then(response => response.json())
     .then((data) => {
       const itensMercado = document.querySelector('.items');
-      loadEnd();
+      
       // console.log(data);
       data.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
         const element = createProductItemElement({ sku, name, image });
         itensMercado.appendChild(element);
       });
+      loadEnd();
       select();
     });
 };
