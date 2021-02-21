@@ -142,6 +142,7 @@ function retrieveLocalStorage() {
     li.addEventListener('click', cartItemClickListener);
     const ol = document.querySelector('.cart__items');
     ol.appendChild(li);
+    deleteCart();
   }
 }
 
