@@ -117,11 +117,14 @@ function retrieveLocalStorage() {
   }
   const frases = cartItems.split('\n');
   for (let i = 0; i < frases.length; i += 1) {
-    console.log(frases[i].split('|'));
-    const e = frases[i].split('|');
-    const x = e[0].split(':');
-    const f = x[1].trim();
-    createElement(f);
+    console.log(frases[i]);
+    const li = document.createElement('li');
+    li.className = 'cart__item';
+    li.innerText = frases[i];
+    li.addEventListener('click', cartItemClickListener);
+    const ol = document.querySelector('.cart__items');
+    ol.appendChild(li);
+    deleteCart();
   }
 }
 
@@ -132,7 +135,6 @@ retrieveMercadoLivre = (term) => {
     .then((data) => {
       const itensMercado = document.querySelector('.items');
       loadEnd();
-      // console.log(data);
       data.results.forEach((result) => {
         const { id: sku, title: name, thumbnail: image } = result;
         const element = createProductItemElement({ sku, name, image });
