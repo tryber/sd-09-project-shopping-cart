@@ -35,7 +35,7 @@ function cartItemClickListener(event) {
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  const a = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`
+  const a = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.innerText = a;
   localStorage.setItem('item', a);
   li.addEventListener('click', cartItemClickListener);
@@ -93,7 +93,6 @@ async function createElement(term) {
       .then((data) => {
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
-        
       });
   storeInfo();
   deleteCart();
@@ -107,7 +106,6 @@ function chosen(event) {
 function select() {
   const buttonAdd = document.querySelectorAll('.item__add');
   for (let i = 0; i < buttonAdd.length; i += 1) {
-    // console.log([i]);
     buttonAdd[i].addEventListener('click', chosen);
   }
 }
@@ -134,11 +132,9 @@ function valorTotal(){
 */
 
 function retrieveLocalStorage() {
-  //const cartItems = document.querySelector('.cart__items');
-  const cartItem = document.querySelectorAll('.cart__item');
-  let cartItems = localStorage.getItem('item');
+  const cartItems = localStorage.getItem('item');
   const frases = cartItems.split('\n');
-  for (i = 0; i < frases.length; i += 1) {
+  for (let i = 0; i < frases.length; i += 1) {
     console.log(frases[i]);
     const li = document.createElement('li');
     li.className = 'cart__item';
@@ -146,7 +142,7 @@ function retrieveLocalStorage() {
     li.addEventListener('click', cartItemClickListener);
     const ol = document.querySelector('.cart__items');
     ol.appendChild(li);
-  }  
+  }
 }
 
 retrieveMercadoLivre = (term) => {
