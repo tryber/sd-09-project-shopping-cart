@@ -59,19 +59,6 @@ function deleteCart() {
   const emptyAll = document.querySelector('.empty-cart');
   emptyAll.addEventListener('click', emptyAllCart);
 }
-/*
-function sumAll() {
-  const soma = document.querySelectorAll('.cart__items li')
-  console.log(soma);
-  const valores = [];
-  const {price} = data
-  valores.push(price);
-  console.log(valores);
-  const total = valores.reduce((result, number) => result + number,0);
-  console.log(total);
-}
-sumAll();
-*/
 
 function loading() {
   const container = document.querySelector('.container');
@@ -109,27 +96,6 @@ function select() {
     buttonAdd[i].addEventListener('click', chosen);
   }
 }
-/*
-function valorTotal(){
-  const cartItems = document.querySelectorAll('.cart__items');
-  const cartItem = document.querySelector('.cart__item');
-  const total = document.querySelector('.cart');
-  const totalSection = document.createElement('h5');
-  totalSection.className = 'total';
-  total.appendChild(totalSection);
-  if (!cartItems){
-    totalSection.innerText = 'R$ 0';
-  } else {
-    let somaTotal = 0;
-    for (i = 0; i < cartItem.length; i += 1) {
-      let z = cartItems.split('$')[i];
-      somaTotal += parseInt(z) ;
-      console.log(cartItems)
-    }
-    return totalSection.innerText = 'R$10';
-  }
-}
-*/
 
 function retrieveLocalStorage() {
   const cartItems = localStorage.getItem('item');
@@ -166,5 +132,4 @@ retrieveMercadoLivre = (term) => {
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
   retrieveLocalStorage();
-  // valorTotal();
 };
