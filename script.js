@@ -33,16 +33,13 @@ function getSkuFromProductItem(item) {
 function itemLocalStorage(...args) {
   const getItemList = localStorage.getItem('itemList');
   let arr = (localStorage.itemList === undefined) ? [] : getItemList;
-  let id = 0;
 
   if (typeof arr === 'string') arr = JSON.parse(getItemList);
   if (args[0].id === undefined) {
     return;
-  } id = args[0].id;
+  } let {id} = args[0];
 
   arr.push(id);
-  // arr.sort();
-
   localStorage.setItem('itemList', JSON.stringify(arr));
 }
 
@@ -135,19 +132,25 @@ function addAttributesScripts() {
 }
 
 async function verifyLocalStorage() {
+  const urlAPI = `https://api.mercadolibre.com/items/`;
+  const sacola = [];
   let itemList = localStorage.itemList;
 
   if (itemList === undefined || itemList === null) return 0;
 
-  itemList = JSON.parse(itemList);
-  
-  for (const [, index] of itemList.entries()) {
-    const response = await fetch(`https://api.mercadolibre.com/items/${index}`)
-    const results = await response.json();
-    listItemsInCart(results);
-    priceItems(results);
-  }
+  const produto = async (id) => sacola.push(fetch(urlAPI+id).then(res => res.json()));
 
+  itemList = JSON.parse(itemList);
+  itemList.forEach(async (id) => {
+    produto(id);
+    priceItems(id);
+  });
+
+  Promise.all(sacola).then(async res => {
+    for (let i=0; i< res.length; i+= 1) {
+      listItemsInCart(res[i]);
+    }
+  });
   return 0;
 }
 
