@@ -1,11 +1,15 @@
 function saveState() {
+  let totalSum = 0;
   localStorage.clear();
   const cartItemsList = document.querySelectorAll('.cart__item');
   for (let i = 0; i < cartItemsList.length; i += 1) {
     const cartItemText = cartItemsList[i].innerHTML;
     localStorage.setItem(i, cartItemText);
     localStorage.setItem('count', cartItemsList.length);
+    totalSum += Number(cartItemText.split(':')[3].trim().slice(1));
   }
+  localStorage.setItem('totalSum', totalSum);
+  document.querySelector('.totalCompras').innerHTML = totalSum;
 }
 
 function createProductImageElement(imageSource) {
@@ -16,7 +20,6 @@ function createProductImageElement(imageSource) {
 }
 
 function clearCart() {
-  // const cart = document.querySelector('.cart__items');
   const cartList = document.querySelectorAll('.cart__item');
   const comp = cartList.length;
   for (let i = comp - 1; i >= 0; i -= 1) {
@@ -106,8 +109,13 @@ window.onload = function onload() {
   createItems();
   aplyState();
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
+  const filho = document.createElement('div');
+  filho.className = 'totalCompras';
+  document.querySelector('.cart').appendChild(filho);
 };
 
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
+
+//Math.floor(listaAtual[i].innerHTML.split(':')[3].trim().slice(1) * 100) / 100;
