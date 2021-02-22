@@ -74,6 +74,9 @@ function createProductItemElement({ sku, name, image }) {
   const cartItems = document.querySelector('.cart__items');
 
   section.lastChild.addEventListener('click', async () => {
+    const load = document.createElement('div');
+    load.className = 'loading';
+    document.querySelector('.cart').appendChild(load);
     document.querySelector('.loading').innerHTML = 'loading...';
 
     const itemId = section.firstChild.innerText;
@@ -86,7 +89,7 @@ function createProductItemElement({ sku, name, image }) {
 
     cartItems.appendChild(createCartItemElement({ sku, name, salePrice }));
 
-    document.querySelector('.loading').innerHTML = '';
+    load.parentElement.removeChild(load);
 
     saveState();
   });
@@ -95,6 +98,9 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 async function createItems() {
+  const load = document.createElement('div');
+  load.className = 'loading';
+  document.querySelector('.cart').appendChild(load);
   document.querySelector('.loading').innerHTML = 'loading...';
 
   const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador';
@@ -111,7 +117,7 @@ async function createItems() {
     itemsParent.appendChild(element);
   });
 
-  document.querySelector('.loading').innerHTML = '';
+  load.parentElement.removeChild(load);
 }
 
 window.onload = function onload() {
@@ -119,9 +125,7 @@ window.onload = function onload() {
   const filho = document.createElement('div');
   filho.className = 'total-price';
   document.querySelector('.cart').appendChild(filho);
-  const load = document.createElement('div');
-  load.className = 'loading';
-  document.querySelector('.cart').appendChild(load);
+  
 
   createItems();
   aplyState();
