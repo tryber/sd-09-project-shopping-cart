@@ -9,7 +9,7 @@ function saveState() {
     totalSum += Number(cartItemText.split(':')[3].trim().slice(1));
   }
   localStorage.setItem('totalSum', totalSum);
-  document.querySelector('.totalCompras').innerHTML = totalSum;
+  document.querySelector('.total-price').innerHTML = totalSum;
 }
 
 function createProductImageElement(imageSource) {
@@ -110,7 +110,7 @@ window.onload = function onload() {
   aplyState();
   document.querySelector('.empty-cart').addEventListener('click', clearCart);
   const filho = document.createElement('div');
-  filho.className = 'totalCompras';
+  filho.className = 'total-price';
   document.querySelector('.cart').appendChild(filho);
 };
 
