@@ -168,8 +168,8 @@ async function verifyLocalStorage() {
 
 function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
-const responseJSON = response.then(res => res.json());
-//implementar aqui o Loading
+  const responseJSON = response.then(res => res.json());
+  // implementar aqui o Loading
   responseJSON.then(res =>
     (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item))),
   ).then(() => {
