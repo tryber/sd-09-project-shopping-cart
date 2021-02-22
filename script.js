@@ -117,5 +117,3 @@ window.onload = function onload() {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
-//Math.floor(listaAtual[i].innerHTML.split(':')[3].trim().slice(1) * 100) / 100;
