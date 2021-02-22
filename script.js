@@ -125,7 +125,6 @@ window.onload = function onload() {
   const filho = document.createElement('div');
   filho.className = 'total-price';
   document.querySelector('.cart').appendChild(filho);
-  
 
   createItems();
   aplyState();
