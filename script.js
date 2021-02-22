@@ -135,8 +135,6 @@ async function verifyLocalStorage() {
   const sacola = [];
   let itemList = localStorage.itemList;
 
-  if (itemList === undefined || itemList === null) return 0;
-
   const produto = async (cod) => {
     const { id } = cod;
     sacola.push(fetch(urlAPI + id).then(res => res.json()));
@@ -155,10 +153,23 @@ async function verifyLocalStorage() {
   return 0;
 }
 
+// function loading() {
+//   const items = document.getElementsByClassName('items')[0]
+//   const elementos = items.innerHTML
+//   console.log(`${elementos}`)
+
+//   items.innerHTML = 'loading...';
+
+//   // setTimeout(() => {
+//   //   items.innerHTML = elementos
+//   // }, 5000)
+
+// }
+
 function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
-  const responseJSON = response.then(res => res.json());
-
+const responseJSON = response.then(res => res.json());
+//implementar aqui o Loading
   responseJSON.then(res =>
     (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item))),
   ).then(() => {
@@ -177,7 +188,7 @@ function cleanListCart() {
   });
 }
 
-window.onload = function onload() {
+window.onload = () => {
   loadAPI();
   cleanListCart();
   createPrice();
