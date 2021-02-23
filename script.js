@@ -135,13 +135,12 @@ async function verifyLocalStorage() {
   let itemList = localStorage.itemList;
   const urlAPI = 'https://api.mercadolibre.com/items/';
   const sacola = [];
-  const produto = async (cod) => sacola.push(fetch(urlAPI + cod).then(res => res.json()));
+  const produto = cod => sacola.push(fetch(urlAPI + cod).then(res => res.json()));
 
   if (localStorage.length > 0) itemList = JSON.parse(itemList)
   else return 0;
 
   itemList.forEach(async (id) => {
-    
     produto(id);
     priceItems(id);
   });
