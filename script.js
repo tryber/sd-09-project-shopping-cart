@@ -32,21 +32,17 @@ function cartItemClickListener(event) {
   localStorage.removeItem(event.target.item);
 }
 
-function storeValue(param) {
+async function storeValue(param) {
   const totalV = document.querySelector('.totalValor');
-  const b = Number(localStorage.getItem('value')) + (param);
-  const value = localStorage.setItem('value', b);
-  totalV.innerText = `R$ ${value}`;
+  const b = await Number(localStorage.getItem('value')) + (param);
+  await localStorage.setItem('value', b);
+  totalV.innerText = `R$ ${localStorage.getItem('value')}`;
 }
 
 function retrieveValue() {
   const totalV = document.querySelector('.totalValor');
-  if (!localStorage.length) {
-    totalV.innerText = `R$ ${0}`;
-  } else {
-    const value = localStorage.getItem('value');
-    totalV.innerText = `R$ ${value}`;
-  }
+  const value = localStorage.getItem('value');
+  totalV.innerText = `R$ ${value}`;
 }
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
