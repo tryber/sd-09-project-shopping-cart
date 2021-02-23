@@ -37,8 +37,9 @@ function itemLocalStorage(...args) {
   if (typeof arr === 'string') arr = JSON.parse(getItemList);
   if (args[0].id === undefined) {
     return;
-  } arr.push(args[0]);
+  } const { id } = args[0];
 
+  arr.push(id);
   localStorage.setItem('itemList', JSON.stringify(arr));
 }
 
@@ -131,16 +132,16 @@ function addAttributesScripts() {
 }
 
 async function verifyLocalStorage() {
+  let itemList = localStorage.itemList;
   const urlAPI = 'https://api.mercadolibre.com/items/';
   const sacola = [];
-  let itemList = localStorage.itemList;
+  const produto = async (cod) => sacola.push(fetch(urlAPI + cod).then(res => res.json()));
 
-  const produto = async (cod) => {
-    const { id } = cod;
-    sacola.push(fetch(urlAPI + id).then(res => res.json()));
-  };
-  itemList = JSON.parse(itemList);
+  if (localStorage.length > 0) itemList = JSON.parse(itemList)
+  else return 0;
+
   itemList.forEach(async (id) => {
+    
     produto(id);
     priceItems(id);
   });
