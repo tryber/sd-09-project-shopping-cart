@@ -32,24 +32,29 @@ function cartItemClickListener(event) {
   localStorage.removeItem(event.target.item);
 }
 
-/*
-function totalPrice(param) {
-  let finalValue = 0;
-  const total = [];
-  if (total ==='') {
-    return finalValue;
-  }
-  total.push(param);
-  total.reduce((a,b) => finalValue = a + b, 0);
-  return mostrarResultado(finalValue);
+function storeValue(param) {
+  const totalV = document.querySelector('.totalValor');
+  const b = Number(localStorage.getItem('value')) + (param);
+  const value = localStorage.setItem('value', b);
+  totalV.innerText = `R$ ${value}`;
 }
-*/
+
+function retrieveValue() {
+  const totalV = document.querySelector('.totalValor');
+  if (!localStorage.length) {
+    totalV.innerText = `R$ ${0}`;
+  } else {
+    const value = localStorage.getItem('value');
+    totalV.innerText = `R$ ${value}`;
+  }
+}
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   const a = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  storeValue(salePrice);
   li.innerText = a;
   localStorage.setItem('item', a);
   li.addEventListener('click', cartItemClickListener);
@@ -147,4 +152,5 @@ retrieveMercadoLivre = (term) => {
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
   retrieveLocalStorage();
+  retrieveValue();
 };
