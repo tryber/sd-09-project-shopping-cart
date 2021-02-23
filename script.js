@@ -137,9 +137,9 @@ async function verifyLocalStorage() {
   const sacola = [];
   const produto = cod => sacola.push(fetch(urlAPI + cod).then(res => res.json()));
 
-  if (localStorage.length > 0) itemList = JSON.parse(itemList)
-  else return 0;
+  if (localStorage.length === 0) return 0;
 
+  itemList = JSON.parse(itemList);
   itemList.forEach(async (id) => {
     produto(id);
     priceItems(id);
