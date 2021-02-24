@@ -37,9 +37,9 @@ function itemLocalStorage(...args) {
   if (typeof arr === 'string') arr = JSON.parse(getItemList);
   if (args[0].id === undefined) {
     return;
-  } let {id, title, price} = args[0];
-  
-  arr.push({id, title, price});
+  } const { id, title, price } = args[0];
+
+  arr.push({ id, title, price });
   localStorage.setItem('itemList', JSON.stringify(arr));
 }
 
@@ -97,8 +97,8 @@ function retrieveObjects(results) {
 
 function listItemsInCart(item) {
   const childSection = document.querySelector('.cart__items');
-  let {title: name, price: salePrice, id: sku} = item;
-  childSection.appendChild(createCartItemElement({name, salePrice, sku}));
+  const { title: name, price: salePrice, id: sku } = item;
+  childSection.appendChild(createCartItemElement({ name, salePrice, sku }));
 }
 
 function createPrice() {
@@ -146,8 +146,8 @@ async function verifyLocalStorage() {
 
   Promise.all(sacola).then(async (res) => {
     for (let i = 0; i < res.length; i += 1) {
-      let {id, title, price} = res[i];
-      listItemsInCart({id, title, price});
+      const { id, title, price } = res[i];
+      listItemsInCart({ id, title, price });
     }
   });
   return 0;
@@ -156,7 +156,7 @@ async function verifyLocalStorage() {
 // function loading() {
 //   const items = document.getElementsByClassName('items')[0]
 //   const elementos = items.innerHTML
-//   console.log(`${elementos}`)
+//   console.log(`${elementos}`)  
 
 //   items.innerHTML = 'loading...';
 
