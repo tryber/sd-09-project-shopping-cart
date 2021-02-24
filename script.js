@@ -37,9 +37,9 @@ function itemLocalStorage(...args) {
   if (typeof arr === 'string') arr = JSON.parse(getItemList);
   if (args[0].id === undefined) {
     return;
-  } const { id } = args[0];
-
-  arr.push(id);
+  } let {id, title, price} = args[0];
+  
+  arr.push({id, title, price});
   localStorage.setItem('itemList', JSON.stringify(arr));
 }
 
@@ -95,11 +95,10 @@ function retrieveObjects(results) {
   filhoSection.appendChild(createProductItemElement({ sku, name, image }));
 }
 
-function listItemsInCart({ id, price, title }) {
+function listItemsInCart(item) {
   const childSection = document.querySelector('.cart__items');
-
-  childSection.appendChild(createCartItemElement(
-    { name: title, salePrice: price, sku: id }));
+  let {title: name, price: salePrice, id: sku} = item;
+  childSection.appendChild(createCartItemElement({name, salePrice, sku}));
 }
 
 function createPrice() {
@@ -140,14 +139,15 @@ async function verifyLocalStorage() {
   if (localStorage.length === 0) return 0;
 
   itemList = JSON.parse(itemList);
-  itemList.forEach(async (id) => {
-    produto(id);
-    priceItems(id);
+  itemList.forEach(async (data) => {
+    produto(data.id);
+    priceItems(data);
   });
 
   Promise.all(sacola).then(async (res) => {
     for (let i = 0; i < res.length; i += 1) {
-      listItemsInCart(res[i]);
+      let {id, title, price} = res[i];
+      listItemsInCart({id, title, price});
     }
   });
   return 0;
