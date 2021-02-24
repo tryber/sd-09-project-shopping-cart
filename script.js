@@ -136,7 +136,7 @@ function addAttributesScripts() {
 async function verifyLocalStorage() {
   let itemList = localStorage.itemList;
   // const urlAPI = 'https://api.mercadolibre.com/items/';
-  const sacola = [];
+  // const sacola = [];
   // const produto = cod => sacola.push(fetch(urlAPI + cod).then(res => res.json()));
   const produto = cod => console.log(cod);
 
@@ -145,7 +145,7 @@ async function verifyLocalStorage() {
   itemList = JSON.parse(itemList);
   itemList.forEach(async (data) => {
     // produto(data.id);
-    produto(data)
+    produto(data);
     priceItems(data);
     listItemsInCart(data);
   });
