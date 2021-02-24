@@ -160,19 +160,19 @@ async function verifyLocalStorage() {
 }
 
 function loading(boolean) {
-  const loading = document.createElement('h1');
+  const h1 = document.createElement('h1');
   const items = document.getElementsByClassName('items')[0];
-  loading.className = 'loading';
-  loading.innerText = 'loading...';
+  h1.className = 'loading';
+  h1.innerText = 'loading...';
 
   if (boolean) {
-    items.appendChild(loading);
+    items.appendChild(h1);
   } else items.removeChild(items.firstElementChild);
 }
 
 function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
-  const responseJSON = response.then(res => {loading(true);return res.json()});
+  const responseJSON = response.then((res) => { loading(true); return res.json(); });
   // implementar aqui o Loading
   responseJSON.then(res =>
     (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item))),
