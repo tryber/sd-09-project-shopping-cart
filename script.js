@@ -167,7 +167,7 @@ function loading(boolean) {
 
   if (boolean) {
     items.appendChild(h1);
-  } else setTimeout(() => { items.removeChild(items.firstChild); }, 5000);
+  } else setTimeout(() => { items.removeChild(items.firstChild); }, 1000);
 }
 
 function loadAPI(find = 'computador') {
