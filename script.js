@@ -138,14 +138,14 @@ async function verifyLocalStorage() {
   // const urlAPI = 'https://api.mercadolibre.com/items/';
   // const sacola = [];
   // const produto = cod => sacola.push(fetch(urlAPI + cod).then(res => res.json()));
-  const produto = cod => console.log(cod);
+  // const produto = cod => console.log(cod);
 
   if (localStorage.length === 0) return 0;
 
   itemList = JSON.parse(itemList);
   itemList.forEach(async (data) => {
     // produto(data.id);
-    produto(data);
+    // produto(data);
     priceItems(data);
     listItemsInCart(data);
   });
@@ -159,27 +159,26 @@ async function verifyLocalStorage() {
   return 0;
 }
 
-// function loading() {
-//   const items = document.getElementsByClassName('items')[0]
-//   const elementos = items.innerHTML
-//   console.log(`${elementos}`)
+function loading(boolean) {
+  const loading = document.createElement('h1');
+  const items = document.getElementsByClassName('items')[0];
+  loading.className = 'loading';
+  loading.innerText = 'loading...';
 
-//   items.innerHTML = 'loading...';
-
-//   // setTimeout(() => {
-//   //   items.innerHTML = elementos
-//   // }, 5000)
-
-// }
+  if (boolean) {
+    items.appendChild(loading);
+  } else items.removeChild(items.firstElementChild);
+}
 
 function loadAPI(find = 'computador') {
   const response = fetch(`https://api.mercadolibre.com/sites/MLB/search?q=$${find}`);
-  const responseJSON = response.then(res => res.json());
+  const responseJSON = response.then(res => {loading(true);return res.json()});
   // implementar aqui o Loading
   responseJSON.then(res =>
     (Object.values(res.results).map(item => item).forEach(item => retrieveObjects(item))),
   ).then(() => {
     addAttributesScripts();
+    loading(false);
   });
 }
 
