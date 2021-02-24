@@ -159,7 +159,7 @@ async function verifyLocalStorage() {
 // function loading() {
 //   const items = document.getElementsByClassName('items')[0]
 //   const elementos = items.innerHTML
-//   console.log(`${elementos}`)  
+//   console.log(`${elementos}`)
 
 //   items.innerHTML = 'loading...';
 
