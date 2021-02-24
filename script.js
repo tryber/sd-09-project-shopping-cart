@@ -97,7 +97,10 @@ function retrieveObjects(results) {
 
 function listItemsInCart(item) {
   const childSection = document.querySelector('.cart__items');
-  const { title: name, price: salePrice, id: sku } = item;
+  const name = item.title;
+  const salePrice = item.price;
+  const sku = item.id;
+
   childSection.appendChild(createCartItemElement({ name, salePrice, sku }));
 }
 
