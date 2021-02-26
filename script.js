@@ -102,7 +102,7 @@ function getLocalStorage() {
 
 function btnEmptyCart() {
   const btn = document.querySelector('.empty-cart');
-  btn.addEventListener('click', function(){
+  btn.addEventListener('click', function() {
     const cartLists = document.querySelector('.cart_items');
     cartLists.innerText = null;
   });
@@ -111,5 +111,6 @@ function btnEmptyCart() {
 window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
+  btnEmptyCart();
   setLocalStorage();
 };
