@@ -1,3 +1,8 @@
+function stopLoading() {
+  const stopLoading = document.querySelector('.loading');
+  stopLoading.remove()
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -52,6 +57,7 @@ async function mercadoLivreResults(term) {
     itemsElement.appendChild(element);
   });
 }
+
 
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
