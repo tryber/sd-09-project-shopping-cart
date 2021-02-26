@@ -1,22 +1,20 @@
+
 function stopLoading() {
   const loading = document.querySelector('.loading');
   loading.remove();
 }
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
   return img;
 }
-
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
   e.className = className;
   e.innerText = innerText;
   return e;
 }
-
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -28,15 +26,13 @@ function createProductItemElement({ sku, name, image }) {
   sectionItems.appendChild(section);
   return section;
 }
-
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
 function cartItemClickListener(event) {
   event.target.remove();
+  setLocalStorage();
 }
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -44,7 +40,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-
 async function mercadoLivreResults(term) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   const response = await fetch(endpoint);
@@ -58,13 +53,10 @@ async function mercadoLivreResults(term) {
   });
   stopLoading();
 }
-
-
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
 }
-
 function searchID(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(response => response.json())
@@ -75,29 +67,32 @@ function searchID(id) {
   })
   .catch(error => window.alert(error));
 }
-
 function getId(button) {
   if (button.target.className === 'item__add') {
     const id = button.target.parentNode.firstChild.innerText;
     searchID(id);
   }
 }
-
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
-}
+
 // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky
 
 // Limpar o carrinho de compras ao clicar no botão
 
 function setLocalStorage() {
   const cartItem = document.querySelector('.cart__items');
-  localStorage.setItem('cartItem', cartItem.innerText);
-}
+    localStorage.setItem('cartItem', cartItem.innerHTML);
+ }
 
 function getLocalStorage() {
-  document.querySelector('.cart__items').innerText = localStorage.getItem('cartItem');
+  const cartLists = document.querySelector('.cart__items');
+  cartLists.innerHTML = localStorage.getItem('cartLists');
+  const item = document.querySelector('.cart__item');
+  for (let i = 0; i < item.length; i += 1) {
+    item[i].addEventListener('click', cartItemClickListener);
+  }
 }
 
 function btnEmptyCart() {
@@ -105,12 +100,15 @@ function btnEmptyCart() {
   btn.addEventListener('click', function () {
     const cartLists = document.querySelector('.cart__items');
     cartLists.innerText = null;
+    setLocalStorage();
   });
+}
 }
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
   btnEmptyCart();
-  setLocalStorage();
-};
+  getLocalStorage();
+}
+
