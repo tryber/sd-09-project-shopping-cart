@@ -96,7 +96,7 @@ function getLocalStorage() {
   const cartLists = document.querySelector('.cart__items');
   cartLists.innerHTML = localStorage.getItem('cartLists');
   const item = document.querySelector('.cart__item');
-  for (let i = 0; i < item.length; i += 1) {
+  for (let i = 0; i < item; i += 1) {
     item[i].addEventListener('click', cartItemClickListener);
   }
 }
