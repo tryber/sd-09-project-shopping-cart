@@ -84,10 +84,6 @@ function addList() {
 
 // Limpar o carrinho de compras ao clicar no botão
 
-function removeListItems() {
-  const listItems = document.querySelectorAll()
-}
-
 function setLocalStorage() {
   const list= document.querySelector('.cart__items');
   localStorage.setItem('list', list.innerText);
@@ -97,7 +93,8 @@ function getLocalStorage() {
   document.querySelector('.cart__items').innerText = localStorage.getItem('list');
 }
 
-window.onload = function onload() { 
+window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
+  setLocalStorage();
 };
