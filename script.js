@@ -59,6 +59,7 @@ async function mercadoLivreResults(term) {
   stopLoading();
 }
 
+
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
@@ -90,20 +91,20 @@ function addList() {
 
 // Limpar o carrinho de compras ao clicar no botão
 
-// function setLocalStorage() {
-//   const cartItem = document.querySelector('.cart__items');
-//   localStorage.setItem('cartItem', cartItem.innerText);
-// }
+function setLocalStorage() {
+  const cartItem = document.querySelector('.cart__items');
+  localStorage.setItem('cartItem', cartItem.innerText);
+}
 
-// function getLocalStorage() {
-//   document.querySelector('.cart__items').innerText = localStorage.getItem('cartItem');
-// }
+function getLocalStorage() {
+  document.querySelector('.cart__items').innerText = localStorage.getItem('cartItem');
+}
 
 function btnEmptyCart() {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', function () {
     const cartLists = document.querySelector('.cart__items');
-    cartLists.innerText = '';
+    cartLists.innerText = null;
   });
 }
 
