@@ -100,8 +100,8 @@ function getLocalStorage() {
     item[i].addEventListener('click', cartItemClickListener);
   }
 }
-// consultei o repositório da colega Leticia Lima para consultar a posição dos elementos 
-//para a questão do GetItem
+// consultei o repositório da colega Leticia Lima para consultar a posição dos elementos
+// para a questão do GetItem
 
 function btnEmptyCart() {
   const btn = document.querySelector('.empty-cart');
