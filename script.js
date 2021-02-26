@@ -1,5 +1,5 @@
 function stopLoading() {
-  const Loading = document.querySelector('.loading');
+  const loading = document.querySelector('.loading');
   loading.remove();
 }
 
