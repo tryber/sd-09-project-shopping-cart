@@ -77,6 +77,7 @@ function getId(button) {
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
+}
 
 // Requisito 2 feito com auxílio e colaboraçao do colega Layo Kaminky
 
@@ -104,7 +105,7 @@ function btnEmptyCart() {
     setLocalStorage();
   });
 }
-}
+
 
 window.onload = function onload() {
   mercadoLivreResults('computador');
