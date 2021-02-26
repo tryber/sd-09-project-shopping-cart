@@ -92,12 +92,20 @@ function addList() {
 // Limpar o carrinho de compras ao clicar no botão
 
 function setLocalStorage() {
-  const list = document.querySelector('.cart__items');
-  localStorage.setItem('list', list.innerText);
+  const cartItem = document.querySelector('.cart__items');
+  localStorage.setItem('cartItem', cartItem.innerText);
 }
 
 function getLocalStorage() {
-  document.querySelector('.cart__items').innerText = localStorage.getItem('list');
+  document.querySelector('.cart__items').innerText = localStorage.getItem('cartItem');
+}
+
+function btnEmptyCart() {
+  const btn = document.querySelector('.empty-cart');
+  btn.addEventListener('click', function(){
+    const cartLists = document.querySelector('.cart_items');
+    cartLists.innerText = null;
+  });
 }
 
 window.onload = function onload() {
