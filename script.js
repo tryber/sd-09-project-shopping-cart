@@ -1,6 +1,6 @@
 function stopLoading() {
-  const stopLoading = document.querySelector('.loading');
-  stopLoading.remove()
+  const Loading = document.querySelector('.loading');
+  loading.remove();
 }
 
 function createProductImageElement(imageSource) {
@@ -56,6 +56,7 @@ async function mercadoLivreResults(term) {
     const element = createProductItemElement({ sku, name, image });
     itemsElement.appendChild(element);
   });
+  stopLoading();
 }
 
 
