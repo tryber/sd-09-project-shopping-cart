@@ -113,7 +113,6 @@ function btnEmptyCart() {
     const cartLists = document.querySelector('.cart__items');
     cartLists.innerText = null;
     setLocalStorage();
-    console.log(localStorage())
   });
 }
 
