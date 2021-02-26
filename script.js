@@ -96,4 +96,5 @@ function getLocalStorage() {
 window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
+  setLocalStorage();
 };
