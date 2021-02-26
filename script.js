@@ -3,6 +3,12 @@ function stopLoading() {
   const loading = document.querySelector('.loading');
   loading.remove();
 }
+
+function setLocalStorage() {
+  const cartItem = document.querySelector('.cart__items');
+  localStorage.setItem('cartItem', cartItem.innerHTML);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -83,10 +89,6 @@ function addList() {
 
 // Limpar o carrinho de compras ao clicar no botão
 
-function setLocalStorage() {
-  const cartItem = document.querySelector('.cart__items');
-  localStorage.setItem('cartItem', cartItem.innerHTML);
-}
 
 function getLocalStorage() {
   const cartLists = document.querySelector('.cart__items');
