@@ -73,6 +73,7 @@ function getId(button) {
     searchID(id);
   }
 }
+
 function addList() {
   const sectionItems = document.querySelector('.items');
   sectionItems.addEventListener('click', getId);
@@ -83,8 +84,8 @@ function addList() {
 
 function setLocalStorage() {
   const cartItem = document.querySelector('.cart__items');
-    localStorage.setItem('cartItem', cartItem.innerHTML);
- }
+  localStorage.setItem('cartItem', cartItem.innerHTML);
+}
 
 function getLocalStorage() {
   const cartLists = document.querySelector('.cart__items');
@@ -110,5 +111,4 @@ window.onload = function onload() {
   addList();
   btnEmptyCart();
   getLocalStorage();
-}
-
+};
