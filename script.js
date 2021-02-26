@@ -28,13 +28,14 @@ function createProductItemElement({ sku, name, image }) {
   sectionItems.appendChild(section);
   return section;
 }
+
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
 function setLocalStorage() {
-  const cartItem = document.querySelector('.cart__items');
-  localStorage.setItem('cartItem', cartItem.innerHTML);
+  const cartItemsList = document.querySelector('.cart__items');
+  localStorage.products = cartItemsList.innerHTML;
 }
 
 function cartItemClickListener(event) {
@@ -61,6 +62,7 @@ async function mercadoLivreResults(term) {
   });
   stopLoading();
 }
+
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
@@ -72,9 +74,11 @@ function searchID(id) {
     const { id: sku, title: name, price: salePrice } = object;
     const itemList = createCartItemElement({ sku, name, salePrice });
     createCartListItem(itemList);
+    setLocalStorage();
   })
   .catch(error => window.alert(error));
 }
+
 function getId(button) {
   if (button.target.className === 'item__add') {
     const id = button.target.parentNode.firstChild.innerText;
@@ -109,6 +113,7 @@ function btnEmptyCart() {
     const cartLists = document.querySelector('.cart__items');
     cartLists.innerText = null;
     setLocalStorage();
+    console.log(localStorage())
   });
 }
 
