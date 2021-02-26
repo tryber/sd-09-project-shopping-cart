@@ -93,14 +93,14 @@ function addList() {
 
 
 function getLocalStorage() {
-  const cartLists = document.querySelector('.cart__items');
-  cartLists.innerHTML = localStorage.getItem('cartLists');
-  const item = document.querySelector('.cart__item');
-  for (let i = 0; i < item; i += 1) {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cartList');
+  const item = document.querySelectorAll('.cart__item');
+  for (let i = 0; i < item.length; i += 1) {
     item[i].addEventListener('click', cartItemClickListener);
   }
 }
-
+// consultei o repositório da colega Leticia Lima para consultar a posição dos elementos para a questão do GetItem
 function btnEmptyCart() {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', function () {
