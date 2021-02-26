@@ -111,5 +111,6 @@ window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
   btnEmptyCart();
+  setLocalStorage();
   getLocalStorage();
 };
