@@ -33,15 +33,21 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function setLocalStorage() {
-  const cartItemsList = document.querySelector('.cart__items');
-  localStorage.products = cartItemsList.innerHTML;
+// function setLocalStorage() {
+//   const cartItemsList = document.querySelector('.cart__items');
+//   localStorage.products = cartItemsList.innerHTML;
+// }
+
+function saveCartList() {
+  const cartList = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cartList', cartList);
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
-  setLocalStorage();
+  saveCartList();
 }
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -67,6 +73,12 @@ function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
 }
+
+function saveCartList() {
+  const cartList = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cartList', cartList);
+}
+
 function searchID(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(response => response.json())
@@ -76,7 +88,7 @@ function searchID(id) {
     createCartListItem(itemList);
   })
   .catch(error => window.alert(error));
-  setLocalStorage();
+  saveCartList();
 }
 
 function getId(button) {
@@ -96,12 +108,12 @@ function addList() {
 // Limpar o carrinho de compras ao clicar no botão
 
 
-function getLocalStorage() {
+function getCartListRefreshingPage() {
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = localStorage.getItem('cartList');
-  const item = document.querySelectorAll('.cart__item');
-  for (let i = 0; i < item.length; i += 1) {
-    item[i].addEventListener('click', cartItemClickListener);
+  const li = document.querySelectorAll('.cart__item');
+  for (let index = 0; index < li.length; index += 1) {
+    li[index].addEventListener('click', cartItemClickListener);
   }
 }
 // consultei o repositório da colega Leticia Lima para consultar a posição dos elementos
@@ -120,5 +132,5 @@ window.onload = function onload() {
   mercadoLivreResults('computador');
   addList();
   btnEmptyCart();
-  getLocalStorage();
+  getCartListRefreshingPage();
 };
