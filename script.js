@@ -1,3 +1,7 @@
+function getInfoLocalStorage() {
+  document.querySelector('.cart__items').innerHTML = localStorage.getItem('itemsCart');
+}
+
 function emptyCart() {
   const buttonEmptyCart = document.querySelector('.empty-cart');
   buttonEmptyCart.addEventListener('click', () => {
@@ -46,6 +50,9 @@ function searchingForId(id) {
         const addToCart = createCartItemElement(productInfo);
         const ol = document.querySelector('.cart__items');
         ol.appendChild(addToCart);
+        const cartItems = document.querySelector('.cart__items').innerHTML;
+        localStorage.setItem('itemsCart', cartItems);
+        console.log(localStorage);
       });
     });
 }
@@ -91,6 +98,7 @@ function retrieve() {
 }
 
 window.onload = function onload() {
+  getInfoLocalStorage();
   retrieve();
   emptyCart();
 };
