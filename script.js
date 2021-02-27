@@ -74,9 +74,9 @@ function searchID(id) {
     const { id: sku, title: name, price: salePrice } = object;
     const itemList = createCartItemElement({ sku, name, salePrice });
     createCartListItem(itemList);
-    setLocalStorage();
   })
   .catch(error => window.alert(error));
+  setLocalStorage();
 }
 
 function getId(button) {
@@ -112,7 +112,6 @@ function btnEmptyCart() {
   btn.addEventListener('click', function () {
     const cartLists = document.querySelector('.cart__items');
     cartLists.innerText = null;
-    setLocalStorage();
   });
 }
 
