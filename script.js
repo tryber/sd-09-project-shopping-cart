@@ -1,5 +1,6 @@
-function cartItemClickListener() {
-
+function cartItemClickListener(event) {
+  const li = document.querySelector('.cart__items');
+  li.removeChild(event.target);
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -24,6 +25,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+// Requisito 2 resolvido com a ajuda de Hamaji e Murilo durante os plantões.
 function searchingForId(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
     .then((response) => {
