@@ -1,3 +1,10 @@
+function emptyCart() {
+  const buttonEmptyCart = document.querySelector('.empty-cart');
+  buttonEmptyCart.addEventListener('click', () => {
+    document.querySelector('.cart__items').innerHTML = '';
+  });
+}
+
 function cartItemClickListener(event) {
   const li = document.querySelector('.cart__items');
   li.removeChild(event.target);
@@ -85,4 +92,5 @@ function retrieve() {
 
 window.onload = function onload() {
   retrieve();
+  emptyCart();
 };
