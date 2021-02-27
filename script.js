@@ -74,11 +74,6 @@ function createCartListItem(itemList) {
   cartItem.appendChild(itemList);
 }
 
-function saveCartList() {
-  const cartList = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cartList', cartList);
-}
-
 function searchID(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(response => response.json())
