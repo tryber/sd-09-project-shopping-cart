@@ -37,6 +37,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
+  totalPrice(salePrice);
   return li;
 }
 
@@ -78,7 +79,29 @@ const getId = () => {
   });
 };
 
+//voltar aqui, não consegui somar os valores
+
+const totalPrice = async (price) => {
+  const getTotal = document.querySelector('.total-price').innerText;
+  const float = parseFloat(getTotal);
+  const total = await Math.round((float + price) * 100) / 100; 
+};
+
+
+// quebrou a pag =(
+
+const clear = () => {
+  const clear = document.querySelector('.empty-cart');
+  const cartItems = document.querySelector('.cart__items');
+  const totalPrice = document.querySelector('.total-price');
+  clear.addEventListener('click', () => {
+    cartItems.innerHTML = '';
+    totalPrice.innerText = '0';
+  });
+};
+
 window.onload = function onload() {
   retrieveMLResults('computador');
   getId();
+  clear();
 };
