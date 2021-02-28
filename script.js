@@ -32,6 +32,25 @@ function cartItemClickListener(event) {
   event.target.remove();
 }
 
+// quebrou a pag =(
+
+const clear = () => {
+  const clearButton = document.querySelector('.empty-cart');
+  const cartItems = document.querySelector('.cart__items');
+  clearButton.addEventListener('click', () => {
+    cartItems.innerHTML = '';
+    totalPrice.innerText = '0';
+  });
+};
+
+// voltar aqui, não consegui somar os valores
+
+const totalPrice = async (price) => {
+  const getTotal = document.querySelector('.total-price').innerText;
+  const float = parseFloat(getTotal);
+  // const total = await Math.round((float + price) * 100) / 100;
+};
+
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -76,27 +95,6 @@ const getId = () => {
     const item = event.target.parentNode;
     const sku = item.querySelector('span.item__sku').innerText;
     fetchID(sku);
-  });
-};
-
-//voltar aqui, não consegui somar os valores
-
-const totalPrice = async (price) => {
-  const getTotal = document.querySelector('.total-price').innerText;
-  const float = parseFloat(getTotal);
-  const total = await Math.round((float + price) * 100) / 100; 
-};
-
-
-// quebrou a pag =(
-
-const clear = () => {
-  const clear = document.querySelector('.empty-cart');
-  const cartItems = document.querySelector('.cart__items');
-  const totalPrice = document.querySelector('.total-price');
-  clear.addEventListener('click', () => {
-    cartItems.innerHTML = '';
-    totalPrice.innerText = '0';
   });
 };
 
