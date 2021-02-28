@@ -32,23 +32,14 @@ function cartItemClickListener(event) {
   event.target.remove();
 }
 
-// quebrou a pag =(
-
 const clear = () => {
   const clearButton = document.querySelector('.empty-cart');
   const cartItems = document.querySelector('.cart__items');
+  const totalCart = document.querySelector('.total-cart');
   clearButton.addEventListener('click', () => {
     cartItems.innerHTML = '';
-    totalPrice.innerText = '0';
+    totalCart.innerText = '0';
   });
-};
-
-// voltar aqui, não consegui somar os valores
-
-const totalPrice = async (price) => {
-  const getTotal = document.querySelector('.total-price').innerText;
-  const float = parseFloat(getTotal);
-  // const total = await Math.round((float + price) * 100) / 100;
 };
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -56,7 +47,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  totalPrice(salePrice);
   return li;
 }
 
