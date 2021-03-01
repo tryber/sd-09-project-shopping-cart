@@ -42,7 +42,7 @@ const clear() {
   // chamar function totalcart qdo pronta;
     saveLocalStorage();
   });
-};
+}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
