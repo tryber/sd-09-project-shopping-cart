@@ -36,10 +36,9 @@ function cartItemClickListener(event) {
 // botão clear retorna null
 // verif se botao passa no requisito
 
-const clear() {
+const clear = () => {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
-  // chamar function totalcart qdo pronta;
     saveLocalStorage();
   });
 }
