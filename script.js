@@ -7,11 +7,7 @@ function fetchProductList() {
 }
 
 function createLoadingMessage() {
-  const loadingElement = document.createElement('span');
-  loadingElement.classList.add('loading');
-  loadingElement.style.display = 'none';
-  loadingElement.innerText = 'loading...';
-  document.body.appendChild(loadingElement);
+  const loadingElement = document.querySelector('.loading');
   function show() {
     loadingElement.style.display = 'inline-block';
   }
