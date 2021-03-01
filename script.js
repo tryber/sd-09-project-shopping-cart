@@ -3,6 +3,30 @@ function saveLocalStorage() {
   localStorage.setItem('cart', cartItems);
 }
 
+function loadingOn() {
+  const body = document.body;
+  const loading = document.createElement('h1');
+  loading.className = 'loading';
+  loading.innerHTML = 'Loading...';
+  body.appendChild(loading);
+};
+
+function loadingRemove() {
+  const body = document.body;
+  const loading = document.querySelector('.loading');
+  body.removeChild(loading);
+}
+
+function localStorageInit() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = localStorage.getItem('cart');
+  cartItem.addEventListener('click', ((event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }));
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -61,7 +85,6 @@ async function retrieveMLResults(term) {
   const object = await response.json();
   const results = object.results;
   const itemsElement = document.querySelector('.items');
-  
   loadingRemove();
   results.forEach((result) => {
     const { id: sku, title: name, thumbnail: image } = result;
@@ -94,32 +117,6 @@ const getId = () => {
     fetchID(sku);
   });
 };
-
-function localStorageInit() {
-  const cartItems = document.querySelector('.cart__items');
-  cartItems.innerHTML = localStorage.getItem('cart');
-  cartItem.addEventListener('click', ((event) => {
-    if (event.target.classList.contains('cart__item')) {
-      cartItemClickListener(event);
-    }
-  }));
-};
-
-function loadingOn() {
-  const body = document.body;
-  const loading = document.createElement('h1');
-  loading.className = 'loading';
-  loading.innerHTML = 'Loading...';
-  body.appendChild(loading);
-};
-
-function loadingRemove() {
-  const body = document.body;
-  const loading = document.querySelector('.loading');
-  body.removeChild(loading);
-}
-
-// onde chamar function loading?
 
 window.onload = function onload() {
   retrieveMLResults('computador');
