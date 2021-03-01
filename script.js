@@ -143,7 +143,7 @@ function loadItemsToCart() {
 }
 
 function addEventListenerToClearCart() {
-  const clearButton = document.querySelector(".empty-cart");
+  const clearButton = document.querySelector('.empty-cart');
   clearButton.addEventListener('click', () => {
     localStorage.removeItem('cart-items');
     document.querySelector('.cart__items').innerHTML = '';
