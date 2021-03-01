@@ -37,8 +37,8 @@ const clear = () => {
   const cartItems = document.querySelector('.cart__items');
   const totalCart = document.querySelector('.total-cart');
   clearButton.addEventListener('click', () => {
-    cartItems.innerHTML = [];
-    totalCart.innerText = '0';
+    cartItems.innerHTML = '';
+    totalCart.innerText = '';
   });
 };
 
