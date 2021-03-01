@@ -38,9 +38,6 @@ function cartItemClickListener(event) {
   saveLocalStorage();
 }
 
-// botão clear retorna null
-// verif se botao passa no requisito
-
 const clear = () => {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
@@ -58,12 +55,14 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 async function retrieveMLResults(term) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
+  loadingOn();
 
   const response = await fetch(endpoint);
   const object = await response.json();
   const results = object.results;
   const itemsElement = document.querySelector('.items');
-
+  
+  loadingRemove();
   results.forEach((result) => {
     const { id: sku, title: name, thumbnail: image } = result;
     const element = createProductItemElement({ sku, name, image });
@@ -73,6 +72,7 @@ async function retrieveMLResults(term) {
 
 const fetchID = (sku) => {
   fetch(`https://api.mercadolibre.com/items/${sku}`)
+
     .then(response => response.json())
     .then((data) => {
       const dataProduct = {
@@ -95,8 +95,35 @@ const getId = () => {
   });
 };
 
+function localStorageInit() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = localStorage.getItem('cart');
+  cartItem.addEventListener('click', ((event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }));
+};
+
+function loadingOn() {
+  const body = document.body;
+  const loading = document.createElement('h1');
+  loading.className = 'loading';
+  loading.innerHTML = 'Loading...';
+  body.appendChild(loading);
+};
+
+function loadingRemove() {
+  const body = document.body;
+  const loading = document.querySelector('.loading');
+  body.removeChild(loading);
+}
+
+// onde chamar function loading?
+
 window.onload = function onload() {
   retrieveMLResults('computador');
   getId();
   clear();
+  localStorageInit();
 };
