@@ -49,9 +49,9 @@ function saveItemsToLocalStorage(items) {
   localStorage.setItem('cart-items', stringItems);
 }
 
-function addItemToLocalStorage({ sku }) {
+function addItemToLocalStorage(product) {
   const itemsFromLocalStorage = loadItemsFromLocalStorage();
-  itemsFromLocalStorage.push({ sku });
+  itemsFromLocalStorage.push(product);
   saveItemsToLocalStorage(itemsFromLocalStorage);
 }
 
@@ -106,7 +106,7 @@ function addButtonEventListener(itemElement) {
     fetchProductDetail(sku)
       .then((product) => {
         addProductToCart(product);
-        addItemToLocalStorage({ sku });
+        addItemToLocalStorage(product);
       });
   });
 }
@@ -128,9 +128,8 @@ function initializeProductList() {
 }
 
 function loadItemsToCart() {
-  const items = loadItemsFromLocalStorage();
-  Promise.all(items.map(item => fetchProductDetail(item.sku)))
-    .then(products => products.forEach(addProductToCart));
+  const products = loadItemsFromLocalStorage();
+  products.forEach(addProductToCart);
 }
 
 window.onload = function onload() {
