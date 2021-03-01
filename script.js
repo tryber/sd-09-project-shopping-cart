@@ -142,8 +142,18 @@ function loadItemsToCart() {
   calculateCartTotalValue();
 }
 
+function addEventListenerToClearCart() {
+  const clearButton = document.querySelector(".empty-cart");
+  clearButton.addEventListener('click', () => {
+    localStorage.removeItem('cart-items');
+    document.querySelector('.cart__items').innerHTML = '';
+    calculateCartTotalValue();
+  });
+}
+
 window.onload = function onload() {
   // Teste
   initializeProductList();
   loadItemsToCart();
+  addEventListenerToClearCart();
 };
