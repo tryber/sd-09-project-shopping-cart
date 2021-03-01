@@ -1,4 +1,3 @@
-let loadingMessageElement;
 function fetchProductList() {
   const productName = 'computador';
   return fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${productName}`)
@@ -7,14 +6,15 @@ function fetchProductList() {
 }
 
 function createLoadingMessage() {
+  const loadingElement = document.createElement('span');
+  loadingElement.innerText = 'loading...';
+  loadingElement.classList.add('loading');
+  document.body.appendChild(loadingElement);
+}
+
+function removeLoadingMessage() {
   const loadingElement = document.querySelector('.loading');
-  function show() {
-    loadingElement.style.display = 'inline-block';
-  }
-  function hide() {
-    loadingElement.style.display = 'none';
-  }
-  return { show, hide };
+  loadingElement.remove();
 }
 
 function createProductImageElement(imageSource) {
@@ -123,20 +123,20 @@ function addButtonEventListener(itemElement) {
   const button = itemElement.querySelector('.item__add');
   const sku = getSkuFromProductItem(itemElement);
   button.addEventListener('click', () => {
-    loadingMessageElement.show();
+    createLoadingMessage();
     fetchProductDetail(sku)
       .then((product) => {
         addProductToCart(product);
         addItemToLocalStorage(product);
         calculateCartTotalValue();
-        loadingMessageElement.hide();
+        removeLoadingMessage();
       });
   });
 }
 
 function initializeProductList() {
   const sectionItems = document.querySelector('section.items');
-  loadingMessageElement.show();
+  createLoadingMessage();
   fetchProductList()
     .then((products) => {
       products.forEach((product) => {
@@ -148,7 +148,7 @@ function initializeProductList() {
         addButtonEventListener(productElement);
         sectionItems.appendChild(productElement);
       });
-      loadingMessageElement.hide();
+      removeLoadingMessage();
     });
 }
 
@@ -169,7 +169,6 @@ function addEventListenerToClearCart() {
 
 window.onload = function onload() {
   // Teste
-  loadingMessageElement = createLoadingMessage();
   initializeProductList();
   loadItemsToCart();
   addEventListenerToClearCart();
