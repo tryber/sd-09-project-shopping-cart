@@ -74,3 +74,12 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.loading {
+  background-color: antiquewhite;
+  font-family: monospace;
+  font-size: 24pt;
+  left: 45%;
+  position: absolute;
+  top: 50vh;
+}
