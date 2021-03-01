@@ -3,9 +3,15 @@ function stopLoading() {
   const loading = document.querySelector('.loading');
   loading.remove();
 }
+
+function setLocalStorage() {
+  const cartItemsList = document.querySelector('.cart__items').innerHTML;
+  localStorage.setItem('cartItemsList', cartItemsList);
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
-   setLocalStorage();
+  setLocalStorage();
 }
 
 function createProductImageElement(imageSource) {
@@ -37,11 +43,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function setLocalStorage() {
-  const cartItemsList = document.querySelector('.cart__items').innerHTML;
-  localStorage.setItem('cartItemsList', cartItemsList);
-  // console.log(cartItemsList)
-}
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
@@ -68,8 +69,8 @@ async function mercadoLivreResults(term) {
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
-  console.log(cartItem)
 }
+
 function searchID(id) {
   fetch(`https://api.mercadolibre.com/items/${id}`)
   .then(response => response.json())
@@ -77,7 +78,7 @@ function searchID(id) {
     const { id: sku, title: name, price: salePrice } = object;
     const itemList = createCartItemElement({ sku, name, salePrice });
     createCartListItem(itemList);
-    setLocalStorage()
+    setLocalStorage();
   })
   .catch(error => window.alert(error));
 }
@@ -103,13 +104,14 @@ function getLocalStorage() {
   }
 }
 // consultei o repositório da colega Leticia Lima para consultar a posição dos elementos
-// para a questão do GetItem
+// para a questão do GetItem e com auxílio do Rafa Reis para me ajudar no que não estava rodando
+// nomes de variável diferente onde deveria ser igual
 
 function btnEmptyCart() {
   const btn = document.querySelector('.empty-cart');
   btn.addEventListener('click', function () {
     const cartLists = document.querySelector('.cart__items');
-    cartLists.innerHTML= null;
+    cartLists.innerHTML = null;
     localStorage.clear();
   });
 }
