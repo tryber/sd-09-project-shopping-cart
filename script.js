@@ -25,7 +25,7 @@ function cartItemClickListener(event) {
 function localStorageInit() {
   const cartItems = document.querySelector('.cart__items');
   cartItems.innerHTML = localStorage.getItem('cart');
-  cartItem.addEventListener('click', ((event) => {
+  cartItems.addEventListener('click', ((event) => {
     if (event.target.classList.contains('cart__item')) {
       cartItemClickListener(event);
     }
