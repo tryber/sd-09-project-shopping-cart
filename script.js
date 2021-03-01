@@ -57,7 +57,7 @@ function addItemToLocalStorage(product) {
 
 function removeItemFromLocalStorage(sku) {
   const items = loadItemsFromLocalStorage();
-  const itemIndex = items.findIndex(item => item.sku === sku);
+  const itemIndex = items.findIndex(item => item.id === sku);
   items.splice(itemIndex, 1);
   saveItemsToLocalStorage(items);
 }
