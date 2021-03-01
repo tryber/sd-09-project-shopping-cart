@@ -68,6 +68,13 @@ function getSkuFromCartItem(cartItem) {
   return sku;
 }
 
+async function calculateCartTotalValue() {
+  const products = loadItemsFromLocalStorage();
+  const total = products.reduce((prevValue, product) => prevValue + product.price, 0);
+  const totalValueElement = document.querySelector('.total-price');
+  totalValueElement.innerText = total;
+}
+
 function cartItemClickListener(event) {
   const { target } = event;
   const sku = getSkuFromCartItem(target);
@@ -98,13 +105,6 @@ function addProductToCart(product) {
   });
   const cartList = document.querySelector('ol.cart__items');
   cartList.appendChild(productCartItem);
-}
-
-async function calculateCartTotalValue() {
-  const products = loadItemsFromLocalStorage();
-  const total = products.reduce((prevValue, product) => prevValue + product.price, 0);
-  const totalValueElement = document.querySelector('.total-price');
-  totalValueElement.innerText = total;
 }
 
 function addButtonEventListener(itemElement) {
