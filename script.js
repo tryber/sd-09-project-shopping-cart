@@ -125,7 +125,7 @@ const getId = () => {
 const total = () => {
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelectorAll('.cart__item');
-  let = acc = 0;
+  let acc = 0;
   cartItems.forEach((element) => {
     acc += parseFloat(element.innerHTML.split('$')[1]);
   });
