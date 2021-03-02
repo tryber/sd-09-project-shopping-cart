@@ -36,16 +36,10 @@ async function totalElement() {
   }
 }
 
-const removePrice = () => {
-  const totalPrice = document.querySelector('.total-price');
-  totalPrice.remove();
-  totalElement();
-};
-
 function cartItemClickListener(event) {
   event.target.remove();
   saveLocalStorage();
-  removePrice();
+  totalElement();
 }
 
 function localStorageInit() {
@@ -91,8 +85,7 @@ function getSkuFromProductItem(item) {
 const clear = () => {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
-    saveLocalStorage();
-    removePrice();
+    saveLocalStorage();  
   });
 };
 
