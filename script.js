@@ -1,4 +1,4 @@
-const total = () => {
+function total() {
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelectorAll('.cart__item');
   let acc = 0;
