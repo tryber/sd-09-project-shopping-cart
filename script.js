@@ -20,6 +20,7 @@ function loadingRemove() {
 function cartItemClickListener(event) {
   event.target.remove();
   saveLocalStorage();
+  removePrice();
 }
 
 function localStorageInit() {
@@ -66,6 +67,7 @@ const clear = () => {
   document.querySelector('.empty-cart').addEventListener('click', () => {
     document.querySelector('.cart__items').innerHTML = '';
     saveLocalStorage();
+    removePrice();
   });
 };
 
@@ -118,9 +120,35 @@ const getId = () => {
   });
 };
 
+async function sum() {
+  let acc = 0;
+  const cartItem = document.querySelectorAll('.cart__item');
+  cartItem.forEach(item => (acc += parseFloat(item.innerText.split('$')[1])));
+  return acc;
+}
+
+async function totalElement() {
+  try {
+    const total = await sum();
+    const createTotal = document.createElement('span');
+    createTotal.className = 'total-price';
+    createTotal.innerHTML = Math.round(total * 100) / 100;
+    document.querySelector('.cart').appendChild(createTotal);
+  } catch (error) {
+    window.alert(error);
+  }
+}
+
+const removePrice = () => {
+  const totalPrice = document.querySelector('.total-price');
+  totalPrice.remove();
+  totalElement();
+}
+
 window.onload = function onload() {
   retrieveMLResults('computador');
   getId();
   clear();
   localStorageInit();
+  totalElement();
 };
