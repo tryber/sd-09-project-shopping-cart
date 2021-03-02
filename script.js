@@ -1,3 +1,13 @@
+const total = () => {
+  const totalPrice = document.querySelector('.total-price');
+  const cartItems = document.querySelectorAll('.cart__item');
+  let acc = 0;
+  cartItems.forEach((element) => {
+    acc += parseFloat(element.innerHTML.split('$')[1]);
+  });
+  totalPrice.innerHTML = acc;
+};
+
 function saveLocalStorage() {
   const cartItems = document.querySelector('.cart__items').innerHTML;
   localStorage.setItem('cart', cartItems);
@@ -121,16 +131,6 @@ const getId = () => {
     fetchID(sku);
   });
 };
-
-const total = () => {
-  const totalPrice = document.querySelector('.total-price');
-  const cartItems = document.querySelectorAll('.cart__item');
-  let acc = 0;
-  cartItems.forEach((element) => {
-    acc += parseFloat(element.innerHTML.split('$')[1]);
-  });
-  totalPrice.innerHTML = acc;
-}
 
 window.onload = function onload() {
   retrieveMLResults('computador');
