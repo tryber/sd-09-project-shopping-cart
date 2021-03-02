@@ -6,7 +6,7 @@ function total() {
     acc += parseFloat(element.innerHTML.split('$')[1]);
   });
   totalPrice.innerHTML = acc;
-};
+}
 
 function saveLocalStorage() {
   const cartItems = document.querySelector('.cart__items').innerHTML;
