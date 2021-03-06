@@ -66,12 +66,11 @@ async function mercadoLivreResults(term) {
   stopLoading();
 }
 
-async function sumListItems(salePrice){
+async function sumListItems(salePrice) {
   const stringPrice = document.querySelector('.total-price').innerText;
   const numberPrice = Number(stringPrice);
-  const totalPrice = await Number(salePrice) + numberPrice; 
-  console.log(totalPrice)
- document.querySelector('.total-price').innerHTML = Number(totalPrice);
+    const totalPrice = await Number(salePrice) + numberPrice;
+    document.querySelector('.total-price').innerHTML = Number(totalPrice);
   setLocalStorage();
 }
 function createCartListItem(itemList) {
