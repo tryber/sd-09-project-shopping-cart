@@ -12,7 +12,7 @@ function setLocalStorage() {
 async function sumListItems(salePrice) {
   const stringPrice = document.querySelector('.total-price').innerText;
   const numberPrice = Number(stringPrice);
-  const totalPrice = await Math.round((Number(salePrice) + numberPrice)* 100) / 100;
+  const totalPrice = await Math.round((Number(salePrice) + numberPrice) * 100) / 100;
   document.querySelector('.total-price').innerHTML = Number(totalPrice);
   setLocalStorage();
 }
