@@ -66,6 +66,14 @@ async function mercadoLivreResults(term) {
   stopLoading();
 }
 
+async function sumListItems(salePrice){
+  const stringPrice = document.querySelector('.total-price').innerText;
+  const numberPrice = Number(stringPrice);
+  const totalPrice = await Number(salePrice) + numberPrice; 
+  console.log(totalPrice)
+ document.querySelector('.total-price').innerHTML = Number(totalPrice);
+  setLocalStorage();
+}
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
@@ -79,6 +87,7 @@ function searchID(id) {
     const itemList = createCartItemElement({ sku, name, salePrice });
     createCartListItem(itemList);
     setLocalStorage();
+    sumListItems(salePrice);
   })
   .catch(error => window.alert(error));
 }
