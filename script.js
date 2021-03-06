@@ -9,6 +9,14 @@ function setLocalStorage() {
   localStorage.setItem('cartItemsList', cartItemsList);
 }
 
+async function sumListItems(salePrice) {
+  const stringPrice = document.querySelector('.total-price').innerText;
+  const numberPrice = Number(stringPrice);
+  const totalPrice = await Number(salePrice) + numberPrice;
+  document.querySelector('.total-price').innerHTML = Number(totalPrice);
+  setLocalStorage();
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   setLocalStorage();
@@ -67,13 +75,6 @@ async function mercadoLivreResults(term) {
   stopLoading();
 }
 
-async function sumListItems(salePrice) {
-  const stringPrice = document.querySelector('.total-price').innerText;
-  const numberPrice = Number(stringPrice);
-  const totalPrice = await Number(salePrice) + numberPrice;
-  document.querySelector('.total-price').innerHTML = Number(totalPrice);
-  setLocalStorage();
-}
 function createCartListItem(itemList) {
   const cartItem = document.querySelector('.cart__items');
   cartItem.appendChild(itemList);
