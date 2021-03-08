@@ -96,6 +96,9 @@ function select() {
 
 function retrieveLocalStorage() {
   const cartItems = localStorage.getItem('item');
+  if (!cartItems) {
+    return;
+  }
   const frases = cartItems.split('\n');
   for (let i = 0; i < frases.length; i += 1) {
     console.log(frases[i]);
