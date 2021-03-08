@@ -32,7 +32,7 @@ function cartItemClickListener(event) {
   localStorage.removeItem(event.target.item);
 }
 
-  function storeValue(param) {
+function storeValue(param) {
   const totalV = document.querySelector('.totalValor');
   const b = Number(localStorage.getItem('value')) + (param);
   localStorage.setItem('value', b);
