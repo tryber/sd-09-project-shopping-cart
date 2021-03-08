@@ -32,27 +32,10 @@ function cartItemClickListener(event) {
   localStorage.removeItem(event.target.item);
 }
 
-function storeValue(param) {
-  const totalV = document.querySelector('.totalValor');
-  const b = Number(localStorage.getItem('value')) + (param);
-  localStorage.setItem('value', b);
-  totalV.innerText = `R$ ${localStorage.getItem('value')}`;
-}
-
-function retrieveValue() {
-  const totalV = document.querySelector('.totalValor');
-  const value = localStorage.getItem('value');
-  totalV.innerText = `R$ ${value}`;
-}
-
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  const a = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  storeValue(salePrice);
-  li.innerText = a;
-  localStorage.setItem('item', a);
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
@@ -145,5 +128,4 @@ retrieveMercadoLivre = (term) => {
 window.onload = function onload() {
   retrieveMercadoLivre('computador');
   retrieveLocalStorage();
-  retrieveValue();
 };
