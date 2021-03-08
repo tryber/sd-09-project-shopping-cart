@@ -25,16 +25,16 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-
 */
+
 function cartItemClickListener(event) {
   event.target.remove();
   localStorage.removeItem(event.target.item);
 }
 
-async function storeValue(param) {
+  function storeValue(param) {
   const totalV = document.querySelector('.totalValor');
-  const b = await Number(localStorage.getItem('value')) + (param);
+  const b = Number(localStorage.getItem('value')) + (param);
   await localStorage.setItem('value', b);
   totalV.innerText = `R$ ${localStorage.getItem('value')}`;
 }
