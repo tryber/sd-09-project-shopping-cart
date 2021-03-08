@@ -32,13 +32,13 @@ function totalValue() {
   const resultado = document.querySelector('.total-price');
   const items = document.querySelectorAll('.cart__item');
   if (items.length === 0) {
-    resultado.innerText = 'R$ 0';
+    resultado.innerText = 0;
   }
   items.forEach((product) => {
     valueTotal.push(product.innerText.split('$')[1]);
   });
   const valorTotal = valueTotal.reduce((acc, item) => parseFloat(acc) + parseFloat(item), 0);
-  resultado.innerText = `R$ ${valorTotal}`;
+  resultado.innerText = `${valorTotal}`;
 }
 
 function cartItemClickListener(event) {
