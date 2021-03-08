@@ -52,7 +52,6 @@ function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
-  totalValue();
   return li;
 }
 
@@ -95,6 +94,7 @@ async function createElement(term) {
       .then((data) => {
         const ol = document.querySelector('.cart__items');
         ol.appendChild(createCartItemElement(data));
+        totalValue();
       });
   storeInfo();
   deleteCart();
