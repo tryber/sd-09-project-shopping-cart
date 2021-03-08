@@ -27,27 +27,25 @@ function getSkuFromProductItem(item) {
 }
 */
 
+function totalValue() {
+  const valueTotal = [];
+  const resultado = document.querySelector('.totalValor');
+  const items = document.querySelectorAll('.cart__item');
+  if (items.length === 0) {
+    resultado.innerText = 'R$ 0';
+  }
+  items.forEach((product) => {
+    valueTotal.push(product.innerText.split('$')[1]);
+  });
+  const valorTotal = valueTotal.reduce((acc, item) => parseFloat(acc) + parseFloat(item), 0);
+  resultado.innerText = `R$ ${valorTotal}`;
+}
+
 function cartItemClickListener(event) {
   localStorage.removeItem(event.target);
   event.target.remove();
   totalValue();
 }
-
-function totalValue() {
-  const valueTotal = [];
-  const resultado = document.querySelector('.totalValor');
-  const items = document.querySelectorAll('.cart__item');
-  console.log(items)
-  if (items.length === 0) {
-    resultado.innerText ='R$ 0';
-  }
-  items.forEach((product) => {
-    valueTotal.push(product.innerText.split('$')[1]);
-  });
-  const valorTotal= valueTotal.reduce((acc, item) => parseFloat(acc) + parseFloat(item), 0);
-  resultado.innerText =`R$${valorTotal}`;
-}
-
 
 function createCartItemElement({ id: sku, title: name, price: salePrice }) {
   const li = document.createElement('li');
