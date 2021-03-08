@@ -25,8 +25,8 @@ function createProductItemElement({ sku, name, image }) {
 function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
-*/
 
+*/
 function cartItemClickListener(event) {
   event.target.remove();
   localStorage.removeItem(event.target.item);
@@ -113,9 +113,6 @@ function select() {
 
 function retrieveLocalStorage() {
   const cartItems = localStorage.getItem('item');
-  if (!cartItems) {
-    return;
-  }
   const frases = cartItems.split('\n');
   for (let i = 0; i < frases.length; i += 1) {
     console.log(frases[i]);
