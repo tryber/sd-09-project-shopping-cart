@@ -35,7 +35,7 @@ function cartItemClickListener(event) {
   function storeValue(param) {
   const totalV = document.querySelector('.totalValor');
   const b = Number(localStorage.getItem('value')) + (param);
-  await localStorage.setItem('value', b);
+  localStorage.setItem('value', b);
   totalV.innerText = `R$ ${localStorage.getItem('value')}`;
 }
 
