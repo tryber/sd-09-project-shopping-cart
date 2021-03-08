@@ -29,7 +29,7 @@ function getSkuFromProductItem(item) {
 
 function totalValue() {
   const valueTotal = [];
-  const resultado = document.querySelector('.totalValor');
+  const resultado = document.querySelector('.total-price');
   const items = document.querySelectorAll('.cart__item');
   if (items.length === 0) {
     resultado.innerText = 'R$ 0';
