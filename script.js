@@ -9,16 +9,28 @@ function setLocalStorage() {
   localStorage.setItem('cartItemsList', cartItemsList);
 }
 
+function decreasePrices(event) {
+  const getPrice = document.querySelector('.total-price').innerText;
+  const searchNumber = event.target.innerText.indexOf('$');
+  const number = event.target.innerText.slice(searchNumber + 1);
+  const valueConvert = Number(number);
+  const degree = Math.round((Number(getPrice) - valueConvert) * 100) / 100;
+  document.querySelector('.total-price').innerHTML = Number(degree);
+}
+
+// consultei reposoitório do colega Layo para conseguir fazer a função decreasePrices
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  setLocalStorage();
+  decreasePrices(event);
+}
+
 async function sumListItems(salePrice) {
   const stringPrice = document.querySelector('.total-price').innerText;
   const numberPrice = Number(stringPrice);
   const totalPrice = await Math.round((Number(salePrice) + numberPrice) * 100) / 100;
   document.querySelector('.total-price').innerHTML = Number(totalPrice);
-  setLocalStorage();
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
   setLocalStorage();
 }
 
@@ -123,6 +135,7 @@ function btnEmptyCart() {
     const cartLists = document.querySelector('.cart__items');
     cartLists.innerHTML = null;
     localStorage.clear();
+    decreasePrices();
   });
 }
 
