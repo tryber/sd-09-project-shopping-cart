@@ -15,11 +15,11 @@ function getInfoLocalStorage() {
   console.log(itemsLocalStorage);
   const listItems = document.querySelector('.cart__items');
   listItems.innerHTML = itemsLocalStorage;
-  listItems.addEventListener('click', (event) => {
+  /*  listItems.addEventListener('click', (event) => {
     if (event.target.classList.contais('.cart__item')) {
       cartItemClickListener(event);
     }
-  });
+  }); */
 }
 
 function setLocalStorage() {
