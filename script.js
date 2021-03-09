@@ -135,7 +135,6 @@ function btnEmptyCart() {
     const cartLists = document.querySelector('.cart__items');
     cartLists.innerHTML = null;
     localStorage.clear();
-    decreasePrices();
   });
 }
 
