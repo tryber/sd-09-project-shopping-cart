@@ -104,4 +104,7 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 window.onload = function onload() {
+  retrieveMercadoLivreResults('computador');
+  addingProductToShoppingCartbyID();
+  loadCart();
 };
