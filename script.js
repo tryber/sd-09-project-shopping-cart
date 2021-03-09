@@ -122,4 +122,5 @@ window.onload = function onload() {
   getInfoLocalStorage();
   retrieve();
   emptyCart();
+  sumProductsItems();
 };
