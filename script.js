@@ -76,11 +76,7 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
-  const button = createCustomElement(
-    'button',
-    'item__add',
-    'Adicionar ao carrinho!'
-  );
+  const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   section.appendChild(button);
   button.addEventListener('click', (event) => {
     addingProductToShoppingCartbyID(
@@ -108,5 +104,4 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 window.onload = function onload() {
-  loadCart();
 };
