@@ -1,6 +1,6 @@
 let sum = 0;
-function sumProductsItems(prices) {
-  sum += prices;
+async function sumProductsItems(prices) {
+  sum += await prices;
   document.querySelector('.total-price').innerHTML = sum;
 }
 
@@ -15,11 +15,6 @@ function getInfoLocalStorage() {
   console.log(itemsLocalStorage);
   const listItems = document.querySelector('.cart__items');
   listItems.innerHTML = itemsLocalStorage;
-  /*  listItems.addEventListener('click', (event) => {
-    if (event.target.classList.contais('.cart__item')) {
-      cartItemClickListener(event);
-    }
-  }); */
 }
 
 function setLocalStorage() {
