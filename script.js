@@ -15,7 +15,7 @@ function getInfoLocalStorage() {
   const itemsLocalStorage = localStorage.getItem('itemsCart');
   const listItems = document.querySelector('.cart__items');
   listItems.innerHTML = itemsLocalStorage;
-  const price = document.querySelector('.total-price')
+  const price = document.querySelector('.total-price');
   const pricesLocalStorage = localStorage.getItem('totalPrices');
   price.innerHTML = pricesLocalStorage;
 }
