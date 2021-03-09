@@ -1,17 +1,25 @@
 function getInfoLocalStorage() {
-  document.querySelector('.cart__items').innerHTML = localStorage.getItem('itemsCart');
+  const itemsLocalStorage = localStorage.getItem('itemsCart');
+  console.log(itemsLocalStorage);
+  const listItems = document.querySelector('.cart__items');
+  listItems.innerHTML = itemsLocalStorage;
+  listItems.addEventListener('click', (event) => {
+    if(event.target.classList.contais('.cart__item')) {
+      cartItemClickListener(event);
+    }
+  })
 }
-let total = 0;
-function sumProductsItems(idPrice) {
-  fetch(`https://api.mercadolibre.com/items/${idPrice}`)
-    .then((response) => {
-      response.json()
-      .then((data) => {
-        total += data.price;
 
-        console.log(total);
-      });
-  });
+function setLocalStorage() {
+  const cartItems = document.querySelector(".cart__items").innerHTML;
+  localStorage.setItem("itemsCart", cartItems);
+}
+
+let sum = 0;
+function sumProductsItems(prices) {
+  sum += prices;
+  let total = document.querySelector('.total-price').innerHTML = sum;
+  console.log(total);
 }
 
 function emptyCart() {
@@ -24,6 +32,7 @@ function emptyCart() {
 function cartItemClickListener(event) {
   const li = document.querySelector('.cart__items');
   li.removeChild(event.target);
+  sumProductsItems();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -62,8 +71,8 @@ function searchingForId(id) {
         const addToCart = createCartItemElement(productInfo);
         const ol = document.querySelector('.cart__items');
         ol.appendChild(addToCart);
-        const cartItems = document.querySelector('.cart__items').innerHTML;
-        localStorage.setItem('itemsCart', cartItems);
+        sumProductsItems(productInfo.salePrice);
+        setLocalStorage();
       });
     });
 }
@@ -78,7 +87,7 @@ function createProductItemElement({ sku, name, image }) {
   const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   button.addEventListener('click', (event) => {
     searchingForId(event.target.parentNode.firstChild.innerText);
-    sumProductsItems(event.target.parentNode.firstChild.innerText);
+
 
   });
   section.appendChild(button);
