@@ -1,6 +1,7 @@
 let sum = 0;
 async function sumProductsItems(prices) {
   sum += await prices;
+  console.log(prices);
   document.querySelector('.total-price').innerHTML = sum;
 }
 
@@ -12,14 +13,18 @@ function cartItemClickListener(event) {
 
 function getInfoLocalStorage() {
   const itemsLocalStorage = localStorage.getItem('itemsCart');
-  console.log(itemsLocalStorage);
   const listItems = document.querySelector('.cart__items');
   listItems.innerHTML = itemsLocalStorage;
+  const price = document.querySelector('.total-price')
+  const pricesLocalStorage = localStorage.getItem('totalPrices');
+  price.innerHTML = pricesLocalStorage;
 }
 
 function setLocalStorage() {
   const cartItems = document.querySelector('.cart__items').innerHTML;
+  const totalItems = document.querySelector('.total-price').innerHTML;
   localStorage.setItem('itemsCart', cartItems);
+  localStorage.setItem('totalPrices', totalItems);
 }
 
 
