@@ -1,52 +1,47 @@
-window.onload = function onload() { 
-  retrieveMercadoLivreResults('computador');
-  loadCart();
-};
-
-function Loading(){
-  const Loading = document.createElement('p');
-  Loading.innerText = 'Loading . . .';
-  Loading.className = 'loading';
-  document.body.appendChild(Loading);
+function Loading()  {
+  const loading = document.createElement('p');
+  loading.innerText = 'Loading . . .';
+  loading.className = 'loading';
+  document.body.appendChild(loading);
 }
 
-function StopLoading(){
+function StopLoading()  {
   const loading = document.querySelector('.loading');
   loading.remove();
 }
 
-function saveCart(){
+function saveCart() {
   const cartItems = document.querySelector('.cart__items');
   localStorage.setItem('cartItems', cartItems.innerHTML);
 }
 
-function loadCart(){
- const cartItems = document.querySelector('.cart__items');
- cartItems.innerHTML = localStorage.getItem('cartItems');
- const CartList = document.querySelectorAll('.cart__item');
- // REFERENCIA TIRADA DO PROJETO DA ANA LUIZA MACHADO - TURMA 09
- [...CartList].forEach((item) => {
+function loadCart() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = localStorage.getItem('cartItems');
+  const CartList = document.querySelectorAll('.cart__item');
+  // REFERENCIA TIRADA DO PROJETO DA ANA LUIZA MACHADO - TURMA 09
+  [...CartList].forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
- })
+  });
 }
 
 
-  function addingProductToShoppingCartbyID(ItemID) {
-  fetch(`https://api.mercadolibre.com/items/${ItemID}`)
-    .then((response) => {
-      response.json()
-      .then((element) => {
-        const productInfo = {
-          sku: element.id,
-          name: element.title,
-          salePrice: element.price,
-        };
-        const addTocart = createCartItemElement(productInfo);
-        document.querySelector('.cart__items').appendChild(addTocart);
-        saveCart();
+function addingProductToShoppingCartbyID(ItemID) {
+        fetch(`https://api.mercadolibre.com/items/${ItemID}`)
+          .then((response) => {
+            response.json()
+              .then((element) => {
+          const productInfo = {
+            sku: element.id,
+            name: element.title,
+            salePrice: element.price,
+          };
+          const addTocart = createCartItemElement(productInfo);
+          document.querySelector('.cart__items').appendChild(addTocart);
+          saveCart();
+        });
       });
-    });
-   }
+      }
 
 async function retrieveMercadoLivreResults(QUERY){
     const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
@@ -87,7 +82,7 @@ function createProductItemElement({ sku, name, image  }) {
   const button = (createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   section.appendChild(button);
   button.addEventListener('click', (event) => {
-   addingProductToShoppingCartbyID(event.target.parentNode.firstChild.innerText);
+    addingProductToShoppingCartbyID(event.target.parentNode.firstChild.innerText);
   });
   return section;
 }
@@ -108,3 +103,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+window.onload = function onload() { 
+  retrieveMercadoLivreResults('computador');
+  loadCart();
+};git
