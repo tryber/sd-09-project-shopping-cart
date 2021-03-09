@@ -15,16 +15,6 @@ function saveCart() {
   localStorage.setItem('cartItems', cartItems.innerHTML);
 }
 
-function loadCart() {
-  const cartItems = document.querySelector('.cart__items');
-  cartItems.innerHTML = localStorage.getItem('cartItems');
-  const CartList = document.querySelectorAll('.cart__item');
-  // REFERENCIA TIRADA DO PROJETO DA ANA LUIZA MACHADO - TURMA 09
-  [...CartList].forEach((item) => {
-    item.addEventListener('click', cartItemClickListener);
-  });
-}
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -48,9 +38,7 @@ function createProductItemElement({ sku, name, image }) {
   const button = createCustomElement('button', 'item__add', 'Adicionar ao carrinho!');
   section.appendChild(button);
   button.addEventListener('click', (event) => {
-    addingProductToShoppingCartbyID(
-      event.target.parentNode.firstChild.innerText
-    );
+    addingProductToShoppingCartbyID(event.target.parentNode.firstChild.innerText);
   });
   return section;
 }
@@ -62,6 +50,16 @@ function getSkuFromProductItem(item) {
 function cartItemClickListener(event) {
   event.target.remove();
   saveCart();
+}
+
+function loadCart() {
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = localStorage.getItem('cartItems');
+  const CartList = document.querySelectorAll('.cart__item');
+  // REFERENCIA TIRADA DO PROJETO DA ANA LUIZA MACHADO - TURMA 09
+  [...CartList].forEach((item) => {
+    item.addEventListener('click', cartItemClickListener);
+  });
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
