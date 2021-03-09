@@ -1,27 +1,27 @@
 function Loading() {
-  const loading = document.createElement("p");
-  loading.innerText = "Loading . . .";
-  loading.className = "loading";
+  const loading = document.createElement('p');
+  loading.innerText = 'Loading . . .';
+  loading.className = 'loading';
   document.body.appendChild(loading);
 }
 
 function StopLoading() {
-  const loading = document.querySelector(".loading");
+  const loading = document.querySelector('.loading');
   loading.remove();
 }
 
 function saveCart() {
-  const cartItems = document.querySelector(".cart__items");
-  localStorage.setItem("cartItems", cartItems.innerHTML);
+  const cartItems = document.querySelector('.cart__items');
+  localStorage.setItem('cartItems', cartItems.innerHTML);
 }
 
 function loadCart() {
-  const cartItems = document.querySelector(".cart__items");
-  cartItems.innerHTML = localStorage.getItem("cartItems");
-  const CartList = document.querySelectorAll(".cart__item");
+  const cartItems = document.querySelector('.cart__items');
+  cartItems.innerHTML = localStorage.getItem('cartItems');
+  const CartList = document.querySelectorAll('.cart__item');
   // REFERENCIA TIRADA DO PROJETO DA ANA LUIZA MACHADO - TURMA 09
   [...CartList].forEach((item) => {
-    item.addEventListener("click", cartItemClickListener);
+    item.addEventListener('click', cartItemClickListener);
   });
 }
 
@@ -34,7 +34,7 @@ function addingProductToShoppingCartbyID(ItemID) {
         salePrice: element.price,
       };
       const addTocart = createCartItemElement(productInfo);
-      document.querySelector(".cart__items").appendChild(addTocart);
+      document.querySelector('.cart__items').appendChild(addTocart);
       saveCart();
     });
   });
@@ -46,7 +46,7 @@ async function retrieveMercadoLivreResults(QUERY) {
   const response = await fetch(endpoint);
   const object = await response.json();
   const results = object.results;
-  const itemsElement = document.querySelector(".items");
+  const itemsElement = document.querySelector('.items');
   results.forEach((result) => {
     const { id: sku, title: name, thumbnail: image } = result;
     const element = createProductItemElement({ sku, name, image });
@@ -54,11 +54,11 @@ async function retrieveMercadoLivreResults(QUERY) {
   });
   StopLoading();
 }
-retrieveMercadoLivreResults("computador");
+retrieveMercadoLivreResults('computador');
 
 function createProductImageElement(imageSource) {
-  const img = document.createElement("img");
-  img.className = "item__image";
+  const img = document.createElement('img');
+  img.className = 'item__image';
   img.src = imageSource;
   return img;
 }
@@ -71,18 +71,18 @@ function createCustomElement(element, className, innerText) {
 }
 
 function createProductItemElement({ sku, name, image }) {
-  const section = document.createElement("section");
-  section.className = "item";
-  section.appendChild(createCustomElement("span", "item__sku", sku));
-  section.appendChild(createCustomElement("span", "item__title", name));
+  const section = document.createElement('section');
+  section.className = 'item';
+  section.appendChild(createCustomElement('span', 'item__sku', sku));
+  section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   const button = createCustomElement(
-    "button",
-    "item__add",
-    "Adicionar ao carrinho!"
+    'button',
+    'item__add',
+    'Adicionar ao carrinho!'
   );
   section.appendChild(button);
-  button.addEventListener("click", (event) => {
+  button.addEventListener('click', (event) => {
     addingProductToShoppingCartbyID(
       event.target.parentNode.firstChild.innerText
     );
@@ -91,7 +91,7 @@ function createProductItemElement({ sku, name, image }) {
 }
 
 function getSkuFromProductItem(item) {
-  return item.querySelector("span.item__sku").innerText;
+  return item.querySelector('span.item__sku').innerText;
 }
 
 function cartItemClickListener(event) {
@@ -100,10 +100,10 @@ function cartItemClickListener(event) {
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
-  const li = document.createElement("li");
-  li.className = "cart__item";
+  const li = document.createElement('li');
+  li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener("click", cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener);
   return li;
 }
 
