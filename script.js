@@ -1,5 +1,5 @@
 function removeTextLoading() {
-  const span = document.querySelector('.load');
+  const span = document.querySelector('.loading');
   span.remove();
 }
 
