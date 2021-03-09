@@ -1,3 +1,8 @@
+function removeTextLoading() {
+  const span = document.querySelector('.load');
+  span.remove();
+}
+
 function sumProductsItems() {
   let sum = 0;
   const items = document.querySelectorAll('.cart__item');
@@ -119,6 +124,7 @@ function retrieve() {
           const section = document.querySelector('.items');
           return section.appendChild(items);
         });
+        removeTextLoading();
       });
     });
 }
