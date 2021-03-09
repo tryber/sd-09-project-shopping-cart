@@ -25,37 +25,6 @@ function loadCart() {
   });
 }
 
-function addingProductToShoppingCartbyID(ItemID) {
-  fetch(`https://api.mercadolibre.com/items/${ItemID}`).then((response) => {
-    response.json.then((element) => {
-      const productInfo = {
-        sku: element.id,
-        name: element.title,
-        salePrice: element.price,
-      };
-      const addTocart = createCartItemElement(productInfo);
-      document.querySelector('.cart__items').appendChild(addTocart);
-      saveCart();
-    });
-  });
-}
-
-async function retrieveMercadoLivreResults(QUERY) {
-  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
-  Loading();
-  const response = await fetch(endpoint);
-  const object = await response.json();
-  const results = object.results;
-  const itemsElement = document.querySelector('.items');
-  results.forEach((result) => {
-    const { id: sku, title: name, thumbnail: image } = result;
-    const element = createProductItemElement({ sku, name, image });
-    itemsElement.appendChild(element);
-  });
-  StopLoading();
-}
-retrieveMercadoLivreResults('computador');
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -101,6 +70,35 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
+}
+function addingProductToShoppingCartbyID(ItemID) {
+  fetch(`https://api.mercadolibre.com/items/${ItemID}`).then((response) => {
+    response.json.then((element) => {
+      const productInfo = {
+        sku: element.id,
+        name: element.title,
+        salePrice: element.price,
+      };
+      const addTocart = createCartItemElement(productInfo);
+      document.querySelector('.cart__items').appendChild(addTocart);
+      saveCart();
+    });
+  });
+}
+
+async function retrieveMercadoLivreResults(QUERY) {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
+  Loading();
+  const response = await fetch(endpoint);
+  const object = await response.json();
+  const results = object.results;
+  const itemsElement = document.querySelector('.items');
+  results.forEach((result) => {
+    const { id: sku, title: name, thumbnail: image } = result;
+    const element = createProductItemElement({ sku, name, image });
+    itemsElement.appendChild(element);
+  });
+  StopLoading();
 }
 
 window.onload = function onload() {
