@@ -7,3 +7,4 @@ cypress/reports
 .eslintrc
 .eslintrc.json
 package.json
+.prettierrc.json
