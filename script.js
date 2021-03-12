@@ -58,5 +58,5 @@ async function fullfillQueryResults(query) {
 }
 
 window.onload = function onload() {
-  fullfillQueryResults('computador')
+  fullfillQueryResults('computador');
 };
