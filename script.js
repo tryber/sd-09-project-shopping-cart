@@ -1,4 +1,24 @@
-window.onload = function onload() { };
+/**
+ * Consultei o repositório da Bruna Campos para resolver essa parte.
+ * Link: https://github.com/tryber/sd-09-project-shopping-cart/tree/bruna-campos-shopping-cart
+*/
+async function fullfillQueryResults(query) {
+  const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+  const fetchValue = await fetch(endpoint);
+  const objectFetched = await fetchValue.json();
+  const retrivedItems = objectFetched.results;
+  const itemList = document.querySelector('.items');
+  retrivedItems.forEach((currentItem) => {
+    const { id: sku, title: name, thumbnail: image } = currentItem;
+    const item = createProductItemElement({ sku, name, image });
+    itemList.appendChild(item);
+  });
+}
+
+window.onload = function onload() {
+  fullfillQueryResults('computador')
+};
+
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
