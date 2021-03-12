@@ -1,3 +1,9 @@
+function createProductImageElement(imageSource) {
+  const img = document.createElement('img');
+  img.className = 'item__image';
+  img.src = imageSource;
+  return img;
+}
 /**
  * Consultei o repositório da Bruna Campos para resolver essa parte.
  * Link: https://github.com/tryber/sd-09-project-shopping-cart/tree/bruna-campos-shopping-cart
@@ -16,16 +22,8 @@ async function fullfillQueryResults(query) {
 }
 
 window.onload = function onload() {
-  fullfillQueryResults('computador')
+  fullfillQueryResults('computador');
 };
-
-
-function createProductImageElement(imageSource) {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-  img.src = imageSource;
-  return img;
-}
 
 function createCustomElement(element, className, innerText) {
   const e = document.createElement(element);
