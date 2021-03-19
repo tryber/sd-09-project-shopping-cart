@@ -32,6 +32,7 @@ body {
   flex-basis: 70%;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 10px;
 }
 
 .item {
@@ -53,11 +54,12 @@ body {
   flex-grow: 1;
   padding: 10px;
   text-align: center;
+  border-bottom: 1px solid rgb(243, 243, 243);
 }
 
 .item .item__image {
-  width: 100%;
-  border-top: 1px solid #eaeaea;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .item .item__add {
