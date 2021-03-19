@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(238, 238, 238);
+}
+
 .top-bar {
   align-items: center;
   display: flex;
@@ -31,8 +35,8 @@
 }
 
 .item {
-  border: 2px solid blue;
-  border-radius: 5px;
+  background-color: rgb(255, 255, 255) ;
+  border-radius: 6px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -53,12 +57,15 @@
 
 .item .item__image {
   width: 100%;
+  border-top: 1px solid #eaeaea;
 }
 
 .item .item__add {
-  background-color: green;
+  background-color: #0d6efd;
   border: 0;
+  border-radius: 1px 1px 6px 6px;
   cursor: pointer;
+  color: white;
   margin: 0;
   padding: 5px;
 }
@@ -70,7 +77,14 @@
 }
 
 .cart .cart__title {
+  margin-top: 15px;
+  background-color: #ffd700;
   flex-basis: 1;
   font-size: 16pt;
   text-align: center;
+}
+
+.cart__items{
+  background-color: white;
+  margin: 0;
 }
