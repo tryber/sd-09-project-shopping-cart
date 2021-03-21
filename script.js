@@ -1,9 +1,8 @@
-function fetchApi(param) {
-  param = 'computador';
+function fetchApi(param = 'computador') {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${param}`;
   return fetch(endpoint)
   .then(response => response.json()
-    .then(data => data.results ));
+    .then(data => data.results));
 }
 
 function createProductImageElement(imageSource) {
@@ -52,7 +51,7 @@ function listOfProducts() {
   const sectionItems = document.querySelector('section.items');
   fetchApi()
     .then((response) => {
-      response.map((object) => {
+      response.forEach((object) => {
         const product = createProductItemElement({
           sku: object.id,
           name: object.title,
@@ -65,4 +64,4 @@ function listOfProducts() {
 
 window.onload = function onload() {
   listOfProducts();
-}
+};
