@@ -35,7 +35,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
-
   return section;
 }
 
@@ -55,12 +54,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function getButtonAdd(itemElement) {
-  const buttonAdd = itemElement.querySelector('.item__add');
-  const sku = getSkuFromProductItem(itemElement);
-  buttonAdd.addEventListener('click', () => addProductToCart(sku));
-}
-
 function addProductToCart(sku) {
   fetchItems(sku)
     .then((product) => {
@@ -72,6 +65,12 @@ function addProductToCart(sku) {
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
     });
+}
+
+function getButtonAdd(itemElement) {
+  const buttonAdd = itemElement.querySelector('.item__add');
+  const sku = getSkuFromProductItem(itemElement);
+  buttonAdd.addEventListener('click', () => addProductToCart(sku));
 }
 
 function listOfProducts() {
