@@ -12,6 +12,20 @@ function fetchItems(itemId) {
     .then(response => response.json());
 }
 
+function addLocalStorage(idItem, itemName) {
+  let key = idItem;
+  let value = itemName.querySelector('span.item__title').textContent;
+  localStorage.setItem(key, value);
+}
+//parei aqui
+function initLocalStorage() {
+  localStorage.getItem(localStorage.key);
+}
+
+function removeLocalStorage(params) {
+  localStorage.removeItem(params);
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -43,7 +57,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  localStorage.removeItem(localStorage.key(event));
   event.target.remove();
 }
 
@@ -72,6 +86,7 @@ function getButtonAdd(itemElement) {
   const buttonAdd = itemElement.querySelector('.item__add');
   const sku = getSkuFromProductItem(itemElement);
   buttonAdd.addEventListener('click', () => addProductToCart(sku));
+  buttonAdd.addEventListener('click', () => addLocalStorage(sku, itemElement))
 }
 
 function listOfProducts() {
@@ -92,4 +107,5 @@ function listOfProducts() {
 
 window.onload = function onload() {
   listOfProducts();
+  initLocalStorage();
 };
