@@ -12,8 +12,10 @@ function fetchItems(itemId) {
     .then(response => response.json());
 }
 
-function addLocalStorage(idItem) {
-  localStorage.shoppingCart = idItem.innerHTML;
+function addLocalStorage(idItem, itemName) {
+  const key = idItem;
+  const value = itemName.querySelector('span.item__title').textContent;
+  localStorage.setItem(key, value);
 }
 
 function removeLocalStorage(params) {
@@ -77,16 +79,16 @@ function addProductToCart(sku) {
       });
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
-// aqui
-      addLocalStorage(itemCart);
       itemCart.addEventListener('click', totalPrice(product.price));
     });
 }
 
 function initLocalStorage() {
-  if (localStorage.shoppingCart) {
-    const myCart = document.querySelector('.cart__items');
-    myCart.innerHTML = localStorage.shoppingCart;
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    console.log(key);
+    const value = localStorage.getItem(key);
+    addProductToCart(key, value);
   }
 }
 
@@ -94,7 +96,7 @@ function getButtonAdd(itemElement) {
   const buttonAdd = itemElement.querySelector('.item__add');
   const sku = getSkuFromProductItem(itemElement);
   buttonAdd.addEventListener('click', () => addProductToCart(sku));
-// buttonAdd.addEventListener('click', () => addLocalStorage(sku, itemElement));
+  buttonAdd.addEventListener('click', () => addLocalStorage(sku, itemElement));
 }
 
 function listOfProducts() {
