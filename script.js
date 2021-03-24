@@ -79,7 +79,7 @@ async function sum() {
 async function TotalPriceUnreal() {
   try {
     const totalPrice = await sum();
-    const totalPriceTag = document.querySelector('.total-price');
+    const totalPriceTag = document.querySelector('.total-price span');
     totalPriceTag.innerText = totalPrice;
   } catch (error) {
     window.alert(error);
