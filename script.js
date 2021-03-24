@@ -19,7 +19,6 @@ function addLocalStorage(idItem, itemName) {
 }
 
 function removeLocalStorage(params) {
-  //localStorage.removeItem(params);
   localStorage.removeItem(localStorage.key(params));
 }
 
