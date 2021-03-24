@@ -79,7 +79,7 @@ function addProductToCart(sku) {
       });
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
-      itemCart.addEventListener('click', totalPrice(product.price));
+      itemCart.addEventListener('click', totalPrice(product.price + 1));
     });
 }
 
