@@ -109,7 +109,7 @@ function listOfProducts() {
     });
 }
 
-window.onload = function onload() {
+window.onload = () => {
   listOfProducts();
   initLocalStorage();
 };
