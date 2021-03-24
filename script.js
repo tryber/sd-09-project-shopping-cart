@@ -1,14 +1,14 @@
 // const fetch = require('node-fetch');
 
-WORK STORAGE
-function saveData() {
-  if (localStorage.TOTAL_PRICE === undefined) {
-    localStorage.setItem('TOTAL_PRICE', 0);
-  }
-  if (localStorage.ITEM_COUNT === undefined) {
-    localStorage.setItem('ITEM_COUNT', 0);
-  }
-}
+// WORK STORAGE
+// function saveData() {
+//   if (localStorage.TOTAL_PRICE === undefined) {
+//     localStorage.setItem('TOTAL_PRICE', 0);
+//   }
+//   if (localStorage.ITEM_COUNT === undefined) {
+//     localStorage.setItem('ITEM_COUNT', 0);
+//   }
+// }
 
 function loadingScreen() {
   const load = document.createElement('p');
@@ -186,8 +186,8 @@ function clearCart() {
 
 window.onload = function onload() {
   createProdutctsList();
-  saveData();
+  // saveData();
   cartListUpdate();
-  clearCart();
+  // clearCart();
   loadTotalPrice();
 };
