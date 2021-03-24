@@ -62,10 +62,7 @@ function cartItemClickListener(event) {
   // console.log(localStorage.total_price);
 
   // drop item in cart shop
-  // event.target.remove();
-
-  // drop list cart
-  event.target.clearCart();
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice, elementId }) {
