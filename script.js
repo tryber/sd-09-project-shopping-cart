@@ -75,11 +75,11 @@ function addProductToCart(sku) {
       const itemCart = createCartItemElement({
         sku: product.id,
         name: product.title,
-        salePrice: product.price,
+        salePrice: product.price + 1,
       });
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
-      itemCart.addEventListener('click', totalPrice(product.price + 1));
+      itemCart.addEventListener('click', totalPrice(product.price));
     });
 }
 
