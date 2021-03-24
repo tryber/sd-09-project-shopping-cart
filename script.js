@@ -79,11 +79,9 @@ function addProductToCart(sku) {
 }
 
 function initLocalStorage() {
-  for (let i = 1; i < localStorage.length; i += 1) {
-    const key = localStorage.key(i);
+    const key = localStorage.key;
     const value = localStorage.getItem(key);
     addProductToCart(key, value);
-  }
 }
 
 function getButtonAdd(itemElement) {
