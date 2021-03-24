@@ -188,6 +188,6 @@ window.onload = function onload() {
   createProdutctsList();
   // saveData();
   cartListUpdate();
-  // clearCart();
+  clearCart();
   loadTotalPrice();
 };
