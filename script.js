@@ -88,7 +88,7 @@ function initLocalStorage() {
     const key = localStorage.key(i);
     console.log(key);
     const value = localStorage.getItem(key);
-    addProductToCart(key, value);
+    addProductToCart('MLB687124927', value);
   }
 }
 
