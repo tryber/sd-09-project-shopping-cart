@@ -63,9 +63,17 @@ function createProductItemElement({ sku, name, image, elementId }) {
 //   return item.querySelector('span.item__sku').innerText;
 // }
 
+// SOMA ----------------------------------------------------------------------
 async function sum() {
-  const sumTotal = parseInt(localStorage.TOTAL_PRICE, 10);
-  return sumTotal;
+  const lis = document.querySelectorAll('.cart__item');
+  let totalValue = 0;
+  lis.forEach((cartItem) => {
+    const textContent = cartItem.innerText;
+    const value = parseInt(textContent.substring(textContent.indexOf('$') + 1), 10);
+    totalValue = +totalValue + value;
+  });
+  console.log(lis);
+  return totalValue;
 }
 
 async function TotalPriceUnreal() {
@@ -81,6 +89,25 @@ async function TotalPriceUnreal() {
 function loadTotalPrice() {
   TotalPriceUnreal();
 }
+
+// async function sum() {
+//   const sumTotal = parseInt(localStorage.TOTAL_PRICE, 10);
+//   return sumTotal;
+// }
+
+// async function TotalPriceUnreal() {
+//   try {
+//     const totalPrice = await sum();
+//     const totalPriceTag = document.querySelector('.total-price');
+//     totalPriceTag.innerText = totalPrice;
+//   } catch (error) {
+//     window.alert(error);
+//   }
+// }
+
+// function loadTotalPrice() {
+//   TotalPriceUnreal();
+// }
 
 async function cartItemClickListener(event) {
   // cole seu codigo aqui
