@@ -79,9 +79,9 @@ function addProductToCart(sku) {
 }
 
 function initLocalStorage() {
-    const key = localStorage.key;
-    const value = localStorage.getItem(key);
-    addProductToCart(key, value);
+  const key = localStorage.key;
+  const value = localStorage.getItem(key);
+  addProductToCart(key, value);
 }
 
 function getButtonAdd(itemElement) {
