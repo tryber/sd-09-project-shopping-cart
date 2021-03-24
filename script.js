@@ -18,14 +18,6 @@ function addLocalStorage(idItem, itemName) {
   localStorage.setItem(key, value);
 }
 
-function initLocalStorage() {
-  for (let i = 0; i < localStorage.length; i++){
-    const key = localStorage.key(i);
-    const value = localStorage.getItem(key);
-    addProductToCart(key, value);
-  }
-}
-
 function removeLocalStorage(params) {
   //localStorage.removeItem(params);
   localStorage.removeItem(localStorage.key(params));
@@ -62,8 +54,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  //localStorage.removeItem(localStorage.key(event));
-  removeLocalStorage(event)
+  removeLocalStorage(event);
   event.target.remove();
 }
 
@@ -86,6 +77,14 @@ function addProductToCart(sku) {
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
     });
+}
+
+function initLocalStorage() {
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+    addProductToCart(key, value);
+  }
 }
 
 function getButtonAdd(itemElement) {
