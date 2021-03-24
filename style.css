@@ -74,3 +74,9 @@
   font-size: 16pt;
   text-align: center;
 }
+
+.cart__item {
+  background-color: beige;
+  border: rgb( 45, 161, 156 ) solid;
+  border-radius: 10px;
+}
