@@ -65,6 +65,10 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function totalPrice(params) {
+  console.log(params);
+}
+
 function addProductToCart(sku) {
   fetchItems(sku)
     .then((product) => {
@@ -75,13 +79,16 @@ function addProductToCart(sku) {
       });
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
+      itemCart.addEventListener('click', totalPrice(product.price));
     });
 }
 
 function initLocalStorage() {
-  const key = localStorage.key;
-  const value = localStorage.getItem(key);
-  addProductToCart(key, value);
+  for (let i = 0; i < localStorage.length; i += 1) {
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+    addProductToCart(key, value);
+  }
 }
 
 function getButtonAdd(itemElement) {
