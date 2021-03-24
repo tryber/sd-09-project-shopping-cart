@@ -79,7 +79,7 @@ async function sum() {
 async function TotalPriceUnreal() {
   try {
     const totalPrice = await sum();
-    const totalPriceTag = document.querySelector('.total-price span');
+    const totalPriceTag = document.querySelector('.total-price');
     totalPriceTag.innerText = totalPrice;
   } catch (error) {
     window.alert(error);
@@ -170,8 +170,8 @@ function cartListUpdate() {
     const key = `ITEM_${index + 1}`;
     if (localStorage.getItem(key) !== null && localStorage.getItem(key) !== undefined) {
       const itemStorage = localStorage.getItem(key);
-      const sku = itemStorage.substring(5, itemStorage.indexOf('| NAME:'));
-      const name = itemStorage.substring(26, itemStorage.indexOf('| PRICE:'));
+      const sku = itemStorage.substring(5, itemStorage.indexOf(' | NAME:'));
+      const name = itemStorage.substring(26, itemStorage.indexOf(' | PRICE:'));
       const salePrice = itemStorage.substring(itemStorage.indexOf('$') + 1);
       const loadElement = createCartItemElement({ sku, name, salePrice });
       loadElement.id = key;
