@@ -13,17 +13,22 @@ function fetchItems(itemId) {
 }
 
 function addLocalStorage(idItem, itemName) {
-  let key = idItem;
-  let value = itemName.querySelector('span.item__title').textContent;
+  const key = idItem;
+  const value = itemName.querySelector('span.item__title').textContent;
   localStorage.setItem(key, value);
 }
-//parei aqui
+
 function initLocalStorage() {
-  localStorage.getItem(localStorage.key);
+  for (let i = 0; i < localStorage.length; i++){
+    const key = localStorage.key(i);
+    const value = localStorage.getItem(key);
+    addProductToCart(key, value);
+  }
 }
 
 function removeLocalStorage(params) {
-  localStorage.removeItem(params);
+  //localStorage.removeItem(params);
+  localStorage.removeItem(localStorage.key(params));
 }
 
 function createProductImageElement(imageSource) {
@@ -57,7 +62,8 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  localStorage.removeItem(localStorage.key(event));
+  //localStorage.removeItem(localStorage.key(event));
+  removeLocalStorage(event)
   event.target.remove();
 }
 
@@ -86,7 +92,7 @@ function getButtonAdd(itemElement) {
   const buttonAdd = itemElement.querySelector('.item__add');
   const sku = getSkuFromProductItem(itemElement);
   buttonAdd.addEventListener('click', () => addProductToCart(sku));
-  buttonAdd.addEventListener('click', () => addLocalStorage(sku, itemElement))
+  buttonAdd.addEventListener('click', () => addLocalStorage(sku, itemElement));
 }
 
 function listOfProducts() {
