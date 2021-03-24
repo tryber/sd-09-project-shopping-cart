@@ -69,7 +69,7 @@ async function sum() {
   let totalValue = 0;
   lis.forEach((cartItem) => {
     const textContent = cartItem.innerText;
-    const value = parseInt(textContent.substring(textContent.indexOf('$') + 1), 10);
+    const value = parseFloat(textContent.substring(textContent.indexOf('$') + 1), 10);
     totalValue = +totalValue + value;
   });
   console.log(lis);
@@ -170,8 +170,8 @@ function cartListUpdate() {
     const key = `ITEM_${index + 1}`;
     if (localStorage.getItem(key) !== null && localStorage.getItem(key) !== undefined) {
       const itemStorage = localStorage.getItem(key);
-      const sku = itemStorage.substring(6, itemStorage.indexOf('| NAME:'));
-      const name = itemStorage.substring(27, itemStorage.indexOf('| PRICE:'));
+      const sku = itemStorage.substring(5, itemStorage.indexOf('| NAME:'));
+      const name = itemStorage.substring(26, itemStorage.indexOf('| PRICE:'));
       const salePrice = itemStorage.substring(itemStorage.indexOf('$') + 1);
       const loadElement = createCartItemElement({ sku, name, salePrice });
       loadElement.id = key;
