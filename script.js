@@ -93,7 +93,7 @@ function addProductToCart(sku) {
       itemCart.addEventListener('click', totalPrice(product.price));
       addLocalStorage();
     });
-    dropLoading();
+  dropLoading();
 }
 
 /* function initLocalStorage() {
