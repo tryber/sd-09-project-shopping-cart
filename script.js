@@ -15,7 +15,6 @@ function fetchApi() {
   const param = 'computador';
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${param}`;
   getLoading();
-
   return fetch(endpoint)
   .then(response => response.json()
     .then(data => data.results));
@@ -121,6 +120,7 @@ function listOfProducts() {
         getButtonAdd(product);
         sectionItems.appendChild(product);
       });
+      dropLoading();
     });
 // aqui
   dropLoading();
