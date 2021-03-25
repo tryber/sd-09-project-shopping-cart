@@ -2,7 +2,7 @@ function getLoading() {
   const span = document.createElement('span');
   span.className = 'loading';
   span.innerText = 'loading...';
-  const sectionLoad = document.querySelector('section.cart');
+  const sectionLoad = document.querySelector('section.container');
   sectionLoad.appendChild(span);
 }
 
