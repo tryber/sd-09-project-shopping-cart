@@ -1,9 +1,9 @@
 function getLoading() {
-  const span = document.createElement('span');
-  span.className = 'loading';
-  span.innerText = 'loading...';
+  const p = document.createElement('p');
+  p.className = 'loading';
+  p.innerText = 'loading...';
   const sectionLoad = document.querySelector('section.container');
-  sectionLoad.appendChild(span);
+  sectionLoad.appendChild(p);
 }
 
 function dropLoading() {
