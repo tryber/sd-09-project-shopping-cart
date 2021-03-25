@@ -15,7 +15,7 @@ function fetchItems(itemId) {
 function addLocalStorage() {
   if (localStorage.TESTE !== null) {
     const list = document.querySelector('ol.cart__items').innerText;
-    localStorage.setItem('TESTE', list);  
+    localStorage.setItem('TESTE', list);
   }
 }
 
@@ -117,6 +117,6 @@ function emptyCart() {
 
 window.onload = () => {
   listOfProducts();
- // initLocalStorage();
+// initLocalStorage();
   emptyCart();
 };
