@@ -22,6 +22,7 @@ function fetchApi() {
 
 function fetchItems(itemId) {
   const endpoint = `https://api.mercadolibre.com/items/${itemId}`;
+  getLoading();
   return fetch(endpoint)
     .then(response => response.json());
 }
@@ -92,6 +93,7 @@ function addProductToCart(sku) {
       itemCart.addEventListener('click', totalPrice(product.price));
       addLocalStorage();
     });
+    dropLoading();
 }
 
 /* function initLocalStorage() {
