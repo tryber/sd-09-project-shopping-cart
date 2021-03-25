@@ -60,7 +60,7 @@ function cartItemClickListener(event) {
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
-  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice + 1}`;
+  li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
@@ -79,7 +79,7 @@ function addProductToCart(sku) {
       });
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
-      itemCart.addEventListener('click', totalPrice(product.price + 1));
+      itemCart.addEventListener('click', totalPrice(product.price));
     });
 }
 
@@ -88,7 +88,7 @@ function initLocalStorage() {
     const key = localStorage.key(i);
     console.log(key);
     const value = localStorage.getItem(key);
-    addProductToCart('MLB687124927', value);
+    addProductToCart(key, value);
   }
 }
 
