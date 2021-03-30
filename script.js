@@ -61,6 +61,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
+  totalPrice();
   event.target.remove();
   addLocalStorage();
 }
@@ -72,8 +73,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
-// aqui
-function totalPrice() {
+
+/** Linha 85 é uma lógica bem resumida da qual eu estava tentando implementar.
+Este trecho de código veio do @rafaelrnascimento200, vi sua utilização no mesmo projeto e me foi de muita aprendizagem.
+Link do repositório: https://github.com/tryber/sd-09-project-shopping-cart/pull/13/commits/0be4b51c8e809eaff1e754c72acb4f9e853fa732
+*/
+async function totalPrice() {
+  let sum = 0;
+  const mylist = document.querySelectorAll('.cart__item');
+  const total = document.querySelector('.total-price');
+  mylist.forEach(product => (sum += +product.innerText.split('$')[1]));
+  total.innerText = sum;
 }
 
 function addProductToCart(sku) {
@@ -86,7 +96,7 @@ function addProductToCart(sku) {
       });
       const listOfCart = document.querySelector('ol.cart__items');
       listOfCart.appendChild(itemCart);
-      itemCart.addEventListener('click', totalPrice());
+      itemCart.addEventListener('click', totalPrice(product.price));
       addLocalStorage();
     });
   dropLoading();
@@ -138,4 +148,5 @@ window.onload = () => {
   listOfProducts();
   initLocalStorage();
   emptyCart();
+  totalPrice();
 };
