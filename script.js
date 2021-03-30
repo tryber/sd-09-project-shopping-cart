@@ -73,7 +73,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-/** Linha 85 é uma lógica bem resumida da qual eu estava tentando implementar. */
+/** Linha 83 é uma lógica bem resumida da qual eu estava tentando implementar. */
 /** Este código do @rafaelrnascimento200, vi a utilização no projeto e foi de muita aprendizagem. */
 /** Link do repositório: https://github.com/tryber/sd-09-project-shopping-cart/pull/13/commits/0be4b51c8e809eaff1e754c72acb4f9e853fa732 */
 async function totalPrice() {
@@ -81,7 +81,8 @@ async function totalPrice() {
   const mylist = document.querySelectorAll('.cart__item');
   const total = document.querySelector('.total-price');
   mylist.forEach(product => (sum += +product.innerText.split('$')[1]));
-  total.innerText = sum - 25,75;
+  (sum -= 25,75);
+  total.innerText = sum;
 }
 
 function addProductToCart(sku) {
