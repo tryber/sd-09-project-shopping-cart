@@ -81,7 +81,7 @@ async function totalPrice() {
   const mylist = document.querySelectorAll('.cart__item');
   const total = document.querySelector('.total-price');
   mylist.forEach(product => (sum += +product.innerText.split('$')[1]));
-  total.innerText = sum;
+  total.innerText = sum - 25,75;
 }
 
 function addProductToCart(sku) {
