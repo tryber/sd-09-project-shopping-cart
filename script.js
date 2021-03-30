@@ -97,7 +97,7 @@ function initLocalStorage() {
   if (localStorage.TESTE) {
     myList.innerHTML = localStorage.TESTE;
   }
- }
+}
 
 function getButtonAdd(itemElement) {
   const buttonAdd = itemElement.querySelector('.item__add');
