@@ -3,6 +3,16 @@ function saveCurrentCartState() {
   localStorage.setItem('cart', cartItemsSpecs);
 }
 
+function localStorageRetrieve() {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
+  cartList.addEventListener('click', ((event) => {
+    if (event.target.classList.contains('cart__item')) {
+      cartItemClickListener(event);
+    }
+  }));
+}
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -90,4 +100,5 @@ function getId() {
 window.onload = function onload() {
   fullfillQueryResults('computador');
   getId();
+  localStorageRetrieve();
 };
