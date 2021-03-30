@@ -78,7 +78,7 @@ function getId() {
     const sku = item.querySelector('span.item__sku').innerText;
     fetchId(sku);
   });
-};
+}
 
 window.onload = function onload() {
   fullfillQueryResults('computador');
