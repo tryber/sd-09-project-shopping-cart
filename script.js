@@ -88,29 +88,32 @@ async function retrieveMercadoLivreResults(term) {
   unload();
 }
 
-// function clear (){
-//   const deleteCart = document.querySelector('.empty-cart');
-//   deleteCart.addEventListener('click', () => {
-//     const cart = document.querySelector('.cart__items');
-//     cart.forEach((cartItem) => {
-//       cartItem.remove();
-//     });
-//   });
+function clear() {
+  const deleteCart = document.querySelector('.empty-cart');
+  deleteCart.addEventListener('click', function () {
+    const cart = document.querySelector('.cart__items');
+    cart.innerHTML = '';
+    saveLocal();
+  });
+}
+
+// const sum = { price } => {
+//   const getSpan = document.querySelector('.total-price');
+
+
 // }
+
 // function getSkuFromProductItem(item) {
 //  return item.querySelector('span.item__sku').innerText;
 // }
-// function saveLocal(){
-//   const cartList = document.querySelector('.cart__items');
-//   localStorage.setItem('cart', cartList.innerHTML);
-// }
+
 
 function loadLoacal() {
   const cartList = document.querySelector('.cart__items');
-  (localStorage.getItem('cart')) ? (cartList.innerHTML = localStorage.getItem('cart'))
-  : cartList.innerHTML = '';
+  cartList.innerHTML = localStorage.getItem('cart') || '';
 }
 window.onload = function onload() {
   retrieveMercadoLivreResults('computador');
+  clear();
   loadLoacal();
 };
