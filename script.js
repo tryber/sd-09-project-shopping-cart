@@ -70,7 +70,8 @@ async function fetchAPIML(QUERY) {
     // estrutura de repeticao que passa executa acoes com cada valor do array 'results'
     const { id: sku, title: name, thumbnail: image } = result; // estrutura objeto
     const element = createProductItemElement({ sku, name, image });
-    // chama funcoa de listagem de produtos, tendo como parametros os valores dos objetos da array results
+    // chama funcoa de listagem de produtos
+    // tendo como parametros os valores dos objetos da array results
     itemsElement.appendChild(element);
     // cria elemento filho, do elemento com classe 'items'
     // com os valores de cada elemento do array 'results'
