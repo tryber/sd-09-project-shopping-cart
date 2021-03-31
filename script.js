@@ -92,7 +92,7 @@ const fetchID = (ItemID) => {
     // converte resultado da requisicao em formato JSON
     .then((data) => {
       const dataProduct = {
-        sku,
+        ItemID,
         name: data.title,
         salePrice: data.price,
       };
