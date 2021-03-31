@@ -114,7 +114,7 @@ const getId = () => {
     // torna elemento clicavel
     // click no item devolve seu id (sku)
     const item = event.target.parentNode;
-    // 'item' recebe elemento pai do produto clicado 
+    // 'item' recebe elemento pai do produto clicado
     const sku = item.querySelector('span.item__sku').innerText;
     // 'sku' valor do elemento span com classe item__sku
     // na forma de string
@@ -127,7 +127,7 @@ window.onload = function onload() {
   fetchAPIML('computador');
   // chama funcao de requisicao a API com parametro 'computador'
   // lista produtos encontrados
-  //ao carregar a pagina
+  // ao carregar a pagina
   getId();
   // torna os produtos clicaveis
   // seus ids acessiveis
