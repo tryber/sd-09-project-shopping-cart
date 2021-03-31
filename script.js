@@ -59,13 +59,14 @@ async function fetchAPIML(QUERY) {
   // determina o endpoint de acesso atraves do parametro da funcao
   const response = await fetch(endpoint);
   // 'response' espera receber o resultado da requisicao
-  const object = response.json();
+  const object = await response.json();
   // converte resultado da requisicao em formato JSON
   const results = object.results;
   // 'results' recebe, os valores da chave "results" do JSON retornado pela requisicao a API
   // na forma de array de objetos
   const itemsElement = document.querySelector('.items');
   // vasculha o DOM por tag com classe 'items'
+
   results.forEach((result) => {
     // estrutura de repeticao que passa executa acoes com cada valor do array 'results'
     const { id: sku, title: name, thumbnail: image } = result; // estrutura objeto
