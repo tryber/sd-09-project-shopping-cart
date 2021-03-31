@@ -91,7 +91,7 @@ const fetchID = (ItemID) => {
     .then(response => response.json())
     // converte resultado da requisicao em formato JSON
     .then((data) => {
-      const product = {
+      const dataProduct = {
         sku,
         name: data.title,
         salePrice: data.price,
@@ -99,7 +99,7 @@ const fetchID = (ItemID) => {
       // estrutura objeto
       const list = document.querySelector('.cart__items');
       // vasculha DOM por tag com classe 'cart__items'
-      list.appendChild(createCartItemElement(product));
+      list.appendChild(createCartItemElement(dataProduct));
       // cria elemento filho do elemento com classe 'cart__items'
       // com os valores do objeto 'product'
       // passado como parametro
@@ -108,9 +108,9 @@ const fetchID = (ItemID) => {
 
 const getId = () => {
   // busca id (sku) do produto
-  const itemsElement = document.querySelector('.items');
+  const sectionItems = document.querySelector('.items');
   // vasculha o DOM por tag com classe 'items'
-  itemsElement.addEventListener('click', (event) => {
+  sectionItems.addEventListener('click', (event) => {
     // torna elemento clicavel
     // click no item devolve seu id (sku)
     const item = event.target.parentNode;
