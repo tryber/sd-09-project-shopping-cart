@@ -1,8 +1,3 @@
-window.onload = function onload() {
-  fetchAPIML('computador');
-  // chama funcao de requisicao a API com parametro 'computador', ao carregar a pagina
-};
-
 function createProductImageElement(imageSource) {
   // funcao que gera thumbnail do produto
   const img = document.createElement('img');
@@ -58,8 +53,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 
 async function fetchAPIML(QUERY) {
   // funcao assincrona
-  //de requisicao a API e listagem de produtos encontrados
-  //(async - retorna uma PROMISE)
+  // de requisicao a API e listagem de produtos encontrados
+  // (async - retorna uma PROMISE)
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
   // determina o endpoint de acesso atraves do parametro da funcao
   const response = await fetch(endpoint);
@@ -67,11 +62,22 @@ async function fetchAPIML(QUERY) {
   const object = response.json();
   // converte resultado da requisicao em formato JSON
   const results = object.results;
-  // 'results' recebe, na forma de array de objetos, os valores da chave "results" do JSON retornado pela requisicao a API
-  const itemsElement = document.querySelector('.items'); // vasculha o DOM por tag com classe 'items'
-  results.forEach((result) => { // estrutura de repeticao que passa por cada cada valor do array 'results'
+  // 'results' recebe, os valores da chave "results" do JSON retornado pela requisicao a API
+  // na forma de array de objetos
+  const itemsElement = document.querySelector('.items');
+  // vasculha o DOM por tag com classe 'items'
+  results.forEach((result) => {
+    // estrutura de repeticao que passa executa acoes com cada valor do array 'results'
     const { id: sku, title: name, thumbnail: image } = result; // estrutura objeto
-    const element = createProductItemElement({ sku, name, image }); // chama funcoa de listagem de produtos, tendo com parametros os valores dos objetos da array results
-    itemsElement.appendChild(element); // cria um elemento filho, do elemento com classe 'items', com os valores de cada elemento do array 'results'
+    const element = createProductItemElement({ sku, name, image });
+    // chama funcoa de listagem de produtos, tendo como parametros os valores dos objetos da array results
+    itemsElement.appendChild(element);
+    // cria elemento filho, do elemento com classe 'items'
+    // com os valores de cada elemento do array 'results'
   });
 }
+
+window.onload = function onload() {
+  fetchAPIML('computador');
+  // chama funcao de requisicao a API com parametro 'computador', ao carregar a pagina
+};
