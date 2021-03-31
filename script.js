@@ -85,14 +85,14 @@ async function fetchAPIML(QUERY) {
   });
 }
 
-const fetchID = (ItemID) => {
+const fetchID = (sku) => {
   // requisicao feita a partir do valor da chave id do produto
-  fetch(`https://api.mercadolibre.com/items/${ItemID}`)
+  fetch(`https://api.mercadolibre.com/items/${sku}`)
     .then(response => response.json())
     // converte resultado da requisicao em formato JSON
     .then((data) => {
       const dataProduct = {
-        ItemID,
+        sku,
         name: data.title,
         salePrice: data.price,
       };
