@@ -44,10 +44,16 @@ function cartItemClickListener(event) {
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
+  // cria elemento no carrinho de compras
   const li = document.createElement('li');
+  // cria elemento li no DOM
   li.className = 'cart__item';
+  // acrescenta a classe 'cart__item' a li criada
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
+  // carrega elemento criado com informacoes do objeto 'product'
   li.addEventListener('click', cartItemClickListener);
+  // torna o elemento criado clicavel
+  // dispara funcao cartItemClickListener
   return li;
 }
 
@@ -79,7 +85,50 @@ async function fetchAPIML(QUERY) {
   });
 }
 
+const fetchID = (ItemID) => {
+  // requisicao feita a partir do valor da chave id do produto
+  fetch(`https://api.mercadolibre.com/items/${ItemID}`)
+    .then(response => response.json())
+    // converte resultado da requisicao em formato JSON
+    .then((data) => {
+      const product = {
+        sku,
+        name: data.title,
+        salePrice: data.price,
+      };
+      // estrutura objeto
+      const list = document.querySelector('.cart__items');
+      // vasculha DOM por tag com classe 'cart__items'
+      list.appendChild(createCartItemElement(product));
+      // cria elemento filho do elemento com classe 'cart__items'
+      // com os valores do objeto 'product'
+      // passado como parametro
+    });
+};
+
+const getId = () => {
+  // busca id (sku) do produto
+  const itemsElement = document.querySelector('.items');
+  // vasculha o DOM por tag com classe 'items'
+  itemsElement.addEventListener('click', (event) => {
+    // torna elemento clicavel
+    // click no item devolve seu id (sku)
+    const item = event.target.parentNode;
+    // 'item' recebe elemento pai do produto clicado 
+    const sku = item.querySelector('span.item__sku').innerText;
+    // 'sku' valor do elemento span com classe item__sku
+    // na forma de string
+    fetchID(sku);
+    // roda requisicao com id encontrado
+  });
+};
+
 window.onload = function onload() {
   fetchAPIML('computador');
-  // chama funcao de requisicao a API com parametro 'computador', ao carregar a pagina
+  // chama funcao de requisicao a API com parametro 'computador'
+  // lista produtos encontrados
+  //ao carregar a pagina
+  getId();
+  // torna os produtos clicaveis
+  // seus ids acessiveis
 };
