@@ -92,6 +92,17 @@ async function retrieveMercadoLivreResults(QUERY) {
   StopLoading();
 }
 
+function removingList(){
+  const ClearAll = document.querySelector('.empty-cart');
+  ClearAll.addEventListener('click', () => {
+    const cartItems = document.querySelector('.cart__items');
+    cartItems.innerText = '';
+    saveCart();
+  });
+}
+
+
+
 function loadCart() {
   const cartItems = document.querySelector('ol.cart__items');
   cartItems.innerHTML = localStorage.getItem('cartItems');
@@ -103,6 +114,6 @@ function loadCart() {
 
 window.onload = function onload() {
   retrieveMercadoLivreResults('computador');
-  addingProductToShoppingCartbyID();
+  removingList();
   loadCart();
 };
