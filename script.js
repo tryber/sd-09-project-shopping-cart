@@ -1,4 +1,6 @@
-window.onload = function onload() { };
+window.onload = function onload() {
+  apiQuery()
+ };
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
