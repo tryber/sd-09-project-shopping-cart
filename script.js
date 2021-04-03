@@ -92,7 +92,7 @@ async function retrieveMercadoLivreResults(QUERY) {
   StopLoading();
 }
 
-function removingList(){
+function removingList() {
   const ClearAll = document.querySelector('.empty-cart');
   ClearAll.addEventListener('click', () => {
     const cartItems = document.querySelector('.cart__items');
@@ -100,8 +100,6 @@ function removingList(){
     saveCart();
   });
 }
-
-
 
 function loadCart() {
   const cartItems = document.querySelector('ol.cart__items');
