@@ -13,6 +13,8 @@ function StopLoading() {
 function saveCart() {
   const cartItems = document.querySelector('ol.cart__items');
   localStorage.setItem('cartItems', cartItems.innerHTML);
+  const price = document.querySelector('.total-price').innerText;
+  localStorage.setItem('price', price);
 }
 
 function createProductImageElement(imageSource) {
@@ -118,13 +120,12 @@ function loadCart() {
   const CartList = document.querySelectorAll('.cart__item');
   CartList.forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
-    sumAllItems();
   });
+  document.querySelector('.total-price').innerText = localStorage.getItem('price');
 }
 
 window.onload = function onload() {
   retrieveMercadoLivreResults('computador');
   removingList();
   loadCart();
-  sumAllItems();
 };
