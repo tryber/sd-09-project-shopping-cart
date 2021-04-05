@@ -51,8 +51,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-function addingProductToShoppingCartbyID(ItemID) {
-  fetch(`https://api.mercadolibre.com/items/${ItemID}`).then((response) => {
+async function addingProductToShoppingCartbyID(ItemID) {
+  await fetch(`https://api.mercadolibre.com/items/${ItemID}`).then((response) => {
     response.json()
       .then((element) => {
         const productInfo = {
