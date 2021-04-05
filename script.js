@@ -32,6 +32,7 @@ function createCustomElement(element, className, innerText) {
 function cartItemClickListener(event) {
   event.target.remove();
   saveCart();
+  sumAllItems();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -55,6 +56,7 @@ function addingProductToShoppingCartbyID(ItemID) {
         const addTocart = createCartItemElement(productInfo);
         document.querySelector('.cart__items').appendChild(addTocart);
         saveCart();
+        sumAllItems();
       });
   });
 }
@@ -92,12 +94,21 @@ async function retrieveMercadoLivreResults(QUERY) {
   StopLoading();
 }
 
+function sumAllItems() {
+  let price = 0;
+  const totalPrice = document.querySelector('.total-price');
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach(item => (price += parseFloat(item.innerText.split('$')[1])));
+  totalPrice.innerText = `Total : ${price}`;
+}
+
 function removingList() {
   const ClearAll = document.querySelector('.empty-cart');
   ClearAll.addEventListener('click', () => {
     const cartItems = document.querySelector('.cart__items');
     cartItems.innerText = '';
     saveCart();
+    sumAllItems();
   });
 }
 
@@ -107,6 +118,7 @@ function loadCart() {
   const CartList = document.querySelectorAll('.cart__item');
   CartList.forEach((item) => {
     item.addEventListener('click', cartItemClickListener);
+    sumAllItems();
   });
 }
 
