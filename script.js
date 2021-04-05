@@ -29,6 +29,14 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+function sumAllItems() {
+  let price = 0;
+  const totalPrice = document.querySelector('.total-price');
+  const cartItems = document.querySelectorAll('.cart__item');
+  cartItems.forEach(item => (price += parseFloat(item.innerText.split('$')[1])));
+  totalPrice.innerText = `Total : ${price}`;
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
   saveCart();
@@ -92,14 +100,6 @@ async function retrieveMercadoLivreResults(QUERY) {
     itemsElement.appendChild(element);
   });
   StopLoading();
-}
-
-function sumAllItems() {
-  let price = 0;
-  const totalPrice = document.querySelector('.total-price');
-  const cartItems = document.querySelectorAll('.cart__item');
-  cartItems.forEach(item => (price += parseFloat(item.innerText.split('$')[1])));
-  totalPrice.innerText = `Total : ${price}`;
 }
 
 function removingList() {
