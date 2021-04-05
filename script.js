@@ -39,8 +39,8 @@ async function sumAllItems() {
 
 function cartItemClickListener(event) {
   event.target.remove();
-  saveCart();
   sumAllItems();
+  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -63,8 +63,8 @@ async function addingProductToShoppingCartbyID(ItemID) {
         };
         const addTocart = createCartItemElement(productInfo);
         document.querySelector('.cart__items').appendChild(addTocart);
-        saveCart();
         sumAllItems();
+        saveCart();
       });
   });
 }
@@ -107,8 +107,8 @@ function removingList() {
   ClearAll.addEventListener('click', () => {
     const cartItems = document.querySelector('.cart__items');
     cartItems.innerText = '';
-    saveCart();
     sumAllItems();
+    saveCart();
   });
 }
 
@@ -126,4 +126,5 @@ window.onload = function onload() {
   retrieveMercadoLivreResults('computador');
   removingList();
   loadCart();
+  sumAllItems();
 };
