@@ -29,7 +29,7 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-function sumAllItems() {
+async function sumAllItems() {
   let price = 0;
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelectorAll('.cart__item');
