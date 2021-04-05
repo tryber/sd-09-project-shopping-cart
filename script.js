@@ -36,7 +36,7 @@ async function sumAllItems() {
   const totalPrice = document.querySelector('.total-price');
   const cartItems = document.querySelectorAll('.cart__item');
   cartItems.forEach(item => (price += parseFloat(item.innerText.split('$')[1])));
-  totalPrice.innerText = `Total : ${price}`;
+  totalPrice.innerText = price;
 }
 
 function cartItemClickListener(event) {
