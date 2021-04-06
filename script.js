@@ -121,4 +121,5 @@ window.onload = function onload() {
   fullfillQueryResults('computador');
   getId();
   localStorageRetrieve();
+  displayTotalValue();
 };
