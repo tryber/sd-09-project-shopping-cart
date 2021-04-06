@@ -33,11 +33,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function cartItemClickListener(event) {
-  event.target.remove();
-  saveCurrentCartState();
-}
-
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -97,8 +92,33 @@ function localStorageRetrieve() {
   }));
 }
 
+async function calcCartTotalValue() {
+  const cartList = document.querySelectorAll('.cart__item');
+  let accumulator = 0;
+  cartList.forEach(currentItem => (accumulator += parseFloat(currentItem.innerText.split('$')[1])));
+  return accumulator;
+}
+
+async function displayTotalValue() {
+  try {
+    const totalValue = await calcCartTotalValue();
+    const displayedTotal = document.createElement('span');
+    displayedTotal.className = 'total-price';
+    displayedTotal.innerHTML = Math.round(totalValue * 100) / 100;
+    document.querySelector('.cart').appendChild(displayedTotal);
+  } catch (error) {
+    window.alert(error);
+  }
+}
+
 window.onload = function onload() {
   fullfillQueryResults('computador');
   getId();
   localStorageRetrieve();
 };
+
+function cartItemClickListener(event) {
+  event.target.remove();
+  saveCurrentCartState();
+  displayTotalValue();
+}
