@@ -94,6 +94,7 @@ function fetchId(sku) {
       };
       const cartList = document.querySelector('.cart__items');
       cartList.appendChild(createCartItemElement(productSpecs));
+      displayTotalValue();
       saveCurrentCartState();
     });
 }
