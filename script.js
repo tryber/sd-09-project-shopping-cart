@@ -31,7 +31,6 @@ function createProductItemElement({ sku, name, image }) {
   // agrega ao elemento section, elemento 'img' com os valores da chave image
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
   // agrega ao elemento section, um botao para adicionar item ao carrinho
-
   return section;
 }
 
@@ -39,8 +38,26 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function saveCart() {
+  // salva lista do carrinho
+  const cartList = document.querySelector('.cart__items');
+  localStorage.setItem('cart', cartList.innerHTML);
+  // salva conteudo dos elementos da lista
+}
+
+function loadCart() {
+  const cartList = document.querySelector('.cart__items');
+  cartList.innerHTML = localStorage.getItem('cart');
+  // carrega lista com conteudo do localStorage
+  const cartItems = document.querySelectorAll('li');
+  cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
+  // torna os itens da lista recarregada clicaveis
+}
+
 function cartItemClickListener(event) {
   event.target.remove();
+  // remove elemento target do click
+  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -75,7 +92,8 @@ async function fetchAPIML(QUERY) {
 
   results.forEach((result) => {
     // estrutura de repeticao que passa executa acoes com cada valor do array 'results'
-    const { id: sku, title: name, thumbnail: image } = result; // estrutura objeto
+    const { id: sku, title: name, thumbnail: image } = result; 
+    // estrutura objeto
     const element = createProductItemElement({ sku, name, image });
     // chama funcoa de listagem de produtos
     // tendo como parametros os valores dos objetos da array results
@@ -85,9 +103,9 @@ async function fetchAPIML(QUERY) {
   });
 }
 
-const fetchID = (sku) => {
+async function fetchID(sku) {
   // requisicao feita a partir do valor da chave id do produto
-  fetch(`https://api.mercadolibre.com/items/${sku}`)
+  await fetch(`https://api.mercadolibre.com/items/${sku}`)
     .then(response => response.json())
     // converte resultado da requisicao em formato JSON
     .then((data) => {
@@ -104,6 +122,7 @@ const fetchID = (sku) => {
       // com os valores do objeto 'product'
       // passado como parametro
     });
+  saveCart();
 };
 
 const getId = () => {
@@ -131,4 +150,6 @@ window.onload = function onload() {
   getId();
   // torna os produtos clicaveis
   // seus ids acessiveis
+  loadCart();
+  // recarrega carrinho ao recarregar pagina
 };
