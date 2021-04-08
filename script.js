@@ -26,7 +26,6 @@ function createCustomElement(element, className, innerText) {
 function cartItemClickListener(event) {
   const itemList = document.querySelector('.cart__items');
   itemList.removeChild(event.target);
-  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
