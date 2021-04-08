@@ -4,8 +4,9 @@ function cartList() {
 }
 
 function saveCart() {
-  if (localStorage.cart)
+  if (localStorage.cart){
   document.querySelector('.cart__items').innerHTML = localStorage.cart;
+  }
 }
 
 function createProductImageElement(imageSource) {
