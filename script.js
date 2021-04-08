@@ -45,6 +45,12 @@ function saveCart() {
   // salva conteudo dos elementos da lista
 }
 
+function cartItemClickListener(event) {
+  event.target.remove();
+  // remove elemento target do click
+  saveCart();
+}
+
 function loadCart() {
   const cartList = document.querySelector('.cart__items');
   cartList.innerHTML = localStorage.getItem('cart');
@@ -52,12 +58,6 @@ function loadCart() {
   const cartItems = document.querySelectorAll('li');
   cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
   // torna os itens da lista recarregada clicaveis
-}
-
-function cartItemClickListener(event) {
-  event.target.remove();
-  // remove elemento target do click
-  saveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -92,7 +92,7 @@ async function fetchAPIML(QUERY) {
 
   results.forEach((result) => {
     // estrutura de repeticao que passa executa acoes com cada valor do array 'results'
-    const { id: sku, title: name, thumbnail: image } = result; 
+    const { id: sku, title: name, thumbnail: image } = result;
     // estrutura objeto
     const element = createProductItemElement({ sku, name, image });
     // chama funcoa de listagem de produtos
@@ -123,7 +123,7 @@ async function fetchID(sku) {
       // passado como parametro
     });
   saveCart();
-};
+}
 
 const getId = () => {
   // busca id (sku) do produto
