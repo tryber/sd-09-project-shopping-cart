@@ -1,5 +1,3 @@
-
-
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -53,11 +51,11 @@ function message() {
 }
 
 function removeMessage() {
-  const removeMessage = document.querySelector('.loading');
-  removeMessage.remove();
+  const remove = document.querySelector('.loading');
+  remove.remove();
 }
 
-async function showProducts () {
+async function showProducts() {
   message();
   await fetch(api).then(result => result.json())
   .then((product) => {
@@ -66,9 +64,9 @@ async function showProducts () {
       const items = document.querySelector('.items')
       .appendChild(createProductItemElement({ sku, name, image }))
       return items;
-    })
+    });
     removeMessage();
-  })
+  });
 }
 
 window.onload = function onload() { 
