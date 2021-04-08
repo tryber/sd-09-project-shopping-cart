@@ -63,7 +63,8 @@ async function showProducts () {
   .then((product) => {
     product.results.forEach((data) => {
       const { id: sku, thumbnail: image, title: name } = data;
-      const items = document.querySelector('.items').appendChild(createProductItemElement({ sku, name, image }))
+      const items = document.querySelector('.items')
+      .appendChild(createProductItemElement({ sku, name, image }))
       return items;
     })
     removeMessage();
