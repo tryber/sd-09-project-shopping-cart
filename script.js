@@ -62,13 +62,13 @@ async function showProducts() {
     product.results.forEach((data) => {
       const { id: sku, thumbnail: image, title: name } = data;
       const items = document.querySelector('.items')
-      .appendChild(createProductItemElement({ sku, name, image }))
+      .appendChild(createProductItemElement({ sku, name, image }));
       return items;
     });
     removeMessage();
   });
 }
 
-window.onload = function onload() { 
+window.onload = function onload() {
   showProducts();
 };
