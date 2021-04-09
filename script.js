@@ -88,6 +88,17 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
+function emptyCart() {
+  const emptyCartBtn = document.querySelector('.empty-cart');
+  const cartList = document.querySelector('.cart__items');
+  const totalValue = document.querySelector('.total-value');
+  emptyCartBtn.addEventListener('click', () => {
+    cartList.innerHTML = '';
+    localStorage.clear();
+    totalValue.innerHTML = 0;
+  });
+}
+
 async function fetchAPIML(QUERY) {
   // funcao assincrona
   // de requisicao a API e listagem de produtos encontrados
@@ -168,4 +179,5 @@ window.onload = function onload() {
   // seus ids acessiveis
   loadCart();
   // recarrega carrinho ao recarregar pagina
+  emptyCart();
 };
