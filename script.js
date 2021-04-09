@@ -38,23 +38,6 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
-function getId() {
-  // busca id (sku) do produto
-  const sectionItems = document.querySelector('.items');
-  // vasculha o DOM por tag com classe 'items'
-  sectionItems.addEventListener('click', (event) => {
-    // torna elemento clicavel
-    // click no item devolve seu id (sku)
-    const item = event.target.parentNode;
-    // 'item' recebe elemento pai do produto clicado
-    const sku = item.querySelector('span.item__sku').innerText;
-    // 'sku' valor do elemento span com classe item__sku
-    // na forma de string
-    fetchID(sku);
-    // roda requisicao com id encontrado
-  });
-}
-
 function sumValue() {
   let sum = 0;
   const totalValue = document.querySelector('.total-value');
@@ -156,6 +139,23 @@ async function fetchID(sku) {
     });
   sumValue();
   saveCart();
+}
+
+function getId() {
+  // busca id (sku) do produto
+  const sectionItems = document.querySelector('.items');
+  // vasculha o DOM por tag com classe 'items'
+  sectionItems.addEventListener('click', (event) => {
+    // torna elemento clicavel
+    // click no item devolve seu id (sku)
+    const item = event.target.parentNode;
+    // 'item' recebe elemento pai do produto clicado
+    const sku = item.querySelector('span.item__sku').innerText;
+    // 'sku' valor do elemento span com classe item__sku
+    // na forma de string
+    fetchID(sku);
+    // roda requisicao com id encontrado
+  });
 }
 
 window.onload = function onload() {
