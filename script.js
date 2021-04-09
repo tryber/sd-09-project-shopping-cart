@@ -39,7 +39,7 @@ async function sumPrices() {
 function cartItemClickListener(event) {
   const itemList = document.querySelector('.cart__items');
   itemList.removeChild(event.target);
-  sumPrices();
+  await sumPrices();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -71,7 +71,7 @@ function createProductItemElement({ sku, name, image }) {
       cart.appendChild(item);
     })
     .then(() => cartList());
-    sumPrices();
+    await sumPrices();
   });
   return section;
 }
@@ -113,5 +113,5 @@ window.onload = function onload() {
   saveCart();
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', clearCart);
-  sumPrices();
+  await sumPrices();
 };
