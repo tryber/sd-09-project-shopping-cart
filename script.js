@@ -9,6 +9,12 @@ function saveCart() {
   }
 }
 
+const clearCart = () => {
+  const data = document.querySelector('.cart__items');
+  data.innerText = '';
+  localStorage.clear();
+};
+
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
@@ -96,4 +102,6 @@ async function showProducts() {
 window.onload = function onload() {
   showProducts();
   saveCart();
+  const button = document.querySelector('.empty-cart');
+  button.addEventListener('click', clearCart);
 };
