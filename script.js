@@ -29,9 +29,9 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
-async function sumPrices() {
-  const cart = await document.querySelectorAll('.cart__item');
-  const price = await [...cart].map(elem => elem.textContent.match(/[0-9.0-9]+$/))
+function sumPrices() {
+  const cart = adocument.querySelectorAll('.cart__item');
+  const price = [...cart].map(elem => elem.textContent.match(/[0-9.0-9]+$/))
   .reduce((acc, crr) => acc + parseFloat(crr), 0);
   document.querySelector('.total-price').innerHTML = `${price}`;
 }
@@ -39,7 +39,7 @@ async function sumPrices() {
 function cartItemClickListener(event) {
   const itemList = document.querySelector('.cart__items');
   itemList.removeChild(event.target);
-  await sumPrices();
+  sumPrices();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -71,7 +71,7 @@ function createProductItemElement({ sku, name, image }) {
       cart.appendChild(item);
     })
     .then(() => cartList());
-    await sumPrices();
+    sumPrices();
   });
   return section;
 }
@@ -113,5 +113,5 @@ window.onload = function onload() {
   saveCart();
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', clearCart);
-  await sumPrices();
+  sumPrices();
 };
