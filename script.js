@@ -38,16 +38,46 @@ function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText;
 }
 
+function getId() {
+  // busca id (sku) do produto
+  const sectionItems = document.querySelector('.items');
+  // vasculha o DOM por tag com classe 'items'
+  sectionItems.addEventListener('click', (event) => {
+    // torna elemento clicavel
+    // click no item devolve seu id (sku)
+    const item = event.target.parentNode;
+    // 'item' recebe elemento pai do produto clicado
+    const sku = item.querySelector('span.item__sku').innerText;
+    // 'sku' valor do elemento span com classe item__sku
+    // na forma de string
+    fetchID(sku);
+    // roda requisicao com id encontrado
+  });
+}
+
+function sumValue() {
+  let sum = 0;
+  const totalValue = document.querySelector('.total-value');
+  const cartItems = document.querySelectorAll('li');
+  [...cartItems].forEach((element) => {
+    sum += parseFloat(element.innerHTML.split('$')[1]);
+  });
+  totalValue.innerHTML = sum;
+}
+
 function saveCart() {
   // salva lista do carrinho
   const cartList = document.querySelector('.cart__items');
+  const totalValue = document.querySelector('.total-value');
   localStorage.setItem('cart', cartList.innerHTML);
   // salva conteudo dos elementos da lista
+  localStorage.setItem('value', totalValue.innerHTML);
 }
 
 function cartItemClickListener(event) {
   event.target.remove();
   // remove elemento target do click
+  sumValue();
   saveCart();
 }
 
@@ -58,6 +88,7 @@ function loadCart() {
   const cartItems = document.querySelectorAll('li');
   cartItems.forEach(item => item.addEventListener('click', cartItemClickListener));
   // torna os itens da lista recarregada clicaveis
+  sumValue();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -101,6 +132,7 @@ async function fetchAPIML(QUERY) {
     // cria elemento filho, do elemento com classe 'items'
     // com os valores de cada elemento do array 'results'
   });
+  sumValue();
 }
 
 async function fetchID(sku) {
@@ -122,25 +154,9 @@ async function fetchID(sku) {
       // com os valores do objeto 'product'
       // passado como parametro
     });
+  sumValue();
   saveCart();
 }
-
-const getId = () => {
-  // busca id (sku) do produto
-  const sectionItems = document.querySelector('.items');
-  // vasculha o DOM por tag com classe 'items'
-  sectionItems.addEventListener('click', (event) => {
-    // torna elemento clicavel
-    // click no item devolve seu id (sku)
-    const item = event.target.parentNode;
-    // 'item' recebe elemento pai do produto clicado
-    const sku = item.querySelector('span.item__sku').innerText;
-    // 'sku' valor do elemento span com classe item__sku
-    // na forma de string
-    fetchID(sku);
-    // roda requisicao com id encontrado
-  });
-};
 
 window.onload = function onload() {
   fetchAPIML('computador');
