@@ -40,7 +40,7 @@ function getSkuFromProductItem(item) {
 
 function sumValue() {
   let sum = 0;
-  const totalValue = document.querySelector('.total-value');
+  const totalValue = document.querySelector('.total-price');
   const cartItems = document.querySelectorAll('li');
   [...cartItems].forEach((element) => {
     // carrega os elementos do cartItems num array
@@ -56,7 +56,7 @@ function sumValue() {
 function saveCart() {
   // salva lista do carrinho
   const cartList = document.querySelector('.cart__items');
-  const totalValue = document.querySelector('.total-value');
+  const totalValue = document.querySelector('.total-price');
   localStorage.setItem('cart', cartList.innerHTML);
   // salva conteudo dos elementos da lista
   localStorage.setItem('value', totalValue.innerHTML);
@@ -97,7 +97,7 @@ function emptyCart() {
   // esvazia o carrinho
   const emptyCartBtn = document.querySelector('.empty-cart');
   const cartList = document.querySelector('.cart__items');
-  const totalValue = document.querySelector('.total-value');
+  const totalValue = document.querySelector('.total-price');
   emptyCartBtn.addEventListener('click', () => {
     // torna o botao clicavel
     cartList.innerHTML = '';
