@@ -1,4 +1,6 @@
-
+// TODA PARTE DE SOMA FOI TIRADA DA 'carinebecker'
+// Não estava conseguindo fazer e olhando o código dela percebi que faltava criar o elemento que deveria conter
+// a classe total-price
 function cartList() {
   const storage = document.querySelector('.cart__items').innerHTML;
   localStorage.cart = storage;
