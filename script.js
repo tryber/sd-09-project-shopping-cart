@@ -69,9 +69,9 @@ function createProductItemElement({ sku, name, image }) {
       });
       const cart = document.querySelector('.cart__items');
       cart.appendChild(item);
-      sumPrices();
     })
     .then(() => cartList());
+    sumPrices();
   });
   return section;
 }
@@ -104,7 +104,6 @@ async function showProducts() {
       .appendChild(createProductItemElement({ sku, name, image }));
       return items;
     });
-    sumPrices();
     removeMessage();
   });
 }
