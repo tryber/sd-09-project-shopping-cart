@@ -133,7 +133,7 @@ async function fetchAPIML(QUERY) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
   // determina o endpoint de acesso atraves do parametro da funcao
   loadingAlert();
-  //dispara alerta de carregamento
+  // dispara alerta de carregamento
   const response = await fetch(endpoint);
   // 'response' espera receber o resultado da requisicao
   const object = await response.json();
