@@ -15,6 +15,7 @@ const clearCart = () => {
   data.innerText = '';
   localStorage.clear();
 };
+
 async function calculateTotalPrice() {
   const cartItems = document.querySelectorAll('li.cart__item');
   const totalPrice = Array.from(cartItems).reduce((total, item) => {
@@ -112,6 +113,7 @@ async function showProducts() {
 window.onload = function onload() {
   showProducts();
   saveCart();
+  calculateTotalPrice();
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', clearCart);
 };
