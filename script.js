@@ -114,7 +114,6 @@ window.onload = function onload() {
   showProducts();
   saveCart();
   calculateTotalPrice();
-  //teste
   const button = document.querySelector('.empty-cart');
   button.addEventListener('click', clearCart);
 };
