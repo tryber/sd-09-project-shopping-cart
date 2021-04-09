@@ -43,9 +43,14 @@ function sumValue() {
   const totalValue = document.querySelector('.total-value');
   const cartItems = document.querySelectorAll('li');
   [...cartItems].forEach((element) => {
+    // carrega os elementos do cartItems num array
+    // e para cada elemento
     sum += parseFloat(element.innerHTML.split('$')[1]);
+    // converte a string em numero e soma esses valores
   });
   totalValue.innerHTML = sum;
+  // o elemento indicado pelo totalValue e carregado
+  // com o valor do acumulador da soma
 }
 
 function saveCart() {
@@ -89,14 +94,36 @@ function createCartItemElement({ sku, name, salePrice }) {
 }
 
 function emptyCart() {
+  // esvazia o carrinho
   const emptyCartBtn = document.querySelector('.empty-cart');
   const cartList = document.querySelector('.cart__items');
   const totalValue = document.querySelector('.total-value');
   emptyCartBtn.addEventListener('click', () => {
+    // torna o botao clicavel
     cartList.innerHTML = '';
+    // limpa a lista do carrinho
     localStorage.clear();
+    // limpa tudo o que esta armazenado no localStorage
     totalValue.innerHTML = 0;
+    // reseta valor da soma total
   });
+}
+
+function loadingAlert() {
+  const loading = document.createElement('p');
+  // cria elemento
+  loading.className = 'loading';
+  // adiciona classe
+  loading.innerHTML = 'loading...';
+  // carrega texto do elemento
+  document.body.appendChild(loading);
+  // fixa elemento criado ao body do HTML
+}
+
+function removeLoadingAlert() {
+  const loading = document.querySelector('.loading');
+  document.body.removeChild(loading);
+  // remove elemento
 }
 
 async function fetchAPIML(QUERY) {
@@ -105,6 +132,8 @@ async function fetchAPIML(QUERY) {
   // (async - retorna uma PROMISE)
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?q=${QUERY}`;
   // determina o endpoint de acesso atraves do parametro da funcao
+  loadingAlert();
+  //dispara alerta de carregamento
   const response = await fetch(endpoint);
   // 'response' espera receber o resultado da requisicao
   const object = await response.json();
@@ -126,11 +155,15 @@ async function fetchAPIML(QUERY) {
     // cria elemento filho, do elemento com classe 'items'
     // com os valores de cada elemento do array 'results'
   });
+  removeLoadingAlert();
+  // remove alerta de carregamento
   sumValue();
 }
 
 async function fetchID(sku) {
   // requisicao feita a partir do valor da chave id do produto
+  loadingAlert();
+  // dispara alerta de carregamento
   await fetch(`https://api.mercadolibre.com/items/${sku}`)
     .then(response => response.json())
     // converte resultado da requisicao em formato JSON
@@ -148,6 +181,8 @@ async function fetchID(sku) {
       // com os valores do objeto 'product'
       // passado como parametro
     });
+  removeLoadingAlert();
+  // remove alerta de carregamento
   sumValue();
   saveCart();
 }
