@@ -1,8 +1,3 @@
-function createProductImageElement(imageSource) {
-  const img = document.createElement('img');
-  img.className = 'item__image';
-}
-
 const setLocalStorage = (produto) => {
   const ls = JSON.parse(localStorage.getItem('cart')) || [];
   ls.push(produto);
