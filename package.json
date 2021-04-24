@@ -1,0 +1,25 @@
+{
+  "name": "sd-09-project-shopping-cart",
+  "version": "1.0.0",
+  "description": "Ao iniciar este projeto, você concorda com as diretrizes do Código de Ética e Conduta e do Manual da Pessoa Estudante da Trybe.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json . --ext .js",
+    "lint:styles": "stylelint **/*.css --config .stylelintrc.json --ignore-disables --allow-empty-input"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tryber/sd-09-project-shopping-cart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tryber/sd-09-project-shopping-cart/issues"
+  },
+  "homepage": "https://github.com/tryber/sd-09-project-shopping-cart#readme",
+  "devDependencies": {
+    "eslint-config-trybe-fundamentals": "^1.1.0"
+  }
+}
