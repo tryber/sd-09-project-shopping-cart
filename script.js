@@ -96,14 +96,13 @@ const criaLista = () => {
       });
       const loading = document.querySelector('.loading');
       loading.remove();
-    })
-    .catch(error => window.alert(error));
+    });
 };
 criaLista();
 
 function limparTudo() {
   const selectButton = document.querySelector('.empty-cart');
-  selectButton.addEventListener('click', function () {
+  selectButton.addEventListener('click', () => {
     const selectLista = document.querySelectorAll('.cart__item');
     selectLista.forEach(element => element.remove());
     localStorage.clear();
