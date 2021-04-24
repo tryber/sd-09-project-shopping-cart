@@ -2,7 +2,7 @@ function createProductImageElement(imageSource) {
   const img = document.createElement('img');
   img.className = 'item__image';
   img.src = imageSource;
-//o  return img;
+// o  return img;
 }
 
 const setLocalStorage = (produto) => {
