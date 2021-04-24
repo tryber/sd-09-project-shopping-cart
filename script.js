@@ -24,7 +24,7 @@ function cartItemClickListener(event) {
   event.target.remove();
 }
 
-// local storage baseado no projeto do Bruno Sordi, turma 7
+// local storage baseado no projeto do Bruono Sordi, turma 7
 
 const getLocalStorage = () => {
   const ls = JSON.parse(localStorage.getItem('cart'));
